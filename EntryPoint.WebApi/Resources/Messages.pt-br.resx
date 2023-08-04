@@ -1,0 +1,47 @@
+<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="CommonUnexpectedException" xml:space="preserve">
+        <value>Um erro inesperado ocorreu, favor tentar novamente mais tarde!</value>
+    </data>
+    <data name="CommonValidationAlert" xml:space="preserve">
+        <value>Favor corrigir os erros e enviar os dados novamente!</value>
+    </data>
+    <data name="CommonUnexpectedExceptionWithParams" xml:space="preserve">
+        <value>Um erro inesperado ocorreu, favor tentar novamente mais tarde! Detalhes: {0}.</value>
+    </data>
+    <data name="CommonInvalidRequest" xml:space="preserve">
+        <value>A solicitação recebida é inválida. Verifique o formato e os parâmetros na documentação, corrija-os e tente novamente.</value>
+    </data>
+    <data name="CommonJsonPropertyMissing" xml:space="preserve">
+        <value>A propriedade '{0}' é obrigatória.</value>
+    </data>
+    <data name="CommonJsonPropertyInvalid" xml:space="preserve">
+        <value>A propriedade '{0}' é inválida.</value>
+    </data>
+    <data name="CommonJsonPropertyWrongType" xml:space="preserve">
+        <value>A propriedade '{0}' possui um valor incompatível com o seu tipo esperado.</value>
+    </data>
+    <data name="ValidationPropertyFromCreatedAtIsInvalid" xml:space="preserve">
+        <value>O campo 'Criado em' inicial é inválido.</value>
+    </data>
+    <data name="ValidationPropertyFromUpdatedAtIsInvalid" xml:space="preserve">
+        <value>O campo 'Atualizado em' inicial é inválido.</value>
+    </data>
+    <data name="ValidationPropertyToCreatedAtIsInvalid" xml:space="preserve">
+        <value>O campo 'Criado em' final é inválido.</value>
+    </data>
+    <data name="ValidationPropertyToUpdatedAtIsInvalid" xml:space="preserve">
+        <value>O campo 'Atualizado em' final é inválido.</value>
+    </data>
+</root>

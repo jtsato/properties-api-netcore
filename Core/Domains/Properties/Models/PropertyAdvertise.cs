@@ -1,0 +1,51 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
+using System.Text;
+
+namespace Core.Domains.Properties.Models;
+
+[ExcludeFromCodeCoverage]
+public sealed class PropertyAdvertise
+{
+    public int TenantId { get; init; }
+    public Transaction Transaction { get; init; }
+    public string Title { get; init; }
+    public string Description { get; init; }
+    public string Url { get; init; }
+    public string RefId { get; init; }
+    public List<string> Images { get; init; }
+    
+    private bool Equals(PropertyAdvertise other)
+    {
+        return TenantId == other.TenantId
+               && Transaction == other.Transaction
+               && Title == other.Title
+               && Description == other.Description
+               && Url == other.Url
+               && RefId == other.RefId
+               && Equals(Images, other.Images);
+    }
+    
+    public override bool Equals(object obj)
+    {
+        return ReferenceEquals(this, obj) || obj is PropertyAdvertise other && Equals(other);
+    }
+    
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(TenantId, Transaction.Id, Title, Description, Url, RefId, Images);
+    }
+    
+    public override string ToString()
+    {
+        PropertyInfo[] properties = GetType().GetProperties();
+        StringBuilder stringBuilder = new StringBuilder();
+        foreach (PropertyInfo propertyInfo in properties)
+        {
+            stringBuilder.AppendLine($"{propertyInfo.Name}: {propertyInfo.GetValue(this)}");
+        }
+        return stringBuilder.ToString();
+    }
+}

@@ -1,0 +1,6 @@
+namespace Infra.Firestore.Common;
+
+public interface IFirebaseEntity
+{
+    public string Id { get; set; }
+}

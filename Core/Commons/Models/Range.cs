@@ -1,0 +1,46 @@
+﻿using System.Text;
+
+namespace Core.Commons.Models;
+
+public readonly struct Range<T>
+{
+    public readonly T From;
+    public readonly T To;
+
+    private Range(T from, T to)
+    {
+        From = from;
+        To = to;
+    }
+
+    public static Range<T> Of(T from, T to)
+    {
+        return new Range<T>(from, to);
+    }
+
+    private bool Equals(Range<T> other)
+    {
+        return Equals(From, other.From) && Equals(To, other.To);
+    }
+
+    public override bool Equals(object obj)
+    {
+        return obj is Range<T> other && Equals(other);
+    }
+    
+    public override int GetHashCode()
+    {
+        unchecked
+        {
+            return ((From != null ? From.GetHashCode() : 0) * 397) ^ (To != null ? To.GetHashCode() : 0);
+        }
+    }
+    
+    public override string ToString()
+    {
+        StringBuilder builder = new();
+        builder.Append($"{nameof(From)}: {From}, ");
+        builder.Append($"{nameof(To)}: {To}");
+        return builder.ToString();
+    }
+}

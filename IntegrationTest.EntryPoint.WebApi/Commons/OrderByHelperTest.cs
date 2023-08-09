@@ -5,7 +5,7 @@ using Xunit;
 
 namespace IntegrationTest.EntryPoint.WebApi.Commons;
 
-[Collection("HttpTrigger collection [NoContext]")]
+[Collection("WebApi Collection [NoContext]")]
 public class OrderByHelperTest
 {
     private readonly string[] _sortableFields = {"Field1", "Field3", "Field5", "Field7Asc", "Field9Desc"};

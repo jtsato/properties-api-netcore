@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Core.Commons.Models;
+using Core.Domains.Properties.Models;
 using Core.Domains.Properties.Query;
 using FluentValidation;
 using Xunit;
@@ -21,6 +22,7 @@ public class SearchPropertiesQueryTest
         // Act
         ValidationException exception = Assert.Throws<ValidationException>(() =>
             new SearchPropertiesQuery(
+                PropertyType.All.Name,
                 new SearchPropertiesQueryAdvertise(null, null),
                 new SearchPropertiesQueryAttributes
                 {

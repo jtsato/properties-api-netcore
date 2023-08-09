@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
 using System.Text;
 using Core.Commons.Models;
 
@@ -34,13 +33,11 @@ public class SearchPropertiesQueryPrices
 
     public override string ToString()
     {
-        PropertyInfo[] properties = GetType().GetProperties();
-        StringBuilder stringBuilder = new StringBuilder();
-        foreach (PropertyInfo propertyInfo in properties)
-        {
-            stringBuilder.AppendLine($"{propertyInfo.Name}: {propertyInfo.GetValue(this)}");
-        }
-
-        return stringBuilder.ToString();
+        return new StringBuilder()
+            .AppendLine($"{nameof(SellingPrice)}: {SellingPrice}")
+            .AppendLine($"{nameof(RentalTotalPrice)}: {RentalTotalPrice}")
+            .AppendLine($"{nameof(RentalPrice)}: {RentalPrice}")
+            .Append($"{nameof(PriceByM2)}: {PriceByM2}")
+            .ToString();
     }
 }

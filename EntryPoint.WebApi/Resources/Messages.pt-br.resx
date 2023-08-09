@@ -44,4 +44,7 @@
     <data name="ValidationPropertyToUpdatedAtIsInvalid" xml:space="preserve">
         <value>O campo 'Atualizado em' final é inválido.</value>
     </data>
+    <data name="ValidationPropertyTypeIsNullOrEmpty" xml:space="preserve">
+        <value>O campo tipo de propriedade é obrigatório.</value>
+    </data>
 </root>

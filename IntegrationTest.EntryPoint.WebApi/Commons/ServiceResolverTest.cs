@@ -6,7 +6,7 @@ using Xunit;
 
 namespace IntegrationTest.EntryPoint.WebApi.Commons;
 
-[Collection("HttpTrigger collection [NoContext]")]
+[Collection("WebApi Collection [NoContext]")]
 public class ServiceResolverTest
 {
     private readonly Mock<IServiceProvider> _serviceProvider;

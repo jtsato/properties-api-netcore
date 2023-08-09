@@ -157,5 +157,14 @@ namespace EntryPoint.WebApi.Resources {
                 return ResourceManager.GetString("ValidationPropertyToUpdatedAtIsInvalid", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The property type field is required..
+        /// </summary>
+        internal static string ValidationPropertyTypeIsNullOrEmpty {
+            get {
+                return ResourceManager.GetString("ValidationPropertyTypeIsNullOrEmpty", resourceCulture);
+            }
+        }
     }
 }

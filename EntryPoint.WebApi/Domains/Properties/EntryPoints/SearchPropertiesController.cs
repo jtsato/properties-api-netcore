@@ -34,11 +34,9 @@ public sealed class SearchPropertiesController : ISearchPropertiesController
         SearchPropertiesQuery query = BuildSearchPropertiesQuery(request);
 
         string orderBy = OrderByHelper.Sanitize(SortableFields, qPageRequest.OrderBy);
-
         PageRequest pageRequest = PageRequestHelper.Of(qPageRequest.PageNumber, qPageRequest.PageSize, orderBy);
 
         Page<Property> page = await _useCase.ExecuteAsync(query, pageRequest);
-
         string baseUrl = UrlHelper.GetBaseUrl(_httpContextAccessor.HttpContext);
 
         PageableSearchPropertiesResponse response = SearchPropertiesPresenter.Of(page, baseUrl);
@@ -57,6 +55,8 @@ public sealed class SearchPropertiesController : ISearchPropertiesController
 
     private static SearchPropertiesQuery BuildSearchPropertiesQuery(SearchPropertiesRequest request)
     {
+        PropertyType propertyType = PropertyType.GetByName(request.Type).OrElse(PropertyType.All);
+        
         SearchPropertiesQueryAdvertise advertise = new SearchPropertiesQueryAdvertise
         (
             request.Transaction,
@@ -95,14 +95,35 @@ public sealed class SearchPropertiesController : ISearchPropertiesController
         Range<string> createdAt = Range<string>.Of(request.FromCreatedAt, request.ToCreatedAt);
         Range<string> updatedAt = Range<string>.Of(request.FromUpdatedAt, request.ToUpdatedAt);
 
-        return new SearchPropertiesQuery
-        (
-            advertise: advertise,
-            attributes: attributes,
-            location: location,
-            prices: prices,
-            createdAt: createdAt,
-            updatedAt: updatedAt
-        );
+        SearchPropertiesQueryBuilder builder = new SearchPropertiesQueryBuilder();
+        builder.WithType(propertyType.Name)
+            .WithTransaction(advertise.Transaction)
+            .WithRefId(advertise.RefId)
+            .WithCity(location.City)
+            .WithDistricts(location.Districts)
+            .WithFromNumberOfBedrooms(attributes.NumberOfBedrooms.From)
+            .WithToNumberOfBedrooms(attributes.NumberOfBedrooms.To)
+            .WithFromNumberOfToilets(attributes.NumberOfToilets.From)
+            .WithToNumberOfToilets(attributes.NumberOfToilets.To)
+            .WithFromNumberOfGarages(attributes.NumberOfGarages.From)
+            .WithToNumberOfGarages(attributes.NumberOfGarages.To)
+            .WithFromArea(attributes.Area.From)
+            .WithToArea(attributes.Area.To)
+            .WithFromBuiltArea(attributes.BuiltArea.From)
+            .WithToBuiltArea(attributes.BuiltArea.To)
+            .WithFromSellingPrice(prices.SellingPrice.From)
+            .WithToSellingPrice(prices.SellingPrice.To)
+            .WithFromRentalTotalPrice(prices.RentalTotalPrice.From)
+            .WithToRentalTotalPrice(prices.RentalTotalPrice.To)
+            .WithFromRentalPrice(prices.RentalPrice.From)
+            .WithToRentalPrice(prices.RentalPrice.To)
+            .WithFromPriceByM2(prices.PriceByM2.From)
+            .WithToPriceByM2(prices.PriceByM2.To)
+            .WithFromCreatedAt(createdAt.From)
+            .WithToCreatedAt(createdAt.To)
+            .WithFromUpdatedAt(updatedAt.From)
+            .WithToUpdatedAt(updatedAt.To);
+        
+        return builder.Build();
     }
 }

@@ -11,7 +11,7 @@ using Xunit;
 
 namespace IntegrationTest.EntryPoint.WebApi.Commons.Filters;
 
-[Collection("HttpTrigger collection [NoContext]")]
+[Collection("WebApi Collection [NoContext]")]
 public class AddCorrelationIdHeaderAttributeTest
 {
     [Trait("Category", "Entrypoint (WebApi) Integration tests")]

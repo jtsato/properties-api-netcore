@@ -27,7 +27,7 @@ public readonly struct Range<T>
     {
         return obj is Range<T> other && Equals(other);
     }
-    
+
     public override int GetHashCode()
     {
         unchecked
@@ -35,12 +35,11 @@ public readonly struct Range<T>
             return ((From != null ? From.GetHashCode() : 0) * 397) ^ (To != null ? To.GetHashCode() : 0);
         }
     }
-    
+
     public override string ToString()
     {
-        StringBuilder builder = new();
-        builder.Append($"{nameof(From)}: {From}, ");
-        builder.Append($"{nameof(To)}: {To}");
-        return builder.ToString();
+        return new StringBuilder()
+            .Append($"{nameof(From)}: {From}, {nameof(To)}: {To}")
+            .ToString();
     }
 }

@@ -9,6 +9,7 @@ namespace Core.Domains.Properties.Models;
 public sealed class Property
 {
     public string Id { get; init; }
+    public PropertyType Type { get; init; }
     public PropertyAdvertise Advertise { get; init; }
     public PropertyAttributes Attributes { get; init; }
     public PropertyLocation Location { get; init; }
@@ -20,6 +21,7 @@ public sealed class Property
     private bool Equals(Property other)
     {
         return Id == other.Id
+               && Type == other.Type
                && Equals(Advertise, other.Advertise)
                && Equals(Attributes, other.Attributes)
                && Equals(Location, other.Location)
@@ -31,7 +33,7 @@ public sealed class Property
     
     public override bool Equals(object obj)
     {
-        return ReferenceEquals(this, obj) || obj is Property other && Equals(other);
+        return ReferenceEquals(this, obj) || obj is Property other && Equals(other); 
     }
     
     public override int GetHashCode()

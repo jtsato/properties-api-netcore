@@ -9,7 +9,7 @@ using Xunit.Abstractions;
 
 namespace IntegrationTest.EntryPoint.WebApi.Commons;
 
-[Collection("HttpTrigger collection [NoContext]")]
+[Collection("WebApi Collection [NoContext]")]
 public sealed class MessageResourceMappingTest : IClassFixture<CoreMessageKeysFixture>
 {
     private const string CurrentProjectName = "IntegrationTest.EntryPoint.WebApi";

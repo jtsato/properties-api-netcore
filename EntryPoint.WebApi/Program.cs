@@ -33,16 +33,16 @@ public static class Program
             options.SuppressInferBindingSourcesForParameters = true;
             options.SuppressModelStateInvalidFilter = true;
         });
-         
+
         builder.Services.AddHttpLogging(GetHttpLoggingOptions);
 
         builder.Services.AddControllers(options =>
-            {
-                options.Filters.Add<GetLanguageActionFilterAttribute>();
-                options.Filters.Add<HandleInvalidModelStateActionFilterAttribute>();
-                options.Filters.Add<ExceptionHandlerFilterAttribute>();
-            });
-        
+        {
+            options.Filters.Add<GetLanguageActionFilterAttribute>();
+            options.Filters.Add<HandleInvalidModelStateActionFilterAttribute>();
+            options.Filters.Add<ExceptionHandlerFilterAttribute>();
+        });
+
         builder.Services.AddHttpContextAccessor();
 
         builder.Services.AddEndpointsApiExplorer();
@@ -67,30 +67,31 @@ public static class Program
         if (app.Environment.IsDevelopment() || app.Environment.IsStaging())
         {
             app.UseSwagger(ConfigureSwagger);
-            app.UseSwaggerUI(options => { options.SwaggerEndpoint("/api-docs/v1/swagger.yaml", "XYZ"); });
+            app.UseSwaggerUI(options => { options.SwaggerEndpoint("/api-docs/v1/swagger.yaml", "Properties Search API"); });
             RewriteOptions rewriteOptions = new RewriteOptions();
             rewriteOptions.AddRedirect("^$", "swagger");
             app.UseRewriter(rewriteOptions);
         }
+
         app.MapControllers();
-        app.UsePathBase(new PathString("/api/xyz"));
+        app.UsePathBase(new PathString("/api/properties-search"));
         app.UseRouting();
-        
+
         app.UseWhen(
             httpContext => !httpContext.Request.Path.StartsWithSegments("/health-check"),
             appBuilder => appBuilder.UseHttpLogging()
         );
-        
+
         app.UseAuthorization();
         app.MapHealthChecks
         (
-            "/health-check/live", 
-            new HealthCheckOptions { Predicate = healthCheck => healthCheck.Tags.Contains("live")}
+            "/health-check/live",
+            new HealthCheckOptions {Predicate = healthCheck => healthCheck.Tags.Contains("live")}
         );
         app.MapHealthChecks
         (
-            "/health-check/ready", 
-            new HealthCheckOptions { Predicate = healthCheck => healthCheck.Tags.Contains("ready")}
+            "/health-check/ready",
+            new HealthCheckOptions {Predicate = healthCheck => healthCheck.Tags.Contains("ready")}
         );
 
         await app.RunAsync();
@@ -100,25 +101,20 @@ public static class Program
     {
         options.EnableAnnotations();
 
-        options.SwaggerDoc("v1", new OpenApiInfo
+        options.SwaggerDoc("Properties Search API", new OpenApiInfo
         {
-            Title = "xyz",
+            Title = "Properties Search API",
             Version = "v1",
-            Description = "xyz",
-            Contact = new OpenApiContact
-            {
-                Name = "xyz",
-                Email = "xyz@xyz.com"
-            },
+            Description = "Properties Search API",
         });
-        
+
         options.AddSecurityDefinition("ApiKey", new OpenApiSecurityScheme
         {
             In = ParameterLocation.Header,
             Name = "X-Api-Key",
             Type = SecuritySchemeType.ApiKey
         });
-        
+
         options.AddSecurityRequirement(new OpenApiSecurityRequirement
         {
             {
@@ -127,7 +123,7 @@ public static class Program
                     Name = "X-Api-Key",
                     Type = SecuritySchemeType.ApiKey,
                     In = ParameterLocation.Header,
-                    Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "ApiKey" }
+                    Reference = new OpenApiReference {Type = ReferenceType.SecurityScheme, Id = "ApiKey"}
                 },
                 new List<string>()
             }
@@ -154,7 +150,7 @@ public static class Program
             };
         });
     }
-    
+
     private static void GetHttpLoggingOptions(HttpLoggingOptions options)
     {
         options.LoggingFields = HttpLoggingFields.RequestPath

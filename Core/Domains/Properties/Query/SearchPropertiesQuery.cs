@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
 using System.Text;
 using Core.Commons.Models;
 using FluentValidation;
@@ -12,6 +11,7 @@ public class SearchPropertiesQuery
 {
     private static readonly SearchPropertiesQueryValidator QueryValidator = new SearchPropertiesQueryValidator();
 
+    public string Type { get; init; }
     private SearchPropertiesQueryAdvertise Advertise { get; init; }
     private SearchPropertiesQueryAttributes Attributes { get; init; }
     private SearchPropertiesQueryLocation Location { get; init; }
@@ -20,6 +20,7 @@ public class SearchPropertiesQuery
     public Range<string> UpdatedAt { get; init; }
 
     public SearchPropertiesQuery(
+        string type,
         SearchPropertiesQueryAdvertise advertise,
         SearchPropertiesQueryAttributes attributes,
         SearchPropertiesQueryLocation location,
@@ -27,6 +28,7 @@ public class SearchPropertiesQuery
         Range<string> createdAt,
         Range<string> updatedAt)
     {
+        Type = type;
         Advertise = advertise;
         Attributes = attributes;
         Location = location;
@@ -38,7 +40,8 @@ public class SearchPropertiesQuery
 
     private bool Equals(SearchPropertiesQuery other)
     {
-        return Equals(Advertise, other.Advertise)
+        return Equals(Type, other.Type)
+               && Equals(Advertise, other.Advertise)
                && Equals(Attributes, other.Attributes)
                && Equals(Location, other.Location)
                && Equals(Prices, other.Prices)
@@ -53,18 +56,19 @@ public class SearchPropertiesQuery
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(Advertise, Attributes, Location, Prices, CreatedAt, UpdatedAt);
+        return HashCode.Combine(Type, Advertise, Attributes, Location, Prices, CreatedAt, UpdatedAt);
     }
 
     public override string ToString()
     {
-        PropertyInfo[] properties = GetType().GetProperties();
-        StringBuilder stringBuilder = new StringBuilder();
-        foreach (PropertyInfo propertyInfo in properties)
-        {
-            stringBuilder.AppendLine($"{propertyInfo.Name}: {propertyInfo.GetValue(this)}");
-        }
-
-        return stringBuilder.ToString();
+        return new StringBuilder()
+            .Append($"{nameof(Type)}: {Type}")
+            .AppendLine($"{nameof(Advertise)}: {Advertise}")
+            .AppendLine($"{nameof(Attributes)}: {Attributes}")
+            .AppendLine($"{nameof(Location)}: {Location}")
+            .AppendLine($"{nameof(Prices)}: {Prices}")
+            .AppendLine($"{nameof(CreatedAt)}: {CreatedAt}")
+            .AppendLine($"{nameof(UpdatedAt)}: {UpdatedAt}")
+            .ToString();
     }
 }

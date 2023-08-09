@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
 using System.Text;
 using Core.Commons.Models;
 
@@ -36,13 +35,12 @@ public class SearchPropertiesQueryAttributes
 
     public override string ToString()
     {
-        PropertyInfo[] properties = GetType().GetProperties();
-        StringBuilder stringBuilder = new StringBuilder();
-        foreach (PropertyInfo propertyInfo in properties)
-        {
-            stringBuilder.AppendLine($"{propertyInfo.Name}: {propertyInfo.GetValue(this)}");
-        }
-
-        return stringBuilder.ToString();
+        return new StringBuilder()
+            .AppendLine($"{nameof(NumberOfBedrooms)}: {NumberOfBedrooms}")
+            .AppendLine($"{nameof(NumberOfToilets)}: {NumberOfToilets}")
+            .AppendLine($"{nameof(NumberOfGarages)}: {NumberOfGarages}")
+            .AppendLine($"{nameof(Area)}: {Area}")
+            .Append($"{nameof(BuiltArea)}: {BuiltArea}")
+            .ToString();
     }
 }

@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Core.Commons.Models;
+using Core.Domains.Properties.Models;
 
 namespace Core.Domains.Properties.Query;
 
 [ExcludeFromCodeCoverage]
 public class SearchPropertiesQueryBuilder
 {
+    private string _type;
     private string _transaction;
     private string _refId;
     private byte _fromNumberOfBedrooms;
@@ -34,6 +36,12 @@ public class SearchPropertiesQueryBuilder
     private string _toUpdatedAt;
 
     private List<string> _districts = new List<string>();
+
+    public SearchPropertiesQueryBuilder WithType(string type)
+    {
+        _type = type;
+        return this;
+    }
 
     public SearchPropertiesQueryBuilder WithTransaction(string transaction)
     {
@@ -193,26 +201,30 @@ public class SearchPropertiesQueryBuilder
 
     public SearchPropertiesQuery Build()
     {
+        string propertyType = _type ?? PropertyType.All.Name;
+        
         SearchPropertiesQueryAdvertise queryAdvertise = new SearchPropertiesQueryAdvertise(_transaction, _refId);
         SearchPropertiesQueryLocation queryLocation = new SearchPropertiesQueryLocation(_city, _districts);
-        
-        SearchPropertiesQueryAttributes queryAttributes = new SearchPropertiesQueryAttributes{
+
+        SearchPropertiesQueryAttributes queryAttributes = new SearchPropertiesQueryAttributes
+        {
             NumberOfBedrooms = Range<byte>.Of(_fromNumberOfBedrooms, _toNumberOfBedrooms),
             NumberOfToilets = Range<byte>.Of(_fromNumberOfToilets, _toNumberOfToilets),
             NumberOfGarages = Range<byte>.Of(_fromNumberOfGarages, _toNumberOfGarages),
             Area = Range<int>.Of(_fromArea, _toArea),
             BuiltArea = Range<int>.Of(_fromBuiltArea, _toBuiltArea)
         };
-        
+
         SearchPropertiesQueryPrices queryPrices = new SearchPropertiesQueryPrices
         {
-            SellingPrice =  Range<decimal>.Of(_fromSellingPrice, _toSellingPrice),
-            RentalTotalPrice =  Range<decimal>.Of(_fromRentalTotalPrice, _toRentalTotalPrice),
-            RentalPrice =  Range<decimal>.Of(_fromRentalPrice, _toRentalPrice),
-            PriceByM2 =  Range<decimal>.Of(_fromPriceByM2, _toPriceByM2)
+            SellingPrice = Range<decimal>.Of(_fromSellingPrice, _toSellingPrice),
+            RentalTotalPrice = Range<decimal>.Of(_fromRentalTotalPrice, _toRentalTotalPrice),
+            RentalPrice = Range<decimal>.Of(_fromRentalPrice, _toRentalPrice),
+            PriceByM2 = Range<decimal>.Of(_fromPriceByM2, _toPriceByM2)
         };
 
         return new SearchPropertiesQuery(
+            propertyType,
             queryAdvertise,
             queryAttributes,
             queryLocation,

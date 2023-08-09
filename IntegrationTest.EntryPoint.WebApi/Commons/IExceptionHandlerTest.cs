@@ -15,7 +15,7 @@ using Xunit;
 
 namespace IntegrationTest.EntryPoint.WebApi.Commons;
 
-[Collection("HttpTrigger collection [NoContext]")]
+[Collection("WebApi Collection [NoContext]")]
 public class ExceptionHandlerTest
 {
     [Trait("Category", "Entrypoint (WebApi) Integration tests")]

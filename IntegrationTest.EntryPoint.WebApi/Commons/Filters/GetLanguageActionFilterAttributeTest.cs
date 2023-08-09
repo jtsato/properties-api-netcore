@@ -4,7 +4,7 @@ using Xunit;
 
 namespace IntegrationTest.EntryPoint.WebApi.Commons.Filters;
 
-[Collection("HttpTrigger collection [NoContext]")]
+[Collection("WebApi Collection [NoContext]")]
 public class GetLanguageActionFilterAttributeTest
 {
     [Trait("Category", "Entrypoint (WebApi) Integration tests")]

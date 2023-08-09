@@ -8,6 +8,10 @@ namespace EntryPoint.WebApi.Domains.Properties.Models
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
     public class SearchPropertiesRequest
     {
+        [SwaggerParameter(Required = true, Description = "Type")]
+        [FromQuery(Name = "type")]
+        public string Type { get; init; }
+
         [SwaggerParameter(Required = true, Description = "Transaction type")]
         [FromQuery(Name = "transaction")]
         public string Transaction { get; init; }

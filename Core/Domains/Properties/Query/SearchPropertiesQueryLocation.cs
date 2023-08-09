@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 
 namespace Core.Domains.Properties.Query;
@@ -10,8 +9,8 @@ namespace Core.Domains.Properties.Query;
 [ExcludeFromCodeCoverage]
 public class SearchPropertiesQueryLocation
 {
-    private string City { get; init; }
-    private List<string> Districts { get; init; }
+    public string City { get; init; }
+    public List<string> Districts { get; init; }
 
     public SearchPropertiesQueryLocation(string city, List<string> districts)
     {
@@ -37,13 +36,9 @@ public class SearchPropertiesQueryLocation
 
     public override string ToString()
     {
-        PropertyInfo[] properties = GetType().GetProperties();
-        StringBuilder stringBuilder = new StringBuilder();
-        foreach (PropertyInfo propertyInfo in properties)
-        {
-            stringBuilder.AppendLine($"{propertyInfo.Name}: {propertyInfo.GetValue(this)}");
-        }
-
-        return stringBuilder.ToString();
+        return new StringBuilder()
+            .AppendLine($"{nameof(City)}: {City}")
+            .Append($"{nameof(Districts)}: {string.Join(", ", Districts)}")
+            .ToString();
     }
 }

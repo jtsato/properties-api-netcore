@@ -41,10 +41,10 @@ namespace EntryPoint.WebApi.Domains.Properties.Models
         public byte NumberOfGarages { get; init; }
 
         [SwaggerSchema(Description = "Total area of the property.")]
-        public string Area { get; init; }
+        public decimal Area { get; init; }
 
         [SwaggerSchema(Description = "Built area of the property.")]
-        public string BuiltArea { get; init; }
+        public decimal BuiltArea { get; init; }
 
         [SwaggerSchema(Description = "City where the property is located.")]
         public string City { get; init; }
@@ -56,22 +56,22 @@ namespace EntryPoint.WebApi.Domains.Properties.Models
         public string Address { get; init; }
 
         [SwaggerSchema(Description = "Selling price of the property.")]
-        public string SellingPrice { get; init; }
+        public decimal SellingPrice { get; init; }
 
         [SwaggerSchema(Description = "Total rental price of the property.")]
-        public string RentalTotalPrice { get; init; }
+        public decimal RentalTotalPrice { get; init; }
 
         [SwaggerSchema(Description = "Rental price of the property.")]
-        public string RentalPrice { get; init; }
+        public decimal RentalPrice { get; init; }
 
         [SwaggerSchema(Description = "Discount applied to the property.")]
-        public string Discount { get; init; }
+        public decimal Discount { get; init; }
 
         [SwaggerSchema(Description = "Condominium fee of the property.")]
-        public string CondominiumFee { get; init; }
+        public decimal CondominiumFee { get; init; }
 
         [SwaggerSchema(Description = "Price per square meter of the property.")]
-        public string PriceByM2 { get; init; }
+        public decimal PriceByM2 { get; init; }
 
         [SwaggerSchema(Description = "Date of property creation.")]
         public string CreatedAt { get; init; }

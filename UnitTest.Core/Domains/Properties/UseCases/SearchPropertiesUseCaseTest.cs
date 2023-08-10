@@ -106,7 +106,6 @@ public sealed class SearchPropertiesUseCaseTest : IDisposable
                 }, new Pageable(0, 10, 1, 1, 1)
             ));
 
-
         SearchPropertiesQuery query = new SearchPropertiesQueryBuilder().Build();
         PageRequest pageRequest = PageRequest.Of(0, 10, Sort.Unsorted);
 

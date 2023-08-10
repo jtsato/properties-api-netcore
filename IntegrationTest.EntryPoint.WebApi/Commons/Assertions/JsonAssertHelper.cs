@@ -28,11 +28,12 @@ public class JsonAssertHelper
     {
         return matcher.AssertType switch
         {
-            AssertType.Equal => Equal(jsonFrom.JsonPath, matcher.Excepted),
+            AssertType.Equal => Equal(jsonFrom.JsonPath, matcher.Expected),
+            AssertType.StartWith => StartWith(jsonFrom.JsonPath, matcher.Expected),
             AssertType.Empty => Empty(jsonFrom.JsonPath),
             AssertType.NotEmpty => NotEmpty(jsonFrom.JsonPath),
             AssertType.Single => Single(jsonFrom.JsonPath),
-            AssertType.Count => Count(jsonFrom.JsonPath, Convert.ToInt32(matcher.Excepted)),
+            AssertType.Count => Count(jsonFrom.JsonPath, Convert.ToInt32(matcher.Expected)),
             AssertType.Null => Null(jsonFrom.JsonPath),
             _ => throw new InvalidOperationException()
         };
@@ -48,7 +49,21 @@ public class JsonAssertHelper
         }
         catch (Exception exception)
         {
-            throw CreateAssertionException(exception);
+            throw CreateAssertionException(path, excepted, exception);
+        }
+    }
+
+    private JsonAssertHelper StartWith<T>(string path, T excepted)
+    {
+        try
+        {
+            ArgumentValidator.CheckNull(_jsonElement.SelectToken(path), path);
+            Assert.StartsWith(excepted.ToString(), _jsonElement.SelectToken(path).ToString());
+            return this;
+        }
+        catch (Exception exception)
+        {
+            throw CreateAssertionException(path, excepted, exception);
         }
     }
 
@@ -62,7 +77,7 @@ public class JsonAssertHelper
         }
         catch (Exception exception)
         {
-            throw CreateAssertionException(exception);
+            throw CreateAssertionException(path, "EMPTY", exception);
         }
     }
 
@@ -71,12 +86,20 @@ public class JsonAssertHelper
         try
         {
             ArgumentValidator.CheckNull(_jsonElement.SelectToken(path), path);
-            Assert.NotEmpty(_jsonElement.SelectToken(path).EnumerateArray());
+            if (_jsonElement.SelectToken(path).ValueKind == JsonValueKind.Array)
+            {
+                Assert.NotEmpty(_jsonElement.SelectToken(path).EnumerateArray());
+                return this;
+            }
+
+            if (_jsonElement.SelectToken(path).ValueKind != JsonValueKind.String) return this;
+
+            Assert.False(string.IsNullOrWhiteSpace(_jsonElement.SelectToken(path).ToString()));
             return this;
         }
         catch (Exception exception)
         {
-            throw CreateAssertionException(exception);
+            throw CreateAssertionException(path, "NotEmpty", exception);
         }
     }
 
@@ -90,7 +113,7 @@ public class JsonAssertHelper
         }
         catch (Exception exception)
         {
-            throw CreateAssertionException(exception);
+            throw CreateAssertionException(path, "Single", exception);
         }
     }
 
@@ -104,7 +127,7 @@ public class JsonAssertHelper
         }
         catch (Exception exception)
         {
-            throw CreateAssertionException(exception);
+            throw CreateAssertionException(path, excepted, exception);
         }
     }
 
@@ -118,14 +141,14 @@ public class JsonAssertHelper
         }
         catch (Exception exception)
         {
-            throw CreateAssertionException(exception);
+            throw CreateAssertionException(path, "Null", exception);
         }
     }
 
-    private static AssertionException CreateAssertionException(Exception exception, string message = null)
+    private static AssertionException CreateAssertionException<T>(string path, T excepted, Exception exception, string message = null)
     {
         StackTrace stackTrace = new StackTrace(3, true);
         exception.SetStackTrace(stackTrace);
-        return new AssertionException(exception.StackTrace, message ?? exception.Message);
+        return new AssertionException(exception.StackTrace, $"Assertion Failed: Path {path} excepted to be {excepted}. Cause: {message ?? exception.Message}");
     }
 }

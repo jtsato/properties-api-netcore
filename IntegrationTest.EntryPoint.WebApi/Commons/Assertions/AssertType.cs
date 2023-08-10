@@ -3,6 +3,7 @@
 public enum AssertType
 {
     Equal,
+    StartWith,
     Empty,
     NotEmpty,
     Single,

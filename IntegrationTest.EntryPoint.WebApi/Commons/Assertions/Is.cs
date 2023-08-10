@@ -6,23 +6,28 @@ namespace IntegrationTest.EntryPoint.WebApi.Commons.Assertions;
 public readonly struct Is<T>
 {
     public AssertType AssertType { get; }
-    public T Excepted { get; }
+    public T Expected { get; }
 
     private Is(AssertType assertType)
     {
         AssertType = assertType;
-        Excepted = default;
+        Expected = default;
     }
 
-    private Is(AssertType assertType, T excepted)
+    private Is(AssertType assertType, T expected)
     {
         AssertType = assertType;
-        Excepted = excepted;
+        Expected = expected;
     }
 
     public static Is<T> EqualTo(T excepted)
     {
         return new Is<T>(AssertType.Equal, excepted);
+    }
+    
+    public static Is<T> StartWith(T excepted)
+    {
+        return new Is<T>(AssertType.StartWith, excepted);
     }
 
     public static Is<T> Empty()

@@ -19,11 +19,11 @@ jobs:
   run-stryker:
     runs-on: ubuntu-latest
     steps:
-      - name: Setup .NET [v7.0.10]
+      - name: Setup .NET [v7.0.400]
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: |
-            7.0.10
+            7.0.400
 
       - name: Checkout repository
         uses: actions/checkout@v3

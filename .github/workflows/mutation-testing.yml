@@ -1,0 +1,94 @@
+name: Mutation Tests
+
+on:
+  push:
+    branches:
+      - "main"
+    paths:
+      - "stryker.conf.json"
+      - ".github/workflows/mutation-testing.yml"
+  schedule:
+    - cron: "30 3 * * 1-5"
+  workflow_dispatch:
+
+env:
+  DOTNET_NOLOGO: 1 # Disable the .NET welcome message
+  DOTNET_CLI_TELEMETRY_OPTOUT: 1 # Opt out of the .NET SDK telemetry feature
+
+jobs:
+  run-stryker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup .NET [v7.0.10]
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: |
+            7.0.10
+
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          ref: main
+          persist-credentials: true
+          fetch-depth: 0
+
+      - name: Resolve dependencies
+        run: dotnet restore --force --no-cache
+
+      - name: Build in Debug Mode
+        run: dotnet build --configuration Debug --no-restore
+
+      - name: Mutation [Core]
+        run: |
+          dotnet new tool-manifest
+          dotnet tool install dotnet-stryker
+          dotnet stryker
+        working-directory: ./UnitTest.Core
+
+      - name: Copy report to right place [Core]
+        run: |
+          mkdir -p ./docs/Core
+          find ./UnitTest.Core/StrykerOutput -name '*.html' -exec cp -prv '{}' './docs/Core' ';'
+
+      - name: Mutation [EntryPoint WebApi]
+        run: |
+          dotnet new tool-manifest
+          dotnet tool install dotnet-stryker
+          dotnet stryker -p "EntryPoint.WebApi.csproj"
+        working-directory: ./IntegrationTest.EntryPoint.WebApi
+
+      - name: Copy report to right place [WebApi]
+        run: |
+          mkdir -p ./docs/EntryPoint.WebApi
+          find ./IntegrationTest.EntryPoint.WebApi/StrykerOutput -name '*.html' -exec cp -prv '{}' './docs/EntryPoint.WebApi' ';'
+
+      - name: Check for changes
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "SHOULD_I_COMMIT=Yes" >> $GITHUB_ENV
+          else
+            echo "SHOULD_I_COMMIT=No" >> $GITHUB_ENV
+          fi
+
+      - name: Commit the changes
+        if: ${{ env.SHOULD_I_COMMIT == 'Yes' }}
+        run: |
+          git config pull.rebase false        
+          git config --local user.email "action@github.com"
+          git config --local user.name "Stryker.NET"
+          git add --all
+          git commit -m "doc(testing): update mutation reports"
+          git pull origin ${GITHUB_REF##*/}
+
+      - name: Push the changes
+        if: ${{ env.SHOULD_I_COMMIT == 'Yes' }}
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
+
+      - name: Environment Teardown
+        if: always()
+        run: |
+          echo "Environment Teardown"

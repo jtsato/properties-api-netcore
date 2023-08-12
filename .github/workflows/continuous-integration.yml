@@ -1,0 +1,94 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches:
+      - "**"
+    paths-ignore:
+      - "docs/**"
+      - "**/*.md"
+      - ".github/workflows/mutation-testing.yml"
+      - "stryker.conf.json"
+  pull_request:
+    branches:
+      - "main"
+    paths-ignore:
+      - "docs/**"
+      - "**/*.md"
+      - ".github/workflows/mutation-testing.yml"
+  workflow_dispatch:
+
+env:
+  DOTNET_NOLOGO: 1 # Disable the .NET welcome message
+  DOTNET_CLI_TELEMETRY_OPTOUT: 1 # Opt out of the .NET SDK telemetry feature
+  APP_VERSION: "v1.0.0" # Set the application version
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup .NET [v7.0.10]
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: |
+            7.0.10
+
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Cache NuGet packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget
+
+      - name: Resolve dependencies
+        run: dotnet restore --force --no-cache
+
+      - name: Build in Debug Mode
+        run: dotnet build --configuration Debug --no-restore
+
+      - name: Test [Core]
+        run: dotnet test ./UnitTest.Core/UnitTest.Core.csproj --configuration Debug --no-build --nologo -v n
+
+      - name: Test [EntryPoint.WebApi]
+        run: dotnet test ./IntegrationTest.EntryPoint.WebApi/IntegrationTest.EntryPoint.WebApi.csproj --configuration Debug --no-build --nologo -v n
+
+      - name: Environment Teardown
+        if: always()
+        run: |
+          echo "Environment Teardown"
+
+  run-sonar:
+    needs: build-and-test
+    uses: ./.github/workflows/sonar-analysis.yml
+    secrets:
+      githubToken: ${{ secrets.GITHUB_TOKEN }}
+      sonarToken: ${{ secrets.SONARCLOUD_TOKEN }}
+
+  generate-artifacts:
+    if: ${{ github.ref == 'refs/heads/main' }}
+    needs: run-sonar
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup .NET [v7.0.10]
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: |
+            7.0.10
+
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Get the current date in short format
+        id: tag
+        run: |
+          echo "TAG=$(TZ='America/Sao_Paulo' date +'%y%m%d')${{ github.run_number }}" >> $GITHUB_ENV
+          echo "TAG=${{ env.TAG }}"
+
+      - name: Environment Teardown
+        if: always()
+        run: |
+          echo "Environment Teardown"

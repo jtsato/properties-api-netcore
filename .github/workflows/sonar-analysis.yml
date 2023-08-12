@@ -56,7 +56,7 @@ jobs:
           java-version: 17
 
       - name: Cache SonarCloud packages
-        uses: actions/cache@v1
+        uses: actions/cache@v3
         with:
           path: ~/sonar/cache
           key: ${{ runner.os }}-sonar
@@ -64,7 +64,7 @@ jobs:
 
       - name: Cache SonarCloud scanner
         id: cache-sonar-scanner
-        uses: actions/cache@v1
+        uses: actions/cache@v3
         with:
           path: ./.sonar/scanner
           key: ${{ runner.os }}-sonar-scanner
@@ -84,19 +84,13 @@ jobs:
           /n:"properties-api-netcore" \
           /d:sonar.projectDescription="Properties API .NET Core" \
           /d:sonar.links.scm="https://github.com/jtsato/properties-api-netcore" \
-          /d:sonar.login="${{ env.SONAR_TOKEN }}" \
+          /d:sonar.login="${{ secrets.SONAR_TOKEN }}" \
           /d:sonar.host.url="https://sonarcloud.io" \
           /d:sonar.qualitygate.wait=true \
           /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
           dotnet build properties-api-netcore.sln --configuration Debug --no-restore
           dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover --configuration Debug --no-build --nologo -v n
-          ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ env.SONAR_TOKEN }}"
-          
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.githubToken }}
-          SONAR_TOKEN: ${{ secrets.sonarToken }}   
+          ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
 
       - name: Environment Teardown
         if: always()

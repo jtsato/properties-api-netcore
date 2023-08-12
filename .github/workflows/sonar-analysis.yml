@@ -84,13 +84,13 @@ jobs:
           /n:"properties-api-netcore" \
           /d:sonar.projectDescription="Properties API .NET Core" \
           /d:sonar.links.scm="https://github.com/jtsato/properties-api-netcore" \
-          /d:sonar.login="${{ secrets.SONAR_TOKEN }}" \
+          /d:sonar.login="${{ env.SONAR_TOKEN }}" \
           /d:sonar.host.url="https://sonarcloud.io" \
           /d:sonar.qualitygate.wait=true \
           /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
           dotnet build properties-api-netcore.sln --configuration Debug --no-restore
           dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover --configuration Debug --no-build --nologo -v n
-          ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+          ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ env.SONAR_TOKEN }}"
 
       - name: Environment Teardown
         if: always()

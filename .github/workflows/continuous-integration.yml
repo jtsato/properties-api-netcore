@@ -73,7 +73,7 @@ jobs:
     uses: ./.github/workflows/sonar-analysis.yml
     secrets:
       githubToken: ${{ secrets.GITHUB_TOKEN }}
-      sonarToken: ${{ secrets.SONARCLOUD_TOKEN }}
+      sonarToken: ${{ secrets.SONAR_TOKEN }}
 
   generate-artifacts:
     if: ${{ github.ref == 'refs/heads/main' }}

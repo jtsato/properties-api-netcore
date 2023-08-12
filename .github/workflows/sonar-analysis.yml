@@ -81,7 +81,7 @@ jobs:
         run: |
           ./.sonar/scanner/dotnet-sonarscanner begin /o:"jtsato" \
           /k:"jtsato_properties-api-netcore" \
-          /d:sonar.projectName="properties-api-netcore" \
+          /n:"properties-api-netcore" \
           /d:sonar.projectDescription="Properties API .NET Core" \
           /d:sonar.links.scm="https://github.com/jtsato/properties-api-netcore" \
           /d:sonar.login="${{ env.SONAR_TOKEN }}" \

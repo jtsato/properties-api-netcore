@@ -74,6 +74,23 @@ jobs:
         if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
         run: |
           dotnet tool update dotnet-sonarscanner --tool-path ./.sonar/scanner
+      - name: Run Sonar
+        env:
+          GITHUB_TOKEN: ${{ secrets.githubToken }}
+          SONAR_TOKEN: ${{ secrets.sonarToken }}
+        run: |
+          ./.sonar/scanner/dotnet-sonarscanner begin /o:"jtsato" \
+          /k:"jtsato_properties-api-netcore" \
+          /d:sonar.projectName="properties-api-netcore" \
+          /d:sonar.projectDescription="Properties API .NET Core" \
+          /d:sonar.links.scm="https://github.com/jtsato/properties-api-netcore" \
+          /d:sonar.login="${{ env.SONAR_TOKEN }}" \
+          /d:sonar.host.url="https://sonarcloud.io" \
+          /d:sonar.qualitygate.wait=true \
+          /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
+          dotnet build properties-api-netcore.sln --configuration Debug --no-restore
+          dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover --configuration Debug --no-build --nologo -v n
+          ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ env.SONAR_TOKEN }}"
           
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master

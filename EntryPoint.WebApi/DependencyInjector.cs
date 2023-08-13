@@ -1,8 +1,11 @@
 using System.Diagnostics.CodeAnalysis;
 using Core.Commons;
+using Core.Domains.Properties.UseCases;
 using EntryPoint.WebApi.Commons;
 using EntryPoint.WebApi.Commons.Exceptions;
 using EntryPoint.WebApi.Commons.Filters;
+using EntryPoint.WebApi.Domains.Commons;
+using EntryPoint.WebApi.Domains.Properties.EntryPoints;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EntryPoint.WebApi;
@@ -29,9 +32,7 @@ public static class DependencyInjector
 
     private static void AddApplicationServices(IServiceCollection services)
     {
-        // TODO: Add your services here
-        // services.AddTransient<IXYZController, XYZController>();
-        // services.AddTransient<IXYZUseCase, XYZUseCase>();
-        // services.AddTransient<IXYZGateway, XYZProvider>();
+        services.AddSingleton<ISearchPropertiesController, SearchPropertiesController>();
+        services.AddSingleton<ISearchPropertiesUseCase, SearchPropertiesUseCase>();
     }
 }

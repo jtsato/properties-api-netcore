@@ -7,10 +7,13 @@ using Core.Commons.Paging;
 
 namespace EntryPoint.WebApi.Commons;
 
-public static class PageRequestHelper
+public static partial class PageRequestHelper
 {
     private const string FieldSeparator = ",";
     private const string DirectionSeparator = ":";
+
+    [GeneratedRegex("\\s+")]
+    private static partial Regex BlankSpaces();
 
     public static PageRequest Of(string rawPageNumber, string rawPageSize, string rawOrderBy)
     {
@@ -23,7 +26,7 @@ public static class PageRequestHelper
     {
         if (string.IsNullOrWhiteSpace(rawOrderBy)) return Sort.Unsorted;
 
-        string orderBy = Regex.Replace(rawOrderBy, @"\s+", "");
+        string orderBy = BlankSpaces().Replace(rawOrderBy, "");
 
         string[] strings = orderBy.Split(FieldSeparator);
         List<string> properties = strings

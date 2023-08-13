@@ -5,11 +5,14 @@ using System.Text.RegularExpressions;
 
 namespace EntryPoint.WebApi.Commons;
 
-public static class OrderByHelper
+public static partial class OrderByHelper
 {
     private const string AscendingDirection = "ASC";
     private const string DescendingDirection = "DESC";
     private static readonly char[] Separators = {',', ':'};
+
+    [GeneratedRegex("\\s+")]
+    private static partial Regex BlankSpaces();
 
     public static string Sanitize(string[] sortableFields, List<string> rawOrderBys)
     {
@@ -20,7 +23,7 @@ public static class OrderByHelper
     {
         if (string.IsNullOrWhiteSpace(rawOrderBy)) return string.Empty;
 
-        string orderBy = Regex.Replace(rawOrderBy, @"\s+", "");
+        string orderBy = BlankSpaces().Replace(rawOrderBy, "");
         string[] values = orderBy.Split(Separators);
         List<string> sanitized = new List<string>();
 

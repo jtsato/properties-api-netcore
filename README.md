@@ -15,6 +15,7 @@ This is a sample project to demonstrate the Clean Architecture principles using 
 * [Prerequisites](#prerequisites)
 * [Solution Structure](#solution-structure)
 * [Testing Strategy](#testing-strategy)
+* [Mutation Reports](#mutation-reports)
 * [Building and Running the solution](#building-and-running-the-solution)
 * [Resources](#resources)
 
@@ -76,6 +77,10 @@ This is a sample project to demonstrate the Clean Architecture principles using 
 * “Dev” documentation: Does this work as expected?
 * Test one layer in isolation (e.g. only rest endpoint, or only data provider). Slow
 * Use whatever library makes it easy.
+
+## Mutation Reports
+* [Core](https://jtsato.github.io/properties-api-netcore/Core/mutation-report.html)
+* [EntryPoint.WebApi](https://jtsato.github.io/properties-api-netcore/EntryPoint.WebApi/mutation-report.html)
 
 ***
 

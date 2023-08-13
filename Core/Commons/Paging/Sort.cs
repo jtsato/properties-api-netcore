@@ -31,7 +31,7 @@ public sealed class Sort
         return new Sort(DefaultDirection, properties);
     }
 
-    public static Sort By(params Order[] orders)
+    private static Sort By(params Order[] orders)
     {
         ArgumentValidator.CheckNull(orders, nameof(orders), "Orders must not be null!");
 
@@ -45,14 +45,7 @@ public sealed class Sort
         return By(orders.ToArray());
     }
 
-    public static Sort By(Direction direction, params string[] properties)
-    {
-        ArgumentValidator.CheckNull(properties, nameof(properties), "Properties must not be null!");
-
-        return new Sort(direction, properties);
-    }
-
-    public IReadOnlyCollection<Order> GetOrders()
+    public IEnumerable<Order> GetOrders()
     {
         return _orders;
     }

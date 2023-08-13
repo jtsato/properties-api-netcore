@@ -6,7 +6,6 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace EntryPoint.WebApi.Commons.Models;
 
-[ExcludeFromCodeCoverage]
 public sealed class ResponseStatus
 {
     [SwaggerSchema(Nullable = false, Description = "HTTP response status code")]
@@ -38,6 +37,7 @@ public sealed class ResponseStatus
         return ReferenceEquals(this, obj) || obj is ResponseStatus other && Equals(other);
     }
 
+    [ExcludeFromCodeCoverage]
     public override int GetHashCode()
     {
         return HashCode.Combine(Code, Message, Fields);

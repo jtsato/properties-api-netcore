@@ -1,8 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿namespace IntegrationTest.EntryPoint.WebApi.Commons.Assertions;
 
-namespace IntegrationTest.EntryPoint.WebApi.Commons.Assertions;
-
-[ExcludeFromCodeCoverage]
 public readonly struct Is<T>
 {
     public AssertType AssertType { get; }

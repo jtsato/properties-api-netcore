@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
 namespace IntegrationTest.EntryPoint.WebApi.Commons.Assertions;
 
-[ExcludeFromCodeCoverage]
 public static class ExceptionExtensions
 {
     private static readonly FieldInfo FieldInfo = typeof(Exception).GetField("_stackTraceString", BindingFlags.NonPublic | BindingFlags.Instance);

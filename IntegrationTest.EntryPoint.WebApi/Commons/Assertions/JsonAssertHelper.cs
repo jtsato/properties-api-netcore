@@ -8,7 +8,6 @@ using Xunit;
 
 namespace IntegrationTest.EntryPoint.WebApi.Commons.Assertions;
 
-[ExcludeFromCodeCoverage]
 [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
 public class JsonAssertHelper
 {

@@ -3,7 +3,6 @@ using EntryPoint.WebApi.Commons.Exceptions;
 
 namespace IntegrationTest.EntryPoint.WebApi.Commons;
 
-[ExcludeFromCodeCoverage]
 [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
 public sealed class ApiMethodInvokerHolder
 {

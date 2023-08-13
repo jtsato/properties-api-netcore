@@ -5,7 +5,6 @@ using Xunit;
 
 namespace UnitTest.Core.Commons;
 
-[ExcludeFromCodeCoverage]
 public class OptionalTest
 {
     [Trait("Category", "Core Business tests")]

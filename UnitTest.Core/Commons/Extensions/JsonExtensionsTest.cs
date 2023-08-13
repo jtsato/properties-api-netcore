@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using Core.Commons.Extensions;
 using Xunit;
@@ -114,7 +113,6 @@ public class JsonExtensionsTest
     }
 }
 
-[ExcludeFromCodeCoverage]
 internal sealed class DummyClass
 {
     public string Foo { get; }

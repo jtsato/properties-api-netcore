@@ -1,7 +1,9 @@
-﻿using Core.Commons;
+﻿using System.Diagnostics.CodeAnalysis;
+using Core.Commons;
 
 namespace Core.Domains.Properties.Models;
 
+[ExcludeFromCodeCoverage]
 public class PropertyType : Enumeration<PropertyType>
 {
     public static readonly PropertyType All = new PropertyType(0, nameof(All));

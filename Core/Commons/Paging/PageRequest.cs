@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Core.Commons.Paging;
 
+[ExcludeFromCodeCoverage]
 public sealed class PageRequest
 {
-    public static int DefaultPageSize { get; } = 10;
+    public static int DefaultPageSize => 10;
     public int PageNumber { get; init; }
     public int PageSize { get; init; }
     public Sort Sort { get; init; }

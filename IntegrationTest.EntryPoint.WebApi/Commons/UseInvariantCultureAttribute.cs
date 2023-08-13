@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Reflection;
 using System.Threading;
@@ -7,7 +6,6 @@ using Xunit.Sdk;
 
 namespace IntegrationTest.EntryPoint.WebApi.Commons;
 
-[ExcludeFromCodeCoverage]
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
 public class UseInvariantCultureAttribute : BeforeAfterTestAttribute
 {

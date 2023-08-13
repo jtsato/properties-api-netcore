@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Core.Commons;
 using EntryPoint.WebApi.Commons.Exceptions;
@@ -8,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace IntegrationTest.EntryPoint.WebApi.Commons;
 
-[ExcludeFromCodeCoverage]
 public sealed class ApiMethodInvoker
 {
     private readonly IExceptionHandler _exceptionHandler;

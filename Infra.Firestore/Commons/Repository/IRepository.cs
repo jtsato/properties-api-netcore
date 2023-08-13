@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Core.Commons;
 using Core.Commons.Paging;
@@ -11,5 +12,5 @@ public interface IRepository<T>
     
     Task<Optional<T>> FindOneAsync(Filter filter);
     
-    Task<Page<T>> FindAllAsync(Filter filter, PageRequest pageRequest);
+    Task<Page<T>> FindAllAsync(IEnumerable<Filter> filters, PageRequest pageRequest);
 }

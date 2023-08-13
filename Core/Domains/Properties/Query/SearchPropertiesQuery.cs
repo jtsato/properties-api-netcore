@@ -12,10 +12,10 @@ public class SearchPropertiesQuery
     private static readonly SearchPropertiesQueryValidator QueryValidator = new SearchPropertiesQueryValidator();
 
     public string Type { get; init; }
-    private SearchPropertiesQueryAdvertise Advertise { get; init; }
-    private SearchPropertiesQueryAttributes Attributes { get; init; }
-    private SearchPropertiesQueryLocation Location { get; init; }
-    private SearchPropertiesQueryPrices Prices { get; init; }
+    public SearchPropertiesQueryAdvertise Advertise { get; init; }
+    public SearchPropertiesQueryAttributes Attributes { get; init; }
+    public SearchPropertiesQueryLocation Location { get; init; }
+    public SearchPropertiesQueryPrices Prices { get; init; }
     public Range<string> CreatedAt { get; init; }
     public Range<string> UpdatedAt { get; init; }
 

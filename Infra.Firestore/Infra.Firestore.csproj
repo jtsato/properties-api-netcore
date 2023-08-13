@@ -15,11 +15,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Domain\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <Compile Remove="Domain\SearchPropertiesFilterBuilder.cs" />
     </ItemGroup>
+
+
 
 </Project>

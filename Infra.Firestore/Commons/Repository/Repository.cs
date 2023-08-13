@@ -14,7 +14,7 @@ public class Repository<T> : IRepository<T>
     private readonly FirestoreDb _firestoreDb;
     private readonly string _collection;
 
-    public Repository(IConnectionFactory connectionFactory, string database, string collection)
+    protected Repository(IConnectionFactory connectionFactory, string database, string collection)
     {
         _firestoreDb = connectionFactory.GetDatabase(database);
         _collection = collection;
@@ -41,23 +41,18 @@ public class Repository<T> : IRepository<T>
         return Optional<T>.Of(document.ConvertTo<T>());
     }
 
-    public async Task<Page<T>> FindAllAsync(Filter filter, PageRequest pageRequest)
+    public async Task<Page<T>> FindAllAsync(IEnumerable<Filter> filters, PageRequest pageRequest)
     {
         int offset = (pageRequest.PageNumber) * pageRequest.PageSize;
 
         CollectionReference collectionReference = _firestoreDb.Collection(_collection);
-
-        AggregateQuerySnapshot countQuerySnapshot = await collectionReference
-            .Where(filter)
-            .Count()
-            .GetSnapshotAsync();
+        Filter where = filters.Aggregate<Filter, Filter>(null, (current, filter) => current == null ? filter : Filter.And(current, filter));
+        Query baseQuery = where != null ? collectionReference.Where(where) : collectionReference;
+        AggregateQuerySnapshot countQuerySnapshot = await baseQuery.Count().GetSnapshotAsync();
 
         int totalOfElements = Convert.ToInt32(countQuerySnapshot.Count);
 
-        Query query = collectionReference
-            .Where(filter)
-            .Offset(offset)
-            .Limit(pageRequest.PageSize);
+        Query query = baseQuery.Offset(offset).Limit(pageRequest.PageSize);
 
         query = pageRequest.Sort.GetOrders()
             .Aggregate(query, (current, order) => order.Direction == Direction.Asc

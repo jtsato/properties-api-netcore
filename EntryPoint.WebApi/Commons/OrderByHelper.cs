@@ -27,8 +27,13 @@ public static class OrderByHelper
         foreach (string value in values)
         {
             AddDirection(sanitized, IsDirectionCommand(value) ? value : AscendingDirection);
-            if (sortableFields == null || Array.IndexOf(sortableFields, value) < 0) continue;
-            sanitized.Add(value);
+            if (sortableFields == null) continue;
+            foreach (string field in sortableFields)
+            {
+                if (!field.Equals(value, StringComparison.InvariantCultureIgnoreCase)) continue;
+                sanitized.Add(field);
+                break;
+            }
         }
 
         AddDirection(sanitized, AscendingDirection);

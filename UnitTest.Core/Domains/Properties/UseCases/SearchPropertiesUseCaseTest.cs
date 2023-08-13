@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Core.Commons.Paging;
 using Core.Domains.Properties.Models;
@@ -13,7 +12,6 @@ using Xunit.Abstractions;
 
 namespace UnitTest.Core.Domains.Properties.UseCases;
 
-[ExcludeFromCodeCoverage]
 public sealed class SearchPropertiesUseCaseTest : IDisposable
 {
     private readonly ITestOutputHelper _outputHelper;

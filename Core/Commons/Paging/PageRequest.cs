@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Core.Commons.Paging;
 
-[ExcludeFromCodeCoverage]
 public sealed class PageRequest
 {
     public static int DefaultPageSize { get; } = 10;

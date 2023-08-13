@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using Core.Commons.Models;
 using Core.Domains.Properties.Models;
 
 namespace Core.Domains.Properties.Query;
 
-[ExcludeFromCodeCoverage]
 public class SearchPropertiesQueryBuilder
 {
     private string _type;

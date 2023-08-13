@@ -3,11 +3,13 @@ This is a sample project to demonstrate the Clean Architecture principles using 
 
 ![CI](https://github.com/jtsato/properties-api-netcore/actions/workflows/continuous-integration.yml/badge.svg)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=jtsato_properties-api-netcore&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=jtsato_properties-api-netcore)
-[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=jtsato_properties-api-netcore&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=jtsato_properties-api-netcore)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=jtsato_properties-api-netcore&metric=coverage)](https://sonarcloud.io/summary/new_code?id=jtsato_properties-api-netcore)
+
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=jtsato_properties-api-netcore&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=jtsato_properties-api-netcore)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=jtsato_properties-api-netcore&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=jtsato_properties-api-netcore)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=jtsato_properties-api-netcore&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=jtsato_properties-api-netcore)
+
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=jtsato_properties-api-netcore&metric=coverage)](https://sonarcloud.io/summary/new_code?id=jtsato_properties-api-netcore)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=jtsato_properties-api-netcore&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=jtsato_properties-api-netcore)
 
 **Table of Contents**
 

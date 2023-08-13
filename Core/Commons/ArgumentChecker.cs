@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text.Json;
 using Newtonsoft.Json.Schema;
@@ -34,7 +35,9 @@ public static class ArgumentChecker
 
     public static bool BeEmptyOrAValidDate(string dateTimeIso8601)
     {
-        return string.IsNullOrWhiteSpace(dateTimeIso8601) || DateTime.TryParse(dateTimeIso8601, out _);
+        IFormatProvider culture = CultureInfo.InvariantCulture;
+        const DateTimeStyles styles = DateTimeStyles.AllowWhiteSpaces | DateTimeStyles.AssumeLocal;
+        return string.IsNullOrWhiteSpace(dateTimeIso8601) || DateTime.TryParse(dateTimeIso8601, culture, styles, out _);
     }
 
     public static bool IsJson(string input)

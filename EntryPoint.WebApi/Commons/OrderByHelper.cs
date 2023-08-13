@@ -27,9 +27,8 @@ public static class OrderByHelper
         foreach (string value in values)
         {
             AddDirection(sanitized, IsDirectionCommand(value) ? value : AscendingDirection);
-            string field = sortableFields?.FirstOrDefault(it => it.Equals(value, StringComparison.InvariantCultureIgnoreCase));
-            if (field is null) continue;
-            sanitized.Add(field);
+            if (sortableFields == null || Array.IndexOf(sortableFields, value) < 0) continue;
+            sanitized.Add(value);
         }
 
         AddDirection(sanitized, AscendingDirection);

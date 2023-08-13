@@ -68,7 +68,7 @@ public class TestCaseDisplayNameComplianceTest
             if (line.Contains(stringPrefixSearch) && line.Contains(stringSuffixSearch))
             {
                 displayName = line.SubstringAfter(stringPrefixSearch).SubstringBefore(stringSuffixSearch);
-                if (ExcludedDisplayNamePrefixes.Any(prefix => displayName.StartsWith(prefix)))
+                if (Array.Exists(ExcludedDisplayNamePrefixes, prefix => displayName.StartsWith(prefix)))
                 {
                     displayName = string.Empty;
                 }

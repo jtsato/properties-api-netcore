@@ -10,7 +10,7 @@ using Core.Domains.Properties.UseCases;
 using Google.Cloud.Firestore;
 using Infra.Firestore.Commons.Repository;
 using Infra.Firestore.Domain.Properties.Mapper;
-using Infra.Firestore.Domain.Properties.Models;
+using Infra.Firestore.Domain.Properties.Model;
 
 namespace Infra.Firestore.Domain.Properties.Providers;
 

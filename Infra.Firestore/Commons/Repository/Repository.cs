@@ -48,7 +48,8 @@ public class Repository<T> : IRepository<T>
         CollectionReference collectionReference = _firestoreDb.Collection(_collection);
         Filter where = filters.Aggregate<Filter, Filter>(null, (current, filter) => current == null ? filter : Filter.And(current, filter));
         Query baseQuery = where != null ? collectionReference.Where(where) : collectionReference;
-        AggregateQuerySnapshot countQuerySnapshot = await baseQuery.Count().GetSnapshotAsync();
+        AggregateQuery aggregateQuery = baseQuery.Count();
+        AggregateQuerySnapshot countQuerySnapshot = await aggregateQuery.GetSnapshotAsync();
 
         int totalOfElements = Convert.ToInt32(countQuerySnapshot.Count);
 

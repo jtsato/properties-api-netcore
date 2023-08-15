@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Core.Commons;
 using EntryPoint.WebApi.Commons;
 using EntryPoint.WebApi.Commons.Models;
+using EntryPoint.WebApi.Domains.Commons;
 using EntryPoint.WebApi.Domains.Properties.Models;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -16,9 +17,9 @@ namespace EntryPoint.WebApi.Domains.Properties.EntryPoints;
 [Produces("application/json")]
 public class SearchPropertiesApiMethod : IApiMethod
 {
-    private readonly SearchPropertiesController _controller;
+    private readonly ISearchPropertiesController _controller;
     
-    public SearchPropertiesApiMethod(SearchPropertiesController controller)
+    public SearchPropertiesApiMethod(ISearchPropertiesController controller)
     {
         _controller = ArgumentValidator.CheckNull(controller, nameof(controller));
     }

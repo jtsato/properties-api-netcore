@@ -55,8 +55,6 @@ public sealed class SearchPropertiesController : ISearchPropertiesController
 
     private static SearchPropertiesQuery BuildSearchPropertiesQuery(SearchPropertiesRequest request)
     {
-        PropertyType propertyType = PropertyType.GetByName(request.Type).OrElse(PropertyType.All);
-        
         SearchPropertiesQueryAdvertise advertise = new SearchPropertiesQueryAdvertise
         (
             request.Transaction,
@@ -96,7 +94,10 @@ public sealed class SearchPropertiesController : ISearchPropertiesController
         Range<string> updatedAt = Range<string>.Of(request.FromUpdatedAt, request.ToUpdatedAt);
 
         SearchPropertiesQueryBuilder builder = new SearchPropertiesQueryBuilder();
-        builder.WithType(propertyType.Name)
+
+        string propertyType = PropertyType.GetByName(request.Type).OrElse(PropertyType.All).Name;
+
+        builder.WithType(propertyType)
             .WithTransaction(advertise.Transaction)
             .WithRefId(advertise.RefId)
             .WithCity(location.City)
@@ -121,9 +122,10 @@ public sealed class SearchPropertiesController : ISearchPropertiesController
             .WithToPriceByM2(prices.PriceByM2.To)
             .WithFromCreatedAt(createdAt.From)
             .WithToCreatedAt(createdAt.To)
+            .WithToUpdatedAt(updatedAt.To)
             .WithFromUpdatedAt(updatedAt.From)
             .WithToUpdatedAt(updatedAt.To);
-        
+
         return builder.Build();
     }
 }

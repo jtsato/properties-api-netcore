@@ -2,7 +2,7 @@
 using Google.Cloud.Firestore;
 using Infra.Firestore.Commons.Repository;
 
-namespace Infra.Firestore.Domain.Properties.Models;
+namespace Infra.Firestore.Domain.Properties.Model;
 
 [FirestoreData]
 public class PropertyEntity : Entity

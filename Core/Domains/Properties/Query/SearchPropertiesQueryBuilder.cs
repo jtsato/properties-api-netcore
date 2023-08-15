@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Core.Commons.Models;
-using Core.Domains.Properties.Models;
 
 namespace Core.Domains.Properties.Query;
 
@@ -199,7 +198,7 @@ public class SearchPropertiesQueryBuilder
 
     public SearchPropertiesQuery Build()
     {
-        string propertyType = _type ?? PropertyType.All.Name;
+        string propertyType = _type ?? string.Empty;
         
         SearchPropertiesQueryAdvertise queryAdvertise = new SearchPropertiesQueryAdvertise(_transaction, _refId);
         SearchPropertiesQueryLocation queryLocation = new SearchPropertiesQueryLocation(_city, _districts);

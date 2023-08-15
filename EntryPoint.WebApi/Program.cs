@@ -101,7 +101,7 @@ public static class Program
     {
         options.EnableAnnotations();
 
-        options.SwaggerDoc("Properties Search API", new OpenApiInfo
+        options.SwaggerDoc("v1", new OpenApiInfo
         {
             Title = "Properties Search API",
             Version = "v1",
@@ -146,7 +146,7 @@ public static class Program
         {
             swagger.Servers = new List<OpenApiServer>
             {
-                new OpenApiServer {Url = $"{httpReq.Scheme}://{httpReq.Host.Value}/api/xyz"}
+                new OpenApiServer {Url = $"{httpReq.Scheme}://{httpReq.Host.Value}/api/properties-search"}
             };
         });
     }

@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using Core.Domains.Properties.Models;
-using Infra.Firestore.Domain.Properties.Models;
+using Infra.Firestore.Domain.Properties.Model;
 
 namespace Infra.Firestore.Domain.Properties.Mapper;
 

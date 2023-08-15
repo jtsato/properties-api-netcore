@@ -198,7 +198,7 @@ public class SearchPropertiesQueryBuilder
 
     public SearchPropertiesQuery Build()
     {
-        string propertyType = _type ?? string.Empty;
+        string propertyType = _type ?? "All";
         
         SearchPropertiesQueryAdvertise queryAdvertise = new SearchPropertiesQueryAdvertise(_transaction, _refId);
         SearchPropertiesQueryLocation queryLocation = new SearchPropertiesQueryLocation(_city, _districts);

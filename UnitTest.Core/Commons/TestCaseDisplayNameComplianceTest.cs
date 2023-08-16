@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -48,6 +49,7 @@ public class TestCaseDisplayNameComplianceTest
         Assert.True(nonCompliances.Count == 0, $"Oh No! {nonCompliances.Count} non compliances were found!");
     }
 
+    [ExcludeFromCodeCoverage]
     private static IEnumerable<NonCompliance> GetNonCompliancesByFile(string projectRootFolder, string pathToFile, string stringPrefixSearch, string stringSuffixSearch)
     {
         string location = pathToFile.SubstringAfter(projectRootFolder);
@@ -103,6 +105,7 @@ public class TestCaseDisplayNameComplianceTest
         return nonCompliances;
     }
 
+    [ExcludeFromCodeCoverage]
     private void PrintResults(List<NonCompliance> nonCompliances)
     {
         foreach (NonCompliance nonCompliance in CollectionsMarshal.AsSpan(nonCompliances))
@@ -114,6 +117,7 @@ public class TestCaseDisplayNameComplianceTest
         }
     }
 
+    [ExcludeFromCodeCoverage]
     private static string GetMethodNameAsDisplayName(string input)
     {
         if (input.Length <= 1) return string.Empty;
@@ -149,6 +153,7 @@ public class TestCaseDisplayNameComplianceTest
         return stringBuilder.ToString();
     }
 
+    [ExcludeFromCodeCoverage]
     private sealed class NonCompliance : IComparable
     {
         public string Location { get; init; }

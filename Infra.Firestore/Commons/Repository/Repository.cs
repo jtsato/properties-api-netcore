@@ -57,12 +57,14 @@ public class Repository<T> : IRepository<T>
 
         query = pageRequest.Sort.GetOrders()
             .Aggregate(query, (current, order) => order.Direction == Direction.Asc
-                ? current.OrderBy(order.Property)
-                : current.OrderByDescending(order.Property));
+                ? current.OrderBy(ToLowerCamelCase(order.Property))
+                : current.OrderByDescending(ToLowerCamelCase(order.Property)));
+        
+        // TODO: Fix Order By
 
         QuerySnapshot querySnapshot = await query.GetSnapshotAsync();
         int numberOfElements = querySnapshot.Count;
-        int totalPages = (int) Math.Ceiling((double) totalOfElements / pageRequest.PageSize);
+        int totalPages = (int) Math.Ceiling((double) totalOfElements / pageRequest.PageSize) - 1;
 
         Pageable pageable = new Pageable(
             pageRequest.PageNumber,
@@ -75,5 +77,10 @@ public class Repository<T> : IRepository<T>
         List<T> content = querySnapshot.Documents.Select(document => document.ConvertTo<T>()).ToList();
 
         return new Page<T>(content, pageable);
+    }
+    
+    private static string ToLowerCamelCase(string value)
+    {
+        return char.ToLowerInvariant(value[0]) + value[1..];
     }
 }

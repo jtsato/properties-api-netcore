@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Core.Commons.Paging;
 using Core.Domains.Properties.Models;
@@ -40,6 +41,7 @@ public sealed class SearchPropertiesUseCaseTest : IDisposable
         GC.SuppressFinalize(this);
     }
 
+    [ExcludeFromCodeCoverage]
     private void Dispose(bool disposing)
     {
         if (_disposed || !disposing) return;
@@ -85,6 +87,7 @@ public sealed class SearchPropertiesUseCaseTest : IDisposable
                         Location = new PropertyLocation
                         {
                             City = "City 1",
+                            State = "State 1",
                             District = "District 1",
                             Address = "Address 1"
                         },
@@ -98,6 +101,8 @@ public sealed class SearchPropertiesUseCaseTest : IDisposable
                             PriceByM2 = 9000,
                         },
                         HashKey = "HashKey 1",
+                        Ranking = 1,
+                        Status = PropertyStatus.Active,
                         CreatedAt = new DateTime(2021, 4, 23, 10, 0, 1, DateTimeKind.Local),
                         UpdatedAt = new DateTime(2021, 4, 23, 10, 0, 1, DateTimeKind.Local)
                     },
@@ -135,6 +140,7 @@ public sealed class SearchPropertiesUseCaseTest : IDisposable
         Assert.Equal(100, property.Attributes.Area);
         Assert.Equal(80, property.Attributes.BuiltArea);
         Assert.Equal("City 1", property.Location.City);
+        Assert.Equal("State 1", property.Location.State);
         Assert.Equal("District 1", property.Location.District);
         Assert.Equal("Address 1", property.Location.Address);
         Assert.Equal(900000, property.Prices.SellingPrice);
@@ -144,6 +150,8 @@ public sealed class SearchPropertiesUseCaseTest : IDisposable
         Assert.Equal(1000, property.Prices.CondominiumFee);
         Assert.Equal(9000, property.Prices.PriceByM2);
         Assert.Equal("HashKey 1", property.HashKey);
+        Assert.Equal(1, property.Ranking);
+        Assert.Equal(PropertyStatus.Active, property.Status);
         
         Assert.NotNull(property.Id);
         Assert.Equal(new DateTime(2021, 4, 23, 10, 0, 1, DateTimeKind.Local), property.CreatedAt);

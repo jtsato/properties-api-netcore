@@ -1,17 +1,19 @@
-﻿using System;
-using Google.Cloud.Firestore;
+﻿using Google.Cloud.Firestore;
 using Infra.Firestore.Commons.Repository;
 
 namespace Infra.Firestore.Domain.Properties.Model;
 
+// ReSharper disable once ClassNeverInstantiated.Global
 [FirestoreData]
 public class PropertyEntity : Entity
 {
-    [FirestoreProperty(name: "id")] 
-    public string Id { get; set; }
+    public new string Id => Reference.Id;
+    
+    [FirestoreDocumentId]
+    public DocumentReference Reference { get; set; }    
 
     [FirestoreProperty(name: "type")] 
-    public string Type { get; set; } // Pending
+    public string Type { get; set; }
 
     [FirestoreProperty(name: "tenantId")] 
     public int TenantId { get; set; }
@@ -33,15 +35,16 @@ public class PropertyEntity : Entity
 
     [FirestoreProperty(name: "images")] 
     public string[] Images { get; set; }
+    // TODO: Fix the images attribute NOT mapping from Firestore to C#.
 
     [FirestoreProperty(name: "numberOfBedrooms")]
-    public byte NumberOfBedrooms { get; set; }
+    public int NumberOfBedrooms { get; set; }
 
     [FirestoreProperty(name: "numberOfToilets")]
-    public byte NumberOfToilets { get; set; }
+    public int NumberOfToilets { get; set; }
 
     [FirestoreProperty(name: "numberOfGarages")]
-    public byte NumberOfGarages { get; set; }
+    public int NumberOfGarages { get; set; }
 
     [FirestoreProperty(name: "area")] 
     public int Area { get; set; }
@@ -49,8 +52,11 @@ public class PropertyEntity : Entity
     [FirestoreProperty(name: "builtArea")] 
     public int BuiltArea { get; set; }
 
-    [FirestoreProperty(name: "state")] 
-    public string City { get; set; } // Pending
+    [FirestoreProperty(name: "city")] 
+    public string City { get; set; }
+    
+    [FirestoreProperty(name: "state")]
+    public string State { get; set; }
 
     [FirestoreProperty(name: "district")] 
     public string District { get; set; }
@@ -59,29 +65,35 @@ public class PropertyEntity : Entity
     public string Address { get; set; }
 
     [FirestoreProperty(name: "sellingPrice")]
-    public decimal SellingPrice { get; set; }
+    public double SellingPrice { get; set; }
 
     [FirestoreProperty(name: "rentalTotalPrice")]
-    public decimal RentalTotalPrice { get; set; }
+    public double RentalTotalPrice { get; set; }
 
     [FirestoreProperty(name: "rentalPrice")]
-    public decimal RentalPrice { get; set; }
+    public double RentalPrice { get; set; }
 
     [FirestoreProperty(name: "discount")] 
-    public decimal Discount { get; set; }
+    public double Discount { get; set; }
 
     [FirestoreProperty(name: "condominiumFee")]
-    public decimal CondominiumFee { get; set; }
+    public double CondominiumFee { get; set; }
 
     [FirestoreProperty(name: "priceByM2")] 
-    public decimal PriceByM2 { get; set; }
+    public double PriceByM2 { get; set; }
 
     [FirestoreProperty(name: "hashKey")]
     public string HashKey { get; set; }
+    
+    [FirestoreProperty(name: "ranking")]
+    public int Ranking { get; set; }
+    
+    [FirestoreProperty(name: "status")]
+    public string Status { get; set; }
 
     [FirestoreProperty(name: "createdAt")] 
-    public DateTime CreatedAt { get; set; }
+    public Timestamp  CreatedAt { get; set; }
 
     [FirestoreProperty(name: "updatedAt")] 
-    public DateTime UpdatedAt { get; set; }
+    public Timestamp  UpdatedAt { get; set; }
 }

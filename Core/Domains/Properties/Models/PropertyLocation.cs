@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
 using System.Text;
 
 namespace Core.Domains.Properties.Models;
@@ -9,12 +8,14 @@ namespace Core.Domains.Properties.Models;
 public sealed class PropertyLocation
 {
     public string City { get; init; }
+    public string State { get; init; }
     public string District { get; init; }
     public string Address { get; init; }
 
     private bool Equals(PropertyLocation other)
     {
         return City == other.City 
+               && State == other.State
                && District == other.District
                && Address == other.Address;
     }
@@ -26,18 +27,16 @@ public sealed class PropertyLocation
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(District, Address, City);
+        return HashCode.Combine(City, State, District, Address);
     }
 
     public override string ToString()
     {
-        PropertyInfo[] properties = GetType().GetProperties();
-        StringBuilder stringBuilder = new StringBuilder();
-        foreach (PropertyInfo propertyInfo in properties)
-        {
-            stringBuilder.AppendLine($"{propertyInfo.Name}: {propertyInfo.GetValue(this)}");
-        }
-
-        return stringBuilder.ToString();
+        return new StringBuilder()
+            .AppendLine($"{nameof(City)}: {City}")
+            .AppendLine($"{nameof(State)}: {State}")
+            .AppendLine($"{nameof(District)}: {District}")
+            .AppendLine($"{nameof(Address)}: {Address}")
+            .ToString();
     }
 }

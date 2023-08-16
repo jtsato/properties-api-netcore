@@ -31,7 +31,7 @@ public interface IExceptionHandler
         if (validationException is null || !validationException.Errors.Any()) return responseStatus;
 
         validationException.Errors
-            .Select(failure => new Field(ToFirstLetterLowercase(GetPropertyName(failure.PropertyName)), MessageFormatter(failure.ErrorMessage),
+            .Select(failure => new Field(ToLowerCamelCase(GetPropertyName(failure.PropertyName)), MessageFormatter(failure.ErrorMessage),
                 failure.AttemptedValue as string))
             .ToList()
             .ForEach(responseStatus.Fields.Add);
@@ -53,7 +53,7 @@ public interface IExceptionHandler
 
     private static Field CreateField(FieldError fieldError)
     {
-        string name = ToFirstLetterLowercase(GetPropertyName(fieldError.PropertyName));
+        string name = ToLowerCamelCase(GetPropertyName(fieldError.PropertyName));
         string message = MessageFormatter(fieldError.ErrorMessage, fieldError.PropertyName);
         string value = fieldError.AttemptedValue;
         return new Field(name, message, value);
@@ -64,7 +64,7 @@ public interface IExceptionHandler
         return !propertyPath.Contains('.') ? propertyPath : propertyPath.SubstringAfter(".");
     }
 
-    private static string ToFirstLetterLowercase(string propertyName)
+    private static string ToLowerCamelCase(string propertyName)
     {
         return char.ToLowerInvariant(propertyName[0]) + propertyName[1..];
     }

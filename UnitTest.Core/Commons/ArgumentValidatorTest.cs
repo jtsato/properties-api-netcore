@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Core.Commons;
 using Xunit;
 
@@ -249,6 +250,7 @@ public class ArgumentValidatorTest
     }
 }
 
+[ExcludeFromCodeCoverage]
 internal sealed class DummyClass
 {
     public string Foo { get; }

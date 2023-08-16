@@ -23,13 +23,15 @@ public class Enumeration<T> where T : Enumeration<T>
 
     public static Optional<T> GetByName(string name)
     {
+        if (name == null) return Optional<T>.Empty();
+
         FieldInfo[] fieldInfos = typeof(T)
             .GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly);
 
         return Optional<T>.Of(fieldInfos
             .Select(fieldInfo => fieldInfo.GetValue(null))
             .Cast<T>()
-            .FirstOrDefault(it => it.Name.Equals(name))
+            .FirstOrDefault(it => it.Name.ToUpper().Equals(name.ToUpper()))
         );
     }
 

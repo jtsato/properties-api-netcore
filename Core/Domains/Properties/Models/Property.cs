@@ -15,6 +15,8 @@ public sealed class Property
     public PropertyLocation Location { get; init; }
     public PropertyPrices Prices { get; init; }
     public string HashKey { get; init; }
+    public byte Ranking { get; init; }
+    public PropertyStatus Status { get; init; }
     public DateTime CreatedAt { get; init; }
     public DateTime UpdatedAt { get; init; }
     
@@ -27,6 +29,8 @@ public sealed class Property
                && Equals(Location, other.Location)
                && Equals(Prices, other.Prices)
                && HashKey == other.HashKey
+               && Ranking == other.Ranking
+               && Status == other.Status
                && CreatedAt.Equals(other.CreatedAt)
                && UpdatedAt.Equals(other.UpdatedAt);
     }

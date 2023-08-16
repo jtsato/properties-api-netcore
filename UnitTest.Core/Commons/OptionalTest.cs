@@ -59,6 +59,7 @@ public class OptionalTest
         Assert.Equal("No value present", exception.Message);
     }
 
+    [ExcludeFromCodeCoverage]
     [Trait("Category", "Core Business tests")]
     [Fact(DisplayName = "Successful to get value if optional contains content ignoring alternative")]
     public void SuccessfulToGetValueIfOptionalContainsContentIgnoringAlternative()
@@ -73,6 +74,7 @@ public class OptionalTest
         Assert.Equal(new DummyClass("X", "Y"), optional.OrElseGet(() => new DummyClass("A", "B")));
     }
 
+    [ExcludeFromCodeCoverage]
     [Trait("Category", "Core Business tests")]
     [Fact(DisplayName = "Successful to returns an alternative if optional has no content")]
     public void SuccessfulToReturnsAnAlternativeIfOptionalHasNoContent()
@@ -145,6 +147,7 @@ public class OptionalTest
         Assert.True(flag);
     }
 
+    [ExcludeFromCodeCoverage]
     [Trait("Category", "Core Business tests")]
     [Fact(DisplayName = "Fail to perform a method with parameters if the optional has no content")]
     public void FailToPerformAMethodWithParametersIfTheOptionalHasNoContent()

@@ -1,8 +1,10 @@
-﻿using Core.Commons;
+﻿using System.Diagnostics.CodeAnalysis;
+using Core.Commons;
 using Moq;
 
 namespace UnitTest.Core.Commons;
 
+[ExcludeFromCodeCoverage]
 public sealed class ServiceResolverMocker
 {
     private readonly Mock<IServiceResolver> _serviceResolver;

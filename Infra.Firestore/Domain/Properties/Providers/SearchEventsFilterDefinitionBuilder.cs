@@ -5,21 +5,30 @@ using Infra.Firestore.Domain.Properties.Model;
 
 namespace Infra.Firestore.Domain.Properties.Providers;
 
-public static class SearchPropertiesFilterDefinitionBuilder
+public static class SearchPropertiesFilterBuilder
 {
-    public static List<Filter> Of(SearchPropertiesQuery query)
+    private const string PropertyTypeAll = "ALL";
+    
+    public static IEnumerable<Filter> BuildFromQuery(SearchPropertiesQuery query)
     {
         List<Filter> filters = new List<Filter>();
+
+        string propertyType = query.Type.ToUpperInvariant() == PropertyTypeAll ? "" : query.Type;
         
-        string propertyType = query.Type == "All" ? "" : query.Type;
+        AddEqualToComparison(filters, ToLowerCamelCase(nameof(PropertyEntity.Transaction)), query.Advertise.Transaction.ToUpperInvariant());
+        AddEqualToComparison(filters, ToLowerCamelCase(nameof(PropertyEntity.Type)), propertyType);
+        AddEqualToComparison(filters, ToLowerCamelCase(nameof(PropertyEntity.City)), query.Location.City);
         
-        AddEqualToComparison(filters, nameof(PropertyEntity.Transaction), query.Advertise.Transaction);
-        AddEqualToComparison(filters, nameof(PropertyEntity.Type), propertyType);
-        AddEqualToComparison(filters, nameof(PropertyEntity.City), query.Location.City);
+        // TODO: Add more filters
 
         return filters;
     }
-
+    
+    private static string ToLowerCamelCase(this string value)
+    {
+        return char.ToLowerInvariant(value[0]) + value[1..];
+    }
+    
     private static void AddEqualToComparison(ICollection<Filter> filters, string fieldPath, object value)
     {
         switch (value)

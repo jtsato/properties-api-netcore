@@ -18,6 +18,7 @@ public class SearchPropertiesQueryBuilder
     private int _toArea;
     private int _fromBuiltArea;
     private int _toBuiltArea;
+    private string _state;
     private string _city;
     private decimal _fromSellingPrice;
     private decimal _toSellingPrice;
@@ -27,6 +28,9 @@ public class SearchPropertiesQueryBuilder
     private decimal _toRentalPrice;
     private decimal _fromPriceByM2;
     private decimal _toPriceByM2;
+    private int _fromRanking;
+    private int _toRanking;
+    private string _status;
     private string _fromCreatedAt;
     private string _toCreatedAt;
     private string _fromUpdatedAt;
@@ -91,6 +95,12 @@ public class SearchPropertiesQueryBuilder
     public SearchPropertiesQueryBuilder WithCity(string city)
     {
         _city = city;
+        return this;
+    }
+    
+    public SearchPropertiesQueryBuilder WithState(string state)
+    {
+        _state = state;
         return this;
     }
 
@@ -169,6 +179,24 @@ public class SearchPropertiesQueryBuilder
     public SearchPropertiesQueryBuilder WithToPriceByM2(decimal toPriceByM2)
     {
         _toPriceByM2 = toPriceByM2;
+        return this;
+    }
+    
+    public SearchPropertiesQueryBuilder WithRanking(int fromRanking)
+    {
+        _fromRanking = fromRanking;
+        return this;
+    }
+    
+    public SearchPropertiesQueryBuilder WithToRanking(int toRanking)
+    {
+        _toRanking = toRanking;
+        return this;
+    }
+    
+    public SearchPropertiesQueryBuilder WithStatus(string status)
+    {
+        _status = status;
         return this;
     }
 

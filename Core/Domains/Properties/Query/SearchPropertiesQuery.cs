@@ -16,6 +16,8 @@ public class SearchPropertiesQuery
     public SearchPropertiesQueryAttributes Attributes { get; init; }
     public SearchPropertiesQueryLocation Location { get; init; }
     public SearchPropertiesQueryPrices Prices { get; init; }
+    // TODO: Add Ranking Range
+    // TODO: Add Status Property
     public Range<string> CreatedAt { get; init; }
     public Range<string> UpdatedAt { get; init; }
 
@@ -28,7 +30,7 @@ public class SearchPropertiesQuery
         Range<string> createdAt,
         Range<string> updatedAt)
     {
-        Type = type;
+        Type = type?.Trim().ToUpperInvariant();
         Advertise = advertise;
         Attributes = attributes;
         Location = location;

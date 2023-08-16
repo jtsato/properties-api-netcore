@@ -29,6 +29,8 @@ public class SearchPropertiesApiMethodTest
     private readonly ApiMethodInvoker _invoker;
     private readonly SearchPropertiesApiMethod _apiMethod;
     private readonly Mock<ISearchPropertiesUseCase> _useCaseMock;
+    
+    // TODO: Fix the tests
 
     public SearchPropertiesApiMethodTest(ITestOutputHelper outputHelper, ApiMethodInvokerHolder apiMethodInvokerHolder)
     {
@@ -77,6 +79,7 @@ public class SearchPropertiesApiMethodTest
             .WithTransaction("Rent")
             .WithRefId("REF 101")
             .WithCity("White Duck")
+            .WithState("Duckland")
             .WithDistricts(new List<string> {"Downtown", "Alta Vista"})
             .WithFromNumberOfBedrooms(0)
             .WithToNumberOfBedrooms(3)
@@ -104,7 +107,7 @@ public class SearchPropertiesApiMethodTest
         SearchPropertiesQuery query = queryBuilder.Build();
 
         _useCaseMock
-            .Setup(useCase => useCase.ExecuteAsync(query, PageRequestHelper.Of("0", "1", "UpdatedDate:Desc")))
+            .Setup(useCase => useCase.ExecuteAsync(query, PageRequestHelper.Of("0", "1", "updatedAt,DESC")))
             .ReturnsAsync(
                 new Page<Property>(new List<Property>
                     {
@@ -136,6 +139,7 @@ public class SearchPropertiesApiMethodTest
                             },
                             Location = new PropertyLocation
                             {
+                                State = "Duckland",
                                 City = "White Duck",
                                 District = "Downtown",
                                 Address = "Good Life Street, 101",
@@ -192,7 +196,7 @@ public class SearchPropertiesApiMethodTest
         {
             PageNumber = "0",
             PageSize = "1",
-            OrderBy = new List<string> {"UpdatedDate,Desc"}
+            OrderBy = new List<string> {"updatedAt,Desc"}
         };
         // Act
         ObjectResult objectResult = await _invoker.InvokeAsync(() => _apiMethod.SearchProperties(request, qPageRequest));
@@ -282,7 +286,7 @@ public class SearchPropertiesApiMethodTest
         SearchPropertiesQuery query = queryBuilder.Build();
 
         _useCaseMock
-            .Setup(useCase => useCase.ExecuteAsync(query, PageRequestHelper.Of("0", "1", "UpdatedDate:Desc")))
+            .Setup(useCase => useCase.ExecuteAsync(query, PageRequestHelper.Of("0", "1", "updatedAt,DESC")))
             .ReturnsAsync(
                 new Page<Property>(new List<Property>(), new Pageable(0, 1, 0, 0, 0))
             );
@@ -322,7 +326,7 @@ public class SearchPropertiesApiMethodTest
         {
             PageNumber = "0",
             PageSize = "1",
-            OrderBy = new List<string> {"UpdatedDate,Desc"}
+            OrderBy = new List<string> {"updatedAt,Desc"}
         };
         // Act
         ObjectResult objectResult = await _invoker.InvokeAsync(() => _apiMethod.SearchProperties(request, qPageRequest));
@@ -371,7 +375,7 @@ public class SearchPropertiesApiMethodTest
         SearchPropertiesQuery query = queryBuilder.Build();
 
         _useCaseMock
-            .Setup(useCase => useCase.ExecuteAsync(query, PageRequestHelper.Of("0", "1", "UpdatedDate:Desc")))
+            .Setup(useCase => useCase.ExecuteAsync(query, PageRequestHelper.Of("0", "1", "updatedAt,DESC")))
             .ReturnsAsync(
                 new Page<Property>(new List<Property>
                     {
@@ -459,7 +463,7 @@ public class SearchPropertiesApiMethodTest
         {
             PageNumber = "0",
             PageSize = "1",
-            OrderBy = new List<string> {"UpdatedDate,Desc"}
+            OrderBy = new List<string> {"updatedAt,Desc"}
         };
         // Act
         ObjectResult objectResult = await _invoker.InvokeAsync(() => _apiMethod.SearchProperties(request, qPageRequest));

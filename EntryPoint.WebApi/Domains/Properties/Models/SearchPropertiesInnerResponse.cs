@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Text;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace EntryPoint.WebApi.Domains.Properties.Models;
@@ -48,6 +49,9 @@ public sealed class SearchPropertiesInnerResponse
     [SwaggerSchema(Description = "City where the property is located.")]
     public string City { get; init; }
 
+    [SwaggerSchema(Description = "State where the property is located.")]
+    public string State { get; init; }
+    
     [SwaggerSchema(Description = "District where the property is located.")]
     public string District { get; init; }
 
@@ -71,6 +75,12 @@ public sealed class SearchPropertiesInnerResponse
 
     [SwaggerSchema(Description = "Price per square meter of the property.")]
     public decimal PriceByM2 { get; init; }
+    
+    [SwaggerSchema(Description = "Ranking of the property.")]
+    public byte Ranking { get; init; }
+    
+    [SwaggerSchema(Description = "Status of the property.")]
+    public string Status { get; init; }
 
     [SwaggerSchema(Description = "Date of property creation.")]
     public string CreatedAt { get; init; }
@@ -84,6 +94,35 @@ public sealed class SearchPropertiesInnerResponse
     [ExcludeFromCodeCoverage]
     public override string ToString()
     {
-        return $"{nameof(Id)}: {Id}, {nameof(TenantId)}: {TenantId}, {nameof(Transaction)}: {Transaction}, {nameof(Title)}: {Title}, {nameof(Description)}: {Description}, {nameof(Url)}: {Url}, {nameof(RefId)}: {RefId}, {nameof(Images)}: {Images}, {nameof(NumberOfBedrooms)}: {NumberOfBedrooms}, {nameof(NumberOfToilets)}: {NumberOfToilets}, {nameof(NumberOfGarages)}: {NumberOfGarages}, {nameof(Area)}: {Area}, {nameof(BuiltArea)}: {BuiltArea}, {nameof(City)}: {City}, {nameof(District)}: {District}, {nameof(Address)}: {Address}, {nameof(SellingPrice)}: {SellingPrice}, {nameof(RentalTotalPrice)}: {RentalTotalPrice}, {nameof(RentalPrice)}: {RentalPrice}, {nameof(Discount)}: {Discount}, {nameof(CondominiumFee)}: {CondominiumFee}, {nameof(PriceByM2)}: {PriceByM2}, {nameof(CreatedAt)}: {CreatedAt}, {nameof(UpdatedAt)}: {UpdatedAt}, {nameof(Href)}: {Href}"; 
+        return new StringBuilder()
+            .AppendLine($"Id: {Id}")
+            .AppendLine($"TenantId: {TenantId}")
+            .AppendLine($"Transaction: {Transaction}")
+            .AppendLine($"Title: {Title}")
+            .AppendLine($"Description: {Description}")
+            .AppendLine($"Url: {Url}")
+            .AppendLine($"RefId: {RefId}")
+            .AppendLine($"Images: {Images}")
+            .AppendLine($"NumberOfBedrooms: {NumberOfBedrooms}")
+            .AppendLine($"NumberOfToilets: {NumberOfToilets}")
+            .AppendLine($"NumberOfGarages: {NumberOfGarages}")
+            .AppendLine($"Area: {Area}")
+            .AppendLine($"BuiltArea: {BuiltArea}")
+            .AppendLine($"City: {City}")
+            .AppendLine($"State: {State}")
+            .AppendLine($"District: {District}")
+            .AppendLine($"Address: {Address}")
+            .AppendLine($"SellingPrice: {SellingPrice}")
+            .AppendLine($"RentalTotalPrice: {RentalTotalPrice}")
+            .AppendLine($"RentalPrice: {RentalPrice}")
+            .AppendLine($"Discount: {Discount}")
+            .AppendLine($"CondominiumFee: {CondominiumFee}")
+            .AppendLine($"PriceByM2: {PriceByM2}")
+            .AppendLine($"Ranking: {Ranking}")
+            .AppendLine($"Status: {Status}")
+            .AppendLine($"CreatedAt: {CreatedAt}")
+            .AppendLine($"UpdatedAt: {UpdatedAt}")
+            .AppendLine($"Href: {Href}")
+            .ToString();
     }
 }

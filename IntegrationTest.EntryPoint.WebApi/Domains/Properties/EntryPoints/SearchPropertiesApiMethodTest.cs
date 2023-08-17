@@ -22,6 +22,8 @@ using Xunit.Abstractions;
 
 namespace IntegrationTest.EntryPoint.WebApi.Domains.Properties.EntryPoints;
 
+// TODO: Fix this test suite
+
 [Collection("WebApi Collection")]
 public class SearchPropertiesApiMethodTest
 {
@@ -30,8 +32,6 @@ public class SearchPropertiesApiMethodTest
     private readonly SearchPropertiesApiMethod _apiMethod;
     private readonly Mock<ISearchPropertiesUseCase> _useCaseMock;
     
-    // TODO: Fix the tests
-
     public SearchPropertiesApiMethodTest(ITestOutputHelper outputHelper, ApiMethodInvokerHolder apiMethodInvokerHolder)
     {
         _outputHelper = outputHelper;
@@ -78,6 +78,7 @@ public class SearchPropertiesApiMethodTest
             .WithType("Apartment")
             .WithTransaction("Rent")
             .WithRefId("REF 101")
+            .WithState("Duckland")
             .WithCity("White Duck")
             .WithState("Duckland")
             .WithDistricts(new List<string> {"Downtown", "Alta Vista"})
@@ -99,6 +100,9 @@ public class SearchPropertiesApiMethodTest
             .WithToRentalPrice(2000)
             .WithFromPriceByM2(100)
             .WithToPriceByM2(200)
+            .WithFromRanking(0)
+            .WithToRanking(1)
+            .WithStatus("Active")
             .WithFromCreatedAt("2023-01-01")
             .WithToCreatedAt("2023-02-01")
             .WithFromUpdatedAt("2023-02-01")
@@ -154,6 +158,8 @@ public class SearchPropertiesApiMethodTest
                                 CondominiumFee = 90,
                             },
                             HashKey = "hash-key-1",
+                            Ranking = 1,
+                            Status = PropertyStatus.Active,
                             CreatedAt = DateTime.Parse("2023-01-01 23:59:59.999", new CultureInfo("pt-BR")),
                             UpdatedAt = DateTime.Parse("2023-02-01 23:59:59.999", new CultureInfo("pt-BR")),
                         }
@@ -166,6 +172,7 @@ public class SearchPropertiesApiMethodTest
             Type = "Apartment",
             Transaction = "Rent",
             RefId = "REF 101",
+            State = "Duckland",
             City = "White Duck",
             Districts = new List<string> {"Downtown", "Alta Vista"},
             NumberOfBedroomsMin = 0,
@@ -186,6 +193,9 @@ public class SearchPropertiesApiMethodTest
             RentalPriceMax = 2000,
             PriceByM2Min = 100,
             PriceByM2Max = 200,
+            RankingMin = 0,
+            RankingMax = 1,
+            Status = "Active",
             FromCreatedAt = "2023-01-01",
             ToCreatedAt = "2023-02-01",
             FromUpdatedAt = "2023-02-01",
@@ -228,6 +238,7 @@ public class SearchPropertiesApiMethodTest
             .AndExpectThat(JsonFrom.Path("$.content[0].numberOfGarages"), Is<int>.EqualTo(1))
             .AndExpectThat(JsonFrom.Path("$.content[0].area"), Is<byte>.EqualTo(100))
             .AndExpectThat(JsonFrom.Path("$.content[0].builtArea"), Is<int>.EqualTo(200))
+            .AndExpectThat(JsonFrom.Path("$.content[0].state"), Is<string>.EqualTo("Duckland"))
             .AndExpectThat(JsonFrom.Path("$.content[0].city"), Is<string>.EqualTo("White Duck"))
             .AndExpectThat(JsonFrom.Path("$.content[0].district"), Is<string>.EqualTo("Downtown"))
             .AndExpectThat(JsonFrom.Path("$.content[0].address"), Is<string>.EqualTo("Good Life Street, 101"))
@@ -237,6 +248,8 @@ public class SearchPropertiesApiMethodTest
             .AndExpectThat(JsonFrom.Path("$.content[0].priceByM2"), Is<int>.EqualTo(100))
             .AndExpectThat(JsonFrom.Path("$.content[0].discount"), Is<int>.EqualTo(100))
             .AndExpectThat(JsonFrom.Path("$.content[0].condominiumFee"), Is<int>.EqualTo(90))
+            .AndExpectThat(JsonFrom.Path("$.content[0].ranking"), Is<int>.EqualTo(1))
+            .AndExpectThat(JsonFrom.Path("$.content[0].status"), Is<string>.EqualTo("Active"))
             .AndExpectThat(JsonFrom.Path("$.content[0].createdAt"), Is<string>.EqualTo("2023-01-01T23:59:59.999"))
             .AndExpectThat(JsonFrom.Path("$.content[0].updatedAt"), Is<string>.EqualTo("2023-02-01T23:59:59.999"))
             .AndExpectThat(JsonFrom.Path("$.content[0].href"), Is<string>.StartWith("http://localhost:7029/api/properties-search/v1/properties/"))
@@ -258,6 +271,7 @@ public class SearchPropertiesApiMethodTest
             .WithType("Apartment")
             .WithTransaction("Rent")
             .WithRefId("REF 101")
+            .WithState("Duckland")
             .WithCity("White Duck")
             .WithDistricts(new List<string> {"Downtown", "Alta Vista"})
             .WithFromNumberOfBedrooms(0)
@@ -278,6 +292,9 @@ public class SearchPropertiesApiMethodTest
             .WithToRentalPrice(2000)
             .WithFromPriceByM2(100)
             .WithToPriceByM2(200)
+            .WithFromRanking(0)
+            .WithToRanking(1)
+            .WithStatus("Active")
             .WithFromCreatedAt("2023-01-01")
             .WithToCreatedAt("2023-02-01")
             .WithFromUpdatedAt("2023-02-01")
@@ -296,6 +313,7 @@ public class SearchPropertiesApiMethodTest
             Type = "Apartment",
             Transaction = "Rent",
             RefId = "REF 101",
+            State = "Duckland",
             City = "White Duck",
             Districts = new List<string> {"Downtown", "Alta Vista"},
             NumberOfBedroomsMin = 0,
@@ -316,6 +334,9 @@ public class SearchPropertiesApiMethodTest
             RentalPriceMax = 2000,
             PriceByM2Min = 100,
             PriceByM2Max = 200,
+            RankingMin = 0,
+            RankingMax = 1,
+            Status = "Active",
             FromCreatedAt = "2023-01-01",
             ToCreatedAt = "2023-02-01",
             FromUpdatedAt = "2023-02-01",
@@ -347,6 +368,7 @@ public class SearchPropertiesApiMethodTest
             .WithType("Apartment")
             .WithTransaction("Rent")
             .WithRefId("REF 101")
+            .WithState("Duckland")
             .WithCity("White Duck")
             .WithDistricts(new List<string> {"Downtown", "Alta Vista"})
             .WithFromNumberOfBedrooms(0)
@@ -367,6 +389,9 @@ public class SearchPropertiesApiMethodTest
             .WithToRentalPrice(2000)
             .WithFromPriceByM2(100)
             .WithToPriceByM2(200)
+            .WithFromRanking(0)
+            .WithToRanking(1)
+            .WithStatus("Active")
             .WithFromCreatedAt("2023-01-01")
             .WithToCreatedAt("2023-02-01")
             .WithFromUpdatedAt("2023-02-01")
@@ -407,6 +432,7 @@ public class SearchPropertiesApiMethodTest
                             },
                             Location = new PropertyLocation
                             {
+                                State = "Duckland",
                                 City = "White Duck",
                                 District = "Downtown",
                                 Address = "Good Life Street, 101",
@@ -421,6 +447,8 @@ public class SearchPropertiesApiMethodTest
                                 CondominiumFee = 90,
                             },
                             HashKey = "hash-key-1",
+                            Ranking = 1,
+                            Status = PropertyStatus.Active,
                             CreatedAt = DateTime.Parse("2023-01-01 23:59:59.999", new CultureInfo("pt-BR")),
                             UpdatedAt = DateTime.Parse("2023-02-01 23:59:59.999", new CultureInfo("pt-BR")),
                         }
@@ -433,6 +461,7 @@ public class SearchPropertiesApiMethodTest
             Type = "Apartment",
             Transaction = "Rent",
             RefId = "REF 101",
+            State = "Duckland",
             City = "White Duck",
             Districts = new List<string> {"Downtown", "Alta Vista"},
             NumberOfBedroomsMin = 0,
@@ -453,6 +482,9 @@ public class SearchPropertiesApiMethodTest
             RentalPriceMax = 2000,
             PriceByM2Min = 100,
             PriceByM2Max = 200,
+            RankingMin = 0,
+            RankingMax = 1,
+            Status = "Active",
             FromCreatedAt = "2023-01-01",
             ToCreatedAt = "2023-02-01",
             FromUpdatedAt = "2023-02-01",
@@ -495,6 +527,7 @@ public class SearchPropertiesApiMethodTest
             .AndExpectThat(JsonFrom.Path("$.content[0].numberOfGarages"), Is<int>.EqualTo(1))
             .AndExpectThat(JsonFrom.Path("$.content[0].area"), Is<byte>.EqualTo(100))
             .AndExpectThat(JsonFrom.Path("$.content[0].builtArea"), Is<int>.EqualTo(200))
+            .AndExpectThat(JsonFrom.Path("$.content[0].state"), Is<string>.EqualTo("Duckland"))
             .AndExpectThat(JsonFrom.Path("$.content[0].city"), Is<string>.EqualTo("White Duck"))
             .AndExpectThat(JsonFrom.Path("$.content[0].district"), Is<string>.EqualTo("Downtown"))
             .AndExpectThat(JsonFrom.Path("$.content[0].address"), Is<string>.EqualTo("Good Life Street, 101"))
@@ -504,6 +537,8 @@ public class SearchPropertiesApiMethodTest
             .AndExpectThat(JsonFrom.Path("$.content[0].priceByM2"), Is<int>.EqualTo(100))
             .AndExpectThat(JsonFrom.Path("$.content[0].discount"), Is<int>.EqualTo(100))
             .AndExpectThat(JsonFrom.Path("$.content[0].condominiumFee"), Is<int>.EqualTo(90))
+            .AndExpectThat(JsonFrom.Path("$.content[0].ranking"), Is<int>.EqualTo(0))
+            .AndExpectThat(JsonFrom.Path("$.content[0].status"), Is<string>.EqualTo("Active"))
             .AndExpectThat(JsonFrom.Path("$.content[0].createdAt"), Is<string>.EqualTo("2023-01-01T23:59:59.999"))
             .AndExpectThat(JsonFrom.Path("$.content[0].updatedAt"), Is<string>.EqualTo("2023-02-01T23:59:59.999"))
             .AndExpectThat(JsonFrom.Path("$.content[0].href"), Is<string>.StartWith("http://localhost:7029/api/properties-search/v1/properties/"));

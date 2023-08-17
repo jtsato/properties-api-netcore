@@ -9,18 +9,21 @@ namespace Core.Domains.Properties.Query;
 [ExcludeFromCodeCoverage]
 public class SearchPropertiesQueryLocation
 {
+    public string State { get; init; }
     public string City { get; init; }
     public List<string> Districts { get; init; }
 
-    public SearchPropertiesQueryLocation(string city, List<string> districts)
+    public SearchPropertiesQueryLocation(string state, string city, List<string> districts)
     {
+        State = state ?? string.Empty;
         City = city ?? string.Empty;
         Districts = districts ?? new List<string>();
     }
 
     private bool Equals(SearchPropertiesQueryLocation other)
     {
-        return City == other.City
+        return State == other.State 
+               && City == other.City
                && !Districts.Except(other.Districts).Any() && !other.Districts.Except(Districts).Any();
     }
 
@@ -31,14 +34,15 @@ public class SearchPropertiesQueryLocation
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(Districts, City);
+        return HashCode.Combine(State, City, Districts);
     }
 
     public override string ToString()
     {
         return new StringBuilder()
+            .AppendLine($"{nameof(State)}: {State}")
             .AppendLine($"{nameof(City)}: {City}")
-            .Append($"{nameof(Districts)}: {string.Join(", ", Districts)}")
+            .AppendLine($"{nameof(Districts)}: {string.Join(",", Districts)}")
             .ToString();
     }
 }

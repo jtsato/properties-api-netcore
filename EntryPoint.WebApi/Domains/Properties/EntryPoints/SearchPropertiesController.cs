@@ -55,6 +55,8 @@ public sealed class SearchPropertiesController : ISearchPropertiesController
 
     private static SearchPropertiesQuery BuildSearchPropertiesQuery(SearchPropertiesRequest request)
     {
+        string propertyType = PropertyType.GetByName(request.Type).OrElse(PropertyType.All).Name;
+
         SearchPropertiesQueryAdvertise advertise = new SearchPropertiesQueryAdvertise
         (
             request.Transaction,
@@ -78,6 +80,7 @@ public sealed class SearchPropertiesController : ISearchPropertiesController
 
         SearchPropertiesQueryLocation location = new SearchPropertiesQueryLocation
         (
+            state: request.State,
             city: request.City,
             districts: request.Districts
         );
@@ -89,17 +92,22 @@ public sealed class SearchPropertiesController : ISearchPropertiesController
             RentalPrice = Range<decimal>.Of(request.RentalPriceMin, request.RentalPriceMax),
             PriceByM2 = Range<decimal>.Of(request.PriceByM2Min, request.PriceByM2Max)
         };
+        
+        SearchPropertiesQueryRanking rankings = new SearchPropertiesQueryRanking
+        {
+            Ranking = Range<int>.Of(request.RankingMin, request.RankingMax)
+        };
 
         Range<string> createdAt = Range<string>.Of(request.FromCreatedAt, request.ToCreatedAt);
         Range<string> updatedAt = Range<string>.Of(request.FromUpdatedAt, request.ToUpdatedAt);
 
         SearchPropertiesQueryBuilder builder = new SearchPropertiesQueryBuilder();
 
-        string propertyType = PropertyType.GetByName(request.Type).OrElse(PropertyType.All).Name;
-
-        builder.WithType(propertyType)
+        builder
+            .WithType(propertyType)
             .WithTransaction(advertise.Transaction)
             .WithRefId(advertise.RefId)
+            .WithState(location.State)
             .WithCity(location.City)
             .WithDistricts(location.Districts)
             .WithFromNumberOfBedrooms(attributes.NumberOfBedrooms.From)
@@ -120,6 +128,9 @@ public sealed class SearchPropertiesController : ISearchPropertiesController
             .WithToRentalPrice(prices.RentalPrice.To)
             .WithFromPriceByM2(prices.PriceByM2.From)
             .WithToPriceByM2(prices.PriceByM2.To)
+            .WithFromRanking(rankings.Ranking.From)
+            .WithToRanking(rankings.Ranking.To)
+            .WithStatus(request.Status)
             .WithFromCreatedAt(createdAt.From)
             .WithToCreatedAt(createdAt.To)
             .WithToUpdatedAt(updatedAt.To)

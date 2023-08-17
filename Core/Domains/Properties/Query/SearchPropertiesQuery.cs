@@ -7,17 +7,15 @@ using FluentValidation;
 namespace Core.Domains.Properties.Query;
 
 [ExcludeFromCodeCoverage]
-public class SearchPropertiesQuery
+public class SearchPropertiesQuery: SearchPropertiesQueryBase
 {
     private static readonly SearchPropertiesQueryValidator QueryValidator = new SearchPropertiesQueryValidator();
 
-    public string Type { get; init; }
     public SearchPropertiesQueryAdvertise Advertise { get; init; }
     public SearchPropertiesQueryAttributes Attributes { get; init; }
     public SearchPropertiesQueryLocation Location { get; init; }
     public SearchPropertiesQueryPrices Prices { get; init; }
-    // TODO: Add Ranking Range
-    // TODO: Add Status Property
+    public SearchPropertiesQueryRanking Rankings { get; init; }
     public Range<string> CreatedAt { get; init; }
     public Range<string> UpdatedAt { get; init; }
 
@@ -27,14 +25,18 @@ public class SearchPropertiesQuery
         SearchPropertiesQueryAttributes attributes,
         SearchPropertiesQueryLocation location,
         SearchPropertiesQueryPrices prices,
+        SearchPropertiesQueryRanking rankings,
+        string status,
         Range<string> createdAt,
-        Range<string> updatedAt)
+        Range<string> updatedAt) : base(type, status)
     {
         Type = type?.Trim().ToUpperInvariant();
         Advertise = advertise;
         Attributes = attributes;
         Location = location;
         Prices = prices;
+        Rankings = rankings;
+        Status = status?.Trim().ToUpperInvariant();
         CreatedAt = createdAt;
         UpdatedAt = updatedAt;
         QueryValidator.ValidateAndThrow(this);
@@ -47,6 +49,8 @@ public class SearchPropertiesQuery
                && Equals(Attributes, other.Attributes)
                && Equals(Location, other.Location)
                && Equals(Prices, other.Prices)
+               && Equals(Rankings, other.Rankings)
+               && Equals(Status, other.Status)
                && Equals(CreatedAt, other.CreatedAt)
                && Equals(UpdatedAt, other.UpdatedAt);
     }
@@ -58,17 +62,19 @@ public class SearchPropertiesQuery
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(Type, Advertise, Attributes, Location, Prices, CreatedAt, UpdatedAt);
+        return HashCode.Combine(Type, Advertise, Attributes, Location) ^ HashCode.Combine(Prices, Rankings, Status, CreatedAt, UpdatedAt);
     }
 
     public override string ToString()
     {
         return new StringBuilder()
-            .Append($"{nameof(Type)}: {Type}")
+            .AppendLine($"{nameof(Type)}: {Type}")
             .AppendLine($"{nameof(Advertise)}: {Advertise}")
             .AppendLine($"{nameof(Attributes)}: {Attributes}")
             .AppendLine($"{nameof(Location)}: {Location}")
             .AppendLine($"{nameof(Prices)}: {Prices}")
+            .AppendLine($"{nameof(Rankings)}: {Rankings}")
+            .AppendLine($"{nameof(Status)}: {Status}")
             .AppendLine($"{nameof(CreatedAt)}: {CreatedAt}")
             .AppendLine($"{nameof(UpdatedAt)}: {UpdatedAt}")
             .ToString();

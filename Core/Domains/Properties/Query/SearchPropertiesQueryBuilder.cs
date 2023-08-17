@@ -182,7 +182,7 @@ public class SearchPropertiesQueryBuilder
         return this;
     }
     
-    public SearchPropertiesQueryBuilder WithRanking(int fromRanking)
+    public SearchPropertiesQueryBuilder WithFromRanking(int fromRanking)
     {
         _fromRanking = fromRanking;
         return this;
@@ -229,7 +229,7 @@ public class SearchPropertiesQueryBuilder
         string propertyType = _type ?? "All";
         
         SearchPropertiesQueryAdvertise queryAdvertise = new SearchPropertiesQueryAdvertise(_transaction, _refId);
-        SearchPropertiesQueryLocation queryLocation = new SearchPropertiesQueryLocation(_city, _districts);
+        SearchPropertiesQueryLocation queryLocation = new SearchPropertiesQueryLocation(_state, _city, _districts);
 
         SearchPropertiesQueryAttributes queryAttributes = new SearchPropertiesQueryAttributes
         {
@@ -247,13 +247,22 @@ public class SearchPropertiesQueryBuilder
             RentalPrice = Range<decimal>.Of(_fromRentalPrice, _toRentalPrice),
             PriceByM2 = Range<decimal>.Of(_fromPriceByM2, _toPriceByM2)
         };
-
+        
+        SearchPropertiesQueryRanking queryRanking = new SearchPropertiesQueryRanking
+        {
+            Ranking = Range<int>.Of(_fromRanking, _toRanking)
+        };
+        
+        string status = _status ?? "None";
+        
         return new SearchPropertiesQuery(
             propertyType,
             queryAdvertise,
             queryAttributes,
             queryLocation,
             queryPrices,
+            queryRanking,
+            status,
             Range<string>.Of(_fromCreatedAt, _toCreatedAt),
             Range<string>.Of(_fromUpdatedAt, _toUpdatedAt)
         );

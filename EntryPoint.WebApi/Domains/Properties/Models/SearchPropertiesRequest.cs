@@ -59,6 +59,10 @@ public class SearchPropertiesRequest
     [SwaggerParameter(Required = false, Description = "Maximum built area in square meters")]
     [FromQuery(Name = "built-area-max")]
     public int BuiltAreaMax { get; init; }
+    
+    [SwaggerParameter(Required = false, Description = "State")]
+    [FromQuery(Name = "state")]
+    public string State { get; init; }
 
     [SwaggerParameter(Required = false, Description = "City")]
     [FromQuery(Name = "city")]
@@ -99,6 +103,18 @@ public class SearchPropertiesRequest
     [SwaggerParameter(Required = false, Description = "Maximum price per square meter")]
     [FromQuery(Name = "price-by-m2-max")]
     public decimal PriceByM2Max { get; init; }
+    
+    [SwaggerParameter(Required = false, Description = "Minimum property's ranking")]
+    [FromQuery(Name = "ranking-min")]
+    public int RankingMin { get; init; }
+    
+    [SwaggerParameter(Required = false, Description = "Maximum property's ranking")]
+    [FromQuery(Name = "ranking-max")]
+    public int RankingMax { get; init; }
+    
+    [SwaggerParameter(Required = false, Description = "Property's status")]
+    [FromQuery(Name = "status")]
+    public string Status { get; init; }
 
     [SwaggerParameter(Required = false,
         Description = "Filters properties' registration date after the specified date. " +

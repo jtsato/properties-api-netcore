@@ -34,6 +34,7 @@ public class SearchPropertiesQueryTest
                 },
                 new SearchPropertiesQueryLocation(
                     "São Paulo",
+                    "São Paulo",
                     new List<string> {"Moema", "Vila Mariana"}
                 ),
                 new SearchPropertiesQueryPrices
@@ -43,6 +44,11 @@ public class SearchPropertiesQueryTest
                     RentalPrice = Range<decimal>.Of(1000, 2000),
                     PriceByM2 = Range<decimal>.Of(1000, 2000)
                 },
+                new SearchPropertiesQueryRanking
+                {
+                    Ranking = Range<int>.Of(0, 2)
+                },
+                "Active",
                 Range<string>.Of(createdAt, updatedAt),
                 Range<string>.Of(createdAt, createdAt)
             )

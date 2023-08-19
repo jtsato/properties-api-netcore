@@ -62,7 +62,17 @@ public class SearchPropertiesQuery: SearchPropertiesQueryBase
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(Type, Advertise, Attributes, Location) ^ HashCode.Combine(Prices, Rankings, Status, CreatedAt, UpdatedAt);
+        HashCode hashCode = new HashCode();
+        hashCode.Add(Type);
+        hashCode.Add(Advertise);
+        hashCode.Add(Attributes);
+        hashCode.Add(Location);
+        hashCode.Add(Prices);
+        hashCode.Add(Rankings);
+        hashCode.Add(Status);
+        hashCode.Add(CreatedAt);
+        hashCode.Add(UpdatedAt);
+        return hashCode.ToHashCode();
     }
 
     public override string ToString()
@@ -76,7 +86,7 @@ public class SearchPropertiesQuery: SearchPropertiesQueryBase
             .AppendLine($"{nameof(Rankings)}: {Rankings}")
             .AppendLine($"{nameof(Status)}: {Status}")
             .AppendLine($"{nameof(CreatedAt)}: {CreatedAt}")
-            .AppendLine($"{nameof(UpdatedAt)}: {UpdatedAt}")
+            .Append($"{nameof(UpdatedAt)}: {UpdatedAt}")
             .ToString();
     }
 }

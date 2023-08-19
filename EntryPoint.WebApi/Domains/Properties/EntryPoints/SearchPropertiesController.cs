@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Threading.Tasks;
 using Core.Commons;
 using Core.Commons.Models;
@@ -18,7 +19,7 @@ namespace EntryPoint.WebApi.Domains.Properties.EntryPoints;
 
 public sealed class SearchPropertiesController : ISearchPropertiesController
 {
-    private static readonly string[] SortableFields = {"SellingPrice", "RentalTotalPrice", "RentalPrice", "PriceByM2", "CreatedDate", "UpdatedDate"};
+    private static readonly string[] SortableFields = {"sellingPrice", "rentalTotalPrice", "rentalPrice", "priceByM2", "createdAt", "updatedAt"};
 
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly ISearchPropertiesUseCase _useCase;
@@ -31,6 +32,7 @@ public sealed class SearchPropertiesController : ISearchPropertiesController
 
     public async Task<IActionResult> ExecuteAsync(SearchPropertiesRequest request, QPageRequest qPageRequest)
     {
+        Console.WriteLine(request);
         SearchPropertiesQuery query = BuildSearchPropertiesQuery(request);
 
         string orderBy = OrderByHelper.Sanitize(SortableFields, qPageRequest.OrderBy);

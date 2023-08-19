@@ -22,8 +22,6 @@ using Xunit.Abstractions;
 
 namespace IntegrationTest.EntryPoint.WebApi.Domains.Properties.EntryPoints;
 
-// TODO: Fix this test suite
-
 [Collection("WebApi Collection")]
 public class SearchPropertiesApiMethodTest
 {
@@ -31,7 +29,7 @@ public class SearchPropertiesApiMethodTest
     private readonly ApiMethodInvoker _invoker;
     private readonly SearchPropertiesApiMethod _apiMethod;
     private readonly Mock<ISearchPropertiesUseCase> _useCaseMock;
-    
+
     public SearchPropertiesApiMethodTest(ITestOutputHelper outputHelper, ApiMethodInvokerHolder apiMethodInvokerHolder)
     {
         _outputHelper = outputHelper;
@@ -111,7 +109,7 @@ public class SearchPropertiesApiMethodTest
         SearchPropertiesQuery query = queryBuilder.Build();
 
         _useCaseMock
-            .Setup(useCase => useCase.ExecuteAsync(query, PageRequestHelper.Of("0", "1", "updatedAt,DESC")))
+            .Setup(useCase => useCase.ExecuteAsync(query, PageRequestHelper.Of("0", "1", "updatedAt:DESC")))
             .ReturnsAsync(
                 new Page<Property>(new List<Property>
                     {
@@ -208,6 +206,7 @@ public class SearchPropertiesApiMethodTest
             PageSize = "1",
             OrderBy = new List<string> {"updatedAt,Desc"}
         };
+
         // Act
         ObjectResult objectResult = await _invoker.InvokeAsync(() => _apiMethod.SearchProperties(request, qPageRequest));
 
@@ -223,7 +222,7 @@ public class SearchPropertiesApiMethodTest
             .AndExpectThat(JsonFrom.Path("$.content"), Is<object>.Single())
             .AndExpectThat(JsonFrom.Path("$.content[0].id"), Is<string>.NotEmpty())
             .AndExpectThat(JsonFrom.Path("$.content[0].tenantId"), Is<int>.EqualTo(1))
-            .AndExpectThat(JsonFrom.Path("$.content[0].transaction"), Is<string>.EqualTo("Rent"))
+            .AndExpectThat(JsonFrom.Path("$.content[0].transaction"), Is<string>.EqualTo("RENT"))
             .AndExpectThat(JsonFrom.Path("$.content[0].title"), Is<string>.EqualTo("Apartment for rent"))
             .AndExpectThat(JsonFrom.Path("$.content[0].description"), Is<string>.EqualTo("Apartment for rent"))
             .AndExpectThat(JsonFrom.Path("$.content[0].url"), Is<string>.EqualTo("https://www.apartment-for-rent.com"))
@@ -249,7 +248,7 @@ public class SearchPropertiesApiMethodTest
             .AndExpectThat(JsonFrom.Path("$.content[0].discount"), Is<int>.EqualTo(100))
             .AndExpectThat(JsonFrom.Path("$.content[0].condominiumFee"), Is<int>.EqualTo(90))
             .AndExpectThat(JsonFrom.Path("$.content[0].ranking"), Is<int>.EqualTo(1))
-            .AndExpectThat(JsonFrom.Path("$.content[0].status"), Is<string>.EqualTo("Active"))
+            .AndExpectThat(JsonFrom.Path("$.content[0].status"), Is<string>.EqualTo("ACTIVE"))
             .AndExpectThat(JsonFrom.Path("$.content[0].createdAt"), Is<string>.EqualTo("2023-01-01T23:59:59.999"))
             .AndExpectThat(JsonFrom.Path("$.content[0].updatedAt"), Is<string>.EqualTo("2023-02-01T23:59:59.999"))
             .AndExpectThat(JsonFrom.Path("$.content[0].href"), Is<string>.StartWith("http://localhost:7029/api/properties-search/v1/properties/"))
@@ -303,7 +302,7 @@ public class SearchPropertiesApiMethodTest
         SearchPropertiesQuery query = queryBuilder.Build();
 
         _useCaseMock
-            .Setup(useCase => useCase.ExecuteAsync(query, PageRequestHelper.Of("0", "1", "updatedAt,DESC")))
+            .Setup(useCase => useCase.ExecuteAsync(query, PageRequestHelper.Of("0", "1", "updatedAt:DESC")))
             .ReturnsAsync(
                 new Page<Property>(new List<Property>(), new Pageable(0, 1, 0, 0, 0))
             );
@@ -349,6 +348,7 @@ public class SearchPropertiesApiMethodTest
             PageSize = "1",
             OrderBy = new List<string> {"updatedAt,Desc"}
         };
+
         // Act
         ObjectResult objectResult = await _invoker.InvokeAsync(() => _apiMethod.SearchProperties(request, qPageRequest));
 
@@ -400,7 +400,7 @@ public class SearchPropertiesApiMethodTest
         SearchPropertiesQuery query = queryBuilder.Build();
 
         _useCaseMock
-            .Setup(useCase => useCase.ExecuteAsync(query, PageRequestHelper.Of("0", "1", "updatedAt,DESC")))
+            .Setup(useCase => useCase.ExecuteAsync(query, PageRequestHelper.Of("0", "1", "updatedAt:DESC")))
             .ReturnsAsync(
                 new Page<Property>(new List<Property>
                     {
@@ -497,6 +497,7 @@ public class SearchPropertiesApiMethodTest
             PageSize = "1",
             OrderBy = new List<string> {"updatedAt,Desc"}
         };
+
         // Act
         ObjectResult objectResult = await _invoker.InvokeAsync(() => _apiMethod.SearchProperties(request, qPageRequest));
 
@@ -512,7 +513,7 @@ public class SearchPropertiesApiMethodTest
             .AndExpectThat(JsonFrom.Path("$.content"), Is<object>.Single())
             .AndExpectThat(JsonFrom.Path("$.content[0].id"), Is<string>.NotEmpty())
             .AndExpectThat(JsonFrom.Path("$.content[0].tenantId"), Is<int>.EqualTo(1))
-            .AndExpectThat(JsonFrom.Path("$.content[0].transaction"), Is<string>.EqualTo("Rent"))
+            .AndExpectThat(JsonFrom.Path("$.content[0].transaction"), Is<string>.EqualTo("RENT"))
             .AndExpectThat(JsonFrom.Path("$.content[0].title"), Is<string>.EqualTo("Apartment for rent"))
             .AndExpectThat(JsonFrom.Path("$.content[0].description"), Is<string>.EqualTo("Apartment for rent"))
             .AndExpectThat(JsonFrom.Path("$.content[0].url"), Is<string>.EqualTo("https://www.apartment-for-rent.com"))
@@ -537,10 +538,12 @@ public class SearchPropertiesApiMethodTest
             .AndExpectThat(JsonFrom.Path("$.content[0].priceByM2"), Is<int>.EqualTo(100))
             .AndExpectThat(JsonFrom.Path("$.content[0].discount"), Is<int>.EqualTo(100))
             .AndExpectThat(JsonFrom.Path("$.content[0].condominiumFee"), Is<int>.EqualTo(90))
-            .AndExpectThat(JsonFrom.Path("$.content[0].ranking"), Is<int>.EqualTo(0))
-            .AndExpectThat(JsonFrom.Path("$.content[0].status"), Is<string>.EqualTo("Active"))
+            .AndExpectThat(JsonFrom.Path("$.content[0].ranking"), Is<int>.EqualTo(1))
+            .AndExpectThat(JsonFrom.Path("$.content[0].status"), Is<string>.EqualTo("ACTIVE"))
             .AndExpectThat(JsonFrom.Path("$.content[0].createdAt"), Is<string>.EqualTo("2023-01-01T23:59:59.999"))
             .AndExpectThat(JsonFrom.Path("$.content[0].updatedAt"), Is<string>.EqualTo("2023-02-01T23:59:59.999"))
             .AndExpectThat(JsonFrom.Path("$.content[0].href"), Is<string>.StartWith("http://localhost:7029/api/properties-search/v1/properties/"));
     }
 }
+
+

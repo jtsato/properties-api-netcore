@@ -35,8 +35,8 @@ public class SearchPropertiesQueryAdvertise
     public override string ToString()
     {
         return new StringBuilder()
-            .Append($"{nameof(Transaction)}: {Transaction}")
-            .AppendLine($"{nameof(RefId)}: {RefId}")
+            .AppendLine($"{nameof(Transaction)}: {Transaction}")
+            .Append($"{nameof(RefId)}: {RefId}")
             .ToString();
     }
 }

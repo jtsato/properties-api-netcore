@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Text;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace EntryPoint.WebApi.Domains.Properties.Models;
@@ -19,8 +17,8 @@ public sealed class SearchPropertiesInnerResponse
     [SwaggerSchema(Description = "Title of the property.")]
     public string Title { get; init; }
 
-    [SwaggerSchema(Description = "Description of the property.")]
-    public string Description { get; init; }
+    [SwaggerSchema(Description = "First part of the description of the property.")]
+    public string Introduction { get; init; }
 
     [SwaggerSchema(Description = "URL of the property.")]
     public string Url { get; init; }
@@ -90,39 +88,4 @@ public sealed class SearchPropertiesInnerResponse
 
     [SwaggerSchema(Nullable = false, Description = "URL that defines a single resource")]
     public string Href { get; init; }
-
-    [ExcludeFromCodeCoverage]
-    public override string ToString()
-    {
-        return new StringBuilder()
-            .AppendLine($"Id: {Id}")
-            .AppendLine($"TenantId: {TenantId}")
-            .AppendLine($"Transaction: {Transaction}")
-            .AppendLine($"Title: {Title}")
-            .AppendLine($"Description: {Description}")
-            .AppendLine($"Url: {Url}")
-            .AppendLine($"RefId: {RefId}")
-            .AppendLine($"Images: {Images}")
-            .AppendLine($"NumberOfBedrooms: {NumberOfBedrooms}")
-            .AppendLine($"NumberOfToilets: {NumberOfToilets}")
-            .AppendLine($"NumberOfGarages: {NumberOfGarages}")
-            .AppendLine($"Area: {Area}")
-            .AppendLine($"BuiltArea: {BuiltArea}")
-            .AppendLine($"City: {City}")
-            .AppendLine($"State: {State}")
-            .AppendLine($"District: {District}")
-            .AppendLine($"Address: {Address}")
-            .AppendLine($"SellingPrice: {SellingPrice}")
-            .AppendLine($"RentalTotalPrice: {RentalTotalPrice}")
-            .AppendLine($"RentalPrice: {RentalPrice}")
-            .AppendLine($"Discount: {Discount}")
-            .AppendLine($"CondominiumFee: {CondominiumFee}")
-            .AppendLine($"PriceByM2: {PriceByM2}")
-            .AppendLine($"Ranking: {Ranking}")
-            .AppendLine($"Status: {Status}")
-            .AppendLine($"CreatedAt: {CreatedAt}")
-            .AppendLine($"UpdatedAt: {UpdatedAt}")
-            .AppendLine($"Href: {Href}")
-            .ToString();
-    }
 }

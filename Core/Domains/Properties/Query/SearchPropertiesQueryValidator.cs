@@ -7,12 +7,12 @@ internal sealed class SearchPropertiesQueryValidator : AbstractValidator<SearchP
 {
     public SearchPropertiesQueryValidator()
     {
-        RuleFor(query => query.Type)
+        RuleFor(query => query.Advertise.Transaction)
             .Cascade(CascadeMode.Stop)
             .NotNull()
-            .WithMessage("ValidationPropertyTypeIsNullOrEmpty")
+            .WithMessage("ValidationPropertyTransactionIsNullOrEmpty")
             .NotEmpty()
-            .WithMessage("ValidationPropertyTypeIsNullOrEmpty");
+            .WithMessage("ValidationPropertyTransactionIsNullOrEmpty");
         
         RuleFor(query => query.CreatedAt.From)
             .Must(ArgumentChecker.BeEmptyOrAValidDate)

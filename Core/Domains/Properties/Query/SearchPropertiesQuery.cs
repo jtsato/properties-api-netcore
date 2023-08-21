@@ -20,6 +20,7 @@ public class SearchPropertiesQuery: SearchPropertiesQueryBase
     public Range<string> UpdatedAt { get; init; }
 
     public SearchPropertiesQuery(
+        int tenantId,
         string type,
         SearchPropertiesQueryAdvertise advertise,
         SearchPropertiesQueryAttributes attributes,
@@ -28,8 +29,9 @@ public class SearchPropertiesQuery: SearchPropertiesQueryBase
         SearchPropertiesQueryRanking rankings,
         string status,
         Range<string> createdAt,
-        Range<string> updatedAt) : base(type, status)
+        Range<string> updatedAt) : base(tenantId, type, status)
     {
+        TenantId = tenantId;
         Type = type?.Trim().ToUpperInvariant();
         Advertise = advertise;
         Attributes = attributes;
@@ -44,7 +46,8 @@ public class SearchPropertiesQuery: SearchPropertiesQueryBase
 
     private bool Equals(SearchPropertiesQuery other)
     {
-        return Equals(Type, other.Type)
+        return Equals(TenantId, other.TenantId)
+               && Equals(Type, other.Type)
                && Equals(Advertise, other.Advertise)
                && Equals(Attributes, other.Attributes)
                && Equals(Location, other.Location)
@@ -63,6 +66,7 @@ public class SearchPropertiesQuery: SearchPropertiesQueryBase
     public override int GetHashCode()
     {
         HashCode hashCode = new HashCode();
+        hashCode.Add(TenantId);
         hashCode.Add(Type);
         hashCode.Add(Advertise);
         hashCode.Add(Attributes);
@@ -78,6 +82,7 @@ public class SearchPropertiesQuery: SearchPropertiesQueryBase
     public override string ToString()
     {
         return new StringBuilder()
+            .AppendLine($"{nameof(TenantId)}: {TenantId}")
             .AppendLine($"{nameof(Type)}: {Type}")
             .AppendLine($"{nameof(Advertise)}: {Advertise}")
             .AppendLine($"{nameof(Attributes)}: {Attributes}")

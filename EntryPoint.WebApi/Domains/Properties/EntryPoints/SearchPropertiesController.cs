@@ -32,8 +32,8 @@ public sealed class SearchPropertiesController : ISearchPropertiesController
 
     public async Task<IActionResult> ExecuteAsync(SearchPropertiesRequest request, QPageRequest qPageRequest)
     {
-        Console.WriteLine(request);
         SearchPropertiesQuery query = BuildSearchPropertiesQuery(request);
+        Console.WriteLine(query);
 
         string orderBy = OrderByHelper.Sanitize(SortableFields, qPageRequest.OrderBy);
         PageRequest pageRequest = PageRequestHelper.Of(qPageRequest.PageNumber, qPageRequest.PageSize, orderBy);
@@ -106,6 +106,7 @@ public sealed class SearchPropertiesController : ISearchPropertiesController
         SearchPropertiesQueryBuilder builder = new SearchPropertiesQueryBuilder();
 
         builder
+            .WithTenantId(request.TenantId)
             .WithType(propertyType)
             .WithTransaction(advertise.Transaction)
             .WithRefId(advertise.RefId)

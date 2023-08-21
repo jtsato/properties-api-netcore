@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -9,6 +8,10 @@ namespace EntryPoint.WebApi.Domains.Properties.Models;
 [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
 public class SearchPropertiesRequest
 {
+    [SwaggerParameter(Required = true, Description = "Tenant id")]
+    [FromQuery(Name = "tenant-id")]
+    public int TenantId { get; init; }
+    
     [SwaggerParameter(Required = false, Description = "Type")]
     [FromQuery(Name = "type")]
     public string Type { get; init; }

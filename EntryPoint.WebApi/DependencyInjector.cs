@@ -1,5 +1,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
+using System.Reflection;
 using Core.Commons;
 using Core.Domains.Properties.UseCases;
 using EntryPoint.WebApi.Commons;
@@ -20,6 +22,9 @@ namespace EntryPoint.WebApi;
 public static class DependencyInjector
 {
     private static readonly string ConnectionString =
+        Environment.GetEnvironmentVariable("SERVICE_ACCOUNT_CONTENT") ?? string.Empty;
+
+    private static readonly string ServiceAccountFile =
         Environment.GetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS") ?? string.Empty;
 
     private static readonly string DatabaseName =
@@ -30,9 +35,25 @@ public static class DependencyInjector
 
     public static void ConfigureServices(IServiceCollection services)
     {
+        CreateServiceAccountFile();
         AddSharedServices(services);
         IConnectionFactory connectionFactory = new ConnectionFactory(ConnectionString);
         AddApplicationServices(services, connectionFactory);
+    }
+
+    private static void CreateServiceAccountFile()
+    {
+        string basePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        if (basePath == null) return;
+        
+        string serviceAccountPath = Path.Combine(basePath, ServiceAccountFile);
+        if (File.Exists(serviceAccountPath)) return;
+
+        StreamWriter streamWriter = File.CreateText(serviceAccountPath);
+        streamWriter.Write(ConnectionString);
+        streamWriter.Close();
+        
+        Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", serviceAccountPath);
     }
 
     private static void AddSharedServices(IServiceCollection services)

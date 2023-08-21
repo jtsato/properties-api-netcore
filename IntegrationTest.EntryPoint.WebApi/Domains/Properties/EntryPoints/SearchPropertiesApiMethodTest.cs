@@ -73,6 +73,7 @@ public class SearchPropertiesApiMethodTest
         SearchPropertiesQueryBuilder queryBuilder = new SearchPropertiesQueryBuilder();
 
         queryBuilder
+            .WithTenantId(1)
             .WithType("Apartment")
             .WithTransaction("Rent")
             .WithRefId("REF 101")
@@ -167,6 +168,7 @@ public class SearchPropertiesApiMethodTest
 
         SearchPropertiesRequest request = new SearchPropertiesRequest
         {
+            TenantId = 1,
             Type = "Apartment",
             Transaction = "Rent",
             RefId = "REF 101",
@@ -224,7 +226,7 @@ public class SearchPropertiesApiMethodTest
             .AndExpectThat(JsonFrom.Path("$.content[0].tenantId"), Is<int>.EqualTo(1))
             .AndExpectThat(JsonFrom.Path("$.content[0].transaction"), Is<string>.EqualTo("RENT"))
             .AndExpectThat(JsonFrom.Path("$.content[0].title"), Is<string>.EqualTo("Apartment for rent"))
-            .AndExpectThat(JsonFrom.Path("$.content[0].description"), Is<string>.EqualTo("Apartment for rent"))
+            .AndExpectThat(JsonFrom.Path("$.content[0].introduction"), Is<string>.EqualTo("Apartment for rent..."))
             .AndExpectThat(JsonFrom.Path("$.content[0].url"), Is<string>.EqualTo("https://www.apartment-for-rent.com"))
             .AndExpectThat(JsonFrom.Path("$.content[0].refId"), Is<string>.EqualTo("REF 101"))
             .AndExpectThat(JsonFrom.Path("$.content[0].images"), Is<List<string>>.EqualTo(new List<string>
@@ -267,6 +269,7 @@ public class SearchPropertiesApiMethodTest
         SearchPropertiesQueryBuilder queryBuilder = new SearchPropertiesQueryBuilder();
 
         queryBuilder
+            .WithTenantId(1)
             .WithType("Apartment")
             .WithTransaction("Rent")
             .WithRefId("REF 101")
@@ -309,6 +312,7 @@ public class SearchPropertiesApiMethodTest
 
         SearchPropertiesRequest request = new SearchPropertiesRequest
         {
+            TenantId = 1,
             Type = "Apartment",
             Transaction = "Rent",
             RefId = "REF 101",
@@ -365,6 +369,7 @@ public class SearchPropertiesApiMethodTest
         SearchPropertiesQueryBuilder queryBuilder = new SearchPropertiesQueryBuilder();
 
         queryBuilder
+            .WithTenantId(1)
             .WithType("Apartment")
             .WithTransaction("Rent")
             .WithRefId("REF 101")
@@ -458,6 +463,7 @@ public class SearchPropertiesApiMethodTest
 
         SearchPropertiesRequest request = new SearchPropertiesRequest
         {
+            TenantId = 1,
             Type = "Apartment",
             Transaction = "Rent",
             RefId = "REF 101",
@@ -515,7 +521,7 @@ public class SearchPropertiesApiMethodTest
             .AndExpectThat(JsonFrom.Path("$.content[0].tenantId"), Is<int>.EqualTo(1))
             .AndExpectThat(JsonFrom.Path("$.content[0].transaction"), Is<string>.EqualTo("RENT"))
             .AndExpectThat(JsonFrom.Path("$.content[0].title"), Is<string>.EqualTo("Apartment for rent"))
-            .AndExpectThat(JsonFrom.Path("$.content[0].description"), Is<string>.EqualTo("Apartment for rent"))
+            .AndExpectThat(JsonFrom.Path("$.content[0].introduction"), Is<string>.EqualTo("Apartment for rent..."))
             .AndExpectThat(JsonFrom.Path("$.content[0].url"), Is<string>.EqualTo("https://www.apartment-for-rent.com"))
             .AndExpectThat(JsonFrom.Path("$.content[0].refId"), Is<string>.EqualTo("REF 101"))
             .AndExpectThat(JsonFrom.Path("$.content[0].images"), Is<List<string>>.EqualTo(new List<string>

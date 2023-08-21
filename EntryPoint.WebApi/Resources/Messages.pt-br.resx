@@ -33,18 +33,18 @@
         <value>A propriedade '{0}' possui um valor incompatível com o seu tipo esperado.</value>
     </data>
     <data name="ValidationPropertyFromCreatedAtIsInvalid" xml:space="preserve">
-        <value>O campo 'Criado em' inicial é inválido.</value>
+        <value>O campo 'criado em' inicial é inválido.</value>
     </data>
     <data name="ValidationPropertyFromUpdatedAtIsInvalid" xml:space="preserve">
-        <value>O campo 'Atualizado em' inicial é inválido.</value>
+        <value>O campo 'atualizado em' inicial é inválido.</value>
     </data>
     <data name="ValidationPropertyToCreatedAtIsInvalid" xml:space="preserve">
-        <value>O campo 'Criado em' final é inválido.</value>
+        <value>O campo 'criado em' final é inválido.</value>
     </data>
     <data name="ValidationPropertyToUpdatedAtIsInvalid" xml:space="preserve">
-        <value>O campo 'Atualizado em' final é inválido.</value>
+        <value>O campo 'atualizado em' final é inválido.</value>
     </data>
-    <data name="ValidationPropertyTypeIsNullOrEmpty" xml:space="preserve">
-        <value>O campo tipo de propriedade é obrigatório.</value>
+    <data name="ValidationPropertyTransactionIsNullOrEmpty" xml:space="preserve">
+        <value>O campo 'transação' do anúncio é obrigatório.</value>
     </data>
 </root>

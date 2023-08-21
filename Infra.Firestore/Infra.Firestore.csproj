@@ -8,6 +8,8 @@
 
     <ItemGroup>
       <PackageReference Include="Google.Cloud.Firestore" Version="3.3.0" />
+      <PackageReference Include="Google.Cloud.Firestore.Admin.V1" Version="3.3.0" />
+      <PackageReference Include="Google.Cloud.Firestore.V1" Version="3.3.0" />
     </ItemGroup>
 
     <ItemGroup>
@@ -17,7 +19,5 @@
     <ItemGroup>
       <Compile Remove="Domain\SearchPropertiesFilterBuilder.cs" />
     </ItemGroup>
-
-
 
 </Project>

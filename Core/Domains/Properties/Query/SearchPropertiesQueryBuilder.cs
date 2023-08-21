@@ -5,6 +5,7 @@ namespace Core.Domains.Properties.Query;
 
 public class SearchPropertiesQueryBuilder
 {
+    private int _tenantId;
     private string _type;
     private string _transaction;
     private string _refId;
@@ -37,6 +38,12 @@ public class SearchPropertiesQueryBuilder
     private string _toUpdatedAt;
 
     private List<string> _districts = new List<string>();
+    
+    public SearchPropertiesQueryBuilder WithTenantId(int tenantId)
+    {
+        _tenantId = tenantId;
+        return this;
+    }
 
     public SearchPropertiesQueryBuilder WithType(string type)
     {
@@ -226,6 +233,7 @@ public class SearchPropertiesQueryBuilder
 
     public SearchPropertiesQuery Build()
     {
+        int tenantId = _tenantId;
         string propertyType = _type ?? "All";
         
         SearchPropertiesQueryAdvertise queryAdvertise = new SearchPropertiesQueryAdvertise(_transaction, _refId);
@@ -256,6 +264,7 @@ public class SearchPropertiesQueryBuilder
         string status = _status ?? "None";
         
         return new SearchPropertiesQuery(
+            tenantId,
             propertyType,
             queryAdvertise,
             queryAttributes,

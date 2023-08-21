@@ -18,6 +18,8 @@ public static class SearchPropertiesFilterBuilder
         AddEqualToComparison(filters, ToLowerCamelCase(nameof(PropertyEntity.Transaction)), query.Advertise.Transaction.ToUpperInvariant());
         AddEqualToComparison(filters, ToLowerCamelCase(nameof(PropertyEntity.Type)), propertyType);
         AddEqualToComparison(filters, ToLowerCamelCase(nameof(PropertyEntity.City)), query.Location.City);
+        AddEqualToComparison(filters, ToLowerCamelCase(nameof(PropertyEntity.State)), query.Location.State);
+        
         
         // TODO: Add more filters
 

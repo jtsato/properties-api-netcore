@@ -19,7 +19,7 @@ public sealed class LanguageOperationFilter : IOperationFilter
             In = ParameterLocation.Header,
             Description = "Represents a specific geographical, political, or cultural region. Language & Country.",
             Required = false,
-            Schema = new OpenApiSchema()
+            Schema = new OpenApiSchema
             {
                 Type = "string",
                 Default = new OpenApiString("en-US")

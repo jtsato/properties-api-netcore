@@ -11,20 +11,22 @@ public static class SearchPropertiesPresenter
 {
     public static PageableSearchPropertiesResponse Of(Page<Property> page, string baseUrl)
     {
+        
         List<SearchPropertiesInnerResponse> content = page.Content.Select(it => Of(it, baseUrl)).ToList();
         return new PageableSearchPropertiesResponse(content, page.Pageable);
     }
 
     private static SearchPropertiesInnerResponse Of(Property property, string baseUrl)
     {
+        byte limit = property.Advertise.Description.Length > 40 ? (byte) 40 : (byte) property.Advertise.Description.Length;
+        string introduction = $"{property.Advertise.Description[..limit]}".AppendIfMissing("...");
         return new SearchPropertiesInnerResponse
         {
             Id = property.Id,
             TenantId = property.Advertise.TenantId,
             Transaction = property.Advertise.Transaction.Name.ToUpperInvariant(),
             Title = property.Advertise.Title,
-            // TODO: Replace the full description with a short description.
-            Description = property.Advertise.Description,
+            Introduction = introduction,
             Url = property.Advertise.Url,
             RefId = property.Advertise.RefId,
             Images = property.Advertise.Images,

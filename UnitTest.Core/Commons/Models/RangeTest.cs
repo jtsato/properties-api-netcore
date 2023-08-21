@@ -1,5 +1,5 @@
-﻿using Xunit;
-using Core.Commons.Models;
+﻿using Core.Commons.Models;
+using Xunit;
 
 namespace UnitTest.Core.Commons.Models;
 

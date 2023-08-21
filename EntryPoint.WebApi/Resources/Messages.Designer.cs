@@ -123,7 +123,7 @@ namespace EntryPoint.WebApi.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The initial &apos;Created at&apos; field is invalid..
+        ///   Looks up a localized string similar to The initial &apos;created at&apos; field is invalid..
         /// </summary>
         internal static string ValidationPropertyFromCreatedAtIsInvalid {
             get {
@@ -132,7 +132,7 @@ namespace EntryPoint.WebApi.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The initial &apos;Updated at&apos; field is invalid..
+        ///   Looks up a localized string similar to The initial &apos;updated at&apos; field is invalid..
         /// </summary>
         internal static string ValidationPropertyFromUpdatedAtIsInvalid {
             get {
@@ -141,7 +141,7 @@ namespace EntryPoint.WebApi.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The final &apos;Created at&apos; field is invalid..
+        ///   Looks up a localized string similar to The final &apos;created at&apos; field is invalid..
         /// </summary>
         internal static string ValidationPropertyToCreatedAtIsInvalid {
             get {
@@ -150,7 +150,7 @@ namespace EntryPoint.WebApi.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The final &apos;Updated at&apos; field is invalid..
+        ///   Looks up a localized string similar to The final &apos;updated at&apos; field is invalid..
         /// </summary>
         internal static string ValidationPropertyToUpdatedAtIsInvalid {
             get {
@@ -159,11 +159,11 @@ namespace EntryPoint.WebApi.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The property type field is required..
+        ///   Looks up a localized string similar to The advertise &apos;transaction&apos; field is required..
         /// </summary>
-        internal static string ValidationPropertyTypeIsNullOrEmpty {
+        internal static string ValidationPropertyTransactionIsNullOrEmpty {
             get {
-                return ResourceManager.GetString("ValidationPropertyTypeIsNullOrEmpty", resourceCulture);
+                return ResourceManager.GetString("ValidationPropertyTransactionIsNullOrEmpty", resourceCulture);
             }
         }
     }

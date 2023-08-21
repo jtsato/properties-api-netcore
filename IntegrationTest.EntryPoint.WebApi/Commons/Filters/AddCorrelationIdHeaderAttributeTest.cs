@@ -19,9 +19,9 @@ public class AddCorrelationIdHeaderAttributeTest
     public void SuccessfulToAddCorrelationIdToResponseHeaders()
     {
         // Arrange
-        ActionContext actionContext = new ActionContext()
+        ActionContext actionContext = new ActionContext
         {
-            HttpContext = new DefaultHttpContext()
+            HttpContext = new DefaultHttpContext
             {
                 Request =
                 {
@@ -55,7 +55,7 @@ public class AddCorrelationIdHeaderAttributeTest
     public void SuccessfulToAddCorrelationIdToResponseHeadersEvenIfRequestDoesNotContainCorrelationId()
     {
         // Arrange
-        ActionContext actionContext = new ActionContext()
+        ActionContext actionContext = new ActionContext
         {
             HttpContext = new DefaultHttpContext(),
             RouteData = new RouteData(),
@@ -85,9 +85,9 @@ public class AddCorrelationIdHeaderAttributeTest
     public void SuccessfulToGenerateCorrelationIdIfItIsMissingFromRequestHeaders()
     {
         // Arrange
-        ActionContext actionContext = new ActionContext()
+        ActionContext actionContext = new ActionContext
         {
-            HttpContext = new DefaultHttpContext()
+            HttpContext = new DefaultHttpContext
             {
                 Request =
                 {

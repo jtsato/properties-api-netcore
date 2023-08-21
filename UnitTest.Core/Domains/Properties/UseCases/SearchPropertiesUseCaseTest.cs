@@ -53,8 +53,14 @@ public sealed class SearchPropertiesUseCaseTest : IDisposable
     public async Task SearchPropertiesWithValidParameters()
     {
         // Arrange
+        SearchPropertiesQueryBuilder searchPropertiesQueryBuilder = new SearchPropertiesQueryBuilder();
+        searchPropertiesQueryBuilder.WithTenantId(1);
+        searchPropertiesQueryBuilder.WithTransaction("Rent");
+        searchPropertiesQueryBuilder.WithType("All");
+        SearchPropertiesQuery query = searchPropertiesQueryBuilder.Build();
+        
         _gateway
-            .Setup(gateway => gateway.ExecuteAsync(new SearchPropertiesQueryBuilder().Build(), PageRequest.Of(0, 10, Sort.Unsorted)))
+            .Setup(gateway => gateway.ExecuteAsync(query, PageRequest.Of(0, 10, Sort.Unsorted)))
             .ReturnsAsync(new Page<Property>(
                 new List<Property>
                 {
@@ -109,7 +115,6 @@ public sealed class SearchPropertiesUseCaseTest : IDisposable
                 }, new Pageable(0, 10, 1, 1, 1)
             ));
 
-        SearchPropertiesQuery query = new SearchPropertiesQueryBuilder().Build();
         PageRequest pageRequest = PageRequest.Of(0, 10, Sort.Unsorted);
 
         // Act

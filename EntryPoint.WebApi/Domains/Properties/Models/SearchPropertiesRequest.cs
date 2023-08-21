@@ -8,7 +8,7 @@ namespace EntryPoint.WebApi.Domains.Properties.Models;
 [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
 public class SearchPropertiesRequest
 {
-    [SwaggerParameter(Required = true, Description = "Tenant id")]
+    [SwaggerParameter(Required = false, Description = "Tenant id")]
     [FromQuery(Name = "tenant-id")]
     public int TenantId { get; init; }
     

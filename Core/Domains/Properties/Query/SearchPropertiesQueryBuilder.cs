@@ -261,7 +261,7 @@ public class SearchPropertiesQueryBuilder
             Ranking = Range<int>.Of(_fromRanking, _toRanking)
         };
         
-        string status = _status ?? "None";
+        string status = _status;
         
         return new SearchPropertiesQuery(
             tenantId,

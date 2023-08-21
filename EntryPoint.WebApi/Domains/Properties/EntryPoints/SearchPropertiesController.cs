@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using System.Threading.Tasks;
 using Core.Commons;
 using Core.Commons.Models;
@@ -33,7 +32,6 @@ public sealed class SearchPropertiesController : ISearchPropertiesController
     public async Task<IActionResult> ExecuteAsync(SearchPropertiesRequest request, QPageRequest qPageRequest)
     {
         SearchPropertiesQuery query = BuildSearchPropertiesQuery(request);
-        Console.WriteLine(query);
 
         string orderBy = OrderByHelper.Sanitize(SortableFields, qPageRequest.OrderBy);
         PageRequest pageRequest = PageRequestHelper.Of(qPageRequest.PageNumber, qPageRequest.PageSize, orderBy);

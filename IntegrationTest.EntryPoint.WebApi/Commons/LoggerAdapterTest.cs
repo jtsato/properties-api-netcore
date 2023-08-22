@@ -9,7 +9,7 @@ using Xunit;
 
 namespace IntegrationTest.EntryPoint.WebApi.Commons;
 
-[Collection("Kafka collection [NoContext]")]
+[Collection("WebApi Collection [NoContext]")]
 [SuppressMessage("ReSharper", "ClassNeverInstantiated.Local")]
 public class LoggerAdapterTest
 {
@@ -30,7 +30,7 @@ public class LoggerAdapterTest
         _loggerAdapter = new LoggerAdapter<LoggerAdapterTest>(loggerFactory.Object);
     }
 
-    [Trait("Category", "Infrastructure (Kafka) Integration tests")]
+    [Trait("Category", "WebApi Collection [NoContext]")]
     [Fact(DisplayName = "Successful to log an error message")]
     public void SuccessfulToLogAnErrorMessage()
     {
@@ -66,7 +66,7 @@ public class LoggerAdapterTest
         );
     }
 
-    [Trait("Category", "Infrastructure (Kafka) Integration tests")]
+    [Trait("Category", "WebApi Collection [NoContext]")]
     [Fact(DisplayName = "Successful to log a warning message")]
     public void SuccessfulToLogAWarningMessage()
     {
@@ -101,7 +101,7 @@ public class LoggerAdapterTest
         );
     }
 
-    [Trait("Category", "Infrastructure (Kafka) Integration tests")]
+    [Trait("Category", "WebApi Collection [NoContext]")]
     [Fact(DisplayName = "Successful to log an information message")]
     public void SuccessfulToLogAnInformationMessage()
     {

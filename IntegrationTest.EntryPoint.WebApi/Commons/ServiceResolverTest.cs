@@ -9,12 +9,7 @@ namespace IntegrationTest.EntryPoint.WebApi.Commons;
 [Collection("WebApi Collection [NoContext]")]
 public class ServiceResolverTest
 {
-    private readonly Mock<IServiceProvider> _serviceProvider;
-
-    public ServiceResolverTest()
-    {
-        _serviceProvider = new Mock<IServiceProvider>(MockBehavior.Strict);
-    }
+    private readonly Mock<IServiceProvider> _serviceProvider = new Mock<IServiceProvider>(MockBehavior.Strict);
 
     [Trait("Category", "Entrypoint (WebApi) Integration tests")]
     [Fact(DisplayName = "Successful to resolve service")]

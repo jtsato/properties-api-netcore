@@ -67,7 +67,10 @@ public static class Program
         if (app.Environment.IsDevelopment() || app.Environment.IsStaging())
         {
             app.UseSwagger(ConfigureSwagger);
-            app.UseSwaggerUI(options => { options.SwaggerEndpoint("/api-docs/v1/swagger.yaml", "Properties Search API"); });
+            app.UseSwaggerUI(options => { 
+                options.RoutePrefix = "api/properties-search/swagger";
+                options.SwaggerEndpoint("/api/properties-search/api-docs/v1/swagger.yaml", "ViaOps Configuration Manager"); 
+            });
             RewriteOptions rewriteOptions = new RewriteOptions();
             rewriteOptions.AddRedirect("^$", "swagger");
             app.UseRewriter(rewriteOptions);
@@ -140,7 +143,7 @@ public static class Program
 
     private static void ConfigureSwagger(SwaggerOptions options)
     {
-        options.RouteTemplate = "api-docs/{documentName}/swagger.yaml";
+        options.RouteTemplate = "api/properties-search/api-docs/{documentName}/swagger.yaml";
 
         options.PreSerializeFilters.Add((swagger, httpReq) =>
         {

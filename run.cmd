@@ -75,7 +75,7 @@ CALL dotnet build --configuration Debug --no-restore
 
 ECHO.
 ECHO Start browsing...
-START http://localhost:5132/swagger
+START http://localhost:5132/api/properties-search/swagger
 
 ECHO.
 ECHO Running the server...

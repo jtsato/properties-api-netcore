@@ -22,7 +22,7 @@ using Xunit.Abstractions;
 
 namespace IntegrationTest.EntryPoint.WebApi.Domains.Properties.EntryPoints;
 
-[Collection("WebApi Collection")]
+[Collection("WebApi Collection [NoContext]")]
 public class SearchPropertiesApiMethodTest
 {
     private readonly ITestOutputHelper _outputHelper;

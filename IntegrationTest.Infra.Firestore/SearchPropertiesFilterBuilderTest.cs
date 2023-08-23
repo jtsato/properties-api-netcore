@@ -58,10 +58,10 @@ public class SearchPropertiesFilterBuilderTest
         queryBuilder.WithFromRanking(1);
         queryBuilder.WithToRanking(2);
         queryBuilder.WithStatus("ACTIVE");
-        queryBuilder.WithFromCreatedAt("2023-02-28");
-        queryBuilder.WithToCreatedAt("2023-04-30");
-        queryBuilder.WithFromUpdatedAt("2023-02-28");
-        queryBuilder.WithToUpdatedAt("2023-04-30");
+        queryBuilder.WithFromCreatedAt("2023-02-28 00:00:00.001");
+        queryBuilder.WithToCreatedAt("2023-04-30 23:59:59.999");
+        queryBuilder.WithFromUpdatedAt("2023-02-28 00:00:00.001");
+        queryBuilder.WithToUpdatedAt("2023-04-30 23:59:59.999");
 
         // Act
         IEnumerable<Filter> enumerable = SearchPropertiesFilterBuilder.BuildFromQuery(queryBuilder.Build());
@@ -105,10 +105,10 @@ public class SearchPropertiesFilterBuilderTest
         Assert.Equal(ToQuery(Filter.LessThan("priceByM2", (double) 2000)), ToQuery(filters[26]));
         Assert.Equal(ToQuery(Filter.LessThan("ranking", 2)), ToQuery(filters[27]));
         
-        Assert.Equal(ToQuery(Filter.GreaterThanOrEqualTo("createdAt", ToTimestamp("2023-02-28"))), ToQuery(filters[28]));
-        Assert.Equal(ToQuery(Filter.GreaterThanOrEqualTo("updatedAt", ToTimestamp("2023-02-28"))), ToQuery(filters[29]));
-        Assert.Equal(ToQuery(Filter.LessThanOrEqualTo("createdAt", ToTimestamp("2023-04-30"))), ToQuery(filters[30]));
-        Assert.Equal(ToQuery(Filter.LessThanOrEqualTo("updatedAt", ToTimestamp("2023-04-30"))), ToQuery(filters[31]));
+        Assert.Equal(ToQuery(Filter.GreaterThanOrEqualTo("createdAt", ToTimestamp("2023-02-28 00:00:00.001"))), ToQuery(filters[28]));
+        Assert.Equal(ToQuery(Filter.GreaterThanOrEqualTo("updatedAt", ToTimestamp("2023-02-28 00:00:00.001"))), ToQuery(filters[29]));
+        Assert.Equal(ToQuery(Filter.LessThanOrEqualTo("createdAt", ToTimestamp("2023-04-30 23:59:59.999"))), ToQuery(filters[30]));
+        Assert.Equal(ToQuery(Filter.LessThanOrEqualTo("updatedAt", ToTimestamp("2023-04-30 23:59:59.999"))), ToQuery(filters[31]));
     }
     
     private static Query ToQuery(Filter filter)

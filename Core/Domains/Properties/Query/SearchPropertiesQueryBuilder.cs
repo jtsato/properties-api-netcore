@@ -21,14 +21,14 @@ public class SearchPropertiesQueryBuilder
     private int _toBuiltArea;
     private string _state;
     private string _city;
-    private decimal _fromSellingPrice;
-    private decimal _toSellingPrice;
-    private decimal _fromRentalTotalPrice;
-    private decimal _toRentalTotalPrice;
-    private decimal _fromRentalPrice;
-    private decimal _toRentalPrice;
-    private decimal _fromPriceByM2;
-    private decimal _toPriceByM2;
+    private double _fromSellingPrice;
+    private double _toSellingPrice;
+    private double _fromRentalTotalPrice;
+    private double _toRentalTotalPrice;
+    private double _fromRentalPrice;
+    private double _toRentalPrice;
+    private double _fromPriceByM2;
+    private double _toPriceByM2;
     private int _fromRanking;
     private int _toRanking;
     private string _status;
@@ -141,49 +141,49 @@ public class SearchPropertiesQueryBuilder
         return this;
     }
 
-    public SearchPropertiesQueryBuilder WithFromSellingPrice(decimal fromSellingPrice)
+    public SearchPropertiesQueryBuilder WithFromSellingPrice(double fromSellingPrice)
     {
         _fromSellingPrice = fromSellingPrice;
         return this;
     }
 
-    public SearchPropertiesQueryBuilder WithToSellingPrice(decimal toSellingPrice)
+    public SearchPropertiesQueryBuilder WithToSellingPrice(double toSellingPrice)
     {
         _toSellingPrice = toSellingPrice;
         return this;
     }
 
-    public SearchPropertiesQueryBuilder WithFromRentalTotalPrice(decimal fromRentalTotalPrice)
+    public SearchPropertiesQueryBuilder WithFromRentalTotalPrice(double fromRentalTotalPrice)
     {
         _fromRentalTotalPrice = fromRentalTotalPrice;
         return this;
     }
 
-    public SearchPropertiesQueryBuilder WithToRentalTotalPrice(decimal toRentalTotalPrice)
+    public SearchPropertiesQueryBuilder WithToRentalTotalPrice(double toRentalTotalPrice)
     {
         _toRentalTotalPrice = toRentalTotalPrice;
         return this;
     }
 
-    public SearchPropertiesQueryBuilder WithFromRentalPrice(decimal fromRentalPrice)
+    public SearchPropertiesQueryBuilder WithFromRentalPrice(double fromRentalPrice)
     {
         _fromRentalPrice = fromRentalPrice;
         return this;
     }
 
-    public SearchPropertiesQueryBuilder WithToRentalPrice(decimal toRentalPrice)
+    public SearchPropertiesQueryBuilder WithToRentalPrice(double toRentalPrice)
     {
         _toRentalPrice = toRentalPrice;
         return this;
     }
 
-    public SearchPropertiesQueryBuilder WithFromPriceByM2(decimal fromPriceByM2)
+    public SearchPropertiesQueryBuilder WithFromPriceByM2(double fromPriceByM2)
     {
         _fromPriceByM2 = fromPriceByM2;
         return this;
     }
 
-    public SearchPropertiesQueryBuilder WithToPriceByM2(decimal toPriceByM2)
+    public SearchPropertiesQueryBuilder WithToPriceByM2(double toPriceByM2)
     {
         _toPriceByM2 = toPriceByM2;
         return this;
@@ -250,10 +250,10 @@ public class SearchPropertiesQueryBuilder
 
         SearchPropertiesQueryPrices queryPrices = new SearchPropertiesQueryPrices
         {
-            SellingPrice = Range<decimal>.Of(_fromSellingPrice, _toSellingPrice),
-            RentalTotalPrice = Range<decimal>.Of(_fromRentalTotalPrice, _toRentalTotalPrice),
-            RentalPrice = Range<decimal>.Of(_fromRentalPrice, _toRentalPrice),
-            PriceByM2 = Range<decimal>.Of(_fromPriceByM2, _toPriceByM2)
+            SellingPrice = Range<double>.Of(_fromSellingPrice, _toSellingPrice),
+            RentalTotalPrice = Range<double>.Of(_fromRentalTotalPrice, _toRentalTotalPrice),
+            RentalPrice = Range<double>.Of(_fromRentalPrice, _toRentalPrice),
+            PriceByM2 = Range<double>.Of(_fromPriceByM2, _toPriceByM2)
         };
         
         SearchPropertiesQueryRanking queryRanking = new SearchPropertiesQueryRanking

@@ -2,7 +2,7 @@
 
 namespace IntegrationTest.EntryPoint.WebApi.Commons;
 
-[CollectionDefinition("WebApi Collection")]
+[CollectionDefinition("WebApi Collection Context")]
 public class WebApiCollection : ICollectionFixture<ApiMethodInvokerHolder>
 {
     // This class has no code, and is never created. Its purpose is simply

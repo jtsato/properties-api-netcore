@@ -42,12 +42,12 @@ public static class PropertyMapper
 
         PropertyPrices prices = new PropertyPrices
         {
-            SellingPrice = (decimal) propertyEntity.SellingPrice,
-            RentalTotalPrice = (decimal) propertyEntity.RentalTotalPrice,
-            RentalPrice = (decimal) propertyEntity.RentalPrice,
-            Discount = (decimal) propertyEntity.Discount,
-            CondominiumFee = (decimal) propertyEntity.CondominiumFee,
-            PriceByM2 = (decimal) propertyEntity.PriceByM2
+            SellingPrice = propertyEntity.SellingPrice,
+            RentalTotalPrice = propertyEntity.RentalTotalPrice,
+            RentalPrice = propertyEntity.RentalPrice,
+            Discount = propertyEntity.Discount,
+            CondominiumFee = propertyEntity.CondominiumFee,
+            PriceByM2 = propertyEntity.PriceByM2
         };
 
         PropertyStatus status = PropertyStatus.GetByName(propertyEntity.Status).GetValue();

@@ -38,6 +38,9 @@
     </ItemGroup>
     <ItemGroup>
         <None Remove="StrykerOutput\**" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Domain\" />
     </ItemGroup>    
 
 </Project>

@@ -87,10 +87,10 @@ public sealed class SearchPropertiesController : ISearchPropertiesController
 
         SearchPropertiesQueryPrices prices = new SearchPropertiesQueryPrices
         {
-            SellingPrice = Range<decimal>.Of(request.SellingPriceMin, request.SellingPriceMax),
-            RentalTotalPrice = Range<decimal>.Of(request.RentalTotalPriceMin, request.RentalTotalPriceMax),
-            RentalPrice = Range<decimal>.Of(request.RentalPriceMin, request.RentalPriceMax),
-            PriceByM2 = Range<decimal>.Of(request.PriceByM2Min, request.PriceByM2Max)
+            SellingPrice = Range<double>.Of(request.SellingPriceMin, request.SellingPriceMax),
+            RentalTotalPrice = Range<double>.Of(request.RentalTotalPriceMin, request.RentalTotalPriceMax),
+            RentalPrice = Range<double>.Of(request.RentalPriceMin, request.RentalPriceMax),
+            PriceByM2 = Range<double>.Of(request.PriceByM2Min, request.PriceByM2Max)
         };
         
         SearchPropertiesQueryRanking rankings = new SearchPropertiesQueryRanking

@@ -8,10 +8,10 @@ namespace Core.Domains.Properties.Query;
 [ExcludeFromCodeCoverage]
 public class SearchPropertiesQueryPrices
 {
-    public Range<decimal> SellingPrice { get; init; }
-    public Range<decimal> RentalTotalPrice { get; init; }
-    public Range<decimal> RentalPrice { get; init; }
-    public Range<decimal> PriceByM2 { get; init; }
+    public Range<double> SellingPrice { get; init; }
+    public Range<double> RentalTotalPrice { get; init; }
+    public Range<double> RentalPrice { get; init; }
+    public Range<double> PriceByM2 { get; init; }
 
     private bool Equals(SearchPropertiesQueryPrices other)
     {

@@ -78,35 +78,35 @@ public class SearchPropertiesRequest
 
     [SwaggerParameter(Required = false, Description = "Minimum selling price")]
     [FromQuery(Name = "selling-price-min")]
-    public decimal SellingPriceMin { get; init; }
+    public double SellingPriceMin { get; init; }
 
     [SwaggerParameter(Required = false, Description = "Maximum selling price")]
     [FromQuery(Name = "selling-price-max")]
-    public decimal SellingPriceMax { get; init; }
+    public double SellingPriceMax { get; init; }
 
     [SwaggerParameter(Required = false, Description = "Minimum rental price")]
     [FromQuery(Name = "rental-price-min")]
-    public decimal RentalPriceMin { get; init; }
+    public double RentalPriceMin { get; init; }
 
     [SwaggerParameter(Required = false, Description = "Maximum rental price")]
     [FromQuery(Name = "rental-price-max")]
-    public decimal RentalPriceMax { get; init; }
+    public double RentalPriceMax { get; init; }
 
     [SwaggerParameter(Required = false, Description = "Minimum total rental price")]
     [FromQuery(Name = "rental-total-price-min")]
-    public decimal RentalTotalPriceMin { get; init; }
+    public double RentalTotalPriceMin { get; init; }
 
     [SwaggerParameter(Required = false, Description = "Maximum total rental price")]
     [FromQuery(Name = "rental-total-price-max")]
-    public decimal RentalTotalPriceMax { get; init; }
+    public double RentalTotalPriceMax { get; init; }
 
     [SwaggerParameter(Required = false, Description = "Minimum price per square meter")]
     [FromQuery(Name = "price-by-m2-min")]
-    public decimal PriceByM2Min { get; init; }
+    public double PriceByM2Min { get; init; }
 
     [SwaggerParameter(Required = false, Description = "Maximum price per square meter")]
     [FromQuery(Name = "price-by-m2-max")]
-    public decimal PriceByM2Max { get; init; }
+    public double PriceByM2Max { get; init; }
     
     [SwaggerParameter(Required = false, Description = "Minimum property's ranking")]
     [FromQuery(Name = "ranking-min")]

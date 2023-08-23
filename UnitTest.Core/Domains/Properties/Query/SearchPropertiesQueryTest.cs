@@ -41,10 +41,10 @@ public class SearchPropertiesQueryTest
                 ),
                 new SearchPropertiesQueryPrices
                 {
-                    SellingPrice = Range<decimal>.Of(100000, 200000),
-                    RentalTotalPrice = Range<decimal>.Of(1000, 2000),
-                    RentalPrice = Range<decimal>.Of(1000, 2000),
-                    PriceByM2 = Range<decimal>.Of(1000, 2000)
+                    SellingPrice = Range<double>.Of(100000, 200000),
+                    RentalTotalPrice = Range<double>.Of(1000, 2000),
+                    RentalPrice = Range<double>.Of(1000, 2000),
+                    PriceByM2 = Range<double>.Of(1000, 2000)
                 },
                 new SearchPropertiesQueryRanking
                 {

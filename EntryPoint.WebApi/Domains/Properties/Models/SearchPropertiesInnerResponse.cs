@@ -39,10 +39,10 @@ public sealed class SearchPropertiesInnerResponse
     public byte NumberOfGarages { get; init; }
 
     [SwaggerSchema(Description = "Total area of the property.")]
-    public decimal Area { get; init; }
+    public double Area { get; init; }
 
     [SwaggerSchema(Description = "Built area of the property.")]
-    public decimal BuiltArea { get; init; }
+    public double BuiltArea { get; init; }
 
     [SwaggerSchema(Description = "City where the property is located.")]
     public string City { get; init; }
@@ -57,22 +57,22 @@ public sealed class SearchPropertiesInnerResponse
     public string Address { get; init; }
 
     [SwaggerSchema(Description = "Selling price of the property.")]
-    public decimal SellingPrice { get; init; }
+    public double SellingPrice { get; init; }
 
     [SwaggerSchema(Description = "Total rental price of the property.")]
-    public decimal RentalTotalPrice { get; init; }
+    public double RentalTotalPrice { get; init; }
 
     [SwaggerSchema(Description = "Rental price of the property.")]
-    public decimal RentalPrice { get; init; }
+    public double RentalPrice { get; init; }
 
     [SwaggerSchema(Description = "Discount applied to the property.")]
-    public decimal Discount { get; init; }
+    public double Discount { get; init; }
 
     [SwaggerSchema(Description = "Condominium fee of the property.")]
-    public decimal CondominiumFee { get; init; }
+    public double CondominiumFee { get; init; }
 
     [SwaggerSchema(Description = "Price per square meter of the property.")]
-    public decimal PriceByM2 { get; init; }
+    public double PriceByM2 { get; init; }
     
     [SwaggerSchema(Description = "Ranking of the property.")]
     public byte Ranking { get; init; }

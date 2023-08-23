@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
 using System.Text;
 
 namespace Core.Domains.Properties.Models;
@@ -8,28 +7,28 @@ namespace Core.Domains.Properties.Models;
 [ExcludeFromCodeCoverage]
 public sealed class PropertyPrices
 {
-    public decimal SellingPrice { get; init; }
-    public decimal RentalTotalPrice { get; init; }
-    public decimal RentalPrice { get; init; }
-    public decimal Discount { get; init; }
-    public decimal CondominiumFee { get; init; }
-    public decimal PriceByM2 { get; init; }
-    
+    public double SellingPrice { get; init; }
+    public double RentalTotalPrice { get; init; }
+    public double RentalPrice { get; init; }
+    public double Discount { get; init; }
+    public double CondominiumFee { get; init; }
+    public double PriceByM2 { get; init; }
+
     private bool Equals(PropertyPrices other)
     {
-        return SellingPrice == other.SellingPrice
-               && RentalTotalPrice == other.RentalTotalPrice
-               && RentalPrice == other.RentalPrice
-               && Discount == other.Discount
-               && CondominiumFee == other.CondominiumFee
-               && PriceByM2 == other.PriceByM2;
+        return SellingPrice.Equals(other.SellingPrice)
+               && RentalTotalPrice.Equals(other.RentalTotalPrice)
+               && RentalPrice.Equals(other.RentalPrice)
+               && Discount.Equals(other.Discount)
+               && CondominiumFee.Equals(other.CondominiumFee)
+               && PriceByM2.Equals(other.PriceByM2);
     }
 
     public override bool Equals(object obj)
     {
         return ReferenceEquals(this, obj) || obj is PropertyPrices other && Equals(other);
     }
-    
+
     public override int GetHashCode()
     {
         return HashCode.Combine(SellingPrice, RentalTotalPrice, RentalPrice, Discount, CondominiumFee, PriceByM2);
@@ -37,12 +36,13 @@ public sealed class PropertyPrices
 
     public override string ToString()
     {
-        PropertyInfo[] properties = GetType().GetProperties();
-        StringBuilder stringBuilder = new StringBuilder();
-        foreach (PropertyInfo propertyInfo in properties)
-        {
-            stringBuilder.AppendLine($"{propertyInfo.Name}: {propertyInfo.GetValue(this)}");
-        }
-        return stringBuilder.ToString();
+        return new StringBuilder()
+            .AppendLine($"{nameof(SellingPrice)}: {SellingPrice}")
+            .AppendLine($"{nameof(RentalTotalPrice)}: {RentalTotalPrice}")
+            .AppendLine($"{nameof(RentalPrice)}: {RentalPrice}")
+            .AppendLine($"{nameof(Discount)}: {Discount}")
+            .AppendLine($"{nameof(CondominiumFee)}: {CondominiumFee}")
+            .Append($"{nameof(PriceByM2)}: {PriceByM2}")
+            .ToString();
     }
 }

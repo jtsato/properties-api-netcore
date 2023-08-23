@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using Core.Domains.Properties.Query;
 using Google.Cloud.Firestore;
 using Infra.Firestore.Domain.Properties.Model;
@@ -14,7 +16,6 @@ public static class SearchPropertiesFilterBuilder
         List<Filter> filters = new List<Filter>();
 
         AddEqualToComparison(filters, ToLowerCamelCase(nameof(PropertyEntity.TenantId)), query.TenantId);
-        
         string propertyType = query.Type.ToUpperInvariant() == PropertyTypeAll ? "" : query.Type;
         
         AddEqualToComparison(filters, ToLowerCamelCase(nameof(PropertyEntity.Type)), propertyType);
@@ -36,9 +37,7 @@ public static class SearchPropertiesFilterBuilder
         AddGreaterThanComparison(filters, ToLowerCamelCase(nameof(PropertyEntity.RentalPrice)), query.Prices.RentalPrice.From);
         AddGreaterThanComparison(filters, ToLowerCamelCase(nameof(PropertyEntity.PriceByM2)), query.Prices.PriceByM2.From);
         AddGreaterThanComparison(filters, ToLowerCamelCase(nameof(PropertyEntity.Ranking)), query.Rankings.Ranking.From);
-        AddGreaterThanComparison(filters, ToLowerCamelCase(nameof(PropertyEntity.CreatedAt)), query.CreatedAt.From);
-        AddGreaterThanComparison(filters, ToLowerCamelCase(nameof(PropertyEntity.UpdatedAt)), query.UpdatedAt.From);
-
+        
         AddLessThanComparison(filters, ToLowerCamelCase(nameof(PropertyEntity.NumberOfBedrooms)), query.Attributes.NumberOfBedrooms.To);
         AddLessThanComparison(filters, ToLowerCamelCase(nameof(PropertyEntity.NumberOfToilets)), query.Attributes.NumberOfToilets.To);
         AddLessThanComparison(filters, ToLowerCamelCase(nameof(PropertyEntity.NumberOfGarages)), query.Attributes.NumberOfGarages.To);
@@ -49,8 +48,11 @@ public static class SearchPropertiesFilterBuilder
         AddLessThanComparison(filters, ToLowerCamelCase(nameof(PropertyEntity.RentalPrice)), query.Prices.RentalPrice.To);
         AddLessThanComparison(filters, ToLowerCamelCase(nameof(PropertyEntity.PriceByM2)), query.Prices.PriceByM2.To);
         AddLessThanComparison(filters, ToLowerCamelCase(nameof(PropertyEntity.Ranking)), query.Rankings.Ranking.To);
-        AddLessThanComparison(filters, ToLowerCamelCase(nameof(PropertyEntity.CreatedAt)), query.CreatedAt.To);
-        AddLessThanComparison(filters, ToLowerCamelCase(nameof(PropertyEntity.UpdatedAt)), query.UpdatedAt.To);
+        
+        AddDateGreaterThanComparison(filters, ToLowerCamelCase(nameof(PropertyEntity.CreatedAt)), query.CreatedAt.From);
+        AddDateGreaterThanComparison(filters, ToLowerCamelCase(nameof(PropertyEntity.UpdatedAt)), query.UpdatedAt.From);
+        AddDateLessThanComparison(filters, ToLowerCamelCase(nameof(PropertyEntity.CreatedAt)), query.CreatedAt.To);
+        AddDateLessThanComparison(filters, ToLowerCamelCase(nameof(PropertyEntity.UpdatedAt)), query.UpdatedAt.To);
 
         return filters;
     }
@@ -90,17 +92,49 @@ public static class SearchPropertiesFilterBuilder
     
     private static void AddGreaterThanComparison(ICollection<Filter> filters, string fieldPath, object from)
     {
-        if (from is > 0)
+        switch (from)
         {
-            filters.Add(Filter.GreaterThan(fieldPath, from));
+            case null:
+            case string when string.IsNullOrWhiteSpace(from.ToString()):
+                return;
+            case byte and <= 0:
+                return;
+            case <= 0:
+                return;
+            default:
+                filters.Add(Filter.GreaterThan(fieldPath, from));
+                break;
+        }
+    }
+
+    private static void AddLessThanComparison(ICollection<Filter> filters, string fieldPath, object to)
+    {
+        switch (to)
+        {
+            case null:
+            case string when string.IsNullOrWhiteSpace(to.ToString()):
+                return;
+            case byte and <= 0:
+                return;
+            case <= 0:
+                return;
+            default:
+                filters.Add(Filter.LessThan(fieldPath, to));
+                break;
         }
     }
     
-    private static void AddLessThanComparison(ICollection<Filter> filters, string fieldPath, object to)
+    private static void AddDateGreaterThanComparison(ICollection<Filter> filters, string fieldPath, string from)
     {
-        if (to is > 0)
-        {
-            filters.Add(Filter.LessThan(fieldPath, to));
-        }
+        DateTime dateTime = DateTime.Parse(from, new CultureInfo("pt-BR"));
+        Timestamp timestamp = Timestamp.FromDateTime(dateTime.ToUniversalTime()); 
+        filters.Add(Filter.GreaterThanOrEqualTo(fieldPath, timestamp));
+    }
+    
+    private static void AddDateLessThanComparison(ICollection<Filter> filters, string fieldPath, string to)
+    {
+        DateTime dateTime = DateTime.Parse(to, new CultureInfo("pt-BR"));
+        Timestamp timestamp = Timestamp.FromDateTime(dateTime.ToUniversalTime()); 
+        filters.Add(Filter.LessThanOrEqualTo(fieldPath, timestamp));
     }
 }

@@ -79,6 +79,18 @@ public class EnumerationTest
         // Assert
         Assert.False(optional.HasValue());
     }
+    
+    [Trait("Category", "Core Business tests")]
+    [Fact(DisplayName = "Fail to get enumeration item by name with null value")]
+    public void FailToGetEnumerationItemByNameWithNullValue()
+    {
+        // Arrange
+        // Act
+        Optional<Color> optional = Enumeration<Color>.GetByName(null);
+
+        // Assert
+        Assert.False(optional.HasValue());
+    }
 }
 
 public class Color : Enumeration<Color>

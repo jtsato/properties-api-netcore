@@ -16,8 +16,8 @@ public sealed class MessageResourceMappingTest : IClassFixture<CoreMessageKeysFi
     private const string MessageResourcePath = "EntryPoint.WebApi/Resources/";
 
     private const string DefaultMessageResourcePath = "Messages.resx";
-    private const string EnUsMessageResourcePath = "Messages.en-us.resx";
-    private const string PtBrMessageResourcePath = "Messages.pt-br.resx";
+    private const string EnUsMessageResourcePath = "Messages.en-US.resx";
+    private const string PtBrMessageResourcePath = "Messages.pt-BR.resx";
     private readonly CoreMessageKeysFixture _coreMessageKeysFixture;
 
     private readonly ITestOutputHelper _outputHelper;

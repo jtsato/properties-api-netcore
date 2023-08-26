@@ -1,8 +1,9 @@
-﻿using Swashbuckle.AspNetCore.Annotations;
+﻿using System.Collections.Generic;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace EntryPoint.WebApi.Domains.Properties.Models;
 
-public sealed class SearchPropertiesInnerResponse
+public sealed class PropertyResponse
 {
     [SwaggerSchema(Nullable = false, Description = "Unique key of the property.")]
     public string Id { get; init; }
@@ -16,8 +17,8 @@ public sealed class SearchPropertiesInnerResponse
     [SwaggerSchema(Description = "Title of the property.")]
     public string Title { get; init; }
 
-    [SwaggerSchema(Description = "First part of the description of the property.")]
-    public string Introduction { get; init; }
+    [SwaggerSchema(Description = "Description of the property.")]
+    public string Description { get; init; }
 
     [SwaggerSchema(Description = "URL of the property.")]
     public string Url { get; init; }
@@ -25,8 +26,8 @@ public sealed class SearchPropertiesInnerResponse
     [SwaggerSchema(Description = "Reference ID of the property.")]
     public string RefId { get; init; }
 
-    [SwaggerSchema(Description = "Cover image of the property.")]
-    public string CoverImage { get; init; }
+    [SwaggerSchema(Description = "List of images of the property.")]
+    public List<string> Images { get; init; }
 
     [SwaggerSchema(Description = "Number of bedrooms in the property.")]
     public byte NumberOfBedrooms { get; init; }

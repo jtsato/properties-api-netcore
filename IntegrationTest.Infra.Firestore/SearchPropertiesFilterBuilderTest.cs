@@ -1,11 +1,11 @@
 using System;
-using Infra.Firestore.Domain.Properties.Providers;
 using Xunit;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Core.Domains.Properties.Query;
 using Google.Cloud.Firestore;
+using Infra.Firestore.Domain.Properties.Repository;
 using IntegrationTest.Infra.Firestore.Commons.Connection;
 using Xunit.Abstractions;
 using Timestamp = Google.Cloud.Firestore.Timestamp;
@@ -84,30 +84,29 @@ public class SearchPropertiesFilterBuilderTest
         Assert.Equal(ToQuery(Filter.InArray("district", new List<string> {"Vila Mariana", "Vila Madalena"}) ), ToQuery(filters[7]));
         
         Assert.Equal(ToQuery(Filter.GreaterThan("numberOfBedrooms", 1)), ToQuery(filters[8]));
-        Assert.Equal(ToQuery(Filter.GreaterThan("numberOfToilets", 3)), ToQuery(filters[9]));
-        Assert.Equal(ToQuery(Filter.GreaterThan("numberOfGarages", 5)), ToQuery(filters[10]));
-        Assert.Equal(ToQuery(Filter.GreaterThan("area", 100)), ToQuery(filters[11]));
-        Assert.Equal(ToQuery(Filter.GreaterThan("builtArea", 10)), ToQuery(filters[12]));
-        Assert.Equal(ToQuery(Filter.GreaterThan("sellingPrice", (double) 100000)), ToQuery(filters[13]));
-        Assert.Equal(ToQuery(Filter.GreaterThan("rentalTotalPrice", (double) 1000)), ToQuery(filters[14]));
-        Assert.Equal(ToQuery(Filter.GreaterThan("rentalPrice", (double) 1000)), ToQuery(filters[15]));
-        Assert.Equal(ToQuery(Filter.GreaterThan("priceByM2", (double) 1000)), ToQuery(filters[16]));
-        Assert.Equal(ToQuery(Filter.GreaterThan("ranking", 1)), ToQuery(filters[17]));
-        
-        Assert.Equal(ToQuery(Filter.LessThan("numberOfBedrooms", 2)), ToQuery(filters[18]));
-        Assert.Equal(ToQuery(Filter.LessThan("numberOfToilets", 4)), ToQuery(filters[19]));
-        Assert.Equal(ToQuery(Filter.LessThan("numberOfGarages", 6)), ToQuery(filters[20]));
-        Assert.Equal(ToQuery(Filter.LessThan("area", 200)), ToQuery(filters[21]));
-        Assert.Equal(ToQuery(Filter.LessThan("builtArea", 20)), ToQuery(filters[22]));
-        Assert.Equal(ToQuery(Filter.LessThan("sellingPrice", (double) 200000)), ToQuery(filters[23]));
-        Assert.Equal(ToQuery(Filter.LessThan("rentalTotalPrice", (double) 2000)), ToQuery(filters[24]));
-        Assert.Equal(ToQuery(Filter.LessThan("rentalPrice", (double) 2000)), ToQuery(filters[25]));
-        Assert.Equal(ToQuery(Filter.LessThan("priceByM2", (double) 2000)), ToQuery(filters[26]));
+        Assert.Equal(ToQuery(Filter.LessThan("numberOfBedrooms", 2)), ToQuery(filters[9]));
+        Assert.Equal(ToQuery(Filter.GreaterThan("numberOfToilets", 3)), ToQuery(filters[10]));
+        Assert.Equal(ToQuery(Filter.LessThan("numberOfToilets", 4)), ToQuery(filters[11]));
+        Assert.Equal(ToQuery(Filter.GreaterThan("numberOfGarages", 5)), ToQuery(filters[12]));
+        Assert.Equal(ToQuery(Filter.LessThan("numberOfGarages", 6)), ToQuery(filters[13]));
+        Assert.Equal(ToQuery(Filter.GreaterThan("area", 100)), ToQuery(filters[14]));
+        Assert.Equal(ToQuery(Filter.LessThan("area", 200)), ToQuery(filters[15]));
+        Assert.Equal(ToQuery(Filter.GreaterThan("builtArea", 10)), ToQuery(filters[16]));
+        Assert.Equal(ToQuery(Filter.LessThan("builtArea", 20)), ToQuery(filters[17]));
+        Assert.Equal(ToQuery(Filter.GreaterThan("sellingPrice", (double) 100000)), ToQuery(filters[18]));
+        Assert.Equal(ToQuery(Filter.LessThan("sellingPrice", (double) 200000)), ToQuery(filters[19]));
+        Assert.Equal(ToQuery(Filter.GreaterThan("rentalTotalPrice", (double) 1000)), ToQuery(filters[20]));
+        Assert.Equal(ToQuery(Filter.LessThan("rentalTotalPrice", (double) 2000)), ToQuery(filters[21]));
+        Assert.Equal(ToQuery(Filter.GreaterThan("rentalPrice", (double) 1000)), ToQuery(filters[22]));
+        Assert.Equal(ToQuery(Filter.LessThan("rentalPrice", (double) 2000)), ToQuery(filters[23]));
+        Assert.Equal(ToQuery(Filter.GreaterThan("priceByM2", (double) 1000)), ToQuery(filters[24]));
+        Assert.Equal(ToQuery(Filter.LessThan("priceByM2", (double) 2000)), ToQuery(filters[25]));
+        Assert.Equal(ToQuery(Filter.GreaterThan("ranking", 1)), ToQuery(filters[26]));
         Assert.Equal(ToQuery(Filter.LessThan("ranking", 2)), ToQuery(filters[27]));
         
         Assert.Equal(ToQuery(Filter.GreaterThanOrEqualTo("createdAt", ToTimestamp("2023-02-28 00:00:00.001"))), ToQuery(filters[28]));
-        Assert.Equal(ToQuery(Filter.GreaterThanOrEqualTo("updatedAt", ToTimestamp("2023-02-28 00:00:00.001"))), ToQuery(filters[29]));
-        Assert.Equal(ToQuery(Filter.LessThanOrEqualTo("createdAt", ToTimestamp("2023-04-30 23:59:59.999"))), ToQuery(filters[30]));
+        Assert.Equal(ToQuery(Filter.LessThanOrEqualTo("createdAt", ToTimestamp("2023-04-30 23:59:59.999"))), ToQuery(filters[29]));
+        Assert.Equal(ToQuery(Filter.GreaterThanOrEqualTo("updatedAt", ToTimestamp("2023-02-28 00:00:00.001"))), ToQuery(filters[30]));
         Assert.Equal(ToQuery(Filter.LessThanOrEqualTo("updatedAt", ToTimestamp("2023-04-30 23:59:59.999"))), ToQuery(filters[31]));
     }
     

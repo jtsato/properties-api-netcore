@@ -68,8 +68,8 @@ public static class Program
         {
             app.UseSwagger(ConfigureSwagger);
             app.UseSwaggerUI(options => { 
-                options.RoutePrefix = "api/properties-search/swagger";
-                options.SwaggerEndpoint("/api/properties-search/api-docs/v1/swagger.yaml", "ViaOps Configuration Manager"); 
+                options.RoutePrefix = "api/properties-search/v1/swagger";
+                options.SwaggerEndpoint("/api/properties-search/v1/api-docs/v1/swagger.yaml", "ViaOps Configuration Manager"); 
             });
             RewriteOptions rewriteOptions = new RewriteOptions();
             rewriteOptions.AddRedirect("^$", "swagger");
@@ -77,7 +77,7 @@ public static class Program
         }
 
         app.MapControllers();
-        app.UsePathBase(new PathString("/api/properties-search"));
+        app.UsePathBase(new PathString("/api/properties-search/v1"));
         app.UseRouting();
 
         app.UseWhen(
@@ -143,13 +143,13 @@ public static class Program
 
     private static void ConfigureSwagger(SwaggerOptions options)
     {
-        options.RouteTemplate = "api/properties-search/api-docs/{documentName}/swagger.yaml";
+        options.RouteTemplate = "api/properties-search/v1/api-docs/{documentName}/swagger.yaml";
 
         options.PreSerializeFilters.Add((swagger, httpReq) =>
         {
             swagger.Servers = new List<OpenApiServer>
             {
-                new OpenApiServer {Url = $"{httpReq.Scheme}://{httpReq.Host.Value}/api/properties-search"}
+                new OpenApiServer {Url = $"{httpReq.Scheme}://{httpReq.Host.Value}/api/properties-search/v1"}
             };
         });
     }

@@ -43,11 +43,23 @@ public class Repository<T> : IRepository<T>
 
     public async Task<Page<T>> FindAllAsync(IEnumerable<Filter> filters, PageRequest pageRequest)
     {
-        int offset = (pageRequest.PageNumber) * pageRequest.PageSize;
-
         CollectionReference collectionReference = _firestoreDb.Collection(_collection);
         Filter where = filters.Aggregate<Filter, Filter>(null, (current, filter) => current == null ? filter : Filter.And(current, filter));
         Query baseQuery = where != null ? collectionReference.Where(where) : collectionReference;
+        
+        return await FindAllAsync(baseQuery, pageRequest);
+    }
+    
+    public Query GetBaseQuery(Filter filter)
+    {
+        CollectionReference collectionReference = _firestoreDb.Collection(_collection);
+        return filter != null ? collectionReference.Where(filter) : collectionReference;
+    }
+
+    public async Task<Page<T>> FindAllAsync(Query baseQuery, PageRequest pageRequest)
+    {
+        int offset = (pageRequest.PageNumber) * pageRequest.PageSize;
+
         AggregateQuery aggregateQuery = baseQuery.Count();
         AggregateQuerySnapshot countQuerySnapshot = await aggregateQuery.GetSnapshotAsync();
 
@@ -59,7 +71,7 @@ public class Repository<T> : IRepository<T>
             .Aggregate(query, (current, order) => order.Direction == Direction.Asc
                 ? current.OrderBy(ToLowerCamelCase(order.Property))
                 : current.OrderByDescending(ToLowerCamelCase(order.Property)));
-        
+
         // TODO: Fix Order By
 
         QuerySnapshot querySnapshot = await query.GetSnapshotAsync();
@@ -73,12 +85,12 @@ public class Repository<T> : IRepository<T>
             totalOfElements,
             totalPages
         );
-        
+
         List<T> content = querySnapshot.Documents.Select(document => document.ConvertTo<T>()).ToList();
 
         return new Page<T>(content, pageable);
     }
-    
+
     private static string ToLowerCamelCase(string value)
     {
         return char.ToLowerInvariant(value[0]) + value[1..];

@@ -11,6 +11,7 @@ using Google.Cloud.Firestore;
 using Infra.Firestore.Commons.Repository;
 using Infra.Firestore.Domain.Properties.Mapper;
 using Infra.Firestore.Domain.Properties.Model;
+using Infra.Firestore.Domain.Properties.Repository;
 
 namespace Infra.Firestore.Domain.Properties.Providers;
 
@@ -23,10 +24,11 @@ public class SearchPropertiesProvider : ISearchPropertiesGateway
         _repository = ArgumentValidator.CheckNull(repository, nameof(repository));
     }
 
-    public async Task<Page<Property>> ExecuteAsync(SearchPropertiesQuery query, PageRequest pageRequest)
+    public async Task<Page<Property>> ExecuteAsync(SearchPropertiesQuery search, PageRequest pageRequest)
     {
-        IEnumerable<Filter> filters = SearchPropertiesFilterBuilder.BuildFromQuery(query);
-        Page<PropertyEntity> page = await _repository.FindAllAsync(filters, pageRequest);
+        Query emptyQuery = _repository.GetBaseQuery(null);
+        Query baseQuery = SearchPropertiesFirestoreQueryBuilder.BuildFromQuery(emptyQuery, search);
+        Page<PropertyEntity> page = await _repository.FindAllAsync(baseQuery, pageRequest);
         List<Property> content = page.Content.Select(PropertyMapper.Of).ToList();
         return new Page<Property>(content, page.Pageable);
     }

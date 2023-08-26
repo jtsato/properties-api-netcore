@@ -10,7 +10,11 @@ public interface IRepository<T>
 {
     FirestoreDb GetDatabase();
     
+    Query GetBaseQuery(Filter filter);
+    
     Task<Optional<T>> FindOneAsync(Filter filter);
     
     Task<Page<T>> FindAllAsync(IEnumerable<Filter> filters, PageRequest pageRequest);
+    
+    Task<Page<T>> FindAllAsync(Query baseQuery, PageRequest pageRequest);
 }

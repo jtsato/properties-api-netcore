@@ -64,7 +64,7 @@ public class PropertyEntity : Entity
     [FirestoreProperty(name: "address")] 
     public string Address { get; set; }
 
-    [FirestoreProperty(name: "sellingPrice", ConverterType = typeof(System.Type))]
+    [FirestoreProperty(name: "sellingPrice")]
     public double SellingPrice { get; set; }
 
     [FirestoreProperty(name: "rentalTotalPrice")]

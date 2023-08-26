@@ -229,11 +229,7 @@ public class SearchPropertiesApiMethodTest
             .AndExpectThat(JsonFrom.Path("$.content[0].introduction"), Is<string>.EqualTo("Apartment for rent..."))
             .AndExpectThat(JsonFrom.Path("$.content[0].url"), Is<string>.EqualTo("https://www.apartment-for-rent.com"))
             .AndExpectThat(JsonFrom.Path("$.content[0].refId"), Is<string>.EqualTo("REF 101"))
-            .AndExpectThat(JsonFrom.Path("$.content[0].images"), Is<List<string>>.EqualTo(new List<string>
-            {
-                "https://www.apartment-for-rent.com/image1.jpg",
-                "https://www.apartment-for-rent.com/image2.jpg"
-            }))
+            .AndExpectThat(JsonFrom.Path("$.content[0].coverImage"), Is<string>.EqualTo("https://www.apartment-for-rent.com/image1.jpg"))
             .AndExpectThat(JsonFrom.Path("$.content[0].numberOfBedrooms"), Is<int>.EqualTo(2))
             .AndExpectThat(JsonFrom.Path("$.content[0].numberOfToilets"), Is<int>.EqualTo(1))
             .AndExpectThat(JsonFrom.Path("$.content[0].numberOfGarages"), Is<int>.EqualTo(1))
@@ -524,11 +520,7 @@ public class SearchPropertiesApiMethodTest
             .AndExpectThat(JsonFrom.Path("$.content[0].introduction"), Is<string>.EqualTo("Apartment for rent..."))
             .AndExpectThat(JsonFrom.Path("$.content[0].url"), Is<string>.EqualTo("https://www.apartment-for-rent.com"))
             .AndExpectThat(JsonFrom.Path("$.content[0].refId"), Is<string>.EqualTo("REF 101"))
-            .AndExpectThat(JsonFrom.Path("$.content[0].images"), Is<List<string>>.EqualTo(new List<string>
-            {
-                "https://www.apartment-for-rent.com/image1.jpg",
-                "https://www.apartment-for-rent.com/image2.jpg"
-            }))
+            .AndExpectThat(JsonFrom.Path("$.content[0].coverImage"), Is<string>.EqualTo("https://www.apartment-for-rent.com/image1.jpg"))
             .AndExpectThat(JsonFrom.Path("$.content[0].numberOfBedrooms"), Is<int>.EqualTo(2))
             .AndExpectThat(JsonFrom.Path("$.content[0].numberOfToilets"), Is<int>.EqualTo(1))
             .AndExpectThat(JsonFrom.Path("$.content[0].numberOfGarages"), Is<int>.EqualTo(1))

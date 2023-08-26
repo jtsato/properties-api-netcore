@@ -29,7 +29,7 @@ public static class SearchPropertiesPresenter
             Introduction = introduction,
             Url = property.Advertise.Url,
             RefId = property.Advertise.RefId,
-            Images = property.Advertise.Images,
+            CoverImage = property.Advertise.Images.FirstOrDefault(),
             NumberOfBedrooms = property.Attributes.NumberOfBedrooms,
             NumberOfToilets = property.Attributes.NumberOfToilets,
             NumberOfGarages = property.Attributes.NumberOfGarages,

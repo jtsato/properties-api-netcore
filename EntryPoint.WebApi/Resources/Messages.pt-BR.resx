@@ -50,4 +50,7 @@
     <data name="ValidationPropertyNotFound" xml:space="preserve">
         <value>O imóvel de identificador {0} não foi encontrado.</value>
     </data>
+    <data name="ValidationPropertyIdIsNullOrEmpty" xml:space="preserve">
+        <value>O campo 'id' é obrigatório.</value>
+    </data>
 </root>

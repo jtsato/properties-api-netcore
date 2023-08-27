@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
+using FluentValidation;
 
 namespace Core.Domains.Properties.Query;
 
 [ExcludeFromCodeCoverage]
 public sealed class GetPropertyByIdQuery
 {
+    private static readonly GetPropertyByIdQueryValidator Validator = new GetPropertyByIdQueryValidator();
+    
     public string Id { get; }
 
     public GetPropertyByIdQuery(string id)
     {
         Id = id;
+        Validator.ValidateAndThrow(this);
     }
 
     private bool Equals(GetPropertyByIdQuery other)

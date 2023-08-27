@@ -141,6 +141,15 @@ namespace EntryPoint.WebApi.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The property id is required..
+        /// </summary>
+        internal static string ValidationPropertyIdIsNullOrEmpty {
+            get {
+                return ResourceManager.GetString("ValidationPropertyIdIsNullOrEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No property was found with identifier {0}..
         /// </summary>
         internal static string ValidationPropertyNotFound {

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
 using System.Text;
 
 namespace Core.Domains.Properties.Models;
@@ -19,7 +18,7 @@ public sealed class Property
     public PropertyStatus Status { get; init; }
     public DateTime CreatedAt { get; init; }
     public DateTime UpdatedAt { get; init; }
-    
+
     private bool Equals(Property other)
     {
         return Id == other.Id
@@ -34,26 +33,43 @@ public sealed class Property
                && CreatedAt.Equals(other.CreatedAt)
                && UpdatedAt.Equals(other.UpdatedAt);
     }
-    
+
     public override bool Equals(object obj)
     {
-        return ReferenceEquals(this, obj) || obj is Property other && Equals(other); 
+        return ReferenceEquals(this, obj) || obj is Property other && Equals(other);
     }
-    
+
     public override int GetHashCode()
     {
-        const int prime = 23;
-        return prime + (Id == null ? 0 : Id.GetHashCode());
+        HashCode hashCode = new HashCode();
+        hashCode.Add(Id);
+        hashCode.Add(Type.Id);
+        hashCode.Add(Advertise);
+        hashCode.Add(Attributes);
+        hashCode.Add(Location);
+        hashCode.Add(Prices);
+        hashCode.Add(HashKey);
+        hashCode.Add(Ranking);
+        hashCode.Add(Status.Id);
+        hashCode.Add(CreatedAt);
+        hashCode.Add(UpdatedAt);
+        return hashCode.ToHashCode();
     }
-    
+
     public override string ToString()
     {
-        PropertyInfo[] properties = GetType().GetProperties();
-        StringBuilder stringBuilder = new StringBuilder();
-        foreach (PropertyInfo propertyInfo in properties)
-        {
-            stringBuilder.AppendLine($"{propertyInfo.Name}: {propertyInfo.GetValue(this)}");
-        }
-        return stringBuilder.ToString();
+        return new StringBuilder()
+            .AppendLine($"{nameof(Id)}: {Id}")
+            .AppendLine($"{nameof(Type)}: {Type}")
+            .AppendLine($"{nameof(Advertise)}: {Advertise}")
+            .AppendLine($"{nameof(Attributes)}: {Attributes}")
+            .AppendLine($"{nameof(Location)}: {Location}")
+            .AppendLine($"{nameof(Prices)}: {Prices}")
+            .AppendLine($"{nameof(HashKey)}: {HashKey}")
+            .AppendLine($"{nameof(Ranking)}: {Ranking}")
+            .AppendLine($"{nameof(Status)}: {Status}")
+            .AppendLine($"{nameof(CreatedAt)}: {CreatedAt}")
+            .AppendLine($"{nameof(UpdatedAt)}: {UpdatedAt}")
+            .ToString();
     }
 }

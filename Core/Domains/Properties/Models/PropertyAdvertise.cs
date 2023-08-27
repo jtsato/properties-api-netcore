@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
 using System.Text;
 
 namespace Core.Domains.Properties.Models;
@@ -40,12 +39,14 @@ public sealed class PropertyAdvertise
     
     public override string ToString()
     {
-        PropertyInfo[] properties = GetType().GetProperties();
-        StringBuilder stringBuilder = new StringBuilder();
-        foreach (PropertyInfo propertyInfo in properties)
-        {
-            stringBuilder.AppendLine($"{propertyInfo.Name}: {propertyInfo.GetValue(this)}");
-        }
-        return stringBuilder.ToString();
+        return new StringBuilder()
+            .AppendLine($"{nameof(TenantId)}: {TenantId}")
+            .AppendLine($"{nameof(Transaction)}: {Transaction}")
+            .AppendLine($"{nameof(Title)}: {Title}")
+            .AppendLine($"{nameof(Description)}: {Description}")
+            .AppendLine($"{nameof(Url)}: {Url}")
+            .AppendLine($"{nameof(RefId)}: {RefId}")
+            .AppendLine($"{nameof(Images)}: {string.Join(",", Images)}")
+            .ToString();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Text;
 
 namespace Core.Commons.Models;
 
@@ -7,25 +8,34 @@ namespace Core.Commons.Models;
 public sealed class FieldError
 {
     public string PropertyName { get; init; }
-    
-    public string ErrorMessage { get; init; }
-    
-    public string AttemptedValue { get; init; }
 
-    public override bool Equals(object obj)
-    {
-        if (ReferenceEquals(null, obj)) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        return obj.GetType() == GetType() && Equals((FieldError) obj);
-    }
+    public string ErrorMessage { get; init; }
+
+    public string AttemptedValue { get; init; }
 
     private bool Equals(FieldError other)
     {
-        return PropertyName == other.PropertyName && ErrorMessage == other.ErrorMessage && AttemptedValue == other.AttemptedValue;
+        return PropertyName == other.PropertyName
+               && ErrorMessage == other.ErrorMessage
+               && AttemptedValue == other.AttemptedValue;
+    }
+
+    public override bool Equals(object obj)
+    {
+        return ReferenceEquals(this, obj) || obj is FieldError other && Equals(other);
     }
 
     public override int GetHashCode()
     {
         return HashCode.Combine(PropertyName, ErrorMessage, AttemptedValue);
+    }
+
+    public override string ToString()
+    {
+        return new StringBuilder()
+            .AppendLine($"{nameof(PropertyName)}: {PropertyName}")
+            .AppendLine($"{nameof(ErrorMessage)}: {ErrorMessage}")
+            .AppendLine($"{nameof(AttemptedValue)}: {AttemptedValue}")
+            .ToString();
     }
 }

@@ -17,7 +17,8 @@ public sealed class Order
 
     private bool Equals(Order other)
     {
-        return Direction == other.Direction && Property == other.Property;
+        return Direction == other.Direction
+               && Property == other.Property;
     }
 
     public override bool Equals(object obj)

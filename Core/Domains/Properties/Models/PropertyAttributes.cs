@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
 using System.Text;
 
 namespace Core.Domains.Properties.Models;
@@ -13,7 +12,7 @@ public sealed class PropertyAttributes
     public byte NumberOfGarages { get; init; }
     public int Area { get; init; }
     public int BuiltArea { get; init; }
-    
+
     private bool Equals(PropertyAttributes other)
     {
         return NumberOfBedrooms == other.NumberOfBedrooms
@@ -22,25 +21,25 @@ public sealed class PropertyAttributes
                && Area == other.Area
                && BuiltArea == other.BuiltArea;
     }
-    
+
     public override bool Equals(object obj)
     {
         return ReferenceEquals(this, obj) || obj is PropertyAttributes other && Equals(other);
     }
-    
+
     public override int GetHashCode()
     {
         return HashCode.Combine(NumberOfBedrooms, NumberOfToilets, NumberOfGarages, Area, BuiltArea);
     }
-    
+
     public override string ToString()
     {
-        PropertyInfo[] properties = GetType().GetProperties();
-        StringBuilder stringBuilder = new StringBuilder();
-        foreach (PropertyInfo propertyInfo in properties)
-        {
-            stringBuilder.AppendLine($"{propertyInfo.Name}: {propertyInfo.GetValue(this)}");
-        }
-        return stringBuilder.ToString();
+        return new StringBuilder()
+            .AppendLine($"{nameof(NumberOfBedrooms)}: {NumberOfBedrooms}")
+            .AppendLine($"{nameof(NumberOfToilets)}: {NumberOfToilets}")
+            .AppendLine($"{nameof(NumberOfGarages)}: {NumberOfGarages}")
+            .AppendLine($"{nameof(Area)}: {Area}")
+            .AppendLine($"{nameof(BuiltArea)}: {BuiltArea}")
+            .ToString();
     }
 }

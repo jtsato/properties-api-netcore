@@ -34,7 +34,9 @@ public sealed class PageRequest
 
     private bool Equals(PageRequest other)
     {
-        return PageNumber == other.PageNumber && PageSize == other.PageSize && Equals(Sort, other.Sort);
+        return PageNumber == other.PageNumber
+               && PageSize == other.PageSize
+               && Equals(Sort, other.Sort);
     }
 
     public override bool Equals(object obj)

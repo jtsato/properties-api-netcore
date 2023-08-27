@@ -5,10 +5,8 @@ namespace Core.Domains.Properties.Query;
 
 public class SearchPropertiesQueryBuilder
 {
-    private int _tenantId;
     private string _type;
     private string _transaction;
-    private string _refId;
     private byte _fromNumberOfBedrooms;
     private byte _toNumberOfBedrooms;
     private byte _fromNumberOfToilets;
@@ -29,21 +27,9 @@ public class SearchPropertiesQueryBuilder
     private double _toRentalPrice;
     private double _fromPriceByM2;
     private double _toPriceByM2;
-    private int _fromRanking;
-    private int _toRanking;
     private string _status;
-    private string _fromCreatedAt;
-    private string _toCreatedAt;
-    private string _fromUpdatedAt;
-    private string _toUpdatedAt;
 
     private List<string> _districts = new List<string>();
-    
-    public SearchPropertiesQueryBuilder WithTenantId(int tenantId)
-    {
-        _tenantId = tenantId;
-        return this;
-    }
 
     public SearchPropertiesQueryBuilder WithType(string type)
     {
@@ -54,12 +40,6 @@ public class SearchPropertiesQueryBuilder
     public SearchPropertiesQueryBuilder WithTransaction(string transaction)
     {
         _transaction = transaction;
-        return this;
-    }
-
-    public SearchPropertiesQueryBuilder WithRefId(string refId)
-    {
-        _refId = refId;
         return this;
     }
 
@@ -104,7 +84,7 @@ public class SearchPropertiesQueryBuilder
         _city = city;
         return this;
     }
-    
+
     public SearchPropertiesQueryBuilder WithState(string state)
     {
         _state = state;
@@ -164,7 +144,7 @@ public class SearchPropertiesQueryBuilder
         _toRentalTotalPrice = toRentalTotalPrice;
         return this;
     }
-
+    
     public SearchPropertiesQueryBuilder WithFromRentalPrice(double fromRentalPrice)
     {
         _fromRentalPrice = fromRentalPrice;
@@ -188,55 +168,18 @@ public class SearchPropertiesQueryBuilder
         _toPriceByM2 = toPriceByM2;
         return this;
     }
-    
-    public SearchPropertiesQueryBuilder WithFromRanking(int fromRanking)
-    {
-        _fromRanking = fromRanking;
-        return this;
-    }
-    
-    public SearchPropertiesQueryBuilder WithToRanking(int toRanking)
-    {
-        _toRanking = toRanking;
-        return this;
-    }
-    
+
     public SearchPropertiesQueryBuilder WithStatus(string status)
     {
         _status = status;
         return this;
     }
 
-    public SearchPropertiesQueryBuilder WithFromCreatedAt(string fromCreatedAt)
-    {
-        _fromCreatedAt = fromCreatedAt;
-        return this;
-    }
-
-    public SearchPropertiesQueryBuilder WithToCreatedAt(string toCreatedAt)
-    {
-        _toCreatedAt = toCreatedAt;
-        return this;
-    }
-
-    public SearchPropertiesQueryBuilder WithFromUpdatedAt(string fromUpdatedAt)
-    {
-        _fromUpdatedAt = fromUpdatedAt;
-        return this;
-    }
-
-    public SearchPropertiesQueryBuilder WithToUpdatedAt(string toUpdatedAt)
-    {
-        _toUpdatedAt = toUpdatedAt;
-        return this;
-    }
-
     public SearchPropertiesQuery Build()
     {
-        int tenantId = _tenantId;
         string propertyType = _type ?? "All";
-        
-        SearchPropertiesQueryAdvertise queryAdvertise = new SearchPropertiesQueryAdvertise(_transaction, _refId);
+
+        SearchPropertiesQueryAdvertise queryAdvertise = new SearchPropertiesQueryAdvertise(_transaction);
         SearchPropertiesQueryLocation queryLocation = new SearchPropertiesQueryLocation(_state, _city, _districts);
 
         SearchPropertiesQueryAttributes queryAttributes = new SearchPropertiesQueryAttributes
@@ -255,25 +198,16 @@ public class SearchPropertiesQueryBuilder
             RentalPrice = Range<double>.Of(_fromRentalPrice, _toRentalPrice),
             PriceByM2 = Range<double>.Of(_fromPriceByM2, _toPriceByM2)
         };
-        
-        SearchPropertiesQueryRanking queryRanking = new SearchPropertiesQueryRanking
-        {
-            Ranking = Range<int>.Of(_fromRanking, _toRanking)
-        };
-        
+
         string status = _status;
-        
+
         return new SearchPropertiesQuery(
-            tenantId,
-            propertyType,
-            queryAdvertise,
-            queryAttributes,
-            queryLocation,
-            queryPrices,
-            queryRanking,
-            status,
-            Range<string>.Of(_fromCreatedAt, _toCreatedAt),
-            Range<string>.Of(_fromUpdatedAt, _toUpdatedAt)
+            type: propertyType,
+            advertise: queryAdvertise,
+            attributes: queryAttributes,
+            location: queryLocation,
+            prices: queryPrices,
+            status: status
         );
     }
 }

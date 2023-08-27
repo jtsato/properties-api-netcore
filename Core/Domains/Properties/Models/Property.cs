@@ -8,7 +8,7 @@ namespace Core.Domains.Properties.Models;
 [ExcludeFromCodeCoverage]
 public sealed class Property
 {
-    public string Id { get; init; }
+    public long Id { get; init; }
     public PropertyType Type { get; init; }
     public PropertyAdvertise Advertise { get; init; }
     public PropertyAttributes Attributes { get; init; }

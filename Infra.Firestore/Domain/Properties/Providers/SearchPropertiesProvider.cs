@@ -26,10 +26,10 @@ public class SearchPropertiesProvider : ISearchPropertiesGateway
 
     public async Task<Page<Property>> ExecuteAsync(SearchPropertiesQuery search, PageRequest pageRequest)
     {
-        Query emptyQuery = _repository.GetBaseQuery(null);
-        Query baseQuery = SearchPropertiesFirestoreQueryBuilder.BuildFromQuery(emptyQuery, search);
-        Page<PropertyEntity> page = await _repository.FindAllAsync(baseQuery, pageRequest);
+        IEnumerable<Filter> filters = SearchPropertiesFilterBuilder.BuildFromQuery(search);
+        Page<PropertyEntity> page = await _repository.FindAllAsync(filters, pageRequest);
         List<Property> content = page.Content.Select(PropertyMapper.Of).ToList();
+        
         return new Page<Property>(content, page.Pageable);
     }
 }

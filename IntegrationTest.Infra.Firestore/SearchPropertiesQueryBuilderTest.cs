@@ -26,10 +26,8 @@ public class SearchPropertiesQueryBuilderTest
     {
         // Arrange
         SearchPropertiesQueryBuilder queryBuilder = new SearchPropertiesQueryBuilder();
-        queryBuilder.WithTenantId(1);
         queryBuilder.WithType("SALE");
         queryBuilder.WithTransaction("RENT");
-        queryBuilder.WithRefId("REFID");
         queryBuilder.WithFromNumberOfBedrooms(1);
         queryBuilder.WithToNumberOfBedrooms(2);
         queryBuilder.WithFromNumberOfToilets(3);
@@ -47,17 +45,9 @@ public class SearchPropertiesQueryBuilderTest
         queryBuilder.WithToSellingPrice(200000);
         queryBuilder.WithFromRentalTotalPrice(1000);
         queryBuilder.WithToRentalTotalPrice(2000);
-        queryBuilder.WithFromRentalPrice(1000);
-        queryBuilder.WithToRentalPrice(2000);
         queryBuilder.WithFromPriceByM2(1000);
         queryBuilder.WithToPriceByM2(2000);
-        queryBuilder.WithFromRanking(1);
-        queryBuilder.WithToRanking(2);
         queryBuilder.WithStatus("ACTIVE");
-        queryBuilder.WithFromCreatedAt("2023-02-28 00:00:00.001");
-        queryBuilder.WithToCreatedAt("2023-04-30 23:59:59.999");
-        queryBuilder.WithFromUpdatedAt("2023-02-28 00:00:00.001");
-        queryBuilder.WithToUpdatedAt("2023-04-30 23:59:59.999");
 
         // Act
         Query query = SearchPropertiesFirestoreQueryBuilder.BuildFromQuery(GetEmptyQuery(), queryBuilder.Build());

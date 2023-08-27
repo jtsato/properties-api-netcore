@@ -54,7 +54,7 @@ public static class PropertyMapper
 
         return new Property
         {
-            Id = propertyEntity.Id,
+            Id = 0, //propertyEntity.Id,
             Type = type,
             Advertise = advertise,
             Attributes = attributes,

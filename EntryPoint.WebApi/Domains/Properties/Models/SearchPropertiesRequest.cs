@@ -9,11 +9,6 @@ namespace EntryPoint.WebApi.Domains.Properties.Models;
 [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
 public class SearchPropertiesRequest
 {
-    
-    [SwaggerParameter(Required = false, Description = "Tenant id")]
-    [FromQuery(Name = "tenant-id")]
-    public int TenantId { get; init; }
-    
     [SwaggerParameter(Required = false, Description = "Type")]
     [FromQuery(Name = "type")]
     [DefaultValue("All")]
@@ -22,10 +17,6 @@ public class SearchPropertiesRequest
     [SwaggerParameter(Required = true, Description = "Transaction type")]
     [FromQuery(Name = "transaction")]
     public string Transaction { get; init; }
-
-    [SwaggerParameter(Required = false, Description = "Reference id")]
-    [FromQuery(Name = "ref-id")]
-    public string RefId { get; init; }
 
     [SwaggerParameter(Required = false, Description = "Minimum number of bedrooms")]
     [FromQuery(Name = "number-of-bedrooms-min")]
@@ -129,45 +120,7 @@ public class SearchPropertiesRequest
     [DefaultValue(9999)]
     public double PriceByM2Max { get; init; }
     
-    [SwaggerParameter(Required = false, Description = "Minimum property's ranking")]
-    [FromQuery(Name = "ranking-min")]
-    [DefaultValue(0)]
-    public int RankingMin { get; init; }
-    
-    [SwaggerParameter(Required = false, Description = "Maximum property's ranking")]
-    [FromQuery(Name = "ranking-max")]
-    [DefaultValue(9999)]
-    public int RankingMax { get; init; }
-    
     [SwaggerParameter(Required = false, Description = "Property's status")]
     [FromQuery(Name = "status")]
     public string Status { get; init; }
-
-    [SwaggerParameter(Required = false,
-        Description = "Filters properties' registration date after the specified date. " +
-                      "Format: YYYY-MM-DD HH24:mm:ss")]
-    [FromQuery(Name = "from-created-at")]
-    [DefaultValue("1900-01-01 00:00:00")]
-    public string FromCreatedAt { get; init; }
-
-    [SwaggerParameter(Required = false,
-        Description = "Filters properties' registration date before the specified date. " +
-                      "Format: YYYY-MM-DD HH24:mm:ss")]
-    [FromQuery(Name = "to-created-at")]
-    [DefaultValue("9999-12-31 23:59:59")]
-    public string ToCreatedAt { get; init; }
-
-    [SwaggerParameter(Required = false,
-        Description = "Filters properties' update date after the specified date. " +
-                      "Format: YYYY-MM-DD HH24:mm:ss")]
-    [FromQuery(Name = "from-update-at")]
-    [DefaultValue("1900-01-01 00:00:00")]
-    public string FromUpdatedAt { get; init; }
-
-    [SwaggerParameter(Required = false,
-        Description = "Filters properties' update date before the specified date. " +
-                      "Format: YYYY-MM-DD HH24:mm:ss")]
-    [FromQuery(Name = "to-update-at")]
-    [DefaultValue("9999-12-31 23:59:59")]
-    public string ToUpdatedAt { get; init; }
 }

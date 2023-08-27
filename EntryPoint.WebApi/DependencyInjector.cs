@@ -9,11 +9,11 @@ using EntryPoint.WebApi.Commons.Exceptions;
 using EntryPoint.WebApi.Commons.Filters;
 using EntryPoint.WebApi.Domains.Commons;
 using EntryPoint.WebApi.Domains.Properties.EntryPoints;
-using Infra.Firestore.Commons.Connection;
-using Infra.Firestore.Commons.Repository;
-using Infra.Firestore.Domain.Properties.Model;
-using Infra.Firestore.Domain.Properties.Providers;
-using Infra.Firestore.Domain.Properties.Repository;
+using Infra.MongoDB.Commons.Connection;
+using Infra.MongoDB.Commons.Repository;
+using Infra.MongoDB.Domains.Properties.Model;
+using Infra.MongoDB.Domains.Properties.Providers;
+using Infra.MongoDB.Domains.Properties.Repository;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EntryPoint.WebApi;
@@ -22,16 +22,16 @@ namespace EntryPoint.WebApi;
 public static class DependencyInjector
 {
     private static readonly string ConnectionString =
-        Environment.GetEnvironmentVariable("SERVICE_ACCOUNT_CONTENT") ?? string.Empty;
+        Environment.GetEnvironmentVariable("MONGODB_URL") ?? string.Empty;
 
     private static readonly string ServiceAccountFile =
         Environment.GetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS") ?? string.Empty;
 
     private static readonly string DatabaseName =
-        Environment.GetEnvironmentVariable("FIRESTORE_PROJECT_ID") ?? string.Empty;
+        Environment.GetEnvironmentVariable("MONGODB_DATABASE") ?? string.Empty;
 
     private static readonly string CollectionName =
-        Environment.GetEnvironmentVariable("FIRESTORE_COLLECTION_NAME") ?? string.Empty;
+        Environment.GetEnvironmentVariable("PROPERTY_COLLECTION_NAME") ?? string.Empty;
 
     public static void ConfigureServices(IServiceCollection services)
     {
@@ -50,7 +50,7 @@ public static class DependencyInjector
         if (File.Exists(serviceAccountPath)) return;
 
         StreamWriter streamWriter = File.CreateText(serviceAccountPath);
-        streamWriter.Write(ConnectionString);
+        streamWriter.Write(ServiceAccountFile);
         streamWriter.Close();
         
         Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", serviceAccountPath);
@@ -70,9 +70,15 @@ public static class DependencyInjector
 
     private static void AddApplicationServices(IServiceCollection services, IConnectionFactory connectionFactory)
     {
+        services.AddSingleton<IRepository<PropertyEntity>>(_ => new PropertyRepository(connectionFactory, DatabaseName, CollectionName));
+        
         services.AddSingleton<ISearchPropertiesController, SearchPropertiesController>();
         services.AddSingleton<ISearchPropertiesUseCase, SearchPropertiesUseCase>();
         services.AddSingleton<ISearchPropertiesGateway, SearchPropertiesProvider>();
-        services.AddSingleton<IRepository<PropertyEntity>>(_ => new PropertyRepository(connectionFactory, DatabaseName, CollectionName));
+        
+        // TODO: Uncomment this when the GetPropertyByIdController is implemented.
+        // services.AddSingleton<IGetPropertyByIdController, GetPropertyByIdController>();
+        services.AddSingleton<IGetPropertyByIdUseCase, GetPropertyByIdUseCase>();
+        services.AddSingleton<IGetPropertyByIdGateway, GetPropertyByIdProvider>();
     }
 }

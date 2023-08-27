@@ -57,4 +57,7 @@
     <data name="ValidationPropertyTransactionIsNullOrEmpty" xml:space="preserve">
         <value>The advertise 'transaction' field is required.</value>
     </data>
+    <data name="ValidationPropertyNotFound" xml:space="preserve">
+        <value>No property was found with identifier {0}.</value>
+    </data>
 </root>

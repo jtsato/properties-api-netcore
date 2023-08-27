@@ -35,7 +35,6 @@ public class PropertyEntity : Entity
 
     [FirestoreProperty(name: "images")] 
     public string[] Images { get; set; }
-    // TODO: Fix the images attribute NOT mapping from Firestore to C#.
 
     [FirestoreProperty(name: "numberOfBedrooms")]
     public int NumberOfBedrooms { get; set; }

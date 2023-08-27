@@ -8,18 +8,15 @@ namespace Core.Domains.Properties.Query;
 public class SearchPropertiesQueryAdvertise
 {
     public string Transaction { get; init; }
-    public string RefId { get; init; }
 
-    public SearchPropertiesQueryAdvertise(string transaction, string refId)
+    public SearchPropertiesQueryAdvertise(string transaction)
     {
         Transaction = transaction ?? string.Empty;
-        RefId = refId ?? string.Empty;
     }
 
     private bool Equals(SearchPropertiesQueryAdvertise other)
     {
-        return Transaction == other.Transaction
-               && RefId == other.RefId;
+        return Transaction == other.Transaction;
     }
 
     public override bool Equals(object obj)
@@ -29,14 +26,13 @@ public class SearchPropertiesQueryAdvertise
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(Transaction, RefId);
+        return HashCode.Combine(Transaction);
     }
 
     public override string ToString()
     {
         return new StringBuilder()
             .AppendLine($"{nameof(Transaction)}: {Transaction}")
-            .Append($"{nameof(RefId)}: {RefId}")
             .ToString();
     }
 }

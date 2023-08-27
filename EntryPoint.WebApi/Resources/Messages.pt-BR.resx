@@ -47,4 +47,7 @@
     <data name="ValidationPropertyTransactionIsNullOrEmpty" xml:space="preserve">
         <value>O campo 'transação' do anúncio é obrigatório.</value>
     </data>
+    <data name="ValidationPropertyNotFound" xml:space="preserve">
+        <value>O imóvel de identificador {0} não foi encontrado.</value>
+    </data>
 </root>

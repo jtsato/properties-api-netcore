@@ -12,20 +12,15 @@ public class SearchPropertiesQueryTest
 {
     [Trait("Category", "Core Business Tests")]
     [Theory(DisplayName = "Fail to search properties with invalid parameters")]
-    [InlineData(0, "    ", "2023-02-28", "2023-04-30", "ValidationPropertyTransactionIsNullOrEmpty")]
-    [InlineData(0, "SALE", "2023-02-30", "2023-04-31", "ValidationPropertyFromCreatedAtIsInvalid")]
-    [InlineData(0, "SALE", "2023-04-31", "2023-02-30", "ValidationPropertyToCreatedAtIsInvalid")]
-    [InlineData(1, "RENT", "2023-02-30", "2023-04-31", "ValidationPropertyFromUpdatedAtIsInvalid")]
-    [InlineData(1, "RENT", "2023-04-31", "2023-02-30", "ValidationPropertyToUpdatedAtIsInvalid")]
-    public void FailToSearchPropertiesWithInvalidParameters(int tenantId, string transaction, string createdAt, string updatedAt, string expected)
+    [InlineData("    ", "ValidationPropertyTransactionIsNullOrEmpty")]
+    public void FailToSearchPropertiesWithInvalidParameters(string transaction, string expected)
     {
         // Arrange
         // Act
         ValidationException exception = Assert.Throws<ValidationException>(() =>
             new SearchPropertiesQuery(
-                tenantId,
                 PropertyType.All.Name,
-                new SearchPropertiesQueryAdvertise(transaction, null),
+                new SearchPropertiesQueryAdvertise(transaction),
                 new SearchPropertiesQueryAttributes
                 {
                     NumberOfBedrooms = Range<byte>.Of(1, 2),
@@ -42,17 +37,11 @@ public class SearchPropertiesQueryTest
                 new SearchPropertiesQueryPrices
                 {
                     SellingPrice = Range<double>.Of(100000, 200000),
-                    RentalTotalPrice = Range<double>.Of(1000, 2000),
-                    RentalPrice = Range<double>.Of(1000, 2000),
-                    PriceByM2 = Range<double>.Of(1000, 2000)
+                    RentalTotalPrice = Range<double>.Of(2000, 3000),
+                    RentalPrice = Range<double>.Of(4000, 5000),
+                    PriceByM2 = Range<double>.Of(100, 200)
                 },
-                new SearchPropertiesQueryRanking
-                {
-                    Ranking = Range<int>.Of(0, 2)
-                },
-                "Active",
-                Range<string>.Of(createdAt, updatedAt),
-                Range<string>.Of(createdAt, createdAt)
+                "Active"
             )
         );
 

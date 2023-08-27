@@ -57,11 +57,7 @@ public sealed class SearchPropertiesController : ISearchPropertiesController
     {
         string propertyType = PropertyType.GetByName(request.Type).OrElse(PropertyType.All).Name;
 
-        SearchPropertiesQueryAdvertise advertise = new SearchPropertiesQueryAdvertise
-        (
-            request.Transaction,
-            request.RefId
-        );
+        SearchPropertiesQueryAdvertise advertise = new SearchPropertiesQueryAdvertise(request.Transaction);
 
         Range<byte> numberOfBedrooms = Range<byte>.Of(request.NumberOfBedroomsMin, request.NumberOfBedroomsMax);
         Range<byte> numberOfToilets = Range<byte>.Of(request.NumberOfToiletsMin, request.NumberOfToiletsMax);
@@ -89,25 +85,14 @@ public sealed class SearchPropertiesController : ISearchPropertiesController
         {
             SellingPrice = Range<double>.Of(request.SellingPriceMin, request.SellingPriceMax),
             RentalTotalPrice = Range<double>.Of(request.RentalTotalPriceMin, request.RentalTotalPriceMax),
-            RentalPrice = Range<double>.Of(request.RentalPriceMin, request.RentalPriceMax),
             PriceByM2 = Range<double>.Of(request.PriceByM2Min, request.PriceByM2Max)
         };
-        
-        SearchPropertiesQueryRanking rankings = new SearchPropertiesQueryRanking
-        {
-            Ranking = Range<int>.Of(request.RankingMin, request.RankingMax)
-        };
-
-        Range<string> createdAt = Range<string>.Of(request.FromCreatedAt, request.ToCreatedAt);
-        Range<string> updatedAt = Range<string>.Of(request.FromUpdatedAt, request.ToUpdatedAt);
 
         SearchPropertiesQueryBuilder builder = new SearchPropertiesQueryBuilder();
 
         builder
-            .WithTenantId(request.TenantId)
             .WithType(propertyType)
             .WithTransaction(advertise.Transaction)
-            .WithRefId(advertise.RefId)
             .WithState(location.State)
             .WithCity(location.City)
             .WithDistricts(location.Districts)
@@ -125,18 +110,9 @@ public sealed class SearchPropertiesController : ISearchPropertiesController
             .WithToSellingPrice(prices.SellingPrice.To)
             .WithFromRentalTotalPrice(prices.RentalTotalPrice.From)
             .WithToRentalTotalPrice(prices.RentalTotalPrice.To)
-            .WithFromRentalPrice(prices.RentalPrice.From)
-            .WithToRentalPrice(prices.RentalPrice.To)
             .WithFromPriceByM2(prices.PriceByM2.From)
             .WithToPriceByM2(prices.PriceByM2.To)
-            .WithFromRanking(rankings.Ranking.From)
-            .WithToRanking(rankings.Ranking.To)
-            .WithStatus(request.Status)
-            .WithFromCreatedAt(createdAt.From)
-            .WithToCreatedAt(createdAt.To)
-            .WithToUpdatedAt(updatedAt.To)
-            .WithFromUpdatedAt(updatedAt.From)
-            .WithToUpdatedAt(updatedAt.To);
+            .WithStatus(request.Status);
 
         return builder.Build();
     }

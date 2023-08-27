@@ -73,10 +73,8 @@ public class SearchPropertiesApiMethodTest
         SearchPropertiesQueryBuilder queryBuilder = new SearchPropertiesQueryBuilder();
 
         queryBuilder
-            .WithTenantId(1)
             .WithType("Apartment")
             .WithTransaction("Rent")
-            .WithRefId("REF 101")
             .WithState("Duckland")
             .WithCity("White Duck")
             .WithState("Duckland")
@@ -95,18 +93,10 @@ public class SearchPropertiesApiMethodTest
             .WithToSellingPrice(200000)
             .WithFromRentalTotalPrice(1000)
             .WithToRentalTotalPrice(3000)
-            .WithFromRentalPrice(1000)
-            .WithToRentalPrice(2000)
             .WithFromPriceByM2(100)
             .WithToPriceByM2(200)
-            .WithFromRanking(0)
-            .WithToRanking(1)
-            .WithStatus("Active")
-            .WithFromCreatedAt("2023-01-01")
-            .WithToCreatedAt("2023-02-01")
-            .WithFromUpdatedAt("2023-02-01")
-            .WithToUpdatedAt("2023-03-01");
-
+            .WithStatus("Active");
+            
         SearchPropertiesQuery query = queryBuilder.Build();
 
         _useCaseMock
@@ -116,7 +106,7 @@ public class SearchPropertiesApiMethodTest
                     {
                         new Property
                         {
-                            Id = Guid.NewGuid().ToString(),
+                            Id = 1001,
                             Type = PropertyType.Apartment,
                             Advertise = new PropertyAdvertise
                             {
@@ -168,10 +158,8 @@ public class SearchPropertiesApiMethodTest
 
         SearchPropertiesRequest request = new SearchPropertiesRequest
         {
-            TenantId = 1,
             Type = "Apartment",
             Transaction = "Rent",
-            RefId = "REF 101",
             State = "Duckland",
             City = "White Duck",
             Districts = new List<string> {"Downtown", "Alta Vista"},
@@ -193,13 +181,7 @@ public class SearchPropertiesApiMethodTest
             RentalPriceMax = 2000,
             PriceByM2Min = 100,
             PriceByM2Max = 200,
-            RankingMin = 0,
-            RankingMax = 1,
-            Status = "Active",
-            FromCreatedAt = "2023-01-01",
-            ToCreatedAt = "2023-02-01",
-            FromUpdatedAt = "2023-02-01",
-            ToUpdatedAt = "2023-03-01"
+            Status = "Active"
         };
 
         QPageRequest qPageRequest = new QPageRequest
@@ -222,7 +204,7 @@ public class SearchPropertiesApiMethodTest
 
         JsonAssertHelper.AssertThat(jsonElement)
             .AndExpectThat(JsonFrom.Path("$.content"), Is<object>.Single())
-            .AndExpectThat(JsonFrom.Path("$.content[0].id"), Is<string>.NotEmpty())
+            .AndExpectThat(JsonFrom.Path("$.content[0].id"), Is<long>.EqualTo(1001))
             .AndExpectThat(JsonFrom.Path("$.content[0].tenantId"), Is<int>.EqualTo(1))
             .AndExpectThat(JsonFrom.Path("$.content[0].transaction"), Is<string>.EqualTo("RENT"))
             .AndExpectThat(JsonFrom.Path("$.content[0].title"), Is<string>.EqualTo("Apartment for rent"))
@@ -265,10 +247,8 @@ public class SearchPropertiesApiMethodTest
         SearchPropertiesQueryBuilder queryBuilder = new SearchPropertiesQueryBuilder();
 
         queryBuilder
-            .WithTenantId(1)
             .WithType("Apartment")
             .WithTransaction("Rent")
-            .WithRefId("REF 101")
             .WithState("Duckland")
             .WithCity("White Duck")
             .WithDistricts(new List<string> {"Downtown", "Alta Vista"})
@@ -286,18 +266,10 @@ public class SearchPropertiesApiMethodTest
             .WithToSellingPrice(200000)
             .WithFromRentalTotalPrice(1000)
             .WithToRentalTotalPrice(3000)
-            .WithFromRentalPrice(1000)
-            .WithToRentalPrice(2000)
             .WithFromPriceByM2(100)
             .WithToPriceByM2(200)
-            .WithFromRanking(0)
-            .WithToRanking(1)
-            .WithStatus("Active")
-            .WithFromCreatedAt("2023-01-01")
-            .WithToCreatedAt("2023-02-01")
-            .WithFromUpdatedAt("2023-02-01")
-            .WithToUpdatedAt("2023-03-01");
-
+            .WithStatus("Active");
+            
         SearchPropertiesQuery query = queryBuilder.Build();
 
         _useCaseMock
@@ -308,10 +280,8 @@ public class SearchPropertiesApiMethodTest
 
         SearchPropertiesRequest request = new SearchPropertiesRequest
         {
-            TenantId = 1,
             Type = "Apartment",
             Transaction = "Rent",
-            RefId = "REF 101",
             State = "Duckland",
             City = "White Duck",
             Districts = new List<string> {"Downtown", "Alta Vista"},
@@ -333,13 +303,7 @@ public class SearchPropertiesApiMethodTest
             RentalPriceMax = 2000,
             PriceByM2Min = 100,
             PriceByM2Max = 200,
-            RankingMin = 0,
-            RankingMax = 1,
-            Status = "Active",
-            FromCreatedAt = "2023-01-01",
-            ToCreatedAt = "2023-02-01",
-            FromUpdatedAt = "2023-02-01",
-            ToUpdatedAt = "2023-03-01"
+            Status = "Active"
         };
 
         QPageRequest qPageRequest = new QPageRequest
@@ -365,10 +329,8 @@ public class SearchPropertiesApiMethodTest
         SearchPropertiesQueryBuilder queryBuilder = new SearchPropertiesQueryBuilder();
 
         queryBuilder
-            .WithTenantId(1)
             .WithType("Apartment")
             .WithTransaction("Rent")
-            .WithRefId("REF 101")
             .WithState("Duckland")
             .WithCity("White Duck")
             .WithDistricts(new List<string> {"Downtown", "Alta Vista"})
@@ -386,17 +348,9 @@ public class SearchPropertiesApiMethodTest
             .WithToSellingPrice(200000)
             .WithFromRentalTotalPrice(1000)
             .WithToRentalTotalPrice(3000)
-            .WithFromRentalPrice(1000)
-            .WithToRentalPrice(2000)
             .WithFromPriceByM2(100)
             .WithToPriceByM2(200)
-            .WithFromRanking(0)
-            .WithToRanking(1)
-            .WithStatus("Active")
-            .WithFromCreatedAt("2023-01-01")
-            .WithToCreatedAt("2023-02-01")
-            .WithFromUpdatedAt("2023-02-01")
-            .WithToUpdatedAt("2023-03-01");
+            .WithStatus("Active");
 
         SearchPropertiesQuery query = queryBuilder.Build();
 
@@ -407,7 +361,7 @@ public class SearchPropertiesApiMethodTest
                     {
                         new Property
                         {
-                            Id = Guid.NewGuid().ToString(),
+                            Id = 1001,
                             Type = PropertyType.Apartment,
                             Advertise = new PropertyAdvertise
                             {
@@ -459,10 +413,8 @@ public class SearchPropertiesApiMethodTest
 
         SearchPropertiesRequest request = new SearchPropertiesRequest
         {
-            TenantId = 1,
             Type = "Apartment",
             Transaction = "Rent",
-            RefId = "REF 101",
             State = "Duckland",
             City = "White Duck",
             Districts = new List<string> {"Downtown", "Alta Vista"},
@@ -484,13 +436,7 @@ public class SearchPropertiesApiMethodTest
             RentalPriceMax = 2000,
             PriceByM2Min = 100,
             PriceByM2Max = 200,
-            RankingMin = 0,
-            RankingMax = 1,
-            Status = "Active",
-            FromCreatedAt = "2023-01-01",
-            ToCreatedAt = "2023-02-01",
-            FromUpdatedAt = "2023-02-01",
-            ToUpdatedAt = "2023-03-01"
+            Status = "Active"
         };
 
         QPageRequest qPageRequest = new QPageRequest
@@ -513,7 +459,7 @@ public class SearchPropertiesApiMethodTest
 
         JsonAssertHelper.AssertThat(jsonElement)
             .AndExpectThat(JsonFrom.Path("$.content"), Is<object>.Single())
-            .AndExpectThat(JsonFrom.Path("$.content[0].id"), Is<string>.NotEmpty())
+            .AndExpectThat(JsonFrom.Path("$.content[0].id"), Is<long>.EqualTo(1001))
             .AndExpectThat(JsonFrom.Path("$.content[0].tenantId"), Is<int>.EqualTo(1))
             .AndExpectThat(JsonFrom.Path("$.content[0].transaction"), Is<string>.EqualTo("RENT"))
             .AndExpectThat(JsonFrom.Path("$.content[0].title"), Is<string>.EqualTo("Apartment for rent"))
@@ -543,5 +489,3 @@ public class SearchPropertiesApiMethodTest
             .AndExpectThat(JsonFrom.Path("$.content[0].href"), Is<string>.StartWith("http://localhost:7029/api/properties-search/v1/properties/"));
     }
 }
-
-

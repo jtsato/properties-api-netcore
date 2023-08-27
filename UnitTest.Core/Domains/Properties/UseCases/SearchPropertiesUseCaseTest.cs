@@ -54,7 +54,6 @@ public sealed class SearchPropertiesUseCaseTest : IDisposable
     {
         // Arrange
         SearchPropertiesQueryBuilder searchPropertiesQueryBuilder = new SearchPropertiesQueryBuilder();
-        searchPropertiesQueryBuilder.WithTenantId(1);
         searchPropertiesQueryBuilder.WithTransaction("Rent");
         searchPropertiesQueryBuilder.WithType("All");
         SearchPropertiesQuery query = searchPropertiesQueryBuilder.Build();
@@ -66,7 +65,7 @@ public sealed class SearchPropertiesUseCaseTest : IDisposable
                 {
                     new Property
                     {
-                        Id = Guid.NewGuid().ToString(),
+                        Id = 1001,
                         Advertise = new PropertyAdvertise
                         {
                             TenantId = 1,
@@ -132,6 +131,8 @@ public sealed class SearchPropertiesUseCaseTest : IDisposable
         
         Property property = page.Content[0];
         Assert.NotNull(property);
+        
+        Assert.Equal(1001, property.Id);
         Assert.Equal("Title 1", property.Advertise.Title);
         Assert.Equal("Description 1", property.Advertise.Description);
         Assert.Equal("https://www.patolar.com.com/rent/1", property.Advertise.Url);
@@ -158,7 +159,6 @@ public sealed class SearchPropertiesUseCaseTest : IDisposable
         Assert.Equal(1, property.Ranking);
         Assert.Equal(PropertyStatus.Active, property.Status);
         
-        Assert.NotNull(property.Id);
         Assert.Equal(new DateTime(2021, 4, 23, 10, 0, 1, DateTimeKind.Local), property.CreatedAt);
         Assert.Equal(new DateTime(2021, 4, 23, 10, 0, 1, DateTimeKind.Utc), property.UpdatedAt);
     }

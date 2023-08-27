@@ -141,6 +141,15 @@ namespace EntryPoint.WebApi.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No property was found with identifier {0}..
+        /// </summary>
+        internal static string ValidationPropertyNotFound {
+            get {
+                return ResourceManager.GetString("ValidationPropertyNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The final &apos;created at&apos; field is invalid..
         /// </summary>
         internal static string ValidationPropertyToCreatedAtIsInvalid {

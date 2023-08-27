@@ -19,7 +19,7 @@
         <ProjectReference Include="..\Core\Core.csproj">
             <CopyLocalSatelliteAssemblies>true</CopyLocalSatelliteAssemblies>
         </ProjectReference>
-        <ProjectReference Include="..\Infra.MongoDb\Infra.MongoDb.csproj">
+        <ProjectReference Include="..\Infra.MongoDB\Infra.MongoDB.csproj">
             <CopyLocalSatelliteAssemblies>true</CopyLocalSatelliteAssemblies>
         </ProjectReference>
     </ItemGroup>

@@ -3,9 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{3560E599-A3C7-4636-9904-66CA5C998E3D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest.Core", "UnitTest.Core\UnitTest.Core.csproj", "{F376B501-6AAA-4DC3-9945-DCE3BEB500C8}"
-    ProjectSection(SolutionItems) = preProject
-		default.runsettings = default.runsettings
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "main", "main", "{A460C396-DE15-470E-9214-582C3EBB7AD5}"
 EndProject

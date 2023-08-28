@@ -11,7 +11,13 @@
     
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
       <Optimize>True</Optimize>
-    </PropertyGroup>    
+    </PropertyGroup>
+
+    <ItemGroup>
+        <SonarQubeSetting Include="sonar.cpd.exclusions">
+            <Value>**/*Response.cs</Value>
+        </SonarQubeSetting>
+    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="coverlet.msbuild" Version="6.0.0">

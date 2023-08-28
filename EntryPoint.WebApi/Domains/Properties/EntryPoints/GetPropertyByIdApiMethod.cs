@@ -1,5 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Core.Commons;
 using EntryPoint.WebApi.Commons;
 using EntryPoint.WebApi.Commons.Models;
@@ -15,28 +14,26 @@ namespace EntryPoint.WebApi.Domains.Properties.EntryPoints;
 [ApiExplorerSettings(GroupName = "Properties")]
 [Consumes("application/json")]
 [Produces("application/json")]
-public class SearchPropertiesApiMethod : IApiMethod
+public class GetPropertyByIdApiMethod : IApiMethod
 {
-    private readonly ISearchPropertiesController _controller;
+    private readonly IGetPropertyByIdController _controller;
     
-    public SearchPropertiesApiMethod(ISearchPropertiesController controller)
+    public GetPropertyByIdApiMethod(IGetPropertyByIdController controller)
     {
         _controller = ArgumentValidator.CheckNull(controller, nameof(controller));
     }
     
     [SwaggerOperation(
-        OperationId = nameof(SearchProperties),
+        OperationId = nameof(GetPropertyById),
         Tags = new[] { "Properties" },
-        Summary = "Search properties"
+        Summary = "Get property by id"
     )]
-    [ProducesResponseType(typeof(PageableSearchPropertiesResponse), 200)]
-    [ProducesResponseType(204)]
-    [ProducesResponseType(typeof(PageableSearchPropertiesResponse), 206)]
+    [ProducesResponseType(typeof(PropertyResponse), 200)]
     [ProducesResponseType(typeof(ResponseStatus), 400)]
     [ProducesResponseType(typeof(ResponseStatus), 500)]
-    [HttpGet]
-    public Task<IActionResult> SearchProperties(SearchPropertiesRequest request, QPageRequest qPageRequest, CancellationToken cancellationToken = default)  
+    [HttpGet("{long:int:min(1)}")]
+    public Task<IActionResult> GetPropertyById(string id)
     {
-        return _controller.ExecuteAsync(request, qPageRequest);
+        return _controller.ExecuteAsync(id);
     }
 }

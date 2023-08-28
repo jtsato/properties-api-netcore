@@ -10,6 +10,7 @@ using Core.Domains.Properties.Query;
 using Core.Domains.Properties.UseCases;
 using EntryPoint.WebApi.Commons;
 using EntryPoint.WebApi.Commons.Models;
+using EntryPoint.WebApi.Domains.Commons;
 using EntryPoint.WebApi.Domains.Properties.EntryPoints;
 using EntryPoint.WebApi.Domains.Properties.Models;
 using IntegrationTest.EntryPoint.WebApi.Commons;
@@ -35,7 +36,7 @@ public class SearchPropertiesApiMethodTest
         _outputHelper = outputHelper;
         _invoker = apiMethodInvokerHolder.GetApiMethodInvoker();
         _useCaseMock = new Mock<ISearchPropertiesUseCase>(MockBehavior.Strict);
-        SearchPropertiesController controller = new SearchPropertiesController(
+        ISearchPropertiesController controller = new SearchPropertiesController(
             httpContextAccessor: BuildHttpContextAccessorMock().Object,
             useCase: _useCaseMock.Object
         );
@@ -65,7 +66,99 @@ public class SearchPropertiesApiMethodTest
         return httpContextAccessorMock;
     }
 
-     [Trait("Category", "WebApi Collection [NoContext]")]
+    [Trait("Category", "WebApi Collection [NoContext]")]
+    [Fact(DisplayName = "GET /api/properties/search should return 500 Internal Server Error when use case throws an exception")]
+    public async Task FailToSearchPropertiesReturningInternalServerError()
+    {
+        // Arrange
+        SearchPropertiesQueryBuilder queryBuilder = new SearchPropertiesQueryBuilder();
+
+        queryBuilder
+            .WithType("Apartment")
+            .WithTransaction("Rent")
+            .WithState("Duckland")
+            .WithCity("White Duck")
+            .WithState("Duckland")
+            .WithDistricts(new List<string> {"Downtown", "Alta Vista"})
+            .WithFromNumberOfBedrooms(0)
+            .WithToNumberOfBedrooms(3)
+            .WithFromNumberOfToilets(1)
+            .WithToNumberOfToilets(2)
+            .WithFromNumberOfGarages(1)
+            .WithToNumberOfGarages(1)
+            .WithFromArea(100)
+            .WithToArea(200)
+            .WithFromBuiltArea(80)
+            .WithToBuiltArea(160)
+            .WithFromSellingPrice(100000)
+            .WithToSellingPrice(200000)
+            .WithFromRentalTotalPrice(1000)
+            .WithToRentalTotalPrice(3000)
+            .WithFromRentalPrice(500)
+            .WithToRentalPrice(900)
+            .WithFromPriceByM2(100)
+            .WithToPriceByM2(200)
+            .WithStatus("Active");
+
+        SearchPropertiesQuery query = queryBuilder.Build();
+
+        _useCaseMock
+            .Setup(useCase => useCase.ExecuteAsync(query, PageRequestHelper.Of("0", "1", "updatedAt:DESC")))
+            .ThrowsAsync(new Exception("Unexpected error"));
+
+        SearchPropertiesRequest request = new SearchPropertiesRequest
+        {
+            Type = "Apartment",
+            Transaction = "Rent",
+            State = "Duckland",
+            City = "White Duck",
+            Districts = new List<string> {"Downtown", "Alta Vista"},
+            NumberOfBedroomsMin = 0,
+            NumberOfBedroomsMax = 3,
+            NumberOfToiletsMin = 1,
+            NumberOfToiletsMax = 2,
+            NumberOfGaragesMin = 1,
+            NumberOfGaragesMax = 1,
+            AreaMin = 100,
+            AreaMax = 200,
+            BuiltAreaMin = 80,
+            BuiltAreaMax = 160,
+            SellingPriceMin = 100000,
+            SellingPriceMax = 200000,
+            RentalTotalPriceMin = 1000,
+            RentalTotalPriceMax = 3000,
+            RentalPriceMin = 500,
+            RentalPriceMax = 900,
+            PriceByM2Min = 100,
+            PriceByM2Max = 200,
+            Status = "Active"
+        };
+
+        QPageRequest qPageRequest = new QPageRequest
+        {
+            PageNumber = "0",
+            PageSize = "1",
+            OrderBy = new List<string> {"updatedAt,Desc"}
+        };
+
+        // Act
+        ObjectResult objectResult = await _invoker.InvokeAsync(() => _apiMethod.SearchProperties(request, qPageRequest));
+
+        // Assert
+        Assert.NotNull(objectResult);
+        Assert.Equal((int) HttpStatusCode.InternalServerError, objectResult.StatusCode);
+
+        JsonElement jsonElement = ApiMethodTestHelper.TryGetJsonElement(objectResult);
+
+        const string errorMessage = "An unexpected error has occurred, please try again later!";
+
+        JsonAssertHelper.AssertThat(jsonElement)
+            .AndExpectThat(JsonFrom.Path("$.code"), Is<int>.EqualTo(500))
+            .AndExpectThat(JsonFrom.Path("$.message"), Is<string>.EqualTo(errorMessage))
+            .AndExpectThat(JsonFrom.Path("$.fields"), Is<object>.Empty());
+    }
+
+    [Trait("Category", "WebApi Collection [NoContext]")]
     [Fact(DisplayName = "GET /api/properties/search should return 206 when there is partial content")]
     public async Task SuccessfulToSearchPropertiesReturningPartialContent()
     {
@@ -98,7 +191,7 @@ public class SearchPropertiesApiMethodTest
             .WithFromPriceByM2(100)
             .WithToPriceByM2(200)
             .WithStatus("Active");
-            
+
         SearchPropertiesQuery query = queryBuilder.Build();
 
         _useCaseMock
@@ -241,7 +334,7 @@ public class SearchPropertiesApiMethodTest
             .AndExpectThat(JsonFrom.Path("$.pageable.totalPages"), Is<int>.EqualTo(2));
     }
 
-     [Trait("Category", "WebApi Collection [NoContext]")]
+    [Trait("Category", "WebApi Collection [NoContext]")]
     [Fact(DisplayName = "GET /api/properties/search should return 204 when there is no content")]
     public async Task SuccessfulToSearchPropertiesReturningNoContent()
     {
@@ -273,7 +366,7 @@ public class SearchPropertiesApiMethodTest
             .WithFromPriceByM2(100)
             .WithToPriceByM2(200)
             .WithStatus("Active");
-            
+
         SearchPropertiesQuery query = queryBuilder.Build();
 
         _useCaseMock
@@ -325,7 +418,7 @@ public class SearchPropertiesApiMethodTest
         Assert.Equal((int) HttpStatusCode.NoContent, objectResult.StatusCode);
     }
 
-     [Trait("Category", "WebApi Collection [NoContext]")]
+    [Trait("Category", "WebApi Collection [NoContext]")]
     [Fact(DisplayName = "GET /api/properties/search should return 200 when there is only one page")]
     public async Task SuccessfulToSearchProperties()
     {

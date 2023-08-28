@@ -85,7 +85,4 @@ public sealed class PropertyResponse
 
     [SwaggerSchema(Description = "Date of the last update to the property.")]
     public string UpdatedAt { get; init; }
-
-    [SwaggerSchema(Nullable = false, Description = "URL that defines a single resource")]
-    public string Href { get; init; }
 }

@@ -9,8 +9,6 @@ internal sealed class GetPropertyByIdQueryValidator : AbstractValidator<GetPrope
         RuleFor(query => query.Id)
             .Cascade(CascadeMode.Stop)
             .NotNull()
-            .WithMessage("ValidationPropertyIdIsNullOrEmpty")
-            .NotEmpty()
             .WithMessage("ValidationPropertyIdIsNullOrEmpty");
     }
 }

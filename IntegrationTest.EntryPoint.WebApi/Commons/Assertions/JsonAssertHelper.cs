@@ -23,6 +23,7 @@ public class JsonAssertHelper
         return new JsonAssertHelper(jsonElement);
     }
 
+    [ExcludeFromCodeCoverage]
     public JsonAssertHelper AndExpectThat<T>(JsonFrom jsonFrom, Is<T> matcher)
     {
         return matcher.AssertType switch
@@ -71,7 +72,16 @@ public class JsonAssertHelper
         try
         {
             ArgumentValidator.CheckNull(_jsonElement.SelectToken(path), path);
-            Assert.Empty(_jsonElement.SelectToken(path).EnumerateArray());
+            if (_jsonElement.SelectToken(path).ValueKind == JsonValueKind.Array)
+            {
+                Assert.Empty(_jsonElement.SelectToken(path).EnumerateArray());
+                return this;
+            }
+            if (_jsonElement.SelectToken(path).ValueKind == JsonValueKind.Null)
+            {
+                return this;
+            }
+            Assert.True(string.IsNullOrWhiteSpace(_jsonElement.SelectToken(path).ToString()));
             return this;
         }
         catch (Exception exception)
@@ -90,9 +100,8 @@ public class JsonAssertHelper
                 Assert.NotEmpty(_jsonElement.SelectToken(path).EnumerateArray());
                 return this;
             }
-
+            Assert.False(_jsonElement.SelectToken(path).ValueKind == JsonValueKind.Null);
             if (_jsonElement.SelectToken(path).ValueKind != JsonValueKind.String) return this;
-
             Assert.False(string.IsNullOrWhiteSpace(_jsonElement.SelectToken(path).ToString()));
             return this;
         }

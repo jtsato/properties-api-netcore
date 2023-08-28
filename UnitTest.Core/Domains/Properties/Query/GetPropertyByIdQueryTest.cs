@@ -11,7 +11,6 @@ public class GetPropertyByIdQueryTest
     [Trait("Category", "Core Business Tests")]
     [Theory(DisplayName = "Fail to get property by id with null or empty id")]
     [InlineData(null, "ValidationPropertyIdIsNullOrEmpty")]
-    [InlineData("", "ValidationPropertyIdIsNullOrEmpty")]
     public void FailToGetPropertyByIdWithNullOrEmptyId(string id, string expected)
     {
         // Arrange

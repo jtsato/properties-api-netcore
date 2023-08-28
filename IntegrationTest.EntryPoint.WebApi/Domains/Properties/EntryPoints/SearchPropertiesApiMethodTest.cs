@@ -93,6 +93,8 @@ public class SearchPropertiesApiMethodTest
             .WithToSellingPrice(200000)
             .WithFromRentalTotalPrice(1000)
             .WithToRentalTotalPrice(3000)
+            .WithFromRentalPrice(500)
+            .WithToRentalPrice(900)
             .WithFromPriceByM2(100)
             .WithToPriceByM2(200)
             .WithStatus("Active");
@@ -141,7 +143,7 @@ public class SearchPropertiesApiMethodTest
                             {
                                 SellingPrice = 100000,
                                 RentalTotalPrice = 1000,
-                                RentalPrice = 1000,
+                                RentalPrice = 700,
                                 PriceByM2 = 100,
                                 Discount = 100,
                                 CondominiumFee = 90,
@@ -177,8 +179,8 @@ public class SearchPropertiesApiMethodTest
             SellingPriceMax = 200000,
             RentalTotalPriceMin = 1000,
             RentalTotalPriceMax = 3000,
-            RentalPriceMin = 1000,
-            RentalPriceMax = 2000,
+            RentalPriceMin = 500,
+            RentalPriceMax = 900,
             PriceByM2Min = 100,
             PriceByM2Max = 200,
             Status = "Active"
@@ -223,7 +225,7 @@ public class SearchPropertiesApiMethodTest
             .AndExpectThat(JsonFrom.Path("$.content[0].address"), Is<string>.EqualTo("Good Life Street, 101"))
             .AndExpectThat(JsonFrom.Path("$.content[0].sellingPrice"), Is<int>.EqualTo(100000))
             .AndExpectThat(JsonFrom.Path("$.content[0].rentalTotalPrice"), Is<int>.EqualTo(1000))
-            .AndExpectThat(JsonFrom.Path("$.content[0].rentalPrice"), Is<int>.EqualTo(1000))
+            .AndExpectThat(JsonFrom.Path("$.content[0].rentalPrice"), Is<int>.EqualTo(700))
             .AndExpectThat(JsonFrom.Path("$.content[0].priceByM2"), Is<int>.EqualTo(100))
             .AndExpectThat(JsonFrom.Path("$.content[0].discount"), Is<int>.EqualTo(100))
             .AndExpectThat(JsonFrom.Path("$.content[0].condominiumFee"), Is<int>.EqualTo(90))
@@ -299,8 +301,8 @@ public class SearchPropertiesApiMethodTest
             SellingPriceMax = 200000,
             RentalTotalPriceMin = 1000,
             RentalTotalPriceMax = 3000,
-            RentalPriceMin = 1000,
-            RentalPriceMax = 2000,
+            RentalPriceMin = 500,
+            RentalPriceMax = 900,
             PriceByM2Min = 100,
             PriceByM2Max = 200,
             Status = "Active"
@@ -396,7 +398,7 @@ public class SearchPropertiesApiMethodTest
                             {
                                 SellingPrice = 100000,
                                 RentalTotalPrice = 1000,
-                                RentalPrice = 1000,
+                                RentalPrice = 700,
                                 PriceByM2 = 100,
                                 Discount = 100,
                                 CondominiumFee = 90,
@@ -432,8 +434,8 @@ public class SearchPropertiesApiMethodTest
             SellingPriceMax = 200000,
             RentalTotalPriceMin = 1000,
             RentalTotalPriceMax = 3000,
-            RentalPriceMin = 1000,
-            RentalPriceMax = 2000,
+            RentalPriceMin = 500,
+            RentalPriceMax = 900,
             PriceByM2Min = 100,
             PriceByM2Max = 200,
             Status = "Active"
@@ -478,7 +480,7 @@ public class SearchPropertiesApiMethodTest
             .AndExpectThat(JsonFrom.Path("$.content[0].address"), Is<string>.EqualTo("Good Life Street, 101"))
             .AndExpectThat(JsonFrom.Path("$.content[0].sellingPrice"), Is<int>.EqualTo(100000))
             .AndExpectThat(JsonFrom.Path("$.content[0].rentalTotalPrice"), Is<int>.EqualTo(1000))
-            .AndExpectThat(JsonFrom.Path("$.content[0].rentalPrice"), Is<int>.EqualTo(1000))
+            .AndExpectThat(JsonFrom.Path("$.content[0].rentalPrice"), Is<int>.EqualTo(700))
             .AndExpectThat(JsonFrom.Path("$.content[0].priceByM2"), Is<int>.EqualTo(100))
             .AndExpectThat(JsonFrom.Path("$.content[0].discount"), Is<int>.EqualTo(100))
             .AndExpectThat(JsonFrom.Path("$.content[0].condominiumFee"), Is<int>.EqualTo(90))

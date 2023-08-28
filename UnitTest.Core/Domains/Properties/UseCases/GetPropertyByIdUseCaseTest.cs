@@ -77,6 +77,7 @@ public sealed class GetPropertyByIdUseCaseTest : IDisposable
                     new Property
                     {
                         Id = 1001,
+                        Type = PropertyType.House,
                         Advertise = new PropertyAdvertise
                         {
                             TenantId = 1,
@@ -132,6 +133,7 @@ public sealed class GetPropertyByIdUseCaseTest : IDisposable
         Assert.NotNull(actual);
         
         Assert.Equal(1001, actual.Id);
+        Assert.Equal(PropertyType.House, actual.Type);
         Assert.Equal("Title 1", actual.Advertise.Title);
         Assert.Equal("Description 1", actual.Advertise.Description);
         Assert.Equal("https://www.patolar.com.com/rent/1", actual.Advertise.Url);

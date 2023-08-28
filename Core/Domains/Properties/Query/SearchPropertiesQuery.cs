@@ -7,7 +7,7 @@ namespace Core.Domains.Properties.Query;
 
 public sealed class SearchPropertiesQuery : SearchPropertiesQueryBase
 {
-    private static readonly SearchPropertiesQueryValidator QueryValidator = new SearchPropertiesQueryValidator();
+    private static readonly SearchPropertiesQueryValidator Validator = new SearchPropertiesQueryValidator();
 
     public SearchPropertiesQueryAdvertise Advertise { get; init; }
     public SearchPropertiesQueryAttributes Attributes { get; init; }
@@ -28,7 +28,7 @@ public sealed class SearchPropertiesQuery : SearchPropertiesQueryBase
         Location = location;
         Prices = prices;
         Status = status?.Trim().ToUpperInvariant();
-        QueryValidator.ValidateAndThrow(this);
+        Validator.ValidateAndThrow(this);
     }
 
     private bool Equals(SearchPropertiesQuery other)

@@ -11,6 +11,7 @@ using EntryPoint.WebApi.Commons.Controllers;
 using EntryPoint.WebApi.Commons.Models;
 using EntryPoint.WebApi.Domains.Commons;
 using EntryPoint.WebApi.Domains.Properties.Models;
+using EntryPoint.WebApi.Domains.Properties.Presenters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -85,6 +86,7 @@ public sealed class SearchPropertiesController : ISearchPropertiesController
         {
             SellingPrice = Range<double>.Of(request.SellingPriceMin, request.SellingPriceMax),
             RentalTotalPrice = Range<double>.Of(request.RentalTotalPriceMin, request.RentalTotalPriceMax),
+            RentalPrice = Range<double>.Of(request.RentalPriceMin, request.RentalPriceMax),
             PriceByM2 = Range<double>.Of(request.PriceByM2Min, request.PriceByM2Max)
         };
 
@@ -110,6 +112,8 @@ public sealed class SearchPropertiesController : ISearchPropertiesController
             .WithToSellingPrice(prices.SellingPrice.To)
             .WithFromRentalTotalPrice(prices.RentalTotalPrice.From)
             .WithToRentalTotalPrice(prices.RentalTotalPrice.To)
+            .WithFromRentalPrice(prices.RentalPrice.From)
+            .WithToRentalPrice(prices.RentalPrice.To)
             .WithFromPriceByM2(prices.PriceByM2.From)
             .WithToPriceByM2(prices.PriceByM2.To)
             .WithStatus(request.Status);

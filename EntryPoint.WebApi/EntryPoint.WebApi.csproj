@@ -46,8 +46,5 @@
     </ItemGroup>
 
 
-    <ItemGroup>
-      <Folder Include="Domains\Properties\" />
-    </ItemGroup>
 
 </Project>

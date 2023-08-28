@@ -6,7 +6,7 @@ namespace EntryPoint.WebApi.Domains.Properties.Models;
 public sealed class PropertyResponse
 {
     [SwaggerSchema(Nullable = false, Description = "Unique key of the property.")]
-    public string Id { get; init; }
+    public long Id { get; init; }
 
     [SwaggerSchema(Description = "Identifier of the tenant.")]
     public int TenantId { get; init; }

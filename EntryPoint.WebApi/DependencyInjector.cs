@@ -77,7 +77,7 @@ public static class DependencyInjector
         services.AddSingleton<ISearchPropertiesGateway, SearchPropertiesProvider>();
         
         // TODO: Uncomment this when the GetPropertyByIdController is implemented.
-        // services.AddSingleton<IGetPropertyByIdController, GetPropertyByIdController>();
+        services.AddSingleton<IGetPropertyByIdController, GetPropertyByIdController>();
         services.AddSingleton<IGetPropertyByIdUseCase, GetPropertyByIdUseCase>();
         services.AddSingleton<IGetPropertyByIdGateway, GetPropertyByIdProvider>();
     }

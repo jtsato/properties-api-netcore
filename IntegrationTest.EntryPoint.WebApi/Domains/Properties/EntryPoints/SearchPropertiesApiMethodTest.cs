@@ -268,6 +268,8 @@ public class SearchPropertiesApiMethodTest
             .WithToSellingPrice(200000)
             .WithFromRentalTotalPrice(1000)
             .WithToRentalTotalPrice(3000)
+            .WithFromRentalPrice(500)
+            .WithToRentalPrice(900)
             .WithFromPriceByM2(100)
             .WithToPriceByM2(200)
             .WithStatus("Active");
@@ -350,6 +352,8 @@ public class SearchPropertiesApiMethodTest
             .WithToSellingPrice(200000)
             .WithFromRentalTotalPrice(1000)
             .WithToRentalTotalPrice(3000)
+            .WithFromRentalPrice(500)
+            .WithToRentalPrice(900)
             .WithFromPriceByM2(100)
             .WithToPriceByM2(200)
             .WithStatus("Active");

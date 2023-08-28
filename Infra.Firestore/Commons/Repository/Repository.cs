@@ -72,8 +72,6 @@ public class Repository<T> : IRepository<T>
                 ? current.OrderBy(ToLowerCamelCase(order.Property))
                 : current.OrderByDescending(ToLowerCamelCase(order.Property)));
 
-        // TODO: Fix Order By
-
         QuerySnapshot querySnapshot = await query.GetSnapshotAsync();
         int numberOfElements = querySnapshot.Count;
         int totalPages = (int) Math.Ceiling((double) totalOfElements / pageRequest.PageSize) - 1;

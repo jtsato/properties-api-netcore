@@ -14,7 +14,7 @@ namespace IntegrationTest.EntryPoint.WebApi.Commons.Filters;
 [Collection("WebApi Collection [NoContext]")]
 public class AddCorrelationIdHeaderAttributeTest
 {
-    [Trait("Category", "Entrypoint (WebApi) Integration tests")]
+     [Trait("Category", "WebApi Collection [NoContext]")]
     [Fact(DisplayName = "Successful to add correlation id to response headers")]
     public void SuccessfulToAddCorrelationIdToResponseHeaders()
     {
@@ -50,7 +50,7 @@ public class AddCorrelationIdHeaderAttributeTest
         Assert.Equal("d12df24d-1268-42d9-8d0d-d614c8d26299", resultExecutingContext.HttpContext.Response.Headers["X-Correlation-Id"]);
     }
 
-    [Trait("Category", "Entrypoint (WebApi) Integration tests")]
+     [Trait("Category", "WebApi Collection [NoContext]")]
     [Fact(DisplayName = "Successful to add correlation id to response headers even if request does not contain correlation id")]
     public void SuccessfulToAddCorrelationIdToResponseHeadersEvenIfRequestDoesNotContainCorrelationId()
     {
@@ -80,7 +80,7 @@ public class AddCorrelationIdHeaderAttributeTest
         Assert.False(string.IsNullOrWhiteSpace(resultExecutingContext.HttpContext.Response.Headers["X-Correlation-Id"]));
     }
     
-    [Trait("Category", "Entrypoint (WebApi) Integration tests")]
+     [Trait("Category", "WebApi Collection [NoContext]")]
     [Fact(DisplayName = "Successful to generate correlation id if it is missing from request headers")]
     public void SuccessfulToGenerateCorrelationIdIfItIsMissingFromRequestHeaders()
     {

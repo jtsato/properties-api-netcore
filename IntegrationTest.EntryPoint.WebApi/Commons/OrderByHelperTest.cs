@@ -10,7 +10,7 @@ public class OrderByHelperTest
 {
     private readonly string[] _sortableFields = {"Field1", "Field3", "Field5", "Field7Asc", "Field9Desc"};
 
-    [Trait("Category", "Entrypoint (WebApi) Integration tests")]
+     [Trait("Category", "WebApi Collection [NoContext]")]
     [Fact(DisplayName = "Successful to sanitize empty orders by query parameters")]
     public void SuccessfulToSanitizeEmptyOrdersByQueryParameters()
     {
@@ -30,7 +30,7 @@ public class OrderByHelperTest
         Assert.Equal(string.Empty, OrderByHelper.Sanitize(null, string.Empty));
     }
 
-    [Trait("Category", "Entrypoint (WebApi) Integration tests")]
+     [Trait("Category", "WebApi Collection [NoContext]")]
     [Theory(DisplayName = "Successful to filter and sanitize several types of orders")]
     [InlineData("field1,ASC,asc,AsC,aSc", "Field1:ASC")]
     [InlineData("field1,DESC,desc,DesC,dEsC", "Field1:DESC")]

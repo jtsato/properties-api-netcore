@@ -11,7 +11,7 @@ public class ServiceResolverTest
 {
     private readonly Mock<IServiceProvider> _serviceProvider = new Mock<IServiceProvider>(MockBehavior.Strict);
 
-    [Trait("Category", "Entrypoint (WebApi) Integration tests")]
+     [Trait("Category", "WebApi Collection [NoContext]")]
     [Fact(DisplayName = "Successful to resolve service")]
     public void SuccessfulToResolveService()
     {
@@ -27,7 +27,7 @@ public class ServiceResolverTest
         Assert.Equal(new DummyClass("Black", "White"), dummyClass);
     }
 
-    [Trait("Category", "Entrypoint (WebApi) Integration tests")]
+     [Trait("Category", "WebApi Collection [NoContext]")]
     [Fact(DisplayName = "Fail to resolve service")]
     public void FailToResolveService()
     {

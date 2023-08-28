@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using Core.Commons.Models;
 
 namespace Core.Domains.Properties.Query;
 
-[ExcludeFromCodeCoverage]
 public class SearchPropertiesQueryPrices
 {
     public Range<double> SellingPrice { get; init; }

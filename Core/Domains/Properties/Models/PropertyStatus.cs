@@ -1,9 +1,8 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Core.Commons;
+﻿using Core.Commons;
 
 namespace Core.Domains.Properties.Models;
 
-[ExcludeFromCodeCoverage]
+
 public sealed class PropertyStatus : Enumeration<PropertyStatus>
 {
     public static readonly PropertyStatus None = new PropertyStatus(0, nameof(None));

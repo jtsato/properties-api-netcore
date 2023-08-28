@@ -7,6 +7,12 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <SonarQubeSetting Include="sonar.issue.ignore.allfile">
+            <Value>mongo-init.js</Value>
+        </SonarQubeSetting>
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="MongoDB.Bson" Version="2.21.0" />
         <PackageReference Include="MongoDB.Driver" Version="2.21.0" />
     </ItemGroup>

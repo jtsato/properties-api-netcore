@@ -1,9 +1,8 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Core.Commons;
+﻿using Core.Commons;
 
 namespace Core.Domains.Properties.Models;
 
-[ExcludeFromCodeCoverage]
+
 public sealed class Transaction : Enumeration<Transaction>
 {
     public static readonly Transaction None = new Transaction(0, nameof(None));

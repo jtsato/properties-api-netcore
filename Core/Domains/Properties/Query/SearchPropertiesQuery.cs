@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using FluentValidation;
 
 namespace Core.Domains.Properties.Query;
 
-[ExcludeFromCodeCoverage]
+
 public sealed class SearchPropertiesQuery : SearchPropertiesQueryBase
 {
     private static readonly SearchPropertiesQueryValidator QueryValidator = new SearchPropertiesQueryValidator();

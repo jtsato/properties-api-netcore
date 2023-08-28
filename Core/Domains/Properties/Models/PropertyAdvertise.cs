@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace Core.Domains.Properties.Models;
 
-[ExcludeFromCodeCoverage]
 public sealed class PropertyAdvertise
 {
     public int TenantId { get; init; }

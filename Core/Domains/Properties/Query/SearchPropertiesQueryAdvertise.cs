@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace Core.Domains.Properties.Query;
 
-[ExcludeFromCodeCoverage]
+
 public class SearchPropertiesQueryAdvertise
 {
     public string Transaction { get; init; }

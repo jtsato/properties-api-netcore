@@ -8,7 +8,7 @@ namespace IntegrationTest.EntryPoint.WebApi.Commons;
 [Collection("WebApi Collection [NoContext]")]
 public class UrlHelperTest
 {
-    [Trait("Category", "Entrypoint (WebApi) Integration tests")]
+     [Trait("Category", "WebApi Collection [NoContext]")]
     [Theory(DisplayName = "Successful to get base url")]
     [InlineData("http", 7029, "http://localhost:7029/api/bar-management/v1/fools")]
     [InlineData("https", 7029, "https://localhost:7029/api/bar-management/v1/fools")]

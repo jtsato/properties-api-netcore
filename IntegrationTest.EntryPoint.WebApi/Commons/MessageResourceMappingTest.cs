@@ -28,7 +28,7 @@ public sealed class MessageResourceMappingTest : IClassFixture<CoreMessageKeysFi
         _coreMessageKeysFixture = coreMessageKeysFixture;
     }
 
-    [Trait("Category", "Entrypoint (WebApi) Integration tests")]
+     [Trait("Category", "WebApi Collection [NoContext]")]
     [Theory(DisplayName = "Successful to validate messages mapped in message resources ")]
     [InlineData(DefaultMessageResourcePath)]
     [InlineData(EnUsMessageResourcePath)]

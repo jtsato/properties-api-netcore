@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using Core.Commons.Models;
 
 namespace Core.Domains.Properties.Query;
 
-[ExcludeFromCodeCoverage]
+
 public class SearchPropertiesQueryRanking
 {
     public Range<int> Ranking { get; init; }

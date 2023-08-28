@@ -7,7 +7,7 @@ namespace IntegrationTest.EntryPoint.WebApi.Commons.Filters;
 [Collection("WebApi Collection [NoContext]")]
 public class GetLanguageActionFilterAttributeTest
 {
-    [Trait("Category", "Entrypoint (WebApi) Integration tests")]
+     [Trait("Category", "WebApi Collection [NoContext]")]
     [Theory(DisplayName = "Successful to handle multiple cultures")]
     [InlineData("pt-br", "pt-BR")]
     [InlineData("en-us", "en-US")]

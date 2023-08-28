@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace Core.Domains.Properties.Models;
 
-[ExcludeFromCodeCoverage]
 public sealed class Property
 {
     public long Id { get; init; }

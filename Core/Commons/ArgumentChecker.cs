@@ -14,6 +14,11 @@ public static class ArgumentChecker
         return string.IsNullOrEmpty(input) || int.TryParse(input, out _);
     }
     
+    public static bool IsLong(string input)
+    {
+        return string.IsNullOrEmpty(input) || long.TryParse(input, out _);
+    }
+
     public static bool IsValidUri(string link)
     {
         return Uri.TryCreate(link, UriKind.Absolute, out Uri outUri)

@@ -26,12 +26,13 @@ public class GetPropertyByIdApiMethod : IApiMethod
     [SwaggerOperation(
         OperationId = nameof(GetPropertyById),
         Tags = new[] { "Properties" },
-        Summary = "Get property by id"
+        Summary = "Get property by identifier.",
+        Description = "Get property by identifier."
     )]
     [ProducesResponseType(typeof(PropertyResponse), 200)]
     [ProducesResponseType(typeof(ResponseStatus), 400)]
     [ProducesResponseType(typeof(ResponseStatus), 500)]
-    [HttpGet("{long:int:min(1)}")]
+    [HttpGet("{id:long:min(1)}")]
     public Task<IActionResult> GetPropertyById(string id)
     {
         return _controller.ExecuteAsync(id);

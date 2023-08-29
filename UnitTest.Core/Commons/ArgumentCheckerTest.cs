@@ -20,6 +20,20 @@ public class ArgumentCheckerTest
     {
         Assert.Equal(expected, ArgumentChecker.IsInteger(input));
     }
+    
+    [Trait("Category", "Core Business tests")]
+    [Theory(DisplayName = "Successful to validate an string parameter as long")]
+    [InlineData("123", true)]
+    [InlineData("abc", false)]
+    [InlineData("abc123", false)]
+    [InlineData(",.%$#@", false)]
+    [InlineData("", true)]
+    [InlineData(null, true)]
+    [InlineData("NaN", false)]
+    public void SuccessfulToValidateAnStringParameterAsLong(string input, bool expected)
+    {
+        Assert.Equal(expected, ArgumentChecker.IsLong(input));
+    }
 
     [Trait("Category", "Core Business tests")]
     [Theory(DisplayName = "Successful to validate an string parameter as a valid url")]

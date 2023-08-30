@@ -89,8 +89,8 @@ public class PropertyEntity : Entity
     public string Status { get; set; }
 
     [BsonElement("createdAt")] 
-    public DateTime  CreatedAt { get; set; }
+    public DateTime CreatedAt { get; set; }
 
     [BsonElement("updatedAt")] 
-    public DateTime  UpdatedAt { get; set; }
+    public DateTime UpdatedAt { get; set; }
 }

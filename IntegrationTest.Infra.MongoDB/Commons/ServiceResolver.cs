@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Core.Commons;
-using Core.Domains.Properties.UseCases;
+using Core.Domains.Properties.Gateways;
 using Infra.MongoDB.Commons.Connection;
 using Infra.MongoDB.Commons.Repository;
 using Infra.MongoDB.Domains.Properties.Model;
@@ -57,6 +57,7 @@ public sealed class ServiceResolver : IServiceResolver
 
         _services.Add(typeof(IGetPropertyByIdGateway), GetPropertyByIdGateway());
         _services.Add(typeof(ISearchPropertiesGateway), GetSearchPropertiesGateway());
+        _services.Add(typeof(IRegisterPropertyGateway), GetRegisterPropertyGateway());
     }
 
     private IRepository<PropertyEntity> GetPropertyRepository()
@@ -79,5 +80,10 @@ public sealed class ServiceResolver : IServiceResolver
     private IGetPropertyByIdGateway GetPropertyByIdGateway()
     {
         return new GetPropertyByIdProvider(GetPropertyRepository());
+    }
+
+    private IRegisterPropertyGateway GetRegisterPropertyGateway()
+    {
+        return new RegisterPropertyProvider(GetPropertyRepository(), GetPropertySequenceRepository());
     }
 }

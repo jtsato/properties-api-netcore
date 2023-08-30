@@ -48,7 +48,7 @@ GOTO end
 :test
 ECHO.
 ECHO Starting the integration test api...
-:: CALL docker-compose -f test/api-management-mock/docker-compose.yml up -d
+CALL docker-compose -f IntegrationTest.Infra.MongoDB/docker-compose.yml up -d
 
 ECHO.
 ECHO Resolving dependencies...
@@ -86,7 +86,7 @@ GOTO end
 :coverage
 ECHO.
 ECHO Starting the integration test api...
-:: CALL docker-compose -f test/api-management-mock/docker-compose.yml up -d
+CALL docker-compose -f IntegrationTest.Infra.MongoDB/docker-compose.yml up -d
 
 ECHO.
 ECHO Resolving dependencies...
@@ -109,7 +109,7 @@ GOTO end
 :mutation
 ECHO.
 ECHO Starting the integration test api...
-:: CALL docker-compose -f test/api-management-mock/docker-compose.yml up -d
+CALL docker-compose -f IntegrationTest.Infra.MongoDB/docker-compose.yml up -d
 
 ECHO.
 ECHO Resolving dependencies...

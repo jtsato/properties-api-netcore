@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Core.Domains.Properties.Gateways;
 using Core.Domains.Properties.Models;
 using Core.Domains.Properties.Query;
-using Core.Domains.Properties.UseCases;
 using Infra.MongoDB.Commons.Repository;
 using Infra.MongoDB.Domains.Properties.Mapper;
 using Infra.MongoDB.Domains.Properties.Model;
@@ -23,7 +23,7 @@ public class GetPropertyByIdProvider : IGetPropertyByIdGateway
     {
         FilterDefinition<PropertyEntity> filterDefinition = GetFilterDefinition(Convert.ToInt64(query.Id));
         Core.Commons.Optional<PropertyEntity> optional = await _repository.FindOneAsync(filterDefinition);
-        return optional.Map(PropertyMapper.Of);
+        return optional.Map(PropertyMapper.Map);
     }
     
     private static FilterDefinition<PropertyEntity> GetFilterDefinition(long id)

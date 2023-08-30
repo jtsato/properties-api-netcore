@@ -6,7 +6,7 @@ namespace Infra.MongoDB.Domains.Properties.Mapper;
 
 public static class PropertyMapper
 {
-    public static Property Of(this PropertyEntity propertyEntity)
+    public static Property Map(this PropertyEntity propertyEntity)
     {
         PropertyType type = PropertyType.GetByName(propertyEntity.Type).GetValue();
 
@@ -63,8 +63,46 @@ public static class PropertyMapper
             HashKey = propertyEntity.HashKey,
             Ranking = (byte) propertyEntity.Ranking,
             Status = status,
-            CreatedAt = propertyEntity.CreatedAt.ToUniversalTime(),
-            UpdatedAt = propertyEntity.UpdatedAt.ToUniversalTime()
+            CreatedAt = propertyEntity.CreatedAt.ToLocalTime(),
+            UpdatedAt = propertyEntity.UpdatedAt.ToLocalTime()
         };
     }
+
+    public static PropertyEntity Map(this Property property)
+    {
+        return new PropertyEntity
+        {
+            Type = property.Type.Name,
+            TenantId = property.Advertise.TenantId,
+            Transaction = property.Advertise.Transaction.Name,
+            Title = property.Advertise.Title,
+            Description = property.Advertise.Description,
+            Url = property.Advertise.Url,
+            RefId = property.Advertise.RefId,
+            Images = property.Advertise.Images.ToArray(),
+            NumberOfBedrooms = property.Attributes.NumberOfBedrooms,
+            NumberOfToilets = property.Attributes.NumberOfToilets,
+            NumberOfGarages = property.Attributes.NumberOfGarages,
+            Area = property.Attributes.Area,
+            BuiltArea = property.Attributes.BuiltArea,
+            City = property.Location.City,
+            State = property.Location.State,
+            District = property.Location.District,
+            Address = property.Location.Address,
+            SellingPrice = property.Prices.SellingPrice,
+            RentalTotalPrice = property.Prices.RentalTotalPrice,
+            RentalPrice = property.Prices.RentalPrice,
+            Discount = property.Prices.Discount,
+            CondominiumFee = property.Prices.CondominiumFee,
+            PriceByM2 = property.Prices.PriceByM2,
+            HashKey = property.HashKey,
+            Ranking = property.Ranking,
+            Status = property.Status.Name,
+            CreatedAt = property.CreatedAt.ToUniversalTime(),
+            UpdatedAt = property.UpdatedAt.ToUniversalTime()
+        };
+    }
+        
+    
+    
 }

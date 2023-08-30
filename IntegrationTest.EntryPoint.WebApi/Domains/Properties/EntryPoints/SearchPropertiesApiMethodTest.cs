@@ -244,8 +244,8 @@ public class SearchPropertiesApiMethodTest
                             HashKey = "hash-key-1",
                             Ranking = 1,
                             Status = PropertyStatus.Active,
-                            CreatedAt = DateTime.Parse("2023-01-01 23:59:59.999", new CultureInfo("pt-BR")),
-                            UpdatedAt = DateTime.Parse("2023-02-01 23:59:59.999", new CultureInfo("pt-BR")),
+                            CreatedAt = DateTime.Parse("2023-01-01 23:59:59.999", CultureInfo.DefaultThreadCurrentCulture),
+                            UpdatedAt = DateTime.Parse("2023-02-01 23:59:59.999", CultureInfo.DefaultThreadCurrentCulture),
                         }
                     },
                     new Pageable(0, 1, 1, 2, 2))
@@ -503,8 +503,8 @@ public class SearchPropertiesApiMethodTest
                             HashKey = "hash-key-1",
                             Ranking = 1,
                             Status = PropertyStatus.Active,
-                            CreatedAt = DateTime.Parse("2023-01-01 23:59:59.999", new CultureInfo("pt-BR")),
-                            UpdatedAt = DateTime.Parse("2023-02-01 23:59:59.999", new CultureInfo("pt-BR")),
+                            CreatedAt = DateTime.Parse("2023-01-01 23:59:59.999", CultureInfo.DefaultThreadCurrentCulture),
+                            UpdatedAt = DateTime.Parse("2023-02-01 23:59:59.999", CultureInfo.DefaultThreadCurrentCulture),
                         }
                     },
                     new Pageable(0, 1, 1, 1, 1))

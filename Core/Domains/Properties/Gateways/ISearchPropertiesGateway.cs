@@ -3,7 +3,7 @@ using Core.Commons.Paging;
 using Core.Domains.Properties.Models;
 using Core.Domains.Properties.Query;
 
-namespace Core.Domains.Properties.UseCases;
+namespace Core.Domains.Properties.Gateways;
 
 public interface ISearchPropertiesGateway
 {

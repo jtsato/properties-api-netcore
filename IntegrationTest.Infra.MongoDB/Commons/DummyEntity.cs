@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using Infra.MongoDB.Commons.Repository;
 
 namespace IntegrationTest.Infra.MongoDB.Commons;
@@ -16,7 +17,7 @@ public sealed class DummyEntity : Entity
         Id = id;
         Name = name;
         Surname = surname;
-        bool isValid = DateTime.TryParse(birthDateAsString, out DateTime dateTime);
+        bool isValid = DateTime.TryParse(birthDateAsString, CultureInfo.DefaultThreadCurrentCulture, out DateTime dateTime);
         BirthDate = isValid ? dateTime : DateTime.MinValue; 
     }
 

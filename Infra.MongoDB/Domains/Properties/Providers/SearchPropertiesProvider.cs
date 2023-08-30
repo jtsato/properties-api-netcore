@@ -3,9 +3,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Core.Commons;
 using Core.Commons.Paging;
+using Core.Domains.Properties.Gateways;
 using Core.Domains.Properties.Models;
 using Core.Domains.Properties.Query;
-using Core.Domains.Properties.UseCases;
 using Infra.MongoDB.Commons.Helpers;
 using Infra.MongoDB.Commons.Repository;
 using Infra.MongoDB.Domains.Properties.Mapper;
@@ -32,7 +32,7 @@ public class SearchPropertiesProvider : ISearchPropertiesGateway
         FilterDefinition<PropertyEntity> filter = SearchPropertiesFilterBuilder.Build(query);
         SortDefinition<PropertyEntity> sort = GetSortDefinitions(pageRequest.Sort.GetOrders());
         Page<PropertyEntity> page = await _propertyRepository.FindAllAsync(filter, sort, pageRequest.PageNumber, pageRequest.PageSize);
-        List<Property> content = page.Content.Select(PropertyMapper.Of).ToList();
+        List<Property> content = page.Content.Select(PropertyMapper.Map).ToList();
         return new Page<Property>(content, page.Pageable);
     }
 

@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Core.Commons;
 using Core.Commons.Paging;
+using Core.Domains.Properties.Gateways;
 using Core.Domains.Properties.Models;
 using Core.Domains.Properties.Query;
 

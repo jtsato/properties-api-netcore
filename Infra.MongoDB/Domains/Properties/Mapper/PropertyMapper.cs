@@ -102,7 +102,4 @@ public static class PropertyMapper
             UpdatedAt = property.UpdatedAt.ToUniversalTime()
         };
     }
-        
-    
-    
 }

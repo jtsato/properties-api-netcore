@@ -78,7 +78,6 @@ public class SearchPropertiesApiMethodTest
             .WithTransaction("Rent")
             .WithState("Duckland")
             .WithCity("White Duck")
-            .WithState("Duckland")
             .WithDistricts(new List<string> {"Downtown", "Alta Vista"})
             .WithFromNumberOfBedrooms(0)
             .WithToNumberOfBedrooms(3)

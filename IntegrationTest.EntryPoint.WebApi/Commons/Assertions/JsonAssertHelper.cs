@@ -157,6 +157,6 @@ public class JsonAssertHelper
     {
         StackTrace stackTrace = new StackTrace(3, true);
         exception.SetStackTrace(stackTrace);
-        return new AssertionException(exception.StackTrace, $"Assertion Failed: Path {path} excepted to be {excepted}. Cause: {message ?? exception.Message}");
+        return new AssertionException(exception.StackTrace, $"Assertion Failed: Path {path} expected to be {excepted}. Cause: {message ?? exception.Message}");
     }
 }

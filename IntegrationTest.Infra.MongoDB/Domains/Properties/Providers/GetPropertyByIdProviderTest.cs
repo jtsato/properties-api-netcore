@@ -46,7 +46,6 @@ public class GetPropertyByIdProviderTest
         // Arrange
         long id = (await _registerPropertyGateway.ExecuteAsync(new Property
         {
-            Id = 1001,
             Type = PropertyType.Apartment,
             Advertise = new PropertyAdvertise
             {

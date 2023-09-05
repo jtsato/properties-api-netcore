@@ -47,14 +47,7 @@ public sealed class Context : IDisposable
 
     private void Dispose(bool disposing)
     {
-        if (_disposed)
-        {
-            return;
-        }
-
-        if (!disposing) return;
-
-        _databaseKeeper.ClearCollectionsData();
+        if (_disposed || !disposing) return;
         _disposed = true;
     }
 }

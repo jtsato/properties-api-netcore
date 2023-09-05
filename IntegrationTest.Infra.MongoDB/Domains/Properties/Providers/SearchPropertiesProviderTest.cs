@@ -32,6 +32,8 @@ public class SearchPropertiesProviderTest
     public async Task SuccessfulToSearchProperties()
     {
         // Arrange
+        List<Task> tasks = new List<Task>();
+
         for (int index = 1; index <= 10; index++)
         {
             Property property =
@@ -45,7 +47,7 @@ public class SearchPropertiesProviderTest
                         Title = "Apartment for rent",
                         Description = "Apartment for rent",
                         Url = "https://www.apartment-for-rent.com",
-                        RefId = $"REF 10{index}",
+                        RefId = $"REF 10{index:D2}",
                         Images = new List<string>
                         {
                             "https://www.apartment-for-rent.com/image1.jpg",
@@ -79,13 +81,14 @@ public class SearchPropertiesProviderTest
                     HashKey = "hash-key-1",
                     Ranking = 1,
                     Status = PropertyStatus.Active,
-                    CreatedAt = DateTime.Parse("2023-01-01 23:59:59.999",
-                        CultureInfo.DefaultThreadCurrentCulture),
-                    UpdatedAt = DateTime.Parse("2023-02-01 23:59:59.999",
-                        CultureInfo.DefaultThreadCurrentCulture),
+                    CreatedAt = DateTime.Parse("2023-01-01 23:59:59.999", CultureInfo.DefaultThreadCurrentCulture),
+                    UpdatedAt = DateTime.Parse("2023-02-01 23:59:59.999", CultureInfo.DefaultThreadCurrentCulture),
                 };
-            await _registerPropertyGateway.ExecuteAsync(property);
+
+            tasks.Add(_registerPropertyGateway.ExecuteAsync(property));
         }
+
+        await Task.WhenAll(tasks);
 
         SearchPropertiesQueryBuilder queryBuilder = new SearchPropertiesQueryBuilder();
 
@@ -151,7 +154,7 @@ public class SearchPropertiesProviderTest
         Assert.Equal("Apartment for rent", actual.Advertise.Title);
         Assert.Equal("Apartment for rent", actual.Advertise.Description);
         Assert.Equal("https://www.apartment-for-rent.com", actual.Advertise.Url);
-        Assert.Equal("REF 104", actual.Advertise.RefId);
+        Assert.Equal("REF 1004", actual.Advertise.RefId);
         Assert.Equal(2, actual.Advertise.Images.Count);
         Assert.Equal("https://www.apartment-for-rent.com/image1.jpg", actual.Advertise.Images[0]);
         Assert.Equal("https://www.apartment-for-rent.com/image2.jpg", actual.Advertise.Images[1]);

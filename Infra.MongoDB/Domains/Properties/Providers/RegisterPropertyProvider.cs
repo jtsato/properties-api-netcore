@@ -28,16 +28,18 @@ public sealed class RegisterPropertyProvider : IRegisterPropertyGateway
     public async Task<Property> ExecuteAsync(Property property)
     {
         PropertyEntity entity = property.Map();
-        IncrementId(entity);
+        
+        await IncrementId(entity);
+        
         PropertyEntity propertyEntity = await _propertyRepository.SaveAsync(entity);
         
         return propertyEntity.Map();
     }
 
-    private void IncrementId(Entity entity)
+    private async Task IncrementId(Entity entity)
     {
         FilterDefinition<PropertySequence> filter = Builders<PropertySequence>.Filter.Eq(sequence => sequence.SequenceName, KeyField);
-        PropertySequence propertySequence = _propertySequenceRepository.GetSequenceAndUpdate(filter);
+        PropertySequence propertySequence = await _propertySequenceRepository.GetSequenceAndUpdate(filter);
         entity.Id = propertySequence.SequenceValue;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 using Infra.MongoDB.Commons.Connection;
 using Infra.MongoDB.Commons.Repository;
 using Infra.MongoDB.Domains.Properties.Model;
@@ -17,12 +18,12 @@ public sealed class PropertySequenceRepository : ISequenceRepository<PropertySeq
         _collection = database.GetCollection<PropertySequence>(collectionName);
     }
 
-    public PropertySequence GetSequenceAndUpdate(FilterDefinition<PropertySequence> filterDefinition)
+    public async Task<PropertySequence> GetSequenceAndUpdate(FilterDefinition<PropertySequence> filterDefinition)
     {
         FindOneAndUpdateOptions<PropertySequence, PropertySequence> findOneAndUpdateOptions =
             new FindOneAndUpdateOptions<PropertySequence, PropertySequence>
                 {IsUpsert = true, ReturnDocument = ReturnDocument.After};
         UpdateDefinition<PropertySequence> updateDefinition = Builders<PropertySequence>.Update.Inc(sequence => sequence.SequenceValue, 1);
-        return _collection.FindOneAndUpdate(filterDefinition, updateDefinition, findOneAndUpdateOptions);
+        return await _collection.FindOneAndUpdateAsync(filterDefinition, updateDefinition, findOneAndUpdateOptions);
     }
 }

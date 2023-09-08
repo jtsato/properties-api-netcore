@@ -2,7 +2,6 @@
 
 namespace Core.Domains.Properties.Models;
 
-
 public sealed class Transaction : Enumeration<Transaction>
 {
     public static readonly Transaction None = new Transaction(0, nameof(None));

@@ -21,6 +21,7 @@ public sealed class DummyEntity : Entity
         BirthDate = isValid ? dateTime : DateTime.MinValue; 
     }
 
+    [ExcludeFromCodeCoverage]
     public override bool Equals(object obj)
     {
         if (ReferenceEquals(null, obj)) return false;
@@ -37,8 +38,8 @@ public sealed class DummyEntity : Entity
                && BirthDate.Equals(other.BirthDate);
     }
 
-    [ExcludeFromCodeCoverage]
     [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode")]
+    [ExcludeFromCodeCoverage]
     public override int GetHashCode()
     {
         return HashCode.Combine(Id, Name, Surname, BirthDate);

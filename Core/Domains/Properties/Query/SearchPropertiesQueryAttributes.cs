@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using Core.Commons.Models;
 
 namespace Core.Domains.Properties.Query;
-
 
 public class SearchPropertiesQueryAttributes
 {
@@ -13,6 +13,7 @@ public class SearchPropertiesQueryAttributes
     public Range<int> Area { get; init; }
     public Range<int> BuiltArea { get; init; }
 
+    [ExcludeFromCodeCoverage]
     private bool Equals(SearchPropertiesQueryAttributes other)
     {
         return NumberOfBedrooms.Equals(other.NumberOfBedrooms)
@@ -22,11 +23,13 @@ public class SearchPropertiesQueryAttributes
                && BuiltArea.Equals(other.BuiltArea);
     }
 
+    [ExcludeFromCodeCoverage]
     public override bool Equals(object obj)
     {
         return ReferenceEquals(this, obj) || obj is SearchPropertiesQueryAttributes other && Equals(other);
     }
 
+    [ExcludeFromCodeCoverage]
     public override int GetHashCode()
     {
         return HashCode.Combine(NumberOfBedrooms, NumberOfToilets, NumberOfGarages, Area, BuiltArea);

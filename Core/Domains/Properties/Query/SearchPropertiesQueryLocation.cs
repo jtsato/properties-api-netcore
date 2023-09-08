@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 
 namespace Core.Domains.Properties.Query;
-
 
 public class SearchPropertiesQueryLocation
 {
@@ -18,7 +18,8 @@ public class SearchPropertiesQueryLocation
         City = city ?? string.Empty;
         Districts = districts ?? new List<string>();
     }
-
+    
+    [ExcludeFromCodeCoverage]
     private bool Equals(SearchPropertiesQueryLocation other)
     {
         return State == other.State 
@@ -26,11 +27,13 @@ public class SearchPropertiesQueryLocation
                && !Districts.Except(other.Districts).Any() && !other.Districts.Except(Districts).Any();
     }
 
+    [ExcludeFromCodeCoverage]
     public override bool Equals(object obj)
     {
         return ReferenceEquals(this, obj) || obj is SearchPropertiesQueryLocation other && Equals(other);
     }
 
+    [ExcludeFromCodeCoverage]
     public override int GetHashCode()
     {
         return HashCode.Combine(State, City, Districts);

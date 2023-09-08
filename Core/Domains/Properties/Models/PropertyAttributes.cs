@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace Core.Domains.Properties.Models;
@@ -11,6 +12,7 @@ public sealed class PropertyAttributes
     public int Area { get; init; }
     public int BuiltArea { get; init; }
 
+    [ExcludeFromCodeCoverage]
     private bool Equals(PropertyAttributes other)
     {
         return NumberOfBedrooms == other.NumberOfBedrooms
@@ -20,11 +22,13 @@ public sealed class PropertyAttributes
                && BuiltArea == other.BuiltArea;
     }
 
+    [ExcludeFromCodeCoverage]
     public override bool Equals(object obj)
     {
         return ReferenceEquals(this, obj) || obj is PropertyAttributes other && Equals(other);
     }
 
+    [ExcludeFromCodeCoverage]
     public override int GetHashCode()
     {
         return HashCode.Combine(NumberOfBedrooms, NumberOfToilets, NumberOfGarages, Area, BuiltArea);

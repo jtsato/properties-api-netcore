@@ -49,7 +49,7 @@ public sealed class Sort
     {
         return _orders;
     }
-
+[ExcludeFromCodeCoverage]
     private bool Equals(Sort other)
     {
         return _orders.Count == other._orders.Count
@@ -57,11 +57,13 @@ public sealed class Sort
                && !other._orders.Except(_orders).Any();
     }
 
+    [ExcludeFromCodeCoverage]
     public override bool Equals(object obj)
     {
         return ReferenceEquals(this, obj) || obj is Sort other && Equals(other);
     }
 
+    [ExcludeFromCodeCoverage]
     public override int GetHashCode()
     {
         return _orders is not null ? _orders.GetHashCode() : 0;

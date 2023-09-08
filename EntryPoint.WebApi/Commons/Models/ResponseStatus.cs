@@ -23,7 +23,7 @@ public sealed class ResponseStatus
         Message = message;
         Fields = new List<Field>(0);
     }
-
+[ExcludeFromCodeCoverage]
     private bool Equals(ResponseStatus other)
     {
         return Code == other.Code &&
@@ -32,6 +32,7 @@ public sealed class ResponseStatus
                && !Fields.Except(other.Fields).Any() && !other.Fields.Except(Fields).Any();
     }
 
+    [ExcludeFromCodeCoverage]
     public override bool Equals(object obj)
     {
         return ReferenceEquals(this, obj) || obj is ResponseStatus other && Equals(other);

@@ -2,7 +2,6 @@
 
 namespace Core.Domains.Properties.Models;
 
-
 public class PropertyType : Enumeration<PropertyType>
 {
     public static readonly PropertyType All = new PropertyType(0, "ALL"); // Todos

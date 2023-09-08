@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace Core.Domains.Properties.Models;
@@ -16,7 +17,8 @@ public sealed class Property
     public PropertyStatus Status { get; init; }
     public DateTime CreatedAt { get; init; }
     public DateTime UpdatedAt { get; init; }
-
+    
+    [ExcludeFromCodeCoverage]
     private bool Equals(Property other)
     {
         return Id == other.Id
@@ -32,11 +34,13 @@ public sealed class Property
                && UpdatedAt.Equals(other.UpdatedAt);
     }
 
+    [ExcludeFromCodeCoverage]
     public override bool Equals(object obj)
     {
         return ReferenceEquals(this, obj) || obj is Property other && Equals(other);
     }
 
+    [ExcludeFromCodeCoverage]
     public override int GetHashCode()
     {
         HashCode hashCode = new HashCode();

@@ -92,7 +92,6 @@ public class EnumerationTest
         Assert.False(optional.HasValue());
     }
 }
-
 public class Color : Enumeration<Color>
 {
     public static readonly Color Blue = new Color(1, "BLUE");

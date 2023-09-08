@@ -14,18 +14,20 @@ public sealed class Order
         Direction = direction;
         Property = property;
     }
-
+[ExcludeFromCodeCoverage]
     private bool Equals(Order other)
     {
         return Direction == other.Direction
                && Property == other.Property;
     }
 
+    [ExcludeFromCodeCoverage]
     public override bool Equals(object obj)
     {
         return ReferenceEquals(this, obj) || obj is Order other && Equals(other);
     }
 
+    [ExcludeFromCodeCoverage]
     public override int GetHashCode()
     {
         return HashCode.Combine((int) Direction, Property);

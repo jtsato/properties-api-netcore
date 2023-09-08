@@ -31,7 +31,7 @@ public sealed class PageRequest
     {
         return new PageRequest(pageNumber, pageSize, sort);
     }
-
+[ExcludeFromCodeCoverage]
     private bool Equals(PageRequest other)
     {
         return PageNumber == other.PageNumber
@@ -39,11 +39,13 @@ public sealed class PageRequest
                && Equals(Sort, other.Sort);
     }
 
+    [ExcludeFromCodeCoverage]
     public override bool Equals(object obj)
     {
         return ReferenceEquals(this, obj) || obj is PageRequest other && Equals(other);
     }
 
+    [ExcludeFromCodeCoverage]
     public override int GetHashCode()
     {
         return HashCode.Combine(PageNumber, PageSize, Sort);

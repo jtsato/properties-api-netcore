@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using FluentValidation;
 
 namespace Core.Domains.Properties.Query;
-
 
 public sealed class SearchPropertiesQuery : SearchPropertiesQueryBase
 {
@@ -31,6 +31,7 @@ public sealed class SearchPropertiesQuery : SearchPropertiesQueryBase
         Validator.ValidateAndThrow(this);
     }
 
+    [ExcludeFromCodeCoverage]
     private bool Equals(SearchPropertiesQuery other)
     {
         return Equals(Type, other.Type)
@@ -41,11 +42,13 @@ public sealed class SearchPropertiesQuery : SearchPropertiesQueryBase
                && Equals(Status, other.Status);
     }
 
+    [ExcludeFromCodeCoverage]
     public override bool Equals(object obj)
     {
         return ReferenceEquals(this, obj) || obj is SearchPropertiesQuery other && Equals(other);
     }
 
+    [ExcludeFromCodeCoverage]
     public override int GetHashCode()
     {
         HashCode hashCode = new HashCode();

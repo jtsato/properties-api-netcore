@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace Core.Domains.Properties.Models;
-
 
 public sealed class PropertyPrices
 {
@@ -13,6 +13,7 @@ public sealed class PropertyPrices
     public double CondominiumFee { get; init; }
     public double PriceByM2 { get; init; }
 
+    [ExcludeFromCodeCoverage]
     private bool Equals(PropertyPrices other)
     {
         return SellingPrice.Equals(other.SellingPrice)
@@ -23,11 +24,13 @@ public sealed class PropertyPrices
                && PriceByM2.Equals(other.PriceByM2);
     }
 
+    [ExcludeFromCodeCoverage]
     public override bool Equals(object obj)
     {
         return ReferenceEquals(this, obj) || obj is PropertyPrices other && Equals(other);
     }
 
+    [ExcludeFromCodeCoverage]
     public override int GetHashCode()
     {
         return HashCode.Combine(SellingPrice, RentalTotalPrice, RentalPrice, Discount, CondominiumFee, PriceByM2);

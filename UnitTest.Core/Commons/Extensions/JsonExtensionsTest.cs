@@ -125,17 +125,19 @@ internal sealed class DummyClass
         Foo = foo;
         Bar = bar;
     }
-
+[ExcludeFromCodeCoverage]
     private bool Equals(DummyClass other)
     {
         return Foo == other.Foo && Bar == other.Bar;
     }
 
+    [ExcludeFromCodeCoverage]
     public override bool Equals(object obj)
     {
         return ReferenceEquals(this, obj) || obj is DummyClass other && Equals(other);
     }
 
+    [ExcludeFromCodeCoverage]
     public override int GetHashCode()
     {
         return HashCode.Combine(Foo, Bar);

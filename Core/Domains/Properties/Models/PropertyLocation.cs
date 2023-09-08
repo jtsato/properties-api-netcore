@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace Core.Domains.Properties.Models;
@@ -10,6 +11,7 @@ public sealed class PropertyLocation
     public string District { get; init; }
     public string Address { get; init; }
 
+    [ExcludeFromCodeCoverage]
     private bool Equals(PropertyLocation other)
     {
         return City == other.City 
@@ -18,11 +20,13 @@ public sealed class PropertyLocation
                && Address == other.Address;
     }
 
+    [ExcludeFromCodeCoverage]
     public override bool Equals(object obj)
     {
         return ReferenceEquals(this, obj) || obj is PropertyLocation other && Equals(other);
     }
 
+    [ExcludeFromCodeCoverage]
     public override int GetHashCode()
     {
         return HashCode.Combine(City, State, District, Address);

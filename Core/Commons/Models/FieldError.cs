@@ -12,7 +12,7 @@ public sealed class FieldError
     public string ErrorMessage { get; init; }
 
     public string AttemptedValue { get; init; }
-
+[ExcludeFromCodeCoverage]
     private bool Equals(FieldError other)
     {
         return PropertyName == other.PropertyName
@@ -20,11 +20,13 @@ public sealed class FieldError
                && AttemptedValue == other.AttemptedValue;
     }
 
+    [ExcludeFromCodeCoverage]
     public override bool Equals(object obj)
     {
         return ReferenceEquals(this, obj) || obj is FieldError other && Equals(other);
     }
 
+    [ExcludeFromCodeCoverage]
     public override int GetHashCode()
     {
         return HashCode.Combine(PropertyName, ErrorMessage, AttemptedValue);

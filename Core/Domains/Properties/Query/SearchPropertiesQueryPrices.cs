@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using Core.Commons.Models;
 
@@ -10,7 +11,8 @@ public class SearchPropertiesQueryPrices
     public Range<double> RentalTotalPrice { get; init; }
     public Range<double> RentalPrice { get; init; }
     public Range<double> PriceByM2 { get; init; }
-
+    
+    [ExcludeFromCodeCoverage]
     private bool Equals(SearchPropertiesQueryPrices other)
     {
         return SellingPrice.Equals(other.SellingPrice)
@@ -19,11 +21,13 @@ public class SearchPropertiesQueryPrices
                && PriceByM2.Equals(other.PriceByM2);
     }
 
+    [ExcludeFromCodeCoverage]
     public override bool Equals(object obj)
     {
         return ReferenceEquals(this, obj) || obj is SearchPropertiesQueryPrices other && Equals(other);
     }
 
+    [ExcludeFromCodeCoverage]
     public override int GetHashCode()
     {
         return HashCode.Combine(SellingPrice, RentalTotalPrice, RentalPrice, PriceByM2);

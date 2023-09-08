@@ -15,8 +15,9 @@ public class FilterDefinitionHelperTest
         List<FilterDefinition<DummyEntity>> filterDefinitions = new List<FilterDefinition<DummyEntity>>();
 
         // Act
-        FilterHelper.AddEqualsFilter(filterDefinitions, document => document.Surname, null);
+        FilterHelper.AddEqualsFilter(filterDefinitions, document => document.Id, null);
         FilterHelper.AddLikeFilter(filterDefinitions, document => document.Name, string.Empty);
+        FilterHelper.AddEqualsFilter(filterDefinitions, document => document.Surname, null);
         FilterHelper.AddDateAfterOrEqualFilter(filterDefinitions, document => document.BirthDate, null);
         FilterHelper.AddDateBeforeOrEqualFilter(filterDefinitions, document => document.BirthDate, null);
 
@@ -32,13 +33,14 @@ public class FilterDefinitionHelperTest
         List<FilterDefinition<DummyEntity>> filterDefinitions = new List<FilterDefinition<DummyEntity>>();
 
         // Act
-        FilterHelper.AddEqualsFilter(filterDefinitions, document => document.Surname, "Smith");
+        FilterHelper.AddEqualsFilter(filterDefinitions, document => document.Id, 1);
         FilterHelper.AddLikeFilter(filterDefinitions, document => document.Name, "Kim");
+        FilterHelper.AddEqualsFilter(filterDefinitions, document => document.Surname, "Smith");
         FilterHelper.AddDateAfterOrEqualFilter(filterDefinitions, document => document.BirthDate, "2020-05-20 23:59:59");
         FilterHelper.AddDateBeforeOrEqualFilter(filterDefinitions, document => document.BirthDate, "2020-05-20 23:59:59");
         
         // Assert
-        Assert.Equal(4, filterDefinitions.Count);
+        Assert.Equal(5, filterDefinitions.Count);
     }
 }
 

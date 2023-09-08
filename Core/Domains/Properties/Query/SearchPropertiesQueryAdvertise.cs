@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace Core.Domains.Properties.Query;
-
 
 public class SearchPropertiesQueryAdvertise
 {
@@ -12,17 +12,20 @@ public class SearchPropertiesQueryAdvertise
     {
         Transaction = transaction ?? string.Empty;
     }
-
+    
+    [ExcludeFromCodeCoverage]
     private bool Equals(SearchPropertiesQueryAdvertise other)
     {
         return Transaction == other.Transaction;
     }
 
+    [ExcludeFromCodeCoverage]
     public override bool Equals(object obj)
     {
         return ReferenceEquals(this, obj) || obj is SearchPropertiesQueryAdvertise other && Equals(other);
     }
 
+    [ExcludeFromCodeCoverage]
     public override int GetHashCode()
     {
         return HashCode.Combine(Transaction);

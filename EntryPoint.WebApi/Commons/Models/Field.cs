@@ -22,17 +22,19 @@ public sealed class Field
         Message = message;
         Value = value;
     }
-
+[ExcludeFromCodeCoverage]
     private bool Equals(Field other)
     {
         return Name == other.Name && Message == other.Message && Value == other.Value;
     }
 
+    [ExcludeFromCodeCoverage]
     public override bool Equals(object obj)
     {
         return ReferenceEquals(this, obj) || obj is Field other && Equals(other);
     }
 
+    [ExcludeFromCodeCoverage]
     public override int GetHashCode()
     {
         return HashCode.Combine(Name, Message, Value);

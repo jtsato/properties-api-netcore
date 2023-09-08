@@ -42,14 +42,14 @@ public class UpdateDefinitionHelperTest
         // Arrange
         List<DummyEntity> currentDummies = new List<DummyEntity>
         {
-            new DummyEntity(1, "John", "Smith", "1980-04-23 00:00:01"),
-            new DummyEntity(2, "Kim", "Smith", "1981-07-25 00:00:01"),
+            new DummyEntity(1, "John", "Smith", "1980-04-23 00:00:01", 29),
+            new DummyEntity(2, "Kim", "Smith", "1981-07-25 00:00:01", 31),
         };
 
         List<DummyEntity> newDummies = new List<DummyEntity>
         {
-            new DummyEntity(3, "Tiebout", "Moskovitz", "1981-07-07 00:00:01"),
-            new DummyEntity(4, "Marlane", "Moskovitz", "1984-10-10 00:00:01"),
+            new DummyEntity(3, "Tiebout", "Moskovitz", "1981-07-07 00:00:01", 29),
+            new DummyEntity(4, "Marlane", "Moskovitz", "1984-10-10 00:00:01", 31),
         };
 
         List<UpdateDefinition<DummyEntity>> updateDefinitions = new List<UpdateDefinition<DummyEntity>>();
@@ -68,14 +68,14 @@ public class UpdateDefinitionHelperTest
         // Arrange
         List<DummyEntity> currentDummies = new List<DummyEntity>
         {
-            new DummyEntity(1, "John", "Smith", "1980-04-23 00:00:01"),
-            new DummyEntity(2, "Kim", "Smith", "1981-07-25 00:00:01"),
+            new DummyEntity(1, "John", "Smith", "1980-04-23 00:00:01", 29),
+            new DummyEntity(2, "Kim", "Smith", "1981-07-25 00:00:01", 31),
         };
 
         List<DummyEntity> newDummies = new List<DummyEntity>
         {
-            new DummyEntity(1, "John", "Smith", "1980-04-23 00:00:01"),
-            new DummyEntity(2, "Kim", "Smith", "1981-07-25 00:00:01"),
+            new DummyEntity(1, "John", "Smith", "1980-04-23 00:00:01", 29),
+            new DummyEntity(2, "Kim", "Smith", "1981-07-25 00:00:01", 31),
         };
 
         List<UpdateDefinition<DummyEntity>> updateDefinitions = new List<UpdateDefinition<DummyEntity>>();
@@ -108,8 +108,8 @@ public class UpdateDefinitionHelperTest
         // Arrange
         List<DummyEntity> newDummies = new List<DummyEntity>
         {
-            new DummyEntity(1, "John", "Smith", "1980-04-23 00:00:01"),
-            new DummyEntity(2, "Kim", "Smith", "1981-07-25 00:00:01"),
+            new DummyEntity(1, "John", "Smith", "1980-04-23 00:00:01", 29),
+            new DummyEntity(2, "Kim", "Smith", "1981-07-25 00:00:01", 31),
         };
 
         List<UpdateDefinition<DummyEntity>> updateDefinitions = new List<UpdateDefinition<DummyEntity>>();
@@ -128,8 +128,8 @@ public class UpdateDefinitionHelperTest
         // Arrange
         List<DummyEntity> currentDummies = new List<DummyEntity>
         {
-            new DummyEntity(1, "John", "Smith", "1980-04-23 00:00:01"),
-            new DummyEntity(2, "Kim", "Smith", "1981-07-25 00:00:01"),
+            new DummyEntity(1, "John", "Smith", "1980-04-23 00:00:01", 29),
+            new DummyEntity(2, "Kim", "Smith", "1981-07-25 00:00:01", 31),
         };
 
         List<UpdateDefinition<DummyEntity>> updateDefinitions = new List<UpdateDefinition<DummyEntity>>();

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Text;
 using Infra.MongoDB.Commons.Repository;
 
 namespace IntegrationTest.Infra.MongoDB.Commons;
@@ -11,14 +12,16 @@ public sealed class DummyEntity : Entity
     public string Name { get; init; }
     public string Surname { get; init; }
     public DateTime BirthDate { get; init; }
+    public int Age { get; init; }
 
-    public DummyEntity(int id, string name, string surname, string birthDateAsString)
+    public DummyEntity(int id, string name, string surname, string birthDateAsString, int age)
     {
         Id = id;
         Name = name;
         Surname = surname;
         bool isValid = DateTime.TryParse(birthDateAsString, CultureInfo.DefaultThreadCurrentCulture, out DateTime dateTime);
-        BirthDate = isValid ? dateTime : DateTime.MinValue; 
+        BirthDate = isValid ? dateTime : DateTime.MinValue;
+        Age = age;
     }
 
     [ExcludeFromCodeCoverage]
@@ -35,19 +38,26 @@ public sealed class DummyEntity : Entity
         return Id == other.Id
                && Name == other.Name
                && Surname == other.Surname
-               && BirthDate.Equals(other.BirthDate);
+               && BirthDate.Equals(other.BirthDate)
+               && Age == other.Age;
     }
 
     [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode")]
     [ExcludeFromCodeCoverage]
     public override int GetHashCode()
     {
-        return HashCode.Combine(Id, Name, Surname, BirthDate);
+        return HashCode.Combine(Id, Name, Surname, BirthDate, Age);
     }
 
     [ExcludeFromCodeCoverage]
     public override string ToString()
     {
-        return $"{nameof(Id)}: {Id}, {nameof(Name)}: {Name}, {nameof(Surname)}: {Surname}, {nameof(BirthDate)}: {BirthDate}";
+        return new StringBuilder()
+            .AppendLine($"Id: {Id}")
+            .AppendLine($"Name: {Name}")
+            .AppendLine($"Surname: {Surname}")
+            .AppendLine($"BirthDate: {BirthDate}")
+            .AppendLine($"Age: {Age}")
+            .ToString();
     }
 }

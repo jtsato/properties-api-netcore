@@ -24,6 +24,23 @@ public class FilterDefinitionHelperTest
         // Assert
         Assert.Empty(filterDefinitions);
     }
+    
+    [Trait("Category", "Database collection [NoContext]")]
+    [Fact(DisplayName = "Fail to add filter definition if value is not relevant")]
+    public void FailToAddFilterDefinitionIfValueIsNotRelevant()
+    {
+        // Arrange
+        List<FilterDefinition<DummyEntity>> filterDefinitions = new List<FilterDefinition<DummyEntity>>();
+
+        // Act
+        FilterHelper.AddEqualsFilter(filterDefinitions, document => document.Id, 0);
+        FilterHelper.AddInArrayFilter(filterDefinitions, document => document.Name, new List<string>());
+        FilterHelper.AddGreaterOrEqualFilter(filterDefinitions, document => document.Age, 0);
+        FilterHelper.AddLessOrEqualFilter(filterDefinitions, document => document.Age, 0);
+
+        // Assert
+        Assert.Empty(filterDefinitions);
+    }
 
     [Trait("Category", "Database collection [NoContext]")]
     [Fact(DisplayName = "Successful to add filter definition if value is not null")]

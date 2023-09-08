@@ -179,4 +179,122 @@ public class SearchPropertiesProviderTest
         Assert.Equal(DateTime.Parse("2023-01-01 23:59:59.999", CultureInfo.DefaultThreadCurrentCulture), actual.CreatedAt);
         Assert.Equal(DateTime.Parse("2023-02-01 23:59:59.999", CultureInfo.DefaultThreadCurrentCulture), actual.UpdatedAt);
     }
+
+    [Trait("Category", "Infrastructure (DB) Integration tests")]
+    [Fact(DisplayName = "Successful to search properties with no sort")]
+    public async Task SuccessfulToSearchPropertiesWithNoSort()
+    {
+        // Arrange
+        Property property =
+            new Property
+            {
+                Type = PropertyType.House,
+                Advertise = new PropertyAdvertise
+                {
+                    TenantId = 1,
+                    Transaction = Transaction.Rent,
+                    Title = "House for rent",
+                    Description = "House for rent",
+                    Url = "https://www.house-for-rent.com",
+                    RefId = "REF 201",
+                    Images = new List<string>
+                    {
+                        "https://www.house-for-rent.com/image1.jpg",
+                        "https://www.house-for-rent.com/image2.jpg"
+                    }
+                },
+                Attributes = new PropertyAttributes
+                {
+                    NumberOfBedrooms = 2,
+                    NumberOfToilets = 1,
+                    NumberOfGarages = 1,
+                    Area = 100,
+                    BuiltArea = 200,
+                },
+                Location = new PropertyLocation
+                {
+                    State = "Duckland",
+                    City = "White Duck",
+                    District = "Downtown",
+                    Address = "Good Life Street, 201",
+                },
+                Prices = new PropertyPrices
+                {
+                    SellingPrice = 1000,
+                    RentalTotalPrice = 1000,
+                    RentalPrice = 700,
+                    PriceByM2 = 100,
+                    Discount = 100,
+                    CondominiumFee = 90,
+                },
+                HashKey = "hash-key-1",
+                Ranking = 1,
+                Status = PropertyStatus.Active,
+                CreatedAt = DateTime.Parse("2023-01-01 23:59:59.999", CultureInfo.DefaultThreadCurrentCulture),
+                UpdatedAt = DateTime.Parse("2023-02-01 23:59:59.999", CultureInfo.DefaultThreadCurrentCulture),
+            };
+
+        await _registerPropertyGateway.ExecuteAsync(property);
+
+        SearchPropertiesQueryBuilder queryBuilder = new SearchPropertiesQueryBuilder();
+
+        queryBuilder
+            .WithType("House")
+            .WithTransaction("Rent")
+            .WithState("Duckland")
+            .WithCity("White Duck")
+            .WithDistricts(new List<string> {"Downtown", "Alta Vista"})
+            .WithStatus("Active");
+
+        SearchPropertiesQuery query = queryBuilder.Build();
+
+        // Act
+        Page<Property> page = await _searchPropertiesGateway.ExecuteAsync(query, PageRequest.Of(0, 3));
+
+        // Assert
+        Assert.NotNull(page);
+        _outputHelper.WriteLine(page.ToString());
+
+        // Assert
+        Assert.NotNull(page);
+        Assert.Equal(0, page.Pageable.Page);
+        Assert.Equal(3, page.Pageable.Size);
+        Assert.Equal(1, page.Pageable.NumberOfElements);
+        Assert.Equal(1, page.Pageable.TotalOfElements);
+        Assert.Equal(1, page.Pageable.TotalPages);
+
+        Assert.Single(page.Content);
+        Property actual = page.Content[0];
+
+        Assert.NotNull(actual);
+        Assert.Equal(PropertyType.House, actual.Type);
+        Assert.Equal(Transaction.Rent, actual.Advertise.Transaction);
+        Assert.Equal("House for rent", actual.Advertise.Title);
+        Assert.Equal("House for rent", actual.Advertise.Description);
+        Assert.Equal("https://www.house-for-rent.com", actual.Advertise.Url);
+        Assert.Equal("REF 201", actual.Advertise.RefId);
+        Assert.Equal(2, actual.Advertise.Images.Count);
+        Assert.Equal("https://www.house-for-rent.com/image1.jpg", actual.Advertise.Images[0]);
+        Assert.Equal("https://www.house-for-rent.com/image2.jpg", actual.Advertise.Images[1]);
+        Assert.Equal(2, actual.Attributes.NumberOfBedrooms);
+        Assert.Equal(1, actual.Attributes.NumberOfToilets);
+        Assert.Equal(1, actual.Attributes.NumberOfGarages);
+        Assert.Equal(100, actual.Attributes.Area);
+        Assert.Equal(200, actual.Attributes.BuiltArea);
+        Assert.Equal("Duckland", actual.Location.State);
+        Assert.Equal("White Duck", actual.Location.City);
+        Assert.Equal("Downtown", actual.Location.District);
+        Assert.Equal("Good Life Street, 201", actual.Location.Address);
+        Assert.Equal(1000, actual.Prices.SellingPrice);
+        Assert.Equal(1000, actual.Prices.RentalTotalPrice);
+        Assert.Equal(700, actual.Prices.RentalPrice);
+        Assert.Equal(100, actual.Prices.PriceByM2);
+        Assert.Equal(100, actual.Prices.Discount);
+        Assert.Equal(90, actual.Prices.CondominiumFee);
+        Assert.Equal("hash-key-1", actual.HashKey);
+        Assert.Equal(1, actual.Ranking);
+        Assert.Equal(PropertyStatus.Active, actual.Status);
+        Assert.Equal(DateTime.Parse("2023-01-01 23:59:59.999", CultureInfo.DefaultThreadCurrentCulture), actual.CreatedAt);
+        Assert.Equal(DateTime.Parse("2023-02-01 23:59:59.999", CultureInfo.DefaultThreadCurrentCulture), actual.UpdatedAt);
+    }
 }

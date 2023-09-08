@@ -10,23 +10,23 @@ namespace IntegrationTest.EntryPoint.WebApi.Commons.Assertions;
 public class JsonAssertHelperTests
 {
     private static readonly JsonDocument SampleDocument = JsonDocument.Parse(
-        $$"""
-          {
-              "name": "John",
-              "middleName": "",
-              "age": 30,
-              "isStudent": false,
-              "courses": [],
-              "friends": [
-                  "Jane",
-                  "Mark"
-              ],
-              "companies": [
-                "Microsoft"
-              ],
-              "reference": null
-          }
-          """
+        """
+        {
+            "name": "John",
+            "middleName": "",
+            "age": 30,
+            "isStudent": false,
+            "courses": [],
+            "friends": [
+                "Jane",
+                "Mark"
+            ],
+            "companies": [
+              "Microsoft"
+            ],
+            "reference": null
+        }
+        """
     );
 
     [Trait("Category", "WebApi Collection [NoContext]")]

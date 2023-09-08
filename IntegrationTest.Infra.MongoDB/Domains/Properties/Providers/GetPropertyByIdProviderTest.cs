@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Threading.Tasks;
-using Core.Commons;
 using Core.Domains.Properties.Gateways;
 using Core.Domains.Properties.Models;
 using Core.Domains.Properties.Query;
@@ -33,7 +32,7 @@ public class GetPropertyByIdProviderTest
     {
         // Arrange
         // Act
-        Optional<Property> optional = await _getPropertyByIdGateway.ExecuteAsync(new GetPropertyByIdQuery("1001"));
+        Optional optional = await _getPropertyByIdGateway.ExecuteAsync(new GetPropertyByIdQuery("1001"));
 
         // Assert
         Assert.False(optional.HasValue());
@@ -86,7 +85,7 @@ public class GetPropertyByIdProviderTest
         })).Id;
 
         // Act
-        Optional<Property> optional = await _getPropertyByIdGateway.ExecuteAsync(new GetPropertyByIdQuery(Convert.ToString(id)));
+        Optional optional = await _getPropertyByIdGateway.ExecuteAsync(new GetPropertyByIdQuery(Convert.ToString(id)));
 
         // Assert
         Assert.True(optional.HasValue());

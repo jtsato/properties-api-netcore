@@ -10,7 +10,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace EntryPoint.WebApi.Domains.Properties.EntryPoints;
 
 [ApiController]
-[Route("api/v1/properties")]
+[Route("v1/properties")]
 [ApiExplorerSettings(GroupName = "Properties")]
 [Consumes("application/json")]
 [Produces("application/json")]

@@ -77,7 +77,7 @@ public static class Program
         }
 
         app.MapControllers();
-        app.UsePathBase(new PathString("/api/properties-search/v1"));
+        app.UsePathBase(new PathString("/api/properties-search"));
         app.UseRouting();
 
         app.UseWhen(
@@ -149,7 +149,7 @@ public static class Program
         {
             swagger.Servers = new List<OpenApiServer>
             {
-                new OpenApiServer {Url = $"{httpReq.Scheme}://{httpReq.Host.Value}/api/properties-search/v1"}
+                new OpenApiServer {Url = $"{httpReq.Scheme}://{httpReq.Host.Value}/api/properties-search"}
             };
         });
     }

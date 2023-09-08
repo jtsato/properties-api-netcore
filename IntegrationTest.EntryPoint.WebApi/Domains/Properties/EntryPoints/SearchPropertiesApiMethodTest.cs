@@ -325,7 +325,7 @@ public class SearchPropertiesApiMethodTest
             .AndExpectThat(JsonFrom.Path("$.content[0].status"), Is<string>.EqualTo("ACTIVE"))
             .AndExpectThat(JsonFrom.Path("$.content[0].createdAt"), Is<string>.EqualTo("2023-01-01T23:59:59.999"))
             .AndExpectThat(JsonFrom.Path("$.content[0].updatedAt"), Is<string>.EqualTo("2023-02-01T23:59:59.999"))
-            .AndExpectThat(JsonFrom.Path("$.content[0].href"), Is<string>.StartWith("http://localhost:7029/api/properties-search/v1/properties/"))
+            .AndExpectThat(JsonFrom.Path("$.content[0].href"), Is<string>.EqualTo("http://localhost:7029/api/properties-search/v1/properties/1001"))
             .AndExpectThat(JsonFrom.Path("$.pageable.page"), Is<int>.EqualTo(0))
             .AndExpectThat(JsonFrom.Path("$.pageable.size"), Is<int>.EqualTo(1))
             .AndExpectThat(JsonFrom.Path("$.pageable.numberOfElements"), Is<int>.EqualTo(1))
@@ -584,6 +584,6 @@ public class SearchPropertiesApiMethodTest
             .AndExpectThat(JsonFrom.Path("$.content[0].status"), Is<string>.EqualTo("ACTIVE"))
             .AndExpectThat(JsonFrom.Path("$.content[0].createdAt"), Is<string>.EqualTo("2023-01-01T23:59:59.999"))
             .AndExpectThat(JsonFrom.Path("$.content[0].updatedAt"), Is<string>.EqualTo("2023-02-01T23:59:59.999"))
-            .AndExpectThat(JsonFrom.Path("$.content[0].href"), Is<string>.StartWith("http://localhost:7029/api/properties-search/v1/properties/"));
+            .AndExpectThat(JsonFrom.Path("$.content[0].href"), Is<string>.EqualTo("http://localhost:7029/api/properties-search/v1/properties/1001"));
     }
 }

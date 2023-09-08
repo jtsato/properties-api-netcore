@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Core.Commons.Paging;
 using Infra.MongoDB.Commons.Connection;
@@ -7,6 +8,7 @@ using MongoDB.Driver;
 
 namespace Infra.MongoDB.Commons.Repository;
 
+[ExcludeFromCodeCoverage]
 public abstract class Repository<T> : IRepository<T>
 {
     private readonly IMongoCollection<T> _collection;

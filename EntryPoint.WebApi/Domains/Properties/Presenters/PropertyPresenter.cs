@@ -34,7 +34,6 @@ public static class PropertyPresenter
             PriceByM2 = property.Prices.PriceByM2,
             Ranking = property.Ranking,
             Status = property.Status.Name.ToUpperInvariant(),
-            // TODO: Double check if the date time zone is correct.
             CreatedAt = property.CreatedAt.ToString("yyyy-MM-ddTHH:mm:ss.fff"),
             UpdatedAt = property.UpdatedAt.ToString("yyyy-MM-ddTHH:mm:ss.fff"),
         };

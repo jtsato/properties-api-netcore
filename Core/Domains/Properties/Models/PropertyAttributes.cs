@@ -34,6 +34,7 @@ public sealed class PropertyAttributes
         return HashCode.Combine(NumberOfBedrooms, NumberOfToilets, NumberOfGarages, Area, BuiltArea);
     }
 
+    [ExcludeFromCodeCoverage]
     public override string ToString()
     {
         return new StringBuilder()

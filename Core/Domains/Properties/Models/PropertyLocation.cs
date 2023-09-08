@@ -32,6 +32,7 @@ public sealed class PropertyLocation
         return HashCode.Combine(City, State, District, Address);
     }
 
+    [ExcludeFromCodeCoverage]
     public override string ToString()
     {
         return new StringBuilder()

@@ -32,6 +32,7 @@ public sealed class FieldError
         return HashCode.Combine(PropertyName, ErrorMessage, AttemptedValue);
     }
 
+    [ExcludeFromCodeCoverage]
     public override string ToString()
     {
         return new StringBuilder()

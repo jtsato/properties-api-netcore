@@ -36,6 +36,7 @@ public sealed class PropertyPrices
         return HashCode.Combine(SellingPrice, RentalTotalPrice, RentalPrice, Discount, CondominiumFee, PriceByM2);
     }
 
+    [ExcludeFromCodeCoverage]
     public override string ToString()
     {
         return new StringBuilder()

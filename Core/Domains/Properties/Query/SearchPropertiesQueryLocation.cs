@@ -39,6 +39,7 @@ public class SearchPropertiesQueryLocation
         return HashCode.Combine(State, City, Districts);
     }
 
+    [ExcludeFromCodeCoverage]
     public override string ToString()
     {
         return new StringBuilder()

@@ -143,6 +143,7 @@ internal sealed class DummyClass
         return HashCode.Combine(Foo, Bar);
     }
 
+    [ExcludeFromCodeCoverage]
     public override string ToString()
     {
         return $"{nameof(Foo)}: {Foo}, {nameof(Bar)}: {Bar}";

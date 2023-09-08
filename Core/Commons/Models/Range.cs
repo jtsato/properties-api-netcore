@@ -40,6 +40,7 @@ public readonly struct Range<T>
         }
     }
 
+    [ExcludeFromCodeCoverage]
     public override string ToString()
     {
         return new StringBuilder()

@@ -39,6 +39,7 @@ public sealed class PropertyAdvertise
         return HashCode.Combine(TenantId, Transaction.Id, Title, Description, Url, RefId, Images);
     }
     
+    [ExcludeFromCodeCoverage]
     public override string ToString()
     {
         return new StringBuilder()

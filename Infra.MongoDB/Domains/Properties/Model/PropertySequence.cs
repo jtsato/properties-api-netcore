@@ -16,6 +16,7 @@ public sealed class PropertySequence : ISequence
     public string SequenceName { get; init; }
     public int SequenceValue { get; init; }
 
+    [ExcludeFromCodeCoverage]
     public override string ToString()
     {
         return $"{nameof(Id)}: {Id}, " +

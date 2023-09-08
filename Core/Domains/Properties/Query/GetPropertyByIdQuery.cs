@@ -35,6 +35,7 @@ public sealed class GetPropertyByIdQuery
         return HashCode.Combine(Id);
     }
 
+    [ExcludeFromCodeCoverage]
     public override string ToString()
     {
         return new StringBuilder()

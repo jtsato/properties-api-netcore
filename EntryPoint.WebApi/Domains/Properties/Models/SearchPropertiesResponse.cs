@@ -13,6 +13,7 @@ public class SearchPropertiesResponse
         Content = content;
     }
 
+    [ExcludeFromCodeCoverage]
     public override string ToString()
     {
         return $"{nameof(Content)}: {Content}";

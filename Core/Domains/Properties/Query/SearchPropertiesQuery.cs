@@ -61,6 +61,7 @@ public sealed class SearchPropertiesQuery : SearchPropertiesQueryBase
         return hashCode.ToHashCode();
     }
 
+    [ExcludeFromCodeCoverage]
     public override string ToString()
     {
         return new StringBuilder()

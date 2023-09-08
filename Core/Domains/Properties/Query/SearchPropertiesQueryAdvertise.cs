@@ -31,6 +31,7 @@ public class SearchPropertiesQueryAdvertise
         return HashCode.Combine(Transaction);
     }
 
+    [ExcludeFromCodeCoverage]
     public override string ToString()
     {
         return new StringBuilder()

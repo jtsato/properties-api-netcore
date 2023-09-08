@@ -58,6 +58,7 @@ public sealed class Property
         return hashCode.ToHashCode();
     }
 
+    [ExcludeFromCodeCoverage]
     public override string ToString()
     {
         return new StringBuilder()

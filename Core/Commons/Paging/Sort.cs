@@ -69,6 +69,7 @@ public sealed class Sort
         return _orders is not null ? _orders.GetHashCode() : 0;
     }
 
+    [ExcludeFromCodeCoverage]
     public override string ToString()
     {
         return $"{nameof(_orders)}: {_orders}";

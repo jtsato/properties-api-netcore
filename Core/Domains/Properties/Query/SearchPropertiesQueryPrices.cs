@@ -33,6 +33,7 @@ public class SearchPropertiesQueryPrices
         return HashCode.Combine(SellingPrice, RentalTotalPrice, RentalPrice, PriceByM2);
     }
 
+    [ExcludeFromCodeCoverage]
     public override string ToString()
     {
         return new StringBuilder()

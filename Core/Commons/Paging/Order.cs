@@ -33,6 +33,7 @@ public sealed class Order
         return HashCode.Combine((int) Direction, Property);
     }
 
+    [ExcludeFromCodeCoverage]
     public override string ToString()
     {
         return $"{nameof(Direction)}: {Direction}, {nameof(Property)}: {Property}";

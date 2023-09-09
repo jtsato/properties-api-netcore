@@ -54,7 +54,7 @@ public sealed class ServiceResolverTest
         _serviceScopeFactory
             .Setup(self => self.CreateScope())
             .Returns(_serviceScope.Object);
-        
+
         _serviceProvider
             .Setup(self => self.GetService(typeof(IServiceScopeFactory)))
             .Returns(_serviceScopeFactory.Object);
@@ -62,7 +62,7 @@ public sealed class ServiceResolverTest
         _serviceProvider
             .Setup(self => self.GetService(typeof(DummyClass)))
             .Returns(new DummyClass("Black", "White"));
-        
+
         ServiceResolver serviceResolver = new ServiceResolver();
         serviceResolver.Setup(_serviceProvider.Object, new Dictionary<Type, ServiceLifetime>());
 

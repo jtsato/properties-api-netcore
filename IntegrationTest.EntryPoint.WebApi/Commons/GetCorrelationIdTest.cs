@@ -19,7 +19,7 @@ public sealed class GetCorrelationIdTest
         _getCorrelationId = new GetCorrelationId(_httpContextAccessor.Object);
     }
 
-     [Trait("Category", "WebApi Collection [NoContext]")]
+    [Trait("Category", "WebApi Collection [NoContext]")]
     [Fact(DisplayName = "Successful to get correlationId from header")]
     public void SuccessfulToGetCorrelationIdFromHeader()
     {
@@ -39,7 +39,7 @@ public sealed class GetCorrelationIdTest
         Assert.Equal("ae4328e9-6fb4-4408-98ee-66634503a0d1", result);
     }
 
-     [Trait("Category", "WebApi Collection [NoContext]")]
+    [Trait("Category", "WebApi Collection [NoContext]")]
     [Fact(DisplayName = "Successful to generate correlation id if it is missing")]
     public void SuccessfulToGenerateCorrelationIdIfItIsMissing()
     {
@@ -58,7 +58,7 @@ public sealed class GetCorrelationIdTest
         Assert.Equal(36, correlationId.Length);
     }
 
-     [Trait("Category", "WebApi Collection [NoContext]")]
+    [Trait("Category", "WebApi Collection [NoContext]")]
     [Fact(DisplayName = "Successful to get correlationId If does not exists in context")]
     public void SuccessfulToGetCorrelationIdIfDoesNotExistsInContext()
     {
@@ -75,7 +75,7 @@ public sealed class GetCorrelationIdTest
         Assert.NotEmpty(correlationId);
     }
 
-     [Trait("Category", "WebApi Collection [NoContext]")]
+    [Trait("Category", "WebApi Collection [NoContext]")]
     [Fact(DisplayName = "Successful to get correlationId If httpContext is null")]
     public void SuccessfulToGetCorrelationIdIfHttpContextIsNull()
     {

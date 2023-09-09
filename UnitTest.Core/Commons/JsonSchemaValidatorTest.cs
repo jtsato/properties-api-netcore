@@ -40,12 +40,12 @@ public sealed class JsonSchemaValidatorTest
         Assert.Equal("department", fieldErrors[0].PropertyName);
         Assert.Null(fieldErrors[0].AttemptedValue);
         Assert.Equal("CommonJsonPropertyMissing", fieldErrors[0].ErrorMessage);
-        
+
         Assert.Equal("age", fieldErrors[1].PropertyName);
         Assert.Equal("29", fieldErrors[1].AttemptedValue);
         Assert.Equal("CommonJsonPropertyInvalid", fieldErrors[1].ErrorMessage);
     }
-    
+
     [Trait("Category", "Core Business tests")]
     [Fact(DisplayName = "Successful to list field errors if fail to match field type")]
     public void SuccessfulToListFieldErrorsIfFailToMatchFieldType()
@@ -65,6 +65,6 @@ public sealed class JsonSchemaValidatorTest
 
         Assert.Equal("department", fieldErrors[1].PropertyName);
         Assert.Equal("An invalid value", fieldErrors[1].AttemptedValue);
-        Assert.Equal("CommonJsonPropertyWrongType", fieldErrors[1].ErrorMessage);        
+        Assert.Equal("CommonJsonPropertyWrongType", fieldErrors[1].ErrorMessage);
     }
 }

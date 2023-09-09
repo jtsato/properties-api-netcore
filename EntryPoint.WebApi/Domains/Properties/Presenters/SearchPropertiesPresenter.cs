@@ -11,7 +11,6 @@ public static class SearchPropertiesPresenter
 {
     public static PageableSearchPropertiesResponse Of(Page<Property> page, string baseUrl)
     {
-        
         List<SearchPropertiesInnerResponse> content = page.Content.Select(it => Of(it, baseUrl)).ToList();
         return new PageableSearchPropertiesResponse(content, page.Pageable);
     }

@@ -23,8 +23,8 @@ public sealed class ResponseStatus
         Message = message;
         Fields = new List<Field>(0);
     }
-	
-	[ExcludeFromCodeCoverage]
+
+    [ExcludeFromCodeCoverage]
     private bool Equals(ResponseStatus other)
     {
         return Code == other.Code &&

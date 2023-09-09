@@ -45,13 +45,13 @@ public static class FilterHelper
         if (value == 0) return;
         filterDefinitions.Add(Builders<T>.Filter.Gte(expression, value));
     }
-    
+
     public static void AddLessOrEqualFilter<T>(List<FilterDefinition<T>> filterDefinitions, Expression<Func<T, object>> expression, double value)
     {
         if (value == 0) return;
         filterDefinitions.Add(Builders<T>.Filter.Lte(expression, value));
     }
-    
+
     public static void AddInArrayFilter<T>(List<FilterDefinition<T>> filterDefinitions, Expression<Func<T, object>> expression, List<string> values)
     {
         if (values == null || values.Count == 0) return;

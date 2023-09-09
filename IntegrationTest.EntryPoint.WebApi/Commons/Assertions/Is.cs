@@ -21,7 +21,7 @@ public readonly struct Is<T>
     {
         return new Is<T>(AssertType.Equal, excepted);
     }
-    
+
     public static Is<T> StartWith(T excepted)
     {
         return new Is<T>(AssertType.StartWith, excepted);

@@ -59,7 +59,7 @@ public sealed class PropertyRepository : Repository<PropertyEntity>
             {Unique = false, Sparse = true, Background = false};
 
         GetCollection().Indexes
-            .CreateManyAsync( 
+            .CreateManyAsync(
                 new List<CreateIndexModel<PropertyEntity>>
                 {
                     new CreateIndexModel<PropertyEntity>(indexKeyId, uniqueIndexOptions),

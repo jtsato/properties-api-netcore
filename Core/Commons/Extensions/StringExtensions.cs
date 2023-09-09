@@ -8,12 +8,12 @@ public static class StringExtensions
     private const int IndexNotFound = -1;
 
     /*
-    Gets the substring before the first occurrence of a separator. 
+    Gets the substring before the first occurrence of a separator.
     The separator is not returned.
-    A null string input will return null. 
-    An empty ("") string input will return the empty string. 
+    A null string input will return null.
+    An empty ("") string input will return the empty string.
     A null separator will return the input string.
-    If nothing is found, the string input is returned.         
+    If nothing is found, the string input is returned.
     */
     public static string SubstringBefore(this string text, string stopAt)
     {
@@ -24,12 +24,12 @@ public static class StringExtensions
     }
 
     /*
-    Gets the substring before the last occurrence of a separator. 
+    Gets the substring before the last occurrence of a separator.
     The separator is not returned.
-    A null string input will return null. 
-    An empty ("") string input will return the empty string. 
+    A null string input will return null.
+    An empty ("") string input will return the empty string.
     A null separator will return the input string.
-    If nothing is found, the string input is returned.         
+    If nothing is found, the string input is returned.
     */
     public static string SubstringBeforeLast(this string text, string stopAt)
     {
@@ -40,9 +40,9 @@ public static class StringExtensions
     }
 
     /*
-    Gets the substring after the first occurrence of a separator. 
+    Gets the substring after the first occurrence of a separator.
     The separator is not returned.
-    A null string input will return null. 
+    A null string input will return null.
     An empty ("") string input will return the empty string.
     If nothing is found, the empty string is returned.
     */
@@ -54,9 +54,9 @@ public static class StringExtensions
     }
 
     /*
-    Gets the substring after the last occurrence of a separator. 
+    Gets the substring after the last occurrence of a separator.
     The separator is not returned.
-    A null string input will return null. 
+    A null string input will return null.
     An empty ("") string input will return the empty string.
     If nothing is found, the empty string is returned.
     */
@@ -69,7 +69,7 @@ public static class StringExtensions
 
     /**
         Appends the suffix to the end of the string if the string does not already end with the suffix.
-        A null string input will return null. 
+        A null string input will return null.
         An empty ("") string input will return the empty string.
         The ignoreCase parameters indicates whether the compare should ignore case.
         Returns a new String if suffix was appended, the same string otherwise.

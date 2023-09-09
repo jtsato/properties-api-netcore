@@ -9,10 +9,12 @@ namespace EntryPoint.WebApi.Domains.Commons;
 public interface IPropertyController : IController
 {
 }
+
 public interface ISearchPropertiesController : IPropertyController
 {
     Task<IActionResult> ExecuteAsync(SearchPropertiesRequest request, QPageRequest qPageRequest);
 }
+
 public interface IGetPropertyByIdController : IPropertyController
 {
     Task<IActionResult> ExecuteAsync(string id);

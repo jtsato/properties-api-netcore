@@ -14,7 +14,7 @@ public sealed class PropertyAdvertise
     public string Url { get; init; }
     public string RefId { get; init; }
     public List<string> Images { get; init; }
-    
+
     [ExcludeFromCodeCoverage]
     private bool Equals(PropertyAdvertise other)
     {
@@ -26,19 +26,19 @@ public sealed class PropertyAdvertise
                && RefId == other.RefId
                && Equals(Images, other.Images);
     }
-    
+
     [ExcludeFromCodeCoverage]
     public override bool Equals(object obj)
     {
         return ReferenceEquals(this, obj) || obj is PropertyAdvertise other && Equals(other);
     }
-    
+
     [ExcludeFromCodeCoverage]
     public override int GetHashCode()
     {
         return HashCode.Combine(TenantId, Transaction.Id, Title, Description, Url, RefId, Images);
     }
-    
+
     [ExcludeFromCodeCoverage]
     public override string ToString()
     {

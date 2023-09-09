@@ -25,7 +25,7 @@ public class GetPropertyByIdApiMethodTest
     private readonly ApiMethodInvoker _invoker;
     private readonly GetPropertyByIdApiMethod _apiMethod;
     private readonly Mock<IGetPropertyByIdUseCase> _useCaseMock;
-    
+
     public GetPropertyByIdApiMethodTest(ITestOutputHelper outputHelper, ApiMethodInvokerHolder apiMethodInvokerHolder)
     {
         _outputHelper = outputHelper;
@@ -34,7 +34,7 @@ public class GetPropertyByIdApiMethodTest
         IGetPropertyByIdController controller = new GetPropertyByIdController(_useCaseMock.Object);
         _apiMethod = new GetPropertyByIdApiMethod(controller);
     }
-    
+
     [Trait("Category", "WebApi Collection [NoContext]")]
     [Fact(DisplayName = "GET /api/properties/{id} should return 500 Internal Server Error when use case throws an exception")]
     public async Task FailedToGetByIdReturningInternalServerError()

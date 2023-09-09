@@ -21,8 +21,8 @@ public sealed class Field
         Message = message;
         Value = value;
     }
-    
-	[ExcludeFromCodeCoverage]
+
+    [ExcludeFromCodeCoverage]
     private bool Equals(Field other)
     {
         return Name == other.Name && Message == other.Message && Value == other.Value;

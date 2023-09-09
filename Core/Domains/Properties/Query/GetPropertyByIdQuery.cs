@@ -8,7 +8,7 @@ namespace Core.Domains.Properties.Query;
 public sealed class GetPropertyByIdQuery
 {
     private static readonly GetPropertyByIdQueryValidator Validator = new GetPropertyByIdQueryValidator();
-    
+
     public string Id { get; }
 
     public GetPropertyByIdQuery(string id)
@@ -16,7 +16,7 @@ public sealed class GetPropertyByIdQuery
         Id = id;
         Validator.ValidateAndThrow(this);
     }
-    
+
     [ExcludeFromCodeCoverage]
     private bool Equals(GetPropertyByIdQuery other)
     {

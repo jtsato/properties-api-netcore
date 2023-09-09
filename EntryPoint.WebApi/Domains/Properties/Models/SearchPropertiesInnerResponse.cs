@@ -48,7 +48,7 @@ public sealed class SearchPropertiesInnerResponse
 
     [SwaggerSchema(Description = "State where the property is located.")]
     public string State { get; init; }
-    
+
     [SwaggerSchema(Description = "District where the property is located.")]
     public string District { get; init; }
 
@@ -72,10 +72,10 @@ public sealed class SearchPropertiesInnerResponse
 
     [SwaggerSchema(Description = "Price per square meter of the property.")]
     public double PriceByM2 { get; init; }
-    
+
     [SwaggerSchema(Description = "Ranking of the property.")]
     public byte Ranking { get; init; }
-    
+
     [SwaggerSchema(Description = "Status of the property.")]
     public string Status { get; init; }
 

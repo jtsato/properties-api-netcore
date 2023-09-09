@@ -86,7 +86,7 @@ public class UpdateDefinitionHelperTest
         // Assert
         Assert.Empty(updateDefinitions);
     }
-    
+
     [Trait("Category", "Database collection [NoContext]")]
     [Fact(DisplayName = "Fail to add multiple up definitions if values are null")]
     public void FailToAddMultipleUpDefinitionsIfValuesAreNull()
@@ -100,7 +100,7 @@ public class UpdateDefinitionHelperTest
         // Assert
         Assert.Empty(updateDefinitions);
     }
-    
+
     [Trait("Category", "Database collection [NoContext]")]
     [Fact(DisplayName = "Successful to add multiple up definitions if current value is null")]
     public void SuccessfulToAddMultipleUpDefinitionsIfCurrentValueIsNull()
@@ -120,7 +120,7 @@ public class UpdateDefinitionHelperTest
         // Assert
         Assert.Single(updateDefinitions);
     }
-    
+
     [Trait("Category", "Database collection [NoContext]")]
     [Fact(DisplayName = "Successful to add multiple up definitions if new value is null")]
     public void SuccessfulToAddMultipleUpDefinitionsIfNewValueIsNull()

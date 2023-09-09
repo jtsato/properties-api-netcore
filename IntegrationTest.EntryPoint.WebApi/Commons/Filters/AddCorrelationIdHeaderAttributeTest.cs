@@ -14,7 +14,7 @@ namespace IntegrationTest.EntryPoint.WebApi.Commons.Filters;
 [Collection("WebApi Collection [NoContext]")]
 public sealed class AddCorrelationIdHeaderAttributeTest
 {
-     [Trait("Category", "WebApi Collection [NoContext]")]
+    [Trait("Category", "WebApi Collection [NoContext]")]
     [Fact(DisplayName = "Successful to add correlation id to response headers")]
     public void SuccessfulToAddCorrelationIdToResponseHeaders()
     {
@@ -50,7 +50,7 @@ public sealed class AddCorrelationIdHeaderAttributeTest
         Assert.Equal("d12df24d-1268-42d9-8d0d-d614c8d26299", resultExecutingContext.HttpContext.Response.Headers["X-Correlation-Id"]);
     }
 
-     [Trait("Category", "WebApi Collection [NoContext]")]
+    [Trait("Category", "WebApi Collection [NoContext]")]
     [Fact(DisplayName = "Successful to add correlation id to response headers even if request does not contain correlation id")]
     public void SuccessfulToAddCorrelationIdToResponseHeadersEvenIfRequestDoesNotContainCorrelationId()
     {
@@ -79,8 +79,8 @@ public sealed class AddCorrelationIdHeaderAttributeTest
         Assert.True(resultExecutingContext.HttpContext.Response.Headers.ContainsKey("X-Correlation-Id"));
         Assert.False(string.IsNullOrWhiteSpace(resultExecutingContext.HttpContext.Response.Headers["X-Correlation-Id"]));
     }
-    
-     [Trait("Category", "WebApi Collection [NoContext]")]
+
+    [Trait("Category", "WebApi Collection [NoContext]")]
     [Fact(DisplayName = "Successful to generate correlation id if it is missing from request headers")]
     public void SuccessfulToGenerateCorrelationIdIfItIsMissingFromRequestHeaders()
     {
@@ -116,7 +116,7 @@ public sealed class AddCorrelationIdHeaderAttributeTest
 
         StringValues stringValues = resultExecutingContext.HttpContext.Response.Headers["X-Correlation-Id"];
         Assert.Single(stringValues);
-        
+
         Assert.NotNull(stringValues[0]);
         Assert.Equal(36, stringValues[0].Length);
     }

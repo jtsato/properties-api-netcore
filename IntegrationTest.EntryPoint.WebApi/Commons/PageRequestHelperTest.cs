@@ -37,7 +37,7 @@ public sealed class PageRequestHelperTest
         Assert.Equal(Direction.Desc, order2.Direction);
     }
 
-     [Trait("Category", "WebApi Collection [NoContext]")]
+    [Trait("Category", "WebApi Collection [NoContext]")]
     [Fact(DisplayName = "Successful to create an PageRequest with page number page size")]
     public void SuccessfulToCreateAnPageRequestWithPageNumberPageSize()
     {
@@ -53,7 +53,7 @@ public sealed class PageRequestHelperTest
         Assert.Empty(pageRequest.Sort.GetOrders());
     }
 
-     [Trait("Category", "WebApi Collection [NoContext]")]
+    [Trait("Category", "WebApi Collection [NoContext]")]
     [Fact(DisplayName = "Successful to create an PageRequest with default values when parameters are invalid")]
     public void SuccessfulToCreateAnPageRequestWithDefaultValuesWhenParametersAreInvalid()
     {

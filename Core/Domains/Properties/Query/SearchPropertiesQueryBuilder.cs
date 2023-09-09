@@ -144,7 +144,7 @@ public class SearchPropertiesQueryBuilder
         _toRentalTotalPrice = toRentalTotalPrice;
         return this;
     }
-    
+
     public SearchPropertiesQueryBuilder WithFromRentalPrice(double fromRentalPrice)
     {
         _fromRentalPrice = fromRentalPrice;

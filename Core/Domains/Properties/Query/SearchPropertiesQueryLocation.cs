@@ -18,11 +18,11 @@ public class SearchPropertiesQueryLocation
         City = city ?? string.Empty;
         Districts = districts ?? new List<string>();
     }
-    
+
     [ExcludeFromCodeCoverage]
     private bool Equals(SearchPropertiesQueryLocation other)
     {
-        return State == other.State 
+        return State == other.State
                && City == other.City
                && !Districts.Except(other.Districts).Any() && !other.Districts.Except(Districts).Any();
     }

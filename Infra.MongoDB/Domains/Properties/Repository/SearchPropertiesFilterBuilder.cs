@@ -9,13 +9,13 @@ namespace Infra.MongoDB.Domains.Properties.Repository;
 public static class SearchPropertiesFilterBuilder
 {
     private const string PropertyTypeAll = "ALL";
-    
+
     public static FilterDefinition<PropertyEntity> Build(SearchPropertiesQuery query)
     {
         List<FilterDefinition<PropertyEntity>> filters = new List<FilterDefinition<PropertyEntity>>();
 
         string type = query.Type.ToUpperInvariant() == PropertyTypeAll ? "" : query.Type;
-        
+
         FilterHelper.AddEqualsFilter(filters, document => document.Type, type);
         FilterHelper.AddEqualsFilter(filters, document => document.Transaction, query.Advertise.Transaction);
         FilterHelper.AddGreaterOrEqualFilter(filters, document => document.NumberOfBedrooms, query.Attributes.NumberOfBedrooms.From);

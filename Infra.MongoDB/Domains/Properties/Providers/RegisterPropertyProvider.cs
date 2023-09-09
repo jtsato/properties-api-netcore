@@ -28,11 +28,11 @@ public sealed class RegisterPropertyProvider : IRegisterPropertyGateway
     public async Task<Property> ExecuteAsync(Property property)
     {
         PropertyEntity entity = property.Map();
-        
+
         await IncrementId(entity);
-        
+
         PropertyEntity propertyEntity = await _propertyRepository.SaveAsync(entity);
-        
+
         return propertyEntity.Map();
     }
 

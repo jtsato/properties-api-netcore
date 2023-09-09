@@ -22,9 +22,9 @@ public sealed class AddCorrelationIdHeaderAttribute : ResultFilterAttribute
     private static string GetCorrelationId(ActionContext context)
     {
         Optional<string> optional = TryGetCorrelationIdFromHeader(context.HttpContext);
-        return optional.OrElse(Guid.NewGuid().ToString());        
+        return optional.OrElse(Guid.NewGuid().ToString());
     }
-    
+
     private static Optional<string> TryGetCorrelationIdFromHeader(HttpContext context)
     {
         IHeaderDictionary headers = context.Request.Headers;

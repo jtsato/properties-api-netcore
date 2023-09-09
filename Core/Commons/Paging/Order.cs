@@ -13,8 +13,8 @@ public sealed class Order
         Direction = direction;
         Property = property;
     }
-    
-	[ExcludeFromCodeCoverage]
+
+    [ExcludeFromCodeCoverage]
     private bool Equals(Order other)
     {
         return Direction == other.Direction

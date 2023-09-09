@@ -132,7 +132,7 @@ public sealed class GetPropertyByIdUseCaseTest : IDisposable
 
         // Assert
         Assert.NotNull(actual);
-        
+
         Assert.Equal(1001, actual.Id);
         Assert.Equal(PropertyType.House, actual.Type);
         Assert.Equal("Title 1", actual.Advertise.Title);
@@ -160,7 +160,7 @@ public sealed class GetPropertyByIdUseCaseTest : IDisposable
         Assert.Equal("HashKey 1", actual.HashKey);
         Assert.Equal(1, actual.Ranking);
         Assert.Equal(PropertyStatus.Active, actual.Status);
-        
+
         Assert.Equal(new DateTime(2021, 4, 23, 10, 0, 1, DateTimeKind.Local), actual.CreatedAt);
         Assert.Equal(new DateTime(2021, 4, 23, 10, 0, 1, DateTimeKind.Utc), actual.UpdatedAt);
     }

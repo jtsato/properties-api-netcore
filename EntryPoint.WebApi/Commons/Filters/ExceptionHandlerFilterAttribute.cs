@@ -43,7 +43,7 @@ public sealed class ExceptionHandlerFilterAttribute : ExceptionFilterAttribute
     public override async Task OnExceptionAsync(ExceptionContext context)
     {
         string correlationId = GetCorrelationId(context);
-        context.HttpContext.Response.Headers.Add(CorrelationIdHeader, correlationId);        
+        context.HttpContext.Response.Headers.Add(CorrelationIdHeader, correlationId);
         LogException(correlationId, context.Exception);
         context.Result = await _exceptionHandler.HandleAsync(context.Exception);
         context.ExceptionHandled = true;
@@ -52,7 +52,7 @@ public sealed class ExceptionHandlerFilterAttribute : ExceptionFilterAttribute
     public override void OnException(ExceptionContext context)
     {
         string correlationId = GetCorrelationId(context);
-        context.HttpContext.Response.Headers.Add(CorrelationIdHeader, correlationId);        
+        context.HttpContext.Response.Headers.Add(CorrelationIdHeader, correlationId);
         LogException(correlationId, context.Exception);
         context.Result = _exceptionHandler.HandleAsync(context.Exception).Result;
         context.ExceptionHandled = true;
@@ -63,20 +63,22 @@ public sealed class ExceptionHandlerFilterAttribute : ExceptionFilterAttribute
         if (_businessExceptions.Contains(exception.GetType()))
         {
             if (!_logger.IsEnabled(LogLevel.Warning)) return;
-            _logger.LogWarning("{CorrelationIdHeader}: {CorrelationId}, {Exception}: {Message}", CorrelationIdHeader, correlationId, exception.GetType(), exception.Message);
+            _logger.LogWarning("{CorrelationIdHeader}: {CorrelationId}, {Exception}: {Message}", CorrelationIdHeader, correlationId, exception.GetType(),
+                exception.Message);
             return;
         }
 
         if (!_logger.IsEnabled(LogLevel.Error)) return;
-        _logger.LogError("{CorrelationIdHeader}: {CorrelationId}, {Exception}: {Message}", CorrelationIdHeader, correlationId, exception.GetType(), exception.Message);
+        _logger.LogError("{CorrelationIdHeader}: {CorrelationId}, {Exception}: {Message}", CorrelationIdHeader, correlationId, exception.GetType(),
+            exception.Message);
     }
-    
+
     private static string GetCorrelationId(ActionContext context)
     {
         Optional<string> optional = TryGetCorrelationIdFromHeader(context.HttpContext);
-        return optional.OrElse(Guid.NewGuid().ToString());        
+        return optional.OrElse(Guid.NewGuid().ToString());
     }
-    
+
     private static Optional<string> TryGetCorrelationIdFromHeader(HttpContext context)
     {
         IHeaderDictionary headers = context.Request.Headers;

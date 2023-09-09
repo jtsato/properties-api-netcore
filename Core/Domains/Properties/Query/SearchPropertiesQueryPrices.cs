@@ -11,7 +11,7 @@ public class SearchPropertiesQueryPrices
     public Range<double> RentalTotalPrice { get; init; }
     public Range<double> RentalPrice { get; init; }
     public Range<double> PriceByM2 { get; init; }
-    
+
     [ExcludeFromCodeCoverage]
     private bool Equals(SearchPropertiesQueryPrices other)
     {

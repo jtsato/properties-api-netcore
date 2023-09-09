@@ -14,7 +14,7 @@ public sealed class PropertyLocation
     [ExcludeFromCodeCoverage]
     private bool Equals(PropertyLocation other)
     {
-        return City == other.City 
+        return City == other.City
                && State == other.State
                && District == other.District
                && Address == other.Address;

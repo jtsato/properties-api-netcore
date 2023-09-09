@@ -8,9 +8,9 @@
         <IsTestProject>true</IsTestProject>
         <RootNamespace>IntegrationTest.EntryPoint.WebApi</RootNamespace>
     </PropertyGroup>
-    
+
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-      <Optimize>True</Optimize>
+        <Optimize>True</Optimize>
     </PropertyGroup>
 
     <ItemGroup>
@@ -18,9 +18,9 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.3" />
-        <PackageReference Include="Moq" Version="4.18.4" />
-        <PackageReference Include="xunit" Version="2.5.0" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.3"/>
+        <PackageReference Include="Moq" Version="4.18.4"/>
+        <PackageReference Include="xunit" Version="2.5.0"/>
         <PackageReference Include="xunit.runner.visualstudio" Version="2.5.0">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
@@ -32,17 +32,17 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\EntryPoint.WebApi\EntryPoint.WebApi.csproj" />
+        <ProjectReference Include="..\EntryPoint.WebApi\EntryPoint.WebApi.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-        <Compile Remove="StrykerOutput\**" />
+        <Compile Remove="StrykerOutput\**"/>
     </ItemGroup>
     <ItemGroup>
-        <EmbeddedResource Remove="StrykerOutput\**" />
+        <EmbeddedResource Remove="StrykerOutput\**"/>
     </ItemGroup>
     <ItemGroup>
-        <None Remove="StrykerOutput\**" />
+        <None Remove="StrykerOutput\**"/>
     </ItemGroup>
 
 </Project>

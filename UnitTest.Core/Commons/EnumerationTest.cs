@@ -79,7 +79,7 @@ public sealed class EnumerationTest
         // Assert
         Assert.False(optional.HasValue());
     }
-    
+
     [Trait("Category", "Core Business tests")]
     [Fact(DisplayName = "Fail to get enumeration item by name with null value")]
     public void FailToGetEnumerationItemByNameWithNullValue()
@@ -92,6 +92,7 @@ public sealed class EnumerationTest
         Assert.False(optional.HasValue());
     }
 }
+
 public sealed class Color : Enumeration<Color>
 {
     public static readonly Color Blue = new Color(1, "BLUE");

@@ -58,7 +58,7 @@ public sealed class SearchPropertiesUseCaseTest : IDisposable
         searchPropertiesQueryBuilder.WithTransaction("Rent");
         searchPropertiesQueryBuilder.WithType("All");
         SearchPropertiesQuery query = searchPropertiesQueryBuilder.Build();
-        
+
         _gateway
             .Setup(gateway => gateway.ExecuteAsync(query, PageRequest.Of(0, 10, Sort.Unsorted)))
             .ReturnsAsync(new Page<Property>(
@@ -119,7 +119,7 @@ public sealed class SearchPropertiesUseCaseTest : IDisposable
 
         // Act
         Page<Property> page = await _useCase.ExecuteAsync(query, pageRequest);
-        
+
         // Assert
         Assert.NotNull(page);
         Assert.Equal(1, page.Pageable.NumberOfElements);
@@ -129,10 +129,10 @@ public sealed class SearchPropertiesUseCaseTest : IDisposable
         Assert.Equal(10, page.Pageable.Size);
 
         Assert.Single(page.Content);
-        
+
         Property property = page.Content[0];
         Assert.NotNull(property);
-        
+
         Assert.Equal(1001, property.Id);
         Assert.Equal("Title 1", property.Advertise.Title);
         Assert.Equal("Description 1", property.Advertise.Description);
@@ -159,7 +159,7 @@ public sealed class SearchPropertiesUseCaseTest : IDisposable
         Assert.Equal("HashKey 1", property.HashKey);
         Assert.Equal(1, property.Ranking);
         Assert.Equal(PropertyStatus.Active, property.Status);
-        
+
         Assert.Equal(new DateTime(2021, 4, 23, 10, 0, 1, DateTimeKind.Local), property.CreatedAt);
         Assert.Equal(new DateTime(2021, 4, 23, 10, 0, 1, DateTimeKind.Utc), property.UpdatedAt);
     }

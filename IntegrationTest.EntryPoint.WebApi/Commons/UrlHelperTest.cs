@@ -19,7 +19,7 @@ public sealed class UrlHelperTest
     {
         // Arrange
         HostString hostString = port is null ? new HostString("localhost") : new HostString("localhost", port.Value);
-        
+
         Mock<IHttpContextAccessor> httpContextAccessor = new Mock<IHttpContextAccessor>(MockBehavior.Strict);
         httpContextAccessor.Setup(contextAccessor => contextAccessor.HttpContext.Request.Scheme).Returns(scheme);
         httpContextAccessor.Setup(contextAccessor => contextAccessor.HttpContext.Request.Host).Returns(hostString);

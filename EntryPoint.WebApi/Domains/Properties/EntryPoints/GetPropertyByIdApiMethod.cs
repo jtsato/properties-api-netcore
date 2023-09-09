@@ -17,15 +17,15 @@ namespace EntryPoint.WebApi.Domains.Properties.EntryPoints;
 public class GetPropertyByIdApiMethod : IApiMethod
 {
     private readonly IGetPropertyByIdController _controller;
-    
+
     public GetPropertyByIdApiMethod(IGetPropertyByIdController controller)
     {
         _controller = ArgumentValidator.CheckNull(controller, nameof(controller));
     }
-    
+
     [SwaggerOperation(
         OperationId = nameof(GetPropertyById),
-        Tags = new[] { "Properties" },
+        Tags = new[] {"Properties"},
         Summary = "Get property by identifier.",
         Description = "Get property by identifier."
     )]

@@ -16,7 +16,7 @@ public sealed class UseInvariantCultureAttribute : BeforeAfterTestAttribute
     {
         _originalCulture = CultureInfo.DefaultThreadCurrentCulture;
         _originalUiCulture = CultureInfo.DefaultThreadCurrentUICulture;
-        
+
         CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
         CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
         Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
@@ -29,7 +29,7 @@ public sealed class UseInvariantCultureAttribute : BeforeAfterTestAttribute
         CultureInfo.DefaultThreadCurrentUICulture = _originalUiCulture;
 
         if (_originalCulture is null) return;
-        
+
         Thread.CurrentThread.CurrentCulture = _originalCulture;
         Thread.CurrentThread.CurrentUICulture = _originalUiCulture;
     }

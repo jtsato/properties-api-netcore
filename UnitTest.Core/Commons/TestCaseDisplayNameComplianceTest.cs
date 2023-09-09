@@ -14,7 +14,7 @@ namespace UnitTest.Core.Commons;
 public sealed class TestCaseDisplayNameComplianceTest
 {
     private const string CurrentProjectName = "UnitTest.Core";
-    private static readonly string[] ExcludedDisplayNamePrefixes  = { "POST", "GET", "PUT", "DELETE" };
+    private static readonly string[] ExcludedDisplayNamePrefixes = {"POST", "GET", "PUT", "DELETE"};
 
     private readonly ITestOutputHelper _outputHelper;
 
@@ -42,7 +42,7 @@ public sealed class TestCaseDisplayNameComplianceTest
         }
 
         nonCompliances.Sort();
-        
+
         PrintResults(nonCompliances);
 
         // Assert
@@ -50,7 +50,8 @@ public sealed class TestCaseDisplayNameComplianceTest
     }
 
     [ExcludeFromCodeCoverage]
-    private static IEnumerable<NonCompliance> GetNonCompliancesByFile(string projectRootFolder, string pathToFile, string stringPrefixSearch, string stringSuffixSearch)
+    private static IEnumerable<NonCompliance> GetNonCompliancesByFile(string projectRootFolder, string pathToFile, string stringPrefixSearch,
+        string stringSuffixSearch)
     {
         string location = pathToFile.SubstringAfter(projectRootFolder);
 
@@ -60,7 +61,7 @@ public sealed class TestCaseDisplayNameComplianceTest
         int lineNumber = 0;
 
         List<NonCompliance> nonCompliances = new List<NonCompliance>();
-        
+
         foreach (string line in CollectionsMarshal.AsSpan(lines))
         {
             lineNumber++;
@@ -72,6 +73,7 @@ public sealed class TestCaseDisplayNameComplianceTest
                 {
                     displayName = string.Empty;
                 }
+
                 continue;
             }
 
@@ -96,12 +98,12 @@ public sealed class TestCaseDisplayNameComplianceTest
                 MethodNameAsDisplayName = methodNameAsDisplayName,
                 ActualDisplayName = displayName
             };
-            
+
             nonCompliances.Add(nonCompliance);
 
             displayName = string.Empty;
         }
-        
+
         return nonCompliances;
     }
 
@@ -133,6 +135,7 @@ public sealed class TestCaseDisplayNameComplianceTest
                 stringBuilder.Append(char.ToUpperInvariant(element[0]));
                 continue;
             }
+
             stringBuilder.Append(char.ToUpperInvariant(element[0]) + element[1..]);
         }
 
@@ -142,9 +145,9 @@ public sealed class TestCaseDisplayNameComplianceTest
     private static string RemoveSpecialCharacters(string input)
     {
         StringBuilder stringBuilder = new StringBuilder();
-        
+
         IEnumerable<char> elements = input.Where(element => element is >= '0' and <= '9' or >= 'A' and <= 'Z' or >= 'a' and <= 'z' or ' ');
-        
+
         foreach (char element in elements)
         {
             stringBuilder.Append(element);
@@ -172,10 +175,10 @@ public sealed class TestCaseDisplayNameComplianceTest
 
         private bool Equals(NonCompliance other)
         {
-            return Location == other.Location 
-                   && LineNumber == other.LineNumber 
-                   && MethodName == other.MethodName 
-                   && MethodNameAsDisplayName == other.MethodNameAsDisplayName 
+            return Location == other.Location
+                   && LineNumber == other.LineNumber
+                   && MethodName == other.MethodName
+                   && MethodNameAsDisplayName == other.MethodNameAsDisplayName
                    && ActualDisplayName == other.ActualDisplayName;
         }
 

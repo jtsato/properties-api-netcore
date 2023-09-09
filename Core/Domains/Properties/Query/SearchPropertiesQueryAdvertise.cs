@@ -12,7 +12,7 @@ public class SearchPropertiesQueryAdvertise
     {
         Transaction = transaction ?? string.Empty;
     }
-    
+
     [ExcludeFromCodeCoverage]
     private bool Equals(SearchPropertiesQueryAdvertise other)
     {

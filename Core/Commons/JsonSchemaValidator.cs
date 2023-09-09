@@ -16,14 +16,14 @@ public static class JsonSchemaValidator
         JSchema jSchema = JSchema.Parse(schema);
 
         IList<FieldError> fieldErrors = new List<FieldError>();
-        
+
         AddAllErrors(GetMissingFieldsErrors(jObject, jSchema), fieldErrors);
         AddAllErrors(GetExtraFieldsErrors(jObject, jSchema), fieldErrors);
         AddAllErrors(GetWrongTypeFieldsErrors(jObject, jSchema), fieldErrors);
-        
+
         return fieldErrors;
     }
-        
+
     private static void AddAllErrors(List<FieldError> sourceList, ICollection<FieldError> targetList)
     {
         foreach (FieldError fieldError in CollectionsMarshal.AsSpan(sourceList))
@@ -31,7 +31,7 @@ public static class JsonSchemaValidator
             targetList.Add(fieldError);
         }
     }
-    
+
     private static List<FieldError> GetMissingFieldsErrors(JObject jObject, JSchema jSchema)
     {
         return
@@ -59,16 +59,16 @@ public static class JsonSchemaValidator
             }
         ).ToList();
     }
-    
+
     private static List<FieldError> GetWrongTypeFieldsErrors(JToken jObject, JSchema jSchema)
     {
         IList<ValidationError> schemaErrors = new List<ValidationError>();
-        
+
         jObject.Validate(jSchema, (_, args) => schemaErrors.Add(args.ValidationError));
 
         IList<FieldError> fieldErrors =
         (
-            from validationError in schemaErrors 
+            from validationError in schemaErrors
             where validationError.ErrorType.Equals(ErrorType.Type)
             select WrongTypeFieldErrorOf(validationError)
         ).ToList();
@@ -87,7 +87,7 @@ public static class JsonSchemaValidator
         {
             attemptedValue = "An invalid value";
         }
-        
+
         return new FieldError
         {
             PropertyName = validationError.Path,

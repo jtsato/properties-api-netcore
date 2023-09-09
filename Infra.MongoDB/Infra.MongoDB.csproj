@@ -7,14 +7,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="MongoDB.Bson" Version="2.21.0" />
-        <PackageReference Include="MongoDB.Driver" Version="2.21.0" />
+        <PackageReference Include="MongoDB.Bson" Version="2.21.0"/>
+        <PackageReference Include="MongoDB.Driver" Version="2.21.0"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Core\Core.csproj" >
-          <CopyLocalSatelliteAssemblies>true</CopyLocalSatelliteAssemblies>
-      </ProjectReference>
+        <ProjectReference Include="..\Core\Core.csproj">
+            <CopyLocalSatelliteAssemblies>true</CopyLocalSatelliteAssemblies>
+        </ProjectReference>
     </ItemGroup>
 
 </Project>

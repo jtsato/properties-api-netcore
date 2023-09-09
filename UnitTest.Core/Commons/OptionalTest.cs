@@ -263,7 +263,7 @@ public sealed class OptionalTest
             return Foo == other.Foo && Bar == other.Bar;
         }
 
-[ExcludeFromCodeCoverage]
+        [ExcludeFromCodeCoverage]
         public override bool Equals(object obj)
         {
             return ReferenceEquals(this, obj) || obj is DummyClass other && Equals(other);

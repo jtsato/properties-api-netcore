@@ -17,7 +17,7 @@ public sealed class Property
     public PropertyStatus Status { get; init; }
     public DateTime CreatedAt { get; init; }
     public DateTime UpdatedAt { get; init; }
-    
+
     [ExcludeFromCodeCoverage]
     private bool Equals(Property other)
     {

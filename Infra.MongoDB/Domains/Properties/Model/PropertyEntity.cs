@@ -10,28 +10,28 @@ namespace Infra.MongoDB.Domains.Properties.Model;
 [Serializable]
 public class PropertyEntity : Entity
 {
-    [BsonElement("type")] 
+    [BsonElement("type")]
     public string Type { get; set; }
 
-    [BsonElement("tenantId")] 
+    [BsonElement("tenantId")]
     public int TenantId { get; set; }
 
     [BsonElement("transaction")]
     public string Transaction { get; set; }
 
-    [BsonElement("title")] 
+    [BsonElement("title")]
     public string Title { get; set; }
 
     [BsonElement("description")]
     public string Description { get; set; }
 
-    [BsonElement("url")] 
+    [BsonElement("url")]
     public string Url { get; set; }
 
-    [BsonElement("refId")] 
+    [BsonElement("refId")]
     public string RefId { get; set; }
 
-    [BsonElement("images")] 
+    [BsonElement("images")]
     public string[] Images { get; set; }
 
     [BsonElement("numberOfBedrooms")]
@@ -43,22 +43,22 @@ public class PropertyEntity : Entity
     [BsonElement("numberOfGarages")]
     public int NumberOfGarages { get; set; }
 
-    [BsonElement("area")] 
+    [BsonElement("area")]
     public int Area { get; set; }
 
-    [BsonElement("builtArea")] 
+    [BsonElement("builtArea")]
     public int BuiltArea { get; set; }
 
-    [BsonElement("city")] 
+    [BsonElement("city")]
     public string City { get; set; }
-    
+
     [BsonElement("state")]
     public string State { get; set; }
 
-    [BsonElement("district")] 
+    [BsonElement("district")]
     public string District { get; set; }
 
-    [BsonElement("address")] 
+    [BsonElement("address")]
     public string Address { get; set; }
 
     [BsonElement("sellingPrice")]
@@ -70,27 +70,27 @@ public class PropertyEntity : Entity
     [BsonElement("rentalPrice")]
     public double RentalPrice { get; set; }
 
-    [BsonElement("discount")] 
+    [BsonElement("discount")]
     public double Discount { get; set; }
 
     [BsonElement("condominiumFee")]
     public double CondominiumFee { get; set; }
 
-    [BsonElement("priceByM2")] 
+    [BsonElement("priceByM2")]
     public double PriceByM2 { get; set; }
 
     [BsonElement("hashKey")]
     public string HashKey { get; set; }
-    
+
     [BsonElement("ranking")]
     public int Ranking { get; set; }
-    
+
     [BsonElement("status")]
     public string Status { get; set; }
 
-    [BsonElement("createdAt")] 
+    [BsonElement("createdAt")]
     public DateTime CreatedAt { get; set; }
 
-    [BsonElement("updatedAt")] 
+    [BsonElement("updatedAt")]
     public DateTime UpdatedAt { get; set; }
 }

@@ -33,12 +33,13 @@ public sealed class GetLanguageActionFilterAttribute : ActionFilterAttribute
 
     public static void SetupLanguage(string cultureName = null)
     {
-        bool isSupportedCulture = !string.IsNullOrWhiteSpace(cultureName) && (SupportedCultures.Contains(cultureName, StringComparer.InvariantCultureIgnoreCase));
+        bool isSupportedCulture = !string.IsNullOrWhiteSpace(cultureName) &&
+                                  (SupportedCultures.Contains(cultureName, StringComparer.InvariantCultureIgnoreCase));
         CultureInfo cultureInfo = isSupportedCulture ? CultureInfo.CreateSpecificCulture(cultureName) : new CultureInfo("en-US");
 
         CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
         CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
         Thread.CurrentThread.CurrentCulture = cultureInfo;
-        Thread.CurrentThread.CurrentUICulture = cultureInfo;            
+        Thread.CurrentThread.CurrentUICulture = cultureInfo;
     }
 }

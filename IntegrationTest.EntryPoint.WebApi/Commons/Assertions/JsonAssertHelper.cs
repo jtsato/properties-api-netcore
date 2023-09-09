@@ -77,10 +77,12 @@ public sealed class JsonAssertHelper
                 Assert.Empty(_jsonElement.SelectToken(path).EnumerateArray());
                 return this;
             }
+
             if (_jsonElement.SelectToken(path).ValueKind == JsonValueKind.Null)
             {
                 return this;
             }
+
             Assert.True(string.IsNullOrWhiteSpace(_jsonElement.SelectToken(path).ToString()));
             return this;
         }
@@ -100,6 +102,7 @@ public sealed class JsonAssertHelper
                 Assert.NotEmpty(_jsonElement.SelectToken(path).EnumerateArray());
                 return this;
             }
+
             Assert.False(_jsonElement.SelectToken(path).ValueKind == JsonValueKind.Null);
             if (_jsonElement.SelectToken(path).ValueKind != JsonValueKind.String) return this;
             Assert.False(string.IsNullOrWhiteSpace(_jsonElement.SelectToken(path).ToString()));

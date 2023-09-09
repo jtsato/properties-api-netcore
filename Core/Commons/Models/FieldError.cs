@@ -11,8 +11,8 @@ public sealed class FieldError
     public string ErrorMessage { get; init; }
 
     public string AttemptedValue { get; init; }
-    
-	[ExcludeFromCodeCoverage]
+
+    [ExcludeFromCodeCoverage]
     private bool Equals(FieldError other)
     {
         return PropertyName == other.PropertyName

@@ -184,7 +184,7 @@ public sealed class ArgumentValidatorTest
             Assert.Throws<ArgumentException>(
                 () => ArgumentValidator.CheckNegative(input, nameof(input), string.Empty)
             );
-        
+
         Assert.Equal($"Value cannot be negative. (Parameter '{nameof(input)}')", exception.Message);
     }
 
@@ -204,7 +204,7 @@ public sealed class ArgumentValidatorTest
 
         Assert.Equal(message, exception.Message);
     }
-    
+
     [Trait("Category", "Core Business tests")]
     [Theory(DisplayName = "Fail to validate negative or equals to zero parameter with custom message")]
     [InlineData(1)]
@@ -228,7 +228,7 @@ public sealed class ArgumentValidatorTest
             Assert.Throws<ArgumentException>(
                 () => ArgumentValidator.CheckNegativeOrZero(input, nameof(input), string.Empty)
             );
-        
+
         Assert.Equal($"Value cannot be negative or equals to zero. (Parameter '{nameof(input)}')", exception.Message);
     }
 
@@ -262,7 +262,7 @@ internal sealed class DummyClass
         Bar = bar;
     }
 
-	[ExcludeFromCodeCoverage]
+    [ExcludeFromCodeCoverage]
     private bool Equals(DummyClass other)
     {
         return Foo == other.Foo && Bar == other.Bar;

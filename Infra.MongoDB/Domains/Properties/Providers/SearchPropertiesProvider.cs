@@ -40,7 +40,11 @@ public class SearchPropertiesProvider : ISearchPropertiesGateway
     {
         IEnumerable<Order> arrayOfOrders = originalOrders.ToArray();
         List<Order> orders = new List<Order>(arrayOfOrders);
-        if (!arrayOfOrders.Any()) { orders.Insert(0, new Order(Direction.Desc, DefaultSecondarySortField)); }
+        if (!arrayOfOrders.Any())
+        {
+            orders.Insert(0, new Order(Direction.Desc, DefaultSecondarySortField));
+        }
+
         orders.Insert(0, new Order(Direction.Desc, DefaultPrimarySortField));
         return SortHelper.GetSortDefinitions<PropertyEntity>(orders);
     }

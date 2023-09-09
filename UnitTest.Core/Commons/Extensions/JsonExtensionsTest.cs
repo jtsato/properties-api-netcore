@@ -125,7 +125,7 @@ internal sealed class DummyClass
         Foo = foo;
         Bar = bar;
     }
-	
+
     private bool Equals(DummyClass other)
     {
         return Foo == other.Foo && Bar == other.Bar;

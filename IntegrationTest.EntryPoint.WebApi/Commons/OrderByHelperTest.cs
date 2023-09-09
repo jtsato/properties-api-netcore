@@ -22,7 +22,7 @@ public sealed class OrderByHelperTest
         Assert.Equal(string.Empty, OrderByHelper.Sanitize(Array.Empty<string>(), new List<string> {"Id,Asc"}));
         Assert.Equal(string.Empty, OrderByHelper.Sanitize(Array.Empty<string>(), (string) null));
         Assert.Equal(string.Empty, OrderByHelper.Sanitize(Array.Empty<string>(), string.Empty));
-        
+
         Assert.Equal(string.Empty, OrderByHelper.Sanitize(null, (List<string>) null));
         Assert.Equal(string.Empty, OrderByHelper.Sanitize(null, new List<string>(0)));
         Assert.Equal(string.Empty, OrderByHelper.Sanitize(null, new List<string> {"Id,Asc"}));
@@ -30,7 +30,7 @@ public sealed class OrderByHelperTest
         Assert.Equal(string.Empty, OrderByHelper.Sanitize(null, string.Empty));
     }
 
-     [Trait("Category", "WebApi Collection [NoContext]")]
+    [Trait("Category", "WebApi Collection [NoContext]")]
     [Theory(DisplayName = "Successful to filter and sanitize several types of orders")]
     [InlineData("field1,ASC,asc,AsC,aSc", "Field1:ASC")]
     [InlineData("field1,DESC,desc,DesC,dEsC", "Field1:DESC")]

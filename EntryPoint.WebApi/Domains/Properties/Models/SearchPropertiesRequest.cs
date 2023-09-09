@@ -67,7 +67,7 @@ public class SearchPropertiesRequest
     [FromQuery(Name = "built-area-max")]
     [DefaultValue(9999)]
     public int BuiltAreaMax { get; init; }
-    
+
     [SwaggerParameter(Required = false, Description = "State")]
     [FromQuery(Name = "state")]
     public string State { get; init; }
@@ -119,7 +119,7 @@ public class SearchPropertiesRequest
     [FromQuery(Name = "price-by-m2-max")]
     [DefaultValue(9999)]
     public double PriceByM2Max { get; init; }
-    
+
     [SwaggerParameter(Required = false, Description = "Property's status")]
     [FromQuery(Name = "status")]
     public string Status { get; init; }

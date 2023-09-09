@@ -18,7 +18,7 @@ public readonly struct Range<T>
     {
         return new Range<T>(from, to);
     }
-    
+
     [ExcludeFromCodeCoverage]
     private bool Equals(Range<T> other)
     {

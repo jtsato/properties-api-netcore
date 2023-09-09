@@ -3,5 +3,5 @@
   "MONGODB_URL": "mongodb://xunit:xunit@localhost:27018/duckhome-mongodb",
   "MONGODB_DATABASE": "duckhome-mongodb",
   "PROPERTY_COLLECTION_NAME": "properties",
-  "PROPERTY_SEQUENCE_COLLECTION_NAME": "properties_sequences",
+  "PROPERTY_SEQUENCE_COLLECTION_NAME": "properties_sequences"
 }

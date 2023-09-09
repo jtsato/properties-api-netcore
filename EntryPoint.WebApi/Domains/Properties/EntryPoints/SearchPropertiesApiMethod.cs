@@ -18,15 +18,15 @@ namespace EntryPoint.WebApi.Domains.Properties.EntryPoints;
 public class SearchPropertiesApiMethod : IApiMethod
 {
     private readonly ISearchPropertiesController _controller;
-    
+
     public SearchPropertiesApiMethod(ISearchPropertiesController controller)
     {
         _controller = ArgumentValidator.CheckNull(controller, nameof(controller));
     }
-    
+
     [SwaggerOperation(
         OperationId = nameof(SearchProperties),
-        Tags = new[] { "Properties" },
+        Tags = new[] {"Properties"},
         Summary = "Search properties by criteria.",
         Description = "The search is pageable, and the order of results can be parameterized."
     )]
@@ -36,7 +36,7 @@ public class SearchPropertiesApiMethod : IApiMethod
     [ProducesResponseType(typeof(ResponseStatus), 400)]
     [ProducesResponseType(typeof(ResponseStatus), 500)]
     [HttpGet]
-    public Task<IActionResult> SearchProperties(SearchPropertiesRequest request, QPageRequest qPageRequest, CancellationToken cancellationToken = default)  
+    public Task<IActionResult> SearchProperties(SearchPropertiesRequest request, QPageRequest qPageRequest, CancellationToken cancellationToken = default)
     {
         return _controller.ExecuteAsync(request, qPageRequest);
     }

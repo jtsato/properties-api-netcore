@@ -14,12 +14,12 @@ namespace EntryPoint.WebApi.Domains.Properties.EntryPoints;
 public class GetPropertyByIdController : IGetPropertyByIdController
 {
     private readonly IGetPropertyByIdUseCase _useCase;
-    
+
     public GetPropertyByIdController(IGetPropertyByIdUseCase useCase)
     {
         _useCase = useCase;
     }
-    
+
     public async Task<IActionResult> ExecuteAsync(string id)
     {
         GetPropertyByIdQuery query = new GetPropertyByIdQuery(id);

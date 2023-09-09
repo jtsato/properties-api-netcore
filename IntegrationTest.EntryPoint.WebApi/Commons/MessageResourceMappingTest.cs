@@ -28,7 +28,7 @@ public sealed class MessageResourceMappingTest : IClassFixture<CoreMessageKeysFi
         _coreMessageKeysFixture = coreMessageKeysFixture;
     }
 
-     [Trait("Category", "WebApi Collection [NoContext]")]
+    [Trait("Category", "WebApi Collection [NoContext]")]
     [Theory(DisplayName = "Successful to validate messages mapped in message resources ")]
     [InlineData(DefaultMessageResourcePath)]
     [InlineData(EnUsMessageResourcePath)]
@@ -61,7 +61,7 @@ public sealed class MessageResourceMappingTest : IClassFixture<CoreMessageKeysFi
     {
         List<string> messageKeysNotMappedInResourceFile = new List<string>();
         IEnumerable<string> messageKeys = coreProjectMessageKeys.Where(messageKey => !messageResourcesKeys.Contains(messageKey));
-        
+
         foreach (string messageKey in messageKeys)
         {
             messageKeysNotMappedInResourceFile.Add(messageKey);

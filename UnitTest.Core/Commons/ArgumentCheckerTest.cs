@@ -5,7 +5,7 @@ using Xunit;
 
 namespace UnitTest.Core.Commons;
 
-public class ArgumentCheckerTest
+public sealed class ArgumentCheckerTest
 {
     [Trait("Category", "Core Business tests")]
     [Theory(DisplayName = "Successful to validate an string parameter as integer")]

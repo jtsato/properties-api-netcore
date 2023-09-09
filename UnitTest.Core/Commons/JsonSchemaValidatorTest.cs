@@ -5,7 +5,7 @@ using Xunit;
 
 namespace UnitTest.Core.Commons;
 
-public class JsonSchemaValidatorTest
+public sealed class JsonSchemaValidatorTest
 {
     [Trait("Category", "Core Business tests")]
     [Theory(DisplayName = "Successful to validate json against the schema")]

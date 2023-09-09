@@ -16,9 +16,9 @@ using Xunit;
 namespace IntegrationTest.EntryPoint.WebApi.Commons;
 
 [Collection("WebApi Collection [NoContext]")]
-public class ExceptionHandlerTest
+public sealed class ExceptionHandlerTest
 {
-     [Trait("Category", "WebApi Collection [NoContext]")]
+    [Trait("Category", "WebApi Collection [NoContext]")]
     [Fact(DisplayName = "Fail to format message if key not exists in the ResourceFile")]
     public void FailToFormatMessageIfKeyNotExistsInTheResourceFile()
     {
@@ -31,7 +31,7 @@ public class ExceptionHandlerTest
     }
 
     [UseInvariantCulture]
-     [Trait("Category", "WebApi Collection [NoContext]")]
+    [Trait("Category", "WebApi Collection [NoContext]")]
     [Fact(DisplayName = "Successful to format message if key exists in the ResourceFile")]
     public void SuccessfulToFormatMessageIfKeyExistsInTheResourceFile()
     {
@@ -48,7 +48,7 @@ public class ExceptionHandlerTest
             IExceptionHandler.MessageFormatter("CommonUnexpectedExceptionWithParams", "Value cannot be null or empty. (Parameter 'DummyParameter')"));
     }
 
-     [Trait("Category", "WebApi Collection [NoContext]")]
+    [Trait("Category", "WebApi Collection [NoContext]")]
     [Fact(DisplayName = "Successful to build http response status")]
     public void SuccessfulToBuildHttpResponseStatus()
     {
@@ -63,7 +63,7 @@ public class ExceptionHandlerTest
                 new ValidationException("")));
     }
 
-     [Trait("Category", "WebApi Collection [NoContext]")]
+    [Trait("Category", "WebApi Collection [NoContext]")]
     [Fact(DisplayName = "Successful to build http response status handling validation exception")]
     public void SuccessfulToBuildHttpResponseStatusHandlingValidationException()
     {
@@ -79,7 +79,7 @@ public class ExceptionHandlerTest
             HttpStatusCode.BadRequest, "Please correct the errors and send your information again!", validationException));
     }
 
-     [Trait("Category", "WebApi Collection [NoContext]")]
+    [Trait("Category", "WebApi Collection [NoContext]")]
     [Fact(DisplayName = "Successful to build http response status handling validation exception with nested object")]
     public void SuccessfulToBuildHttpResponseStatusHandlingValidationExceptionWithNestedObject()
     {
@@ -95,7 +95,7 @@ public class ExceptionHandlerTest
             HttpStatusCode.BadRequest, "Please correct the errors and send your information again!", validationException));
     }
 
-     [Trait("Category", "WebApi Collection [NoContext]")]
+    [Trait("Category", "WebApi Collection [NoContext]")]
     [Fact(DisplayName = "Successful to build http response status handling invalid argument exception")]
     public void SuccessfulToBuildHttpResponseStatusHandlingInvalidArgumentException()
     {
@@ -116,7 +116,7 @@ public class ExceptionHandlerTest
             HttpStatusCode.BadRequest, "Please correct the errors and send your information again!", invalidArgumentException));
     }
 
-     [Trait("Category", "WebApi Collection [NoContext]")]
+    [Trait("Category", "WebApi Collection [NoContext]")]
     [Theory(DisplayName = "Successful to handle exception")]
     [InlineData(typeof(ParentConstraintException), HttpStatusCode.BadRequest)]
     [InlineData(typeof(UniqueConstraintException), HttpStatusCode.BadRequest)]
@@ -169,7 +169,7 @@ public class ExceptionHandlerTest
 
         if (type == typeof(NotFoundException))
             return CreateInstance<NotFoundException>(messageKey);
-        
+
         if (type == typeof(ServiceUnavailableException))
             return CreateInstance<ServiceUnavailableException>(messageKey);
 

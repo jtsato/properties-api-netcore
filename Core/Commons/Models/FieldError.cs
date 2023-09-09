@@ -4,7 +4,6 @@ using System.Text;
 
 namespace Core.Commons.Models;
 
-[ExcludeFromCodeCoverage]
 public sealed class FieldError
 {
     public string PropertyName { get; init; }
@@ -12,7 +11,8 @@ public sealed class FieldError
     public string ErrorMessage { get; init; }
 
     public string AttemptedValue { get; init; }
-[ExcludeFromCodeCoverage]
+    
+	[ExcludeFromCodeCoverage]
     private bool Equals(FieldError other)
     {
         return PropertyName == other.PropertyName

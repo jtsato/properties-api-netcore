@@ -5,9 +5,9 @@ using Xunit;
 namespace IntegrationTest.EntryPoint.WebApi.Commons.Filters;
 
 [Collection("WebApi Collection [NoContext]")]
-public class GetLanguageActionFilterAttributeTest
+public sealed class GetLanguageActionFilterAttributeTest
 {
-     [Trait("Category", "WebApi Collection [NoContext]")]
+    [Trait("Category", "WebApi Collection [NoContext]")]
     [Theory(DisplayName = "Successful to handle multiple cultures")]
     [InlineData("pt-br", "pt-BR")]
     [InlineData("en-us", "en-US")]

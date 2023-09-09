@@ -11,7 +11,7 @@ namespace IntegrationTest.EntryPoint.WebApi.Commons;
 
 [Collection("WebApi Collection [NoContext]")]
 [SuppressMessage("ReSharper", "ClassNeverInstantiated.Local")]
-public class LoggerAdapterTest
+public sealed class LoggerAdapterTest
 {
     private readonly Mock<ILogger> _logger;
 

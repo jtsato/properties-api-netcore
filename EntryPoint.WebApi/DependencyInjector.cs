@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Reflection;
@@ -34,51 +35,72 @@ public static class DependencyInjector
     private static readonly string CollectionName =
         Environment.GetEnvironmentVariable("PROPERTY_COLLECTION_NAME") ?? string.Empty;
 
-    public static void ConfigureServices(IServiceCollection services)
+    public static Dictionary<Type, ServiceLifetime> ConfigureServices(IServiceCollection services)
     {
         CreateServiceAccountFile();
+
         AddSharedServices(services);
-        IConnectionFactory connectionFactory = new ConnectionFactory(ConnectionString);
-        AddApplicationServices(services, connectionFactory);
+        AddEntryPointServices(services);
+        AddCoreServices(services);
+        AddInfrastructureServices(services, new ConnectionFactory(ConnectionString));
+
+        return BuildLifetimeByType(services);
     }
 
     private static void CreateServiceAccountFile()
     {
         string basePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         if (basePath == null) return;
-        
+
         string serviceAccountPath = Path.Combine(basePath, ServiceAccountFile);
         if (File.Exists(serviceAccountPath)) return;
 
         StreamWriter streamWriter = File.CreateText(serviceAccountPath);
         streamWriter.Write(ServiceAccountFile);
         streamWriter.Close();
-        
+
         Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", serviceAccountPath);
     }
 
     private static void AddSharedServices(IServiceCollection services)
     {
-        services.AddLocalization(options => options.ResourcesPath = "Resources");
-
         services.AddSingleton<IServiceResolver, ServiceResolver>();
-        services.AddSingleton<IExceptionHandler, ExceptionHandler>();
         services.AddSingleton<IGetDateTime, GetDateTime>();
-        services.AddSingleton<IGetCorrelationId, GetCorrelationId>();
-
         services.AddTransient<ILoggerAdapter, LoggerAdapter<ExceptionHandlerFilterAttribute>>();
     }
 
-    private static void AddApplicationServices(IServiceCollection services, IConnectionFactory connectionFactory)
+    private static void AddEntryPointServices(IServiceCollection services)
     {
-        services.AddSingleton<IRepository<PropertyEntity>>(_ => new PropertyRepository(connectionFactory, DatabaseName, CollectionName));
-        
+        services.AddLocalization(options => options.ResourcesPath = "Resources");
+        services.AddSingleton<IExceptionHandler, ExceptionHandler>();
+        services.AddSingleton<IGetCorrelationId, GetCorrelationId>();
         services.AddSingleton<ISearchPropertiesController, SearchPropertiesController>();
-        services.AddSingleton<ISearchPropertiesUseCase, SearchPropertiesUseCase>();
-        services.AddSingleton<ISearchPropertiesGateway, SearchPropertiesProvider>();
-        
         services.AddSingleton<IGetPropertyByIdController, GetPropertyByIdController>();
+    }
+
+    private static void AddCoreServices(IServiceCollection services)
+    {
+        services.AddSingleton<ISearchPropertiesUseCase, SearchPropertiesUseCase>();
         services.AddSingleton<IGetPropertyByIdUseCase, GetPropertyByIdUseCase>();
+    }
+
+    private static void AddInfrastructureServices(IServiceCollection services, IConnectionFactory connectionFactory)
+    {
+        services.AddSingleton<ISearchPropertiesGateway, SearchPropertiesProvider>();
         services.AddSingleton<IGetPropertyByIdGateway, GetPropertyByIdProvider>();
+        services.AddSingleton<IRepository<PropertyEntity>>(_ => new PropertyRepository(connectionFactory, DatabaseName, CollectionName));
+    }
+
+    private static Dictionary<Type, ServiceLifetime> BuildLifetimeByType(IServiceCollection services)
+    {
+        Dictionary<Type, ServiceLifetime> lifetimeByType = new Dictionary<Type, ServiceLifetime>();
+        foreach (ServiceDescriptor service in services)
+        {
+            if (service.Lifetime != ServiceLifetime.Singleton) continue;
+            if (lifetimeByType.ContainsKey(service.ServiceType)) continue;
+            lifetimeByType.Add(service.ServiceType, service.Lifetime);
+        }
+
+        return lifetimeByType;
     }
 }

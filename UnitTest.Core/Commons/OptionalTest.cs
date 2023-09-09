@@ -5,7 +5,7 @@ using Xunit;
 
 namespace UnitTest.Core.Commons;
 
-public class OptionalTest
+public sealed class OptionalTest
 {
     [Trait("Category", "Core Business tests")]
     [Fact(DisplayName = "Successful to create an optional with no content")]
@@ -263,6 +263,7 @@ public class OptionalTest
             return Foo == other.Foo && Bar == other.Bar;
         }
 
+[ExcludeFromCodeCoverage]
         public override bool Equals(object obj)
         {
             return ReferenceEquals(this, obj) || obj is DummyClass other && Equals(other);
@@ -296,16 +297,19 @@ public class OptionalTest
             return Foo == other.Foo && Bar == other.Bar;
         }
 
+        [ExcludeFromCodeCoverage]
         public override bool Equals(object obj)
         {
             return ReferenceEquals(this, obj) || obj is DummyClassTwo other && Equals(other);
         }
 
+        [ExcludeFromCodeCoverage]
         public override int GetHashCode()
         {
             return HashCode.Combine(Foo, Bar);
         }
 
+        [ExcludeFromCodeCoverage]
         public override string ToString()
         {
             return $"{nameof(Foo)}: {Foo}, {nameof(Bar)}: {Bar}";

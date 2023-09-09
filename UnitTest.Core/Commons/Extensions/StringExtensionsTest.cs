@@ -3,7 +3,7 @@ using Xunit;
 
 namespace UnitTest.Core.Commons.Extensions;
 
-public class StringExtensionsTest
+public sealed class StringExtensionsTest
 {
     [Trait("Category", "Core Business tests")]
     [Theory(DisplayName = "Successful to gets the substring before the first separator occurrence")]

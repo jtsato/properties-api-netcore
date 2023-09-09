@@ -49,7 +49,8 @@ public sealed class Sort
     {
         return _orders;
     }
-[ExcludeFromCodeCoverage]
+
+	[ExcludeFromCodeCoverage]
     private bool Equals(Sort other)
     {
         return _orders.Count == other._orders.Count

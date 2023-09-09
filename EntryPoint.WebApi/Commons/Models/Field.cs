@@ -4,7 +4,6 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace EntryPoint.WebApi.Commons.Models;
 
-[ExcludeFromCodeCoverage]
 public sealed class Field
 {
     [SwaggerSchema(Nullable = false, Description = "Attribute name")]
@@ -22,7 +21,8 @@ public sealed class Field
         Message = message;
         Value = value;
     }
-[ExcludeFromCodeCoverage]
+    
+	[ExcludeFromCodeCoverage]
     private bool Equals(Field other)
     {
         return Name == other.Name && Message == other.Message && Value == other.Value;

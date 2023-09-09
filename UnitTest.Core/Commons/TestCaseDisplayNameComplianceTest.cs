@@ -11,7 +11,7 @@ using Xunit.Abstractions;
 
 namespace UnitTest.Core.Commons;
 
-public class TestCaseDisplayNameComplianceTest
+public sealed class TestCaseDisplayNameComplianceTest
 {
     private const string CurrentProjectName = "UnitTest.Core";
     private static readonly string[] ExcludedDisplayNamePrefixes  = { "POST", "GET", "PUT", "DELETE" };
@@ -162,6 +162,7 @@ public class TestCaseDisplayNameComplianceTest
         public string MethodNameAsDisplayName { get; init; }
         public string ActualDisplayName { get; init; }
 
+        [ExcludeFromCodeCoverage]
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;

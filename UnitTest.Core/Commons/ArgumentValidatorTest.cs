@@ -6,7 +6,7 @@ using Xunit;
 
 namespace UnitTest.Core.Commons;
 
-public class ArgumentValidatorTest
+public sealed class ArgumentValidatorTest
 {
     [Trait("Category", "Core Business tests")]
     [Fact(DisplayName = "Successful to validate an object parameter if it is not null")]
@@ -261,7 +261,8 @@ internal sealed class DummyClass
         Foo = foo;
         Bar = bar;
     }
-[ExcludeFromCodeCoverage]
+
+	[ExcludeFromCodeCoverage]
     private bool Equals(DummyClass other)
     {
         return Foo == other.Foo && Bar == other.Bar;

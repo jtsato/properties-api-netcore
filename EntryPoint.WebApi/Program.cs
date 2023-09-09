@@ -46,7 +46,6 @@ public static class Program
         builder.Services.AddHttpContextAccessor();
 
         builder.Services.AddEndpointsApiExplorer();
-
         if (builder.Environment.IsDevelopment() || builder.Environment.IsStaging())
         {
             builder.Services.AddSwaggerGen(ConfigureSwaggerGen);
@@ -55,21 +54,23 @@ public static class Program
         builder.Services.AddHealthChecks()
             .AddCheck("Health check", () => HealthCheckResult.Healthy(), tags: new[] {"live", "ready"});
 
-        DependencyInjector.ConfigureServices(builder.Services);
+        Dictionary<Type, ServiceLifetime> lifetimeByType
+            = DependencyInjector.ConfigureServices(builder.Services);
 
         WebApplication app = builder.Build();
 
         if (app.Services.GetService(typeof(IServiceResolver)) is ServiceResolver serviceResolver)
         {
-            serviceResolver.Setup(app.Services);
+            serviceResolver.Setup(app.Services, lifetimeByType);
         }
 
         if (app.Environment.IsDevelopment() || app.Environment.IsStaging())
         {
             app.UseSwagger(ConfigureSwagger);
-            app.UseSwaggerUI(options => { 
+            app.UseSwaggerUI(options =>
+            {
                 options.RoutePrefix = "api/properties-search/v1/swagger";
-                options.SwaggerEndpoint("/api/properties-search/v1/api-docs/v1/swagger.yaml", "ViaOps Configuration Manager"); 
+                options.SwaggerEndpoint("/api/properties-search/v1/api-docs/v1/swagger.yaml", "ViaOps Configuration Manager");
             });
             RewriteOptions rewriteOptions = new RewriteOptions();
             rewriteOptions.AddRedirect("^$", "swagger");
@@ -128,7 +129,7 @@ public static class Program
                     In = ParameterLocation.Header,
                     Reference = new OpenApiReference {Type = ReferenceType.SecurityScheme, Id = "ApiKey"}
                 },
-                new List<string>()
+                Array.Empty<string>()
             }
         });
 

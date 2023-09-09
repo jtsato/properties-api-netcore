@@ -7,7 +7,7 @@ namespace IntegrationTest.EntryPoint.WebApi.Commons.Assertions;
 
 [ExcludeFromCodeCoverage]
 [Collection("WebApi Collection [NoContext]")]
-public class JsonAssertHelperTests
+public sealed class JsonAssertHelperTests
 {
     private static readonly JsonDocument SampleDocument = JsonDocument.Parse(
         """

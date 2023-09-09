@@ -7,7 +7,7 @@ using Xunit.Sdk;
 namespace IntegrationTest.EntryPoint.WebApi.Commons;
 
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
-public class UseInvariantCultureAttribute : BeforeAfterTestAttribute
+public sealed class UseInvariantCultureAttribute : BeforeAfterTestAttribute
 {
     private CultureInfo _originalCulture;
     private CultureInfo _originalUiCulture;

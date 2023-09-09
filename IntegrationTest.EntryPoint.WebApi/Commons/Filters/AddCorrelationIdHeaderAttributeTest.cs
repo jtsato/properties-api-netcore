@@ -12,7 +12,7 @@ using Xunit;
 namespace IntegrationTest.EntryPoint.WebApi.Commons.Filters;
 
 [Collection("WebApi Collection [NoContext]")]
-public class AddCorrelationIdHeaderAttributeTest
+public sealed class AddCorrelationIdHeaderAttributeTest
 {
      [Trait("Category", "WebApi Collection [NoContext]")]
     [Fact(DisplayName = "Successful to add correlation id to response headers")]

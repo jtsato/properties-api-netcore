@@ -6,7 +6,7 @@ using Xunit;
 
 namespace UnitTest.Core.Commons.Extensions;
 
-public class JsonExtensionsTest
+public sealed class JsonExtensionsTest
 {
     [Trait("Category", "Core Business tests")]
     [Fact(DisplayName = "Successful to write json as string")]
@@ -125,7 +125,7 @@ internal sealed class DummyClass
         Foo = foo;
         Bar = bar;
     }
-[ExcludeFromCodeCoverage]
+	
     private bool Equals(DummyClass other)
     {
         return Foo == other.Foo && Bar == other.Bar;

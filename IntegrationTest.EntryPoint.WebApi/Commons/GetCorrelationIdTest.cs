@@ -6,7 +6,7 @@ using Xunit;
 namespace IntegrationTest.EntryPoint.WebApi.Commons;
 
 [Collection("WebApi Collection [NoContext]")]
-public class GetCorrelationIdTest
+public sealed class GetCorrelationIdTest
 {
     private const string CorrelationIdKey = "X-Correlation-Id";
 

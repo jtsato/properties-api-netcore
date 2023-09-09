@@ -3,7 +3,7 @@ using Xunit;
 
 namespace UnitTest.Core.Commons;
 
-public class GetDateTimeTest
+public sealed class GetDateTimeTest
 {
     private readonly IGetDateTime _getDateTime = new GetDateTime();
 

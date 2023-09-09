@@ -4,7 +4,7 @@ using Xunit;
 
 namespace UnitTest.Core.Commons.Paging;
 
-public class PageRequestTest
+public sealed class PageRequestTest
 {
     [Trait("Category", "Core Business tests")]
     [Fact(DisplayName = "Fail to instantiate PageRequest if PageNumber is less than ZERO")]

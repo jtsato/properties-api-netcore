@@ -6,11 +6,11 @@ using Xunit;
 namespace IntegrationTest.EntryPoint.WebApi.Commons;
 
 [Collection("WebApi Collection [NoContext]")]
-public class OrderByHelperTest
+public sealed class OrderByHelperTest
 {
     private readonly string[] _sortableFields = {"Field1", "Field3", "Field5", "Field7Asc", "Field9Desc"};
 
-     [Trait("Category", "WebApi Collection [NoContext]")]
+    [Trait("Category", "WebApi Collection [NoContext]")]
     [Fact(DisplayName = "Successful to sanitize empty orders by query parameters")]
     public void SuccessfulToSanitizeEmptyOrdersByQueryParameters()
     {

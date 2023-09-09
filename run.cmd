@@ -47,7 +47,7 @@ GOTO end
 
 :test
 ECHO.
-ECHO Starting the integration test api...
+ECHO Starting the integration test database...
 CALL docker-compose -f IntegrationTest.Infra.MongoDB/docker-compose.yml up -d
 
 ECHO.
@@ -85,7 +85,7 @@ GOTO end
 
 :coverage
 ECHO.
-ECHO Starting the integration test api...
+ECHO Starting the integration test database...
 CALL docker-compose -f IntegrationTest.Infra.MongoDB/docker-compose.yml up -d
 
 ECHO.
@@ -108,7 +108,7 @@ GOTO end
 
 :mutation
 ECHO.
-ECHO Starting the integration test api...
+ECHO Starting the integration test database...
 CALL docker-compose -f IntegrationTest.Infra.MongoDB/docker-compose.yml up -d
 
 ECHO.

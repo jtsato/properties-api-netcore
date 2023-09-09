@@ -4,7 +4,7 @@ using Xunit;
 
 namespace UnitTest.Core.Commons;
 
-public class EnumerationTest
+public sealed class EnumerationTest
 {
     [Trait("Category", "Core Business tests")]
     [Fact(DisplayName = "Successful to get all enumeration items")]
@@ -92,7 +92,7 @@ public class EnumerationTest
         Assert.False(optional.HasValue());
     }
 }
-public class Color : Enumeration<Color>
+public sealed class Color : Enumeration<Color>
 {
     public static readonly Color Blue = new Color(1, "BLUE");
     public static readonly Color Green = new Color(2, "GREEN");

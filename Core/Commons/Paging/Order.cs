@@ -3,7 +3,6 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Core.Commons.Paging;
 
-[ExcludeFromCodeCoverage]
 public sealed class Order
 {
     public Direction Direction { get; init; }
@@ -14,7 +13,8 @@ public sealed class Order
         Direction = direction;
         Property = property;
     }
-[ExcludeFromCodeCoverage]
+    
+	[ExcludeFromCodeCoverage]
     private bool Equals(Order other)
     {
         return Direction == other.Direction

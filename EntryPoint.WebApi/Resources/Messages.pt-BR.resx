@@ -16,13 +16,13 @@
         </value>
     </resheader>
     <data name="CommonUnexpectedException" xml:space="preserve">
-        <value>Um erro inesperado ocorreu, favor tentar novamente mais tarde!</value>
+        <value>Ocorreu um erro inesperado, por favor tente novamente mais tarde!</value>
     </data>
     <data name="CommonValidationAlert" xml:space="preserve">
         <value>Favor corrigir os erros e enviar os dados novamente!</value>
     </data>
     <data name="CommonUnexpectedExceptionWithParams" xml:space="preserve">
-        <value>Um erro inesperado ocorreu, favor tentar novamente mais tarde! Detalhes: {0}.</value>
+        <value>Ocorreu um erro inesperado, por favor tente novamente mais tarde! Detalhes: {0}.</value>
     </data>
     <data name="CommonInvalidRequest" xml:space="preserve">
         <value>A solicitação recebida é inválida. Verifique o formato e os parâmetros na documentação, corrija-os e tente novamente.</value>

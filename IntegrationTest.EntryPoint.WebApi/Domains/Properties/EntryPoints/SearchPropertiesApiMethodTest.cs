@@ -66,6 +66,7 @@ public class SearchPropertiesApiMethodTest
         return httpContextAccessorMock;
     }
 
+    [UseInvariantCulture]
     [Trait("Category", "WebApi Collection [NoContext]")]
     [Fact(DisplayName = "GET /api/properties/search should return 500 Internal Server Error when use case throws an exception")]
     public async Task FailToSearchPropertiesReturningInternalServerError()
@@ -157,6 +158,7 @@ public class SearchPropertiesApiMethodTest
             .AndExpectThat(JsonFrom.Path("$.fields"), Is<object>.Empty());
     }
 
+    [UseInvariantCulture]
     [Trait("Category", "WebApi Collection [NoContext]")]
     [Fact(DisplayName = "GET /api/properties/search should return 206 when there is partial content")]
     public async Task SuccessfulToSearchPropertiesReturningPartialContent()
@@ -333,6 +335,7 @@ public class SearchPropertiesApiMethodTest
             .AndExpectThat(JsonFrom.Path("$.pageable.totalPages"), Is<int>.EqualTo(2));
     }
 
+    [UseInvariantCulture]
     [Trait("Category", "WebApi Collection [NoContext]")]
     [Fact(DisplayName = "GET /api/properties/search should return 204 when there is no content")]
     public async Task SuccessfulToSearchPropertiesReturningNoContent()
@@ -417,6 +420,7 @@ public class SearchPropertiesApiMethodTest
         Assert.Equal((int) HttpStatusCode.NoContent, objectResult.StatusCode);
     }
 
+    [UseInvariantCulture]
     [Trait("Category", "WebApi Collection [NoContext]")]
     [Fact(DisplayName = "GET /api/properties/search should return 200 when there is only one page")]
     public async Task SuccessfulToSearchProperties()

@@ -35,6 +35,7 @@ public class GetPropertyByIdApiMethodTest
         _apiMethod = new GetPropertyByIdApiMethod(controller);
     }
 
+    [UseInvariantCulture]
     [Trait("Category", "WebApi Collection [NoContext]")]
     [Fact(DisplayName = "GET /api/properties/{id} should return 500 Internal Server Error when use case throws an exception")]
     public async Task FailedToGetByIdReturningInternalServerError()
@@ -59,7 +60,34 @@ public class GetPropertyByIdApiMethodTest
             .AndExpectThat(JsonFrom.Path("$.message"), Is<string>.EqualTo(errorMessage))
             .AndExpectThat(JsonFrom.Path("$.fields"), Is<object>.Empty());
     }
+    
+    [UseCulture("pt-BR")]
+    [Trait("Category", "WebApi Collection [NoContext]")]
+    [Fact(DisplayName = "GET /api/properties/{id} should return 500 Internal Server Error when use case throws an exception")]
+    public async Task FailedToGetByIdReturningInternalServerErrorInPtBr()
+    {
+        // Arrange
+        _useCaseMock.Setup(useCase => useCase.ExecuteAsync(new GetPropertyByIdQuery("1001")))
+            .ThrowsAsync(new Exception("Unexpected error"));
 
+        // Act
+        ObjectResult objectResult = await _invoker.InvokeAsync(() => _apiMethod.GetPropertyById("1001"));
+
+        // Assert
+        Assert.NotNull(objectResult);
+        Assert.Equal((int) HttpStatusCode.InternalServerError, objectResult.StatusCode);
+
+        JsonElement jsonElement = ApiMethodTestHelper.TryGetJsonElement(objectResult);
+
+        const string errorMessage = "Ocorreu um erro inesperado, por favor tente novamente mais tarde!";
+
+        JsonAssertHelper.AssertThat(jsonElement)
+            .AndExpectThat(JsonFrom.Path("$.code"), Is<int>.EqualTo(500))
+            .AndExpectThat(JsonFrom.Path("$.message"), Is<string>.EqualTo(errorMessage))
+            .AndExpectThat(JsonFrom.Path("$.fields"), Is<object>.Empty());
+    }
+
+    [UseInvariantCulture]
     [Trait("Category", "WebApi Collection [NoContext]")]
     [Fact(DisplayName = "GET /api/properties/{id} should return 200 OK")]
     public async Task SuccessfulToGetByIdReturningProperty()

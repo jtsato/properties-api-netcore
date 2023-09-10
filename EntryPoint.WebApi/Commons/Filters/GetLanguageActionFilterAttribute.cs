@@ -33,8 +33,9 @@ public sealed class GetLanguageActionFilterAttribute : ActionFilterAttribute
 
     public static void SetupLanguage(string cultureName = null)
     {
-        bool isSupportedCulture = !string.IsNullOrWhiteSpace(cultureName) &&
-                                  (SupportedCultures.Contains(cultureName, StringComparer.InvariantCultureIgnoreCase));
+        if (string.IsNullOrWhiteSpace(cultureName)) return;
+
+        bool isSupportedCulture = SupportedCultures.Contains(cultureName, StringComparer.InvariantCultureIgnoreCase);
         CultureInfo cultureInfo = isSupportedCulture ? CultureInfo.CreateSpecificCulture(cultureName) : new CultureInfo("en-US");
 
         CultureInfo.DefaultThreadCurrentCulture = cultureInfo;

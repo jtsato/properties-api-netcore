@@ -32,8 +32,8 @@ public sealed class ExceptionHandlerTest
 
     [UseInvariantCulture]
     [Trait("Category", "WebApi Collection [NoContext]")]
-    [Fact(DisplayName = "Successful to format message if key exists in the ResourceFile")]
-    public void SuccessfulToFormatMessageIfKeyExistsInTheResourceFile()
+    [Fact(DisplayName = "Successful to format message if key exists in the ResourceFile for default culture")]
+    public void SuccessfulToFormatMessageIfKeyExistsInTheResourceFileForDefaultCulture()
     {
         // Arrange
         // Act 
@@ -45,6 +45,24 @@ public sealed class ExceptionHandlerTest
             IExceptionHandler.MessageFormatter("CommonUnexpectedException"));
 
         Assert.Equal("An unexpected error has occurred, please try again later! Details: Value cannot be null or empty. (Parameter 'DummyParameter').",
+            IExceptionHandler.MessageFormatter("CommonUnexpectedExceptionWithParams", "Value cannot be null or empty. (Parameter 'DummyParameter')"));
+    }
+
+    [UseCulture("pt-BR", "pt-BR")]
+    [Trait("Category", "WebApi Collection [NoContext]")]
+    [Fact(DisplayName = "Successful to format message if key exists in the ResourceFile for pt-BR culture")]
+    public void SuccessfulToFormatMessageIfKeyExistsInTheResourceFileForPtBrCulture()
+    {
+        // Arrange
+        // Act 
+        // Assert
+        Assert.Equal("Favor corrigir os erros e enviar os dados novamente!",
+            IExceptionHandler.MessageFormatter("CommonValidationAlert"));
+
+        Assert.Equal("Ocorreu um erro inesperado, por favor tente novamente mais tarde!",
+            IExceptionHandler.MessageFormatter("CommonUnexpectedException"));
+
+        Assert.Equal("Ocorreu um erro inesperado, por favor tente novamente mais tarde! Detalhes: Value cannot be null or empty. (Parameter 'DummyParameter').",
             IExceptionHandler.MessageFormatter("CommonUnexpectedExceptionWithParams", "Value cannot be null or empty. (Parameter 'DummyParameter')"));
     }
 

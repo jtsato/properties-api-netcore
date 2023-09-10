@@ -22,8 +22,13 @@ public sealed class PropertySequenceRepository : ISequenceRepository<PropertySeq
     {
         FindOneAndUpdateOptions<PropertySequence, PropertySequence> findOneAndUpdateOptions =
             new FindOneAndUpdateOptions<PropertySequence, PropertySequence>
-                {IsUpsert = true, ReturnDocument = ReturnDocument.After};
+            {
+                IsUpsert = true,
+                ReturnDocument = ReturnDocument.After
+            };
+
         UpdateDefinition<PropertySequence> updateDefinition = Builders<PropertySequence>.Update.Inc(sequence => sequence.SequenceValue, 1);
+
         return await _collection.FindOneAndUpdateAsync(filterDefinition, updateDefinition, findOneAndUpdateOptions);
     }
 }

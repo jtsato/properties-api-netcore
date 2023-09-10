@@ -20,6 +20,34 @@ public class UpdateDefinitionHelperTest
         // Assert
         Assert.Single(updateDefinitions);
     }
+    
+    [Trait("Category", "Database collection [NoContext]")]
+    [Fact(DisplayName = "Successful to add up definition if value was null")]
+    public void SuccessfulToAddUpDefinitionIfValueWasNull()
+    {
+        // Arrange
+        List<UpdateDefinition<DummyEntity>> updateDefinitions = new List<UpdateDefinition<DummyEntity>>();
+
+        // Act
+        UpdateHelper.AddUpDefinitionIfValueHasChanged(ref updateDefinitions, "Name", null, "Kim");
+
+        // Assert
+        Assert.Single(updateDefinitions);
+    }
+        
+    [Trait("Category", "Database collection [NoContext]")]
+    [Fact(DisplayName = "Successful to add up definition if value is null")]
+    public void SuccessfulToAddUpDefinitionIfValueIsNull()
+    {
+        // Arrange
+        List<UpdateDefinition<DummyEntity>> updateDefinitions = new List<UpdateDefinition<DummyEntity>>();
+
+        // Act
+        UpdateHelper.AddUpDefinitionIfValueHasChanged(ref updateDefinitions, "Name", "Kill", null);
+
+        // Assert
+        Assert.Single(updateDefinitions);
+    }
 
     [Trait("Category", "Database collection [NoContext]")]
     [Fact(DisplayName = "Fail to add up definition if value has not changed")]

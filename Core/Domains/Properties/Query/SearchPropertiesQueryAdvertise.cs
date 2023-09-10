@@ -10,7 +10,7 @@ public class SearchPropertiesQueryAdvertise
 
     public SearchPropertiesQueryAdvertise(string transaction)
     {
-        Transaction = transaction ?? string.Empty;
+        Transaction = transaction == null ? string.Empty : transaction.ToUpperInvariant();
     }
 
     [ExcludeFromCodeCoverage]

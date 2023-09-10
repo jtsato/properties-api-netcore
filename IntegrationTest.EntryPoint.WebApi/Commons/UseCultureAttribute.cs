@@ -30,15 +30,15 @@ public class UseCultureAttribute : BeforeAfterTestAttribute
     {
         _originalCulture = Thread.CurrentThread.CurrentCulture;
         _originalUiCulture = Thread.CurrentThread.CurrentUICulture;
+
+        CultureInfo.CurrentCulture.ClearCachedData();
+        CultureInfo.CurrentUICulture.ClearCachedData();
         
         CultureInfo.DefaultThreadCurrentCulture = Culture;
         CultureInfo.DefaultThreadCurrentUICulture = UiCulture;
 
         Thread.CurrentThread.CurrentCulture = Culture;
         Thread.CurrentThread.CurrentUICulture = UiCulture;
-
-        CultureInfo.CurrentCulture.ClearCachedData();
-        CultureInfo.CurrentUICulture.ClearCachedData();
     }
 
     public override void After(MethodInfo methodUnderTest)

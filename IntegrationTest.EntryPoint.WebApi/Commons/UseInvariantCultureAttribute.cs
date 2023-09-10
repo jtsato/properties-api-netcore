@@ -17,14 +17,14 @@ public sealed class UseInvariantCultureAttribute : BeforeAfterTestAttribute
         _originalCulture = CultureInfo.DefaultThreadCurrentCulture;
         _originalUiCulture = CultureInfo.DefaultThreadCurrentUICulture;
 
+        CultureInfo.CurrentCulture.ClearCachedData();
+        CultureInfo.CurrentUICulture.ClearCachedData();
+
         CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
         CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
 
         Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
         Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
-
-        CultureInfo.CurrentCulture.ClearCachedData();
-        CultureInfo.CurrentUICulture.ClearCachedData();
     }
 
     public override void After(MethodInfo methodUnderTest)

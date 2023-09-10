@@ -477,3 +477,4 @@ output/
 
 EntryPoint.WebApi/Properties/launchSettings.json
 firebase-service-account-key.json
+coverage/*

@@ -32,6 +32,9 @@ public sealed class UseInvariantCultureAttribute : BeforeAfterTestAttribute
         CultureInfo.DefaultThreadCurrentCulture = _originalCulture;
         CultureInfo.DefaultThreadCurrentUICulture = _originalUiCulture;
 
+        CultureInfo.CurrentCulture.ClearCachedData();
+        CultureInfo.CurrentUICulture.ClearCachedData();
+
         if (_originalCulture is null) return;
 
         Thread.CurrentThread.CurrentCulture = _originalCulture;

@@ -57,4 +57,40 @@
     <data name="ValidationPropertyIdIsNullOrEmpty" xml:space="preserve">
         <value>The property id is required.</value>
     </data>
+    <data name="ValidationPropertyTypeIsInvalid" xml:space="preserve">
+        <value>The property 'type' field is required.</value>
+    </data>
+    <data name="ValidationPropertyTransactionIsInvalid" xml:space="preserve">
+        <value>The property 'transaction' field is invalid.</value>
+    </data>
+    <data name="ValidationPropertyNumberOfBedroomsIsInvalid" xml:space="preserve">
+        <value>The initial number of bedrooms cannot be greater than the maximum number of bedrooms.</value>
+    </data>
+    <data name="ValidationPropertyNumberOfToiletsIsInvalid" xml:space="preserve">
+        <value>The initial number of toilets cannot be greater than the maximum number of toilets.</value>
+    </data>
+    <data name="ValidationPropertyNumberOfGaragesIsInvalid" xml:space="preserve">
+        <value>The initial number of garages cannot be greater than the maximum number of garages.</value>
+    </data>
+    <data name="ValidationPropertyAreaIsInvalid" xml:space="preserve">
+        <value>The initial area cannot exceed the maximum allowed area.</value>
+    </data>
+    <data name="ValidationPropertyBuiltAreaIsInvalid" xml:space="preserve">
+        <value>The initial built area cannot exceed the maximum allowed built area.</value>
+    </data>
+    <data name="ValidationPropertySellingPriceIsInvalid" xml:space="preserve">
+        <value>The initial selling price cannot be greater than the maximum selling price.</value>
+    </data>
+    <data name="ValidationPropertyRentalTotalPriceIsInvalid" xml:space="preserve">
+        <value>The initial rental total price cannot be greater than the maximum rental total price.</value>
+    </data>
+    <data name="ValidationPropertyRentalPriceIsInvalid" xml:space="preserve">
+        <value>The initial rental price cannot be greater than the maximum rental price.</value>
+    </data>
+    <data name="ValidationPropertyPriceByM2IsInvalid" xml:space="preserve">
+        <value>The initial price per m2 cannot be greater than the maximum price per m2.</value>
+    </data>
+    <data name="ValidationPropertyStatusIsInvalid" xml:space="preserve">
+        <value>The property 'status' field is invalid.</value>
+    </data>
 </root>

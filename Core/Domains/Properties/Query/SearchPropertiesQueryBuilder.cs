@@ -199,7 +199,7 @@ public class SearchPropertiesQueryBuilder
             PriceByM2 = Range<double>.Of(_fromPriceByM2, _toPriceByM2)
         };
 
-        string status = _status;
+        string status = _status ?? "NONE";
 
         return new SearchPropertiesQuery(
             type: propertyType,

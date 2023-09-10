@@ -7,15 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.CodeDom.Compiler;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using System.Resources;
-using System.Runtime.CompilerServices;
-
 namespace EntryPoint.WebApi.Resources {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -23,27 +18,27 @@ namespace EntryPoint.WebApi.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [GeneratedCode("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
-    [DebuggerNonUserCode()]
-    [CompilerGenerated()]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+    [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Messages {
         
-        private static ResourceManager resourceMan;
+        private static global::System.Resources.ResourceManager resourceMan;
         
-        private static CultureInfo resourceCulture;
+        private static global::System.Globalization.CultureInfo resourceCulture;
         
-        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         internal Messages() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
-        [EditorBrowsable(EditorBrowsableState.Advanced)]
-        internal static ResourceManager ResourceManager {
+        [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
-                if (ReferenceEquals(resourceMan, null)) {
-                    ResourceManager temp = new ResourceManager("EntryPoint.WebApi.Resources.Messages", typeof(Messages).Assembly);
+                if (object.ReferenceEquals(resourceMan, null)) {
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EntryPoint.WebApi.Resources.Messages", typeof(Messages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -54,8 +49,8 @@ namespace EntryPoint.WebApi.Resources {
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
-        [EditorBrowsable(EditorBrowsableState.Advanced)]
-        internal static CultureInfo Culture {
+        [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -128,6 +123,24 @@ namespace EntryPoint.WebApi.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The initial area cannot exceed the maximum allowed area..
+        /// </summary>
+        internal static string ValidationPropertyAreaIsInvalid {
+            get {
+                return ResourceManager.GetString("ValidationPropertyAreaIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The initial built area cannot exceed the maximum allowed built area..
+        /// </summary>
+        internal static string ValidationPropertyBuiltAreaIsInvalid {
+            get {
+                return ResourceManager.GetString("ValidationPropertyBuiltAreaIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The initial &apos;created at&apos; field is invalid..
         /// </summary>
         internal static string ValidationPropertyFromCreatedAtIsInvalid {
@@ -164,6 +177,78 @@ namespace EntryPoint.WebApi.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The initial number of bedrooms cannot be greater than the maximum number of bedrooms..
+        /// </summary>
+        internal static string ValidationPropertyNumberOfBedroomsIsInvalid {
+            get {
+                return ResourceManager.GetString("ValidationPropertyNumberOfBedroomsIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The initial number of garages cannot be greater than the maximum number of garages..
+        /// </summary>
+        internal static string ValidationPropertyNumberOfGaragesIsInvalid {
+            get {
+                return ResourceManager.GetString("ValidationPropertyNumberOfGaragesIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The initial number of toilets cannot be greater than the maximum number of toilets..
+        /// </summary>
+        internal static string ValidationPropertyNumberOfToiletsIsInvalid {
+            get {
+                return ResourceManager.GetString("ValidationPropertyNumberOfToiletsIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The initial price by m2 cannot be greater than the maximum price by m2..
+        /// </summary>
+        internal static string ValidationPropertyPriceByM2IsInvalid {
+            get {
+                return ResourceManager.GetString("ValidationPropertyPriceByM2IsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The initial rental price cannot be greater than the maximum rental price..
+        /// </summary>
+        internal static string ValidationPropertyRentalPriceIsInvalid {
+            get {
+                return ResourceManager.GetString("ValidationPropertyRentalPriceIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The initial rental total price cannot be greater than the maximum rental total price..
+        /// </summary>
+        internal static string ValidationPropertyRentalTotalPriceIsInvalid {
+            get {
+                return ResourceManager.GetString("ValidationPropertyRentalTotalPriceIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The initial selling price cannot be greater than the maximum selling price..
+        /// </summary>
+        internal static string ValidationPropertySellingPriceIsInvalid {
+            get {
+                return ResourceManager.GetString("ValidationPropertySellingPriceIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The property &apos;status&apos; field is invalid..
+        /// </summary>
+        internal static string ValidationPropertyStatusIsInvalid {
+            get {
+                return ResourceManager.GetString("ValidationPropertyStatusIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The final &apos;created at&apos; field is invalid..
         /// </summary>
         internal static string ValidationPropertyToCreatedAtIsInvalid {
@@ -182,11 +267,29 @@ namespace EntryPoint.WebApi.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The property &apos;transaction&apos; field is invalid..
+        /// </summary>
+        internal static string ValidationPropertyTransactionIsInvalid {
+            get {
+                return ResourceManager.GetString("ValidationPropertyTransactionIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The advertise &apos;transaction&apos; field is required..
         /// </summary>
         internal static string ValidationPropertyTransactionIsNullOrEmpty {
             get {
                 return ResourceManager.GetString("ValidationPropertyTransactionIsNullOrEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The property &apos;type&apos; field is required..
+        /// </summary>
+        internal static string ValidationPropertyTypeIsInvalid {
+            get {
+                return ResourceManager.GetString("ValidationPropertyTypeIsInvalid", resourceCulture);
             }
         }
     }

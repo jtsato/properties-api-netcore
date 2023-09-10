@@ -57,4 +57,40 @@
     <data name="ValidationPropertyIdIsNullOrEmpty" xml:space="preserve">
         <value>O campo 'id' é obrigatório.</value>
     </data>
+    <data name="ValidationPropertyNumberOfBedroomsIsInvalid" xml:space="preserve">
+        <value>O número inicial de quartos não pode ser maior do que o número máximo de quartos.</value>
+    </data>
+    <data name="ValidationPropertyNumberOfGaragesIsInvalid" xml:space="preserve">
+        <value>O número inicial de garagens não pode ser maior do que o número máximo de garagens.</value>
+    </data>
+    <data name="ValidationPropertyNumberOfToiletsIsInvalid" xml:space="preserve">
+        <value>O número inicial de banheiros não pode ser maior do que o número máximo de banheiros.</value>
+    </data>
+    <data name="ValidationPropertyPriceByM2IsInvalid" xml:space="preserve">
+        <value>O preço inicial por metro quadrado não pode ser maior do que o preço máximo por metro quadrado.</value>
+    </data>
+    <data name="ValidationPropertyRentalPriceIsInvalid" xml:space="preserve">
+        <value>O preço inicial de aluguel não pode ser maior do que o preço máximo de aluguel.</value>
+    </data>
+    <data name="ValidationPropertyRentalTotalPriceIsInvalid" xml:space="preserve">
+        <value>O preço total inicial de aluguel não pode ser maior do que o preço total máximo de aluguel.</value>
+    </data>
+    <data name="ValidationPropertySellingPriceIsInvalid" xml:space="preserve">
+        <value>O preço de venda inicial não pode ser maior do que o preço de venda máximo.</value>
+    </data>
+    <data name="ValidationPropertyStatusIsInvalid" xml:space="preserve">
+        <value>O campo de 'status' da propriedade é inválido.</value>
+    </data>
+    <data name="ValidationPropertyTransactionIsInvalid" xml:space="preserve">
+        <value>O campo 'transação' da propriedade é inválido.</value>
+    </data>
+    <data name="ValidationPropertyTypeIsInvalid" xml:space="preserve">
+        <value>O campo 'tipo' da propriedade é obrigatório.</value>
+    </data>
+    <data name="ValidationPropertyBuiltAreaIsInvalid" xml:space="preserve">
+        <value>A área construída inicial não pode exceder a área construída máxima permitida.</value>
+    </data>
+    <data name="ValidationPropertyAreaIsInvalid" xml:space="preserve">
+        <value>A área inicial não pode exceder a área máxima permitida.</value>
+    </data>
 </root>

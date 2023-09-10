@@ -64,7 +64,7 @@ public sealed class ServiceResolverTest
             .Returns(new DummyClass("Black", "White"));
 
         ServiceResolver serviceResolver = new ServiceResolver();
-        serviceResolver.Setup(_serviceProvider.Object, new Dictionary<Type, ServiceLifetime>());
+        serviceResolver.Setup(_serviceProvider.Object);
 
         // Act
         DummyClass dummyClass = serviceResolver.Resolve<DummyClass>();

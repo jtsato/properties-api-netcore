@@ -49,6 +49,8 @@ public static class MongoCollectionQueryByPageExtensions
     private static long GetTotalOfElements(IReadOnlyList<AggregateFacetResults> aggregation)
     {
         AggregateFacetResult? aggregateFacetResult = aggregation[0].Facets.FirstOrDefault(element => element.Name == "count");
-        return aggregateFacetResult?.Output<AggregateCountResult>()[0].Count ?? 0;
+        return aggregateFacetResult is not null && aggregateFacetResult.Output<AggregateCountResult>().Count != 0
+            ? aggregateFacetResult.Output<AggregateCountResult>()[0].Count
+            : 0;
     }
 }

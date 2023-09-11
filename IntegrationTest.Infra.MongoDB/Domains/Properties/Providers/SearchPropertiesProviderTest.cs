@@ -297,4 +297,30 @@ public class SearchPropertiesProviderTest
         Assert.Equal(DateTime.Parse("2023-01-01 23:59:59.999", CultureInfo.DefaultThreadCurrentCulture), actual.CreatedAt);
         Assert.Equal(DateTime.Parse("2023-02-01 23:59:59.999", CultureInfo.DefaultThreadCurrentCulture), actual.UpdatedAt);
     }
+
+    [Trait("Category", "Infrastructure (DB) Integration tests")]
+    [Fact(DisplayName = "Fail to search properties when there is no properties")]
+    public async Task FailToSearchPropertiesWhenThereIsNoProperties()
+    {
+        // Arrange
+        SearchPropertiesQueryBuilder queryBuilder = new SearchPropertiesQueryBuilder();
+        queryBuilder.WithState("Rio de Janeiro");
+
+        // Act
+        Page<Property> page = await _searchPropertiesGateway.ExecuteAsync(queryBuilder.Build(), PageRequest.Of(0, 1));
+
+        // Assert
+        Assert.NotNull(page);
+        Assert.Empty(page.Content);
+
+        Pageable pageable = page.Pageable;
+        _outputHelper.WriteLine(pageable.ToString());
+
+        Assert.NotNull(pageable);
+        Assert.Equal(0, pageable.Page);
+        Assert.Equal(1, pageable.Size);
+        Assert.Equal(0, pageable.NumberOfElements);
+        Assert.Equal(0, pageable.TotalOfElements);
+        Assert.Equal(0, pageable.TotalPages);
+    }
 }

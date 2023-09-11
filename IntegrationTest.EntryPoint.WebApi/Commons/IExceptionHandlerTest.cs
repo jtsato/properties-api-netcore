@@ -30,7 +30,7 @@ public sealed class ExceptionHandlerTest
         Assert.Equal("unknownKey", IExceptionHandler.MessageFormatter("unknownKey", "One", "Two", "Three"));
     }
 
-    [UseInvariantCulture]
+    [UseCulture("en-US", "en-US")]
     [Trait("Category", "WebApi Collection [NoContext]")]
     [Fact(DisplayName = "Successful to format message if key exists in the ResourceFile for default culture")]
     public void SuccessfulToFormatMessageIfKeyExistsInTheResourceFileForDefaultCulture()

@@ -66,7 +66,7 @@ public class SearchPropertiesApiMethodTest
         return httpContextAccessorMock;
     }
 
-    [UseInvariantCulture]
+    [UseCulture("en-US")]
     [Trait("Category", "WebApi Collection [NoContext]")]
     [Fact(DisplayName = "GET /api/properties/search should return 500 Internal Server Error when use case throws an exception")]
     public async Task FailToSearchPropertiesReturningInternalServerError()

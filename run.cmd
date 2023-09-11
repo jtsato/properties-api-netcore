@@ -7,6 +7,14 @@ IF /I "%~1"=="--help" GOTO help
 IF /I "%~1"=="clean" GOTO clean
 IF /I "%~1"=="app" GOTO app
 
+IF /I NOT "%~1"=="test" (
+    IF /I NOT "%~1"=="coverage" (
+        IF /I NOT "%~1"=="mutation" (
+            GOTO help
+        )
+    )
+)
+
 :: Set the MongoDB host and port for the integration tests 
 SET host=127.0.0.1
 SET port=27018

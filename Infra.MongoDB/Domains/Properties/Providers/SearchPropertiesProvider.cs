@@ -33,6 +33,7 @@ public class SearchPropertiesProvider : ISearchPropertiesGateway
         SortDefinition<PropertyEntity> sort = GetSortDefinitions(pageRequest.Sort.GetOrders());
         Page<PropertyEntity> page = await _propertyRepository.FindAllAsync(filter, sort, pageRequest.PageNumber, pageRequest.PageSize);
         List<Property> content = page.Content.Select(PropertyMapper.Map).ToList();
+
         return new Page<Property>(content, page.Pageable);
     }
 
@@ -40,12 +41,14 @@ public class SearchPropertiesProvider : ISearchPropertiesGateway
     {
         IEnumerable<Order> arrayOfOrders = originalOrders.ToArray();
         List<Order> orders = new List<Order>(arrayOfOrders);
+
         if (!arrayOfOrders.Any())
         {
             orders.Insert(0, new Order(Direction.Desc, DefaultSecondarySortField));
         }
 
         orders.Insert(0, new Order(Direction.Desc, DefaultPrimarySortField));
+
         return SortHelper.GetSortDefinitions<PropertyEntity>(orders);
     }
 }

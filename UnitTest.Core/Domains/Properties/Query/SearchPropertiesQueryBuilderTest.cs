@@ -43,8 +43,8 @@ namespace UnitTest.Core.Domains.Properties.Query
             {
                 new SearchPropertiesQueryBuilderTestData
                 {
-                    Type = "ALL",
-                    Transaction = "SALE",
+                    Type = null,
+                    Transaction = null,
                     NumberOfBedroomsFrom = 0,
                     NumberOfBedroomsTo = 0,
                     NumberOfToiletsFrom = 0,
@@ -66,7 +66,7 @@ namespace UnitTest.Core.Domains.Properties.Query
                     RentalPriceTo = 0,
                     PriceByM2From = 0,
                     PriceByM2To = 0,
-                    Status = "None"
+                    Status = null
                 }
             };
         }
@@ -104,8 +104,9 @@ namespace UnitTest.Core.Domains.Properties.Query
 
             SearchPropertiesQuery actual = builder.Build();
 
-            Assert.Equal(testData.Type.ToUpper(), actual.Type);
-            Assert.Equal(testData.Transaction.ToUpper(), actual.Advertise.Transaction);
+            Assert.Equal(testData.Type is null ? "ALL" : testData.Type.ToUpper(), actual.Type);
+            Assert.Equal(testData.Transaction is null ? "ALL" : testData.Transaction.ToUpper(), actual.Advertise.Transaction);
+            Assert.Equal(testData.Status is null ? "ALL" : testData.Status.ToUpper(), actual.Status);
             Assert.Equal((byte)testData.NumberOfBedroomsFrom, actual.Attributes.NumberOfBedrooms.From);
             Assert.Equal((byte)testData.NumberOfBedroomsTo, actual.Attributes.NumberOfBedrooms.To);
             Assert.Equal((byte)testData.NumberOfToiletsFrom, actual.Attributes.NumberOfToilets.From);
@@ -127,7 +128,6 @@ namespace UnitTest.Core.Domains.Properties.Query
             Assert.Equal(testData.RentalPriceTo, actual.Prices.RentalPrice.To);
             Assert.Equal(testData.PriceByM2From, actual.Prices.PriceByM2.From);
             Assert.Equal(testData.PriceByM2To, actual.Prices.PriceByM2.To);
-            Assert.Equal(testData.Status.ToUpper(), actual.Status);
         }
     }
 

@@ -8,16 +8,18 @@ namespace Infra.MongoDB.Domains.Properties.Repository;
 
 public static class SearchPropertiesFilterBuilder
 {
-    private const string PropertyTypeAll = "ALL";
+    private const string NoFilter = "ALL";
 
     public static FilterDefinition<PropertyEntity> Build(SearchPropertiesQuery query)
     {
         List<FilterDefinition<PropertyEntity>> filters = new List<FilterDefinition<PropertyEntity>>();
 
-        string type = query.Type.ToUpperInvariant() == PropertyTypeAll ? "" : query.Type;
+        string type = query.Type.ToUpperInvariant() == NoFilter ? "" : query.Type;
+        string transaction = query.Advertise.Transaction.ToUpperInvariant() == NoFilter ? "" : query.Advertise.Transaction;
+        string status = query.Status.ToUpperInvariant() == NoFilter ? "" : query.Status;
 
         FilterHelper.AddEqualsFilter(filters, document => document.Type, type);
-        FilterHelper.AddEqualsFilter(filters, document => document.Transaction, query.Advertise.Transaction);
+        FilterHelper.AddEqualsFilter(filters, document => document.Transaction, transaction);
         FilterHelper.AddGreaterOrEqualFilter(filters, document => document.NumberOfBedrooms, query.Attributes.NumberOfBedrooms.From);
         FilterHelper.AddLessOrEqualFilter(filters, document => document.NumberOfBedrooms, query.Attributes.NumberOfBedrooms.To);
         FilterHelper.AddGreaterOrEqualFilter(filters, document => document.NumberOfToilets, query.Attributes.NumberOfToilets.From);
@@ -37,6 +39,7 @@ public static class SearchPropertiesFilterBuilder
         FilterHelper.AddLessOrEqualFilter(filters, document => document.RentalTotalPrice, query.Prices.RentalTotalPrice.To);
         FilterHelper.AddGreaterOrEqualFilter(filters, document => document.RentalPrice, query.Prices.RentalPrice.From);
         FilterHelper.AddLessOrEqualFilter(filters, document => document.RentalPrice, query.Prices.RentalPrice.To);
+        FilterHelper.AddEqualsFilter(filters, document => document.Status, status);
 
         return filters.Count == 0 ? Builders<PropertyEntity>.Filter.Empty : Builders<PropertyEntity>.Filter.And(filters);
     }

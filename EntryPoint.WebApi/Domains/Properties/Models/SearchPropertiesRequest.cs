@@ -11,11 +11,12 @@ public class SearchPropertiesRequest
 {
     [SwaggerParameter(Required = false, Description = "Type")]
     [FromQuery(Name = "type")]
-    [DefaultValue("All")]
+    [DefaultValue("ALL")]
     public string Type { get; init; }
 
-    [SwaggerParameter(Required = true, Description = "Transaction type")]
+    [SwaggerParameter(Required = false, Description = "Transaction type")]
     [FromQuery(Name = "transaction")]
+    [DefaultValue("ALL")]
     public string Transaction { get; init; }
 
     [SwaggerParameter(Required = false, Description = "Minimum number of bedrooms")]
@@ -122,5 +123,6 @@ public class SearchPropertiesRequest
 
     [SwaggerParameter(Required = false, Description = "Property's status")]
     [FromQuery(Name = "status")]
+    [DefaultValue("ALL")]
     public string Status { get; init; }
 }

@@ -229,7 +229,7 @@ public class SearchPropertiesProviderTest
                 },
                 HashKey = "hash-key-1",
                 Ranking = 1,
-                Status = PropertyStatus.Active,
+                Status = PropertyStatus.Inactive,
                 CreatedAt = DateTime.Parse("2023-01-01 23:59:59.999", CultureInfo.DefaultThreadCurrentCulture),
                 UpdatedAt = DateTime.Parse("2023-02-01 23:59:59.999", CultureInfo.DefaultThreadCurrentCulture),
             };
@@ -244,7 +244,7 @@ public class SearchPropertiesProviderTest
             .WithState("Duckland")
             .WithCity("White Duck")
             .WithDistricts(new List<string> {"Downtown", "Alta Vista"})
-            .WithStatus("Active");
+            .WithStatus("Inactive");
 
         SearchPropertiesQuery query = queryBuilder.Build();
 
@@ -293,7 +293,7 @@ public class SearchPropertiesProviderTest
         Assert.Equal(90, actual.Prices.CondominiumFee);
         Assert.Equal("hash-key-1", actual.HashKey);
         Assert.Equal(1, actual.Ranking);
-        Assert.Equal(PropertyStatus.Active, actual.Status);
+        Assert.Equal(PropertyStatus.Inactive, actual.Status);
         Assert.Equal(DateTime.Parse("2023-01-01 23:59:59.999", CultureInfo.DefaultThreadCurrentCulture), actual.CreatedAt);
         Assert.Equal(DateTime.Parse("2023-02-01 23:59:59.999", CultureInfo.DefaultThreadCurrentCulture), actual.UpdatedAt);
     }

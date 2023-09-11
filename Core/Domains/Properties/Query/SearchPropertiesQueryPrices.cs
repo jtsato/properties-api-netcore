@@ -11,6 +11,18 @@ public class SearchPropertiesQueryPrices
     public Range<double> RentalTotalPrice { get; init; }
     public Range<double> RentalPrice { get; init; }
     public Range<double> PriceByM2 { get; init; }
+    
+    protected internal SearchPropertiesQueryPrices(
+        Range<double> sellingPrice,
+        Range<double> rentalTotalPrice,
+        Range<double> rentalPrice,
+        Range<double> priceByM2)
+    {
+        SellingPrice = sellingPrice;
+        RentalTotalPrice = rentalTotalPrice;
+        RentalPrice = rentalPrice;
+        PriceByM2 = priceByM2;
+    }
 
     [ExcludeFromCodeCoverage]
     private bool Equals(SearchPropertiesQueryPrices other)

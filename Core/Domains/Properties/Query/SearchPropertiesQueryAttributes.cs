@@ -12,6 +12,20 @@ public class SearchPropertiesQueryAttributes
     public Range<byte> NumberOfGarages { get; init; }
     public Range<int> Area { get; init; }
     public Range<int> BuiltArea { get; init; }
+    
+    protected internal SearchPropertiesQueryAttributes(
+        Range<byte> numberOfBedrooms,
+        Range<byte> numberOfToilets,
+        Range<byte> numberOfGarages,
+        Range<int> area,
+        Range<int> builtArea)
+    {
+        NumberOfBedrooms = numberOfBedrooms;
+        NumberOfToilets = numberOfToilets;
+        NumberOfGarages = numberOfGarages;
+        Area = area;
+        BuiltArea = builtArea;
+    }
 
     [ExcludeFromCodeCoverage]
     private bool Equals(SearchPropertiesQueryAttributes other)

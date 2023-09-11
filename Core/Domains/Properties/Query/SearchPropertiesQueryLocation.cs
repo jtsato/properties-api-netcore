@@ -12,11 +12,11 @@ public class SearchPropertiesQueryLocation
     public string City { get; init; }
     public List<string> Districts { get; init; }
 
-    public SearchPropertiesQueryLocation(string state, string city, List<string> districts)
+    protected internal SearchPropertiesQueryLocation(string state, string city, List<string> districts)
     {
-        State = state ?? string.Empty;
-        City = city ?? string.Empty;
-        Districts = districts ?? new List<string>();
+        State = state;
+        City = city;
+        Districts = districts;
     }
 
     [ExcludeFromCodeCoverage]

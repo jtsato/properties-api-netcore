@@ -177,30 +177,30 @@ public class SearchPropertiesQueryBuilder
 
     public SearchPropertiesQuery Build()
     {
-        string propertyType = _type ?? "All";
+        string propertyType = string.IsNullOrWhiteSpace(_type) ? "ALL" : _type.ToUpper();
+        string status = string.IsNullOrWhiteSpace(_status) ? "ALL" : _status.ToUpper();
+        string transaction = string.IsNullOrWhiteSpace(_transaction) ? "ALL" : _transaction.ToUpper();
 
-        SearchPropertiesQueryAdvertise queryAdvertise = new SearchPropertiesQueryAdvertise(_transaction);
+        SearchPropertiesQueryAdvertise queryAdvertise = new SearchPropertiesQueryAdvertise(transaction);
         SearchPropertiesQueryLocation queryLocation = new SearchPropertiesQueryLocation(_state, _city, _districts);
 
         SearchPropertiesQueryAttributes queryAttributes = new SearchPropertiesQueryAttributes
-        {
-            NumberOfBedrooms = Range<byte>.Of(_fromNumberOfBedrooms, _toNumberOfBedrooms),
-            NumberOfToilets = Range<byte>.Of(_fromNumberOfToilets, _toNumberOfToilets),
-            NumberOfGarages = Range<byte>.Of(_fromNumberOfGarages, _toNumberOfGarages),
-            Area = Range<int>.Of(_fromArea, _toArea),
-            BuiltArea = Range<int>.Of(_fromBuiltArea, _toBuiltArea)
-        };
+        (
+            numberOfBedrooms: Range<byte>.Of(_fromNumberOfBedrooms, _toNumberOfBedrooms),
+            numberOfToilets: Range<byte>.Of(_fromNumberOfToilets, _toNumberOfToilets),
+            numberOfGarages: Range<byte>.Of(_fromNumberOfGarages, _toNumberOfGarages),
+            area: Range<int>.Of(_fromArea, _toArea),
+            builtArea: Range<int>.Of(_fromBuiltArea, _toBuiltArea)
+        );
 
         SearchPropertiesQueryPrices queryPrices = new SearchPropertiesQueryPrices
-        {
-            SellingPrice = Range<double>.Of(_fromSellingPrice, _toSellingPrice),
-            RentalTotalPrice = Range<double>.Of(_fromRentalTotalPrice, _toRentalTotalPrice),
-            RentalPrice = Range<double>.Of(_fromRentalPrice, _toRentalPrice),
-            PriceByM2 = Range<double>.Of(_fromPriceByM2, _toPriceByM2)
-        };
-
-        string status = _status ?? "NONE";
-
+        (
+            sellingPrice: Range<double>.Of(_fromSellingPrice, _toSellingPrice),
+            rentalTotalPrice: Range<double>.Of(_fromRentalTotalPrice, _toRentalTotalPrice),
+            rentalPrice: Range<double>.Of(_fromRentalPrice, _toRentalPrice),
+            priceByM2: Range<double>.Of(_fromPriceByM2, _toPriceByM2)
+        );
+        
         return new SearchPropertiesQuery(
             type: propertyType,
             advertise: queryAdvertise,

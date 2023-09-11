@@ -5,7 +5,7 @@ using FluentValidation;
 
 namespace Core.Domains.Properties.Query;
 
-public sealed class SearchPropertiesQuery : SearchPropertiesQueryBase
+public class SearchPropertiesQuery : SearchPropertiesQueryBase
 {
     private static readonly SearchPropertiesQueryValidator Validator = new SearchPropertiesQueryValidator();
 
@@ -14,7 +14,7 @@ public sealed class SearchPropertiesQuery : SearchPropertiesQueryBase
     public SearchPropertiesQueryLocation Location { get; init; }
     public SearchPropertiesQueryPrices Prices { get; init; }
 
-    public SearchPropertiesQuery(
+    protected internal SearchPropertiesQuery(
         string type,
         SearchPropertiesQueryAdvertise advertise,
         SearchPropertiesQueryAttributes attributes,
@@ -22,12 +22,12 @@ public sealed class SearchPropertiesQuery : SearchPropertiesQueryBase
         SearchPropertiesQueryPrices prices,
         string status) : base(type, status)
     {
-        Type = type?.Trim().ToUpperInvariant();
+        Type = type;
+        Status = status;
         Advertise = advertise;
         Attributes = attributes;
         Location = location;
         Prices = prices;
-        Status = status?.Trim().ToUpperInvariant();
         Validator.ValidateAndThrow(this);
     }
 

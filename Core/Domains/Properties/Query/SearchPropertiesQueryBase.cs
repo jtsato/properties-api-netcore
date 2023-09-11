@@ -7,7 +7,7 @@ public class SearchPropertiesQueryBase
 
     protected SearchPropertiesQueryBase(string type, string status)
     {
-        Type = type?.Trim().ToUpperInvariant();
-        Status = status?.Trim().ToUpperInvariant();
+        Type = type;
+        Status = status;
     }
 }

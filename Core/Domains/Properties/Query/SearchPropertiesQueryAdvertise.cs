@@ -8,9 +8,9 @@ public class SearchPropertiesQueryAdvertise
 {
     public string Transaction { get; init; }
 
-    public SearchPropertiesQueryAdvertise(string transaction)
+    protected internal SearchPropertiesQueryAdvertise(string transaction)
     {
-        Transaction = transaction == null ? "NONE" : transaction.ToUpperInvariant();
+        Transaction = transaction;
     }
 
     [ExcludeFromCodeCoverage]

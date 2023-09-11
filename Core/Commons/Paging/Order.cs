@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Core.Commons.Paging;
 
+[ExcludeFromCodeCoverage]
 public sealed class Order
 {
     public Direction Direction { get; init; }

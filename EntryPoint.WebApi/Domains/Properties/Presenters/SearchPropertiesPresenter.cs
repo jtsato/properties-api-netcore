@@ -17,8 +17,7 @@ public static class SearchPropertiesPresenter
 
     private static SearchPropertiesInnerResponse Of(Property property, string baseUrl)
     {
-        byte limit = property.Advertise.Description.Length > 40 ? (byte) 40 : (byte) property.Advertise.Description.Length;
-        string introduction = $"{property.Advertise.Description[..limit]}".AppendIfMissing("...");
+        string introduction = property.Advertise.Description.Truncate(37).AppendIfMissing("...");
         return new SearchPropertiesInnerResponse
         {
             Id = property.Id,

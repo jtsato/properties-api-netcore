@@ -83,4 +83,27 @@ public static class StringExtensions
 
         return $"{text}{suffix}";
     }
+
+    /**
+        Truncates a String.
+        This will turn "Now is the time for all good men" into "Now is the time for".
+        If text is less than maxWidth characters long, return it.
+        Else truncate it to text.substring(0, maxWidth).
+        If maxWidth is less than 0, throw an IllegalArgumentException.
+        In no case will it return a string of length greater than maxWidth.
+     */
+    public static string Truncate(this string text, int maxLength)
+    {
+        if (maxLength < 0)
+        {
+            throw new ArgumentException("Max width must be greater than or equal to zero.");
+        }
+
+        if (text is null || text.Length <= maxLength)
+        {
+            return text;
+        }
+
+        return text[..maxLength];
+    }
 }

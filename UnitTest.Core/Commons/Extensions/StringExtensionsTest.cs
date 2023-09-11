@@ -1,4 +1,5 @@
-﻿using Core.Commons.Extensions;
+﻿using System;
+using Core.Commons.Extensions;
 using Xunit;
 
 namespace UnitTest.Core.Commons.Extensions;
@@ -88,5 +89,34 @@ public sealed class StringExtensionsTest
     public void SuccessfulToAppendSuffixIfMissing(string text, string suffix, bool ignoreCase, string expected)
     {
         Assert.Equal(expected, text.AppendIfMissing(suffix, ignoreCase));
+    }
+
+    [Trait("Category", "Core Business tests")]
+    [Theory(DisplayName = "Successful to truncate string")]
+    [InlineData(null, 0, null)]
+    [InlineData("", 0, "")]
+    [InlineData("", 2, "")]
+    [InlineData("abc", 0, "")]
+    [InlineData("abc", 2, "ab")]
+    [InlineData("abc", 4, "abc")]
+    public void SuccessfulToTruncateString(string text, int maxWidth, string expected)
+    {
+        Assert.Equal(expected, text.Truncate(maxWidth));
+    }
+
+    [Trait("Category", "Core Business tests")]
+    [Theory(DisplayName = "Fail to truncate string")]
+    [InlineData("abc", -1, "abc")]
+    public void FailToTruncateString(string text, int maxWidth, string expected)
+    {
+        // Arrange
+        // Act
+        // Assert
+        ArgumentException exception =
+            Assert.Throws<ArgumentException>(
+                () => text.Truncate(maxWidth)
+            );
+
+        Assert.Equal("Max width must be greater than or equal to zero.", exception.Message);
     }
 }

@@ -5,7 +5,7 @@ using Xunit;
 
 namespace IntegrationTest.Infra.MongoDB.Commons;
 
-public class FilterDefinitionHelperTest
+public sealed class FilterDefinitionHelperTest
 {
     [Trait("Category", "Database collection [NoContext]")]
     [Fact(DisplayName = "Fail to add filter definition if value is null")]

@@ -35,7 +35,7 @@ public class GetPropertyByIdApiMethodTest
         _apiMethod = new GetPropertyByIdApiMethod(controller);
     }
 
-    [UseInvariantCulture]
+    [UseCulture("en-US")]
     [Trait("Category", "WebApi Collection [NoContext]")]
     [Fact(DisplayName = "GET /api/properties/{id} should return 500 Internal Server Error when use case throws an exception")]
     public async Task FailedToGetByIdReturningInternalServerError()
@@ -87,7 +87,7 @@ public class GetPropertyByIdApiMethodTest
             .AndExpectThat(JsonFrom.Path("$.fields"), Is<object>.Empty());
     }
 
-    [UseInvariantCulture]
+    [UseCulture("en-US")]
     [Trait("Category", "WebApi Collection [NoContext]")]
     [Fact(DisplayName = "GET /api/properties/{id} should return 200 OK")]
     public async Task SuccessfulToGetByIdReturningProperty()

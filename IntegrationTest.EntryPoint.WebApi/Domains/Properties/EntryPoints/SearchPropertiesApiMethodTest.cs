@@ -158,7 +158,7 @@ public class SearchPropertiesApiMethodTest
             .AndExpectThat(JsonFrom.Path("$.fields"), Is<object>.Empty());
     }
 
-    [UseInvariantCulture]
+    [UseCulture("en-US")]
     [Trait("Category", "WebApi Collection [NoContext]")]
     [Fact(DisplayName = "GET /api/properties/search should return 206 when there is partial content")]
     public async Task SuccessfulToSearchPropertiesReturningPartialContent()
@@ -335,7 +335,7 @@ public class SearchPropertiesApiMethodTest
             .AndExpectThat(JsonFrom.Path("$.pageable.totalPages"), Is<int>.EqualTo(2));
     }
 
-    [UseInvariantCulture]
+    [UseCulture("en-US")]
     [Trait("Category", "WebApi Collection [NoContext]")]
     [Fact(DisplayName = "GET /api/properties/search should return 204 when there is no content")]
     public async Task SuccessfulToSearchPropertiesReturningNoContent()
@@ -420,7 +420,7 @@ public class SearchPropertiesApiMethodTest
         Assert.Equal((int) HttpStatusCode.NoContent, objectResult.StatusCode);
     }
 
-    [UseInvariantCulture]
+    [UseCulture("en-US")]
     [Trait("Category", "WebApi Collection [NoContext]")]
     [Fact(DisplayName = "GET /api/properties/search should return 200 when there is only one page")]
     public async Task SuccessfulToSearchProperties()

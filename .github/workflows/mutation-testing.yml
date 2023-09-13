@@ -43,6 +43,16 @@ jobs:
           persist-credentials: true
           fetch-depth: 0
 
+      - name: Setup docker-compose [1.29.2]
+        run: |
+          sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+          docker-compose version
+
+      - name: Start MongoDB Container
+        working-directory: ./IntegrationTest.Infra.MongoDB
+        run: docker-compose up -d
+
       - name: Resolve dependencies
         run: dotnet restore --force --no-cache
 
@@ -59,7 +69,7 @@ jobs:
       - name: Mutation [Core]
         run: |
           dotnet new tool-manifest
-          dotnet tool install dotnet-stryker
+          dotnet tool install dotnet-stryker --version 3.10.0
           dotnet stryker
         working-directory: ./UnitTest.Core
 
@@ -71,7 +81,7 @@ jobs:
       - name: Mutation [EntryPoint WebApi]
         run: |
           dotnet new tool-manifest
-          dotnet tool install dotnet-stryker
+          dotnet tool install dotnet-stryker --version 3.10.0
           dotnet stryker -p "EntryPoint.WebApi.csproj"
         working-directory: ./IntegrationTest.EntryPoint.WebApi
 
@@ -79,6 +89,18 @@ jobs:
         run: |
           mkdir -p ./docs/EntryPoint.WebApi
           find ./IntegrationTest.EntryPoint.WebApi/StrykerOutput -name '*.html' -exec cp -prv '{}' './docs/EntryPoint.WebApi' ';'
+
+      - name: Mutation [Infra MongoDB]
+        run: |
+          dotnet new tool-manifest
+          dotnet tool install dotnet-stryker --version 3.10.0
+          dotnet stryker -p "Infra.MongoDB.csproj"
+        working-directory: ./IntegrationTest.Infra.MongoDB
+
+      - name: Copy report to right place [Infra MongoDB]
+        run: |
+          mkdir -p ./docs/Infra.Kafka
+          find ./IntegrationTest.Infra.Kafka/StrykerOutput -name '*.html' -exec cp -prv '{}' './docs/Infra.Kafka' ';'
 
       - name: Check for changes
         run: |
@@ -109,4 +131,5 @@ jobs:
       - name: Environment Teardown
         if: always()
         run: |
+          docker-compose -f IntegrationTest.Infra.MongoDB/docker-compose.yml down
           echo "Environment Teardown"

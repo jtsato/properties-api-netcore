@@ -50,8 +50,13 @@ public sealed class TestCaseDisplayNameComplianceTest
     }
 
     [ExcludeFromCodeCoverage]
-    private static IEnumerable<NonCompliance> GetNonCompliancesByFile(string projectRootFolder, string pathToFile, string stringPrefixSearch,
-        string stringSuffixSearch)
+    private static IEnumerable<NonCompliance> GetNonCompliancesByFile
+    (
+    	string projectRootFolder,
+    	string pathToFile,
+    	string stringPrefixSearch,
+        string stringSuffixSearch
+    )
     {
         string location = pathToFile.SubstringAfter(projectRootFolder);
 

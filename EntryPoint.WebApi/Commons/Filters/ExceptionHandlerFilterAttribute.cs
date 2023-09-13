@@ -63,14 +63,12 @@ public sealed class ExceptionHandlerFilterAttribute : ExceptionFilterAttribute
         if (_businessExceptions.Contains(exception.GetType()))
         {
             if (!_logger.IsEnabled(LogLevel.Warning)) return;
-            _logger.LogWarning("{CorrelationIdHeader}: {CorrelationId}, {Exception}: {Message}", CorrelationIdHeader, correlationId, exception.GetType(),
-                exception.Message);
+            _logger.LogWarning("{CorrelationIdHeader}: {CorrelationId}, {Exception}: {Message}", CorrelationIdHeader, correlationId, exception.GetType(), exception.Message);
             return;
         }
 
         if (!_logger.IsEnabled(LogLevel.Error)) return;
-        _logger.LogError("{CorrelationIdHeader}: {CorrelationId}, {Exception}: {Message}", CorrelationIdHeader, correlationId, exception.GetType(),
-            exception.Message);
+        _logger.LogError("{CorrelationIdHeader}: {CorrelationId}, {Exception}: {Message}", CorrelationIdHeader, correlationId, exception.GetType(), exception.Message);
     }
 
     private static string GetCorrelationId(ActionContext context)

@@ -130,9 +130,7 @@ public sealed class ArgumentCheckerTest
     [InlineData(@"{""type"": ""object"", ""properties"": {""name"": ""string""}, ""required"": [""name""]}", false)]
     [InlineData(@"{""type"": ""object"", ""properties"": {""name"": {""type"": ""notInteger""}}, ""required"": [""name""]}", false)]
     [InlineData(@"{""type"": ""object"", ""properties"": {""name"": {""type"": ""string""}}, ""required"": [""name""]}", true)]
-    [InlineData(
-        @"{""type"": ""object"", ""properties"": { ""employee"": { ""type"": ""object"", ""properties"": { ""id"": { ""notAType"": ""integer"" } }, ""required"": [""id""] }}, ""required"": [""employee""]}",
-        false)]
+    [InlineData(@"{""type"": ""object"", ""properties"": { ""employee"": { ""type"": ""object"", ""properties"": { ""id"": { ""notAType"": ""integer"" } }, ""required"": [""id""] }}, ""required"": [""employee""]}", false)]
     public void SuccessfulToValidateIfJsonSchemaHaveAllPropertiesTyped(string input, bool expected)
     {
         Assert.Equal(expected, ArgumentChecker.HaveAllPropertiesTyped(input));

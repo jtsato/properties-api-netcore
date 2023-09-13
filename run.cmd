@@ -16,6 +16,7 @@ IF /I NOT "%~1"=="test" (
 )
 
 :: Set the MongoDB host and port for the integration tests 
+
 SET host=127.0.0.1
 SET port=27018
 SET timeout=30
@@ -29,13 +30,13 @@ ECHO.
 
 ECHO Waiting for MongoDB to start...
 
-TIMEOUT /t 2 /nobreak > nul
+TIMEOUT /t 1 /nobreak > nul
 
 CURL --output NUL --silent --fail !host!:!port!
 IF !ERRORLEVEL! equ 0 (
     ECHO.
     ECHO MongoDB is running on port !port!.
-    TIMEOUT /t 3 /nobreak > nul
+    TIMEOUT /t 4 /nobreak > nul
 ) ELSE (
     SET /a timeout-=1
     IF !timeout! gtr 0 (

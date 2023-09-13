@@ -1,52 +1,44 @@
-﻿namespace IntegrationTest.EntryPoint.WebApi.Commons;
-
-using System;
+﻿using System;
 using System.Globalization;
 using System.Reflection;
 using System.Threading;
 using Xunit.Sdk;
 
-[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
-public class UseCultureAttribute : BeforeAfterTestAttribute
+namespace IntegrationTest.EntryPoint.WebApi.Commons
 {
-    private readonly Lazy<CultureInfo> _culture;
-    private readonly Lazy<CultureInfo> _uiCulture;
-
-    private CultureInfo _originalCulture;
-    private CultureInfo _originalUiCulture;
-
-    private CultureInfo Culture => _culture.Value;
-    private CultureInfo UiCulture => _uiCulture.Value;
-
-    public UseCultureAttribute(string culture) : this(culture, culture) { }
-
-    public UseCultureAttribute(string culture, string uiCulture)
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
+    public class UseCultureAttribute : BeforeAfterTestAttribute
     {
-        _culture = new Lazy<CultureInfo>(() => new CultureInfo(culture, false));
-        _uiCulture = new Lazy<CultureInfo>(() => new CultureInfo(uiCulture, false));
-    }
+        private readonly string _cultureName;
+        private readonly string _uiCultureName;
+        private CultureInfo _originalCulture;
+        private CultureInfo _originalUiCulture;
 
-    public override void Before(MethodInfo methodUnderTest)
-    {
-        _originalCulture = Thread.CurrentThread.CurrentCulture;
-        _originalUiCulture = Thread.CurrentThread.CurrentUICulture;
+        public UseCultureAttribute(string culture) : this(culture, culture) { }
 
-        CultureInfo.CurrentCulture.ClearCachedData();
-        CultureInfo.CurrentUICulture.ClearCachedData();
-        
-        CultureInfo.DefaultThreadCurrentCulture = Culture;
-        CultureInfo.DefaultThreadCurrentUICulture = UiCulture;
+        public UseCultureAttribute(string culture, string uiCulture)
+        {
+            _cultureName = culture;
+            _uiCultureName = uiCulture;
+        }
 
-        Thread.CurrentThread.CurrentCulture = Culture;
-        Thread.CurrentThread.CurrentUICulture = UiCulture;
-    }
+        public override void Before(MethodInfo methodUnderTest)
+        {
+            _originalCulture = Thread.CurrentThread.CurrentCulture;
+            _originalUiCulture = Thread.CurrentThread.CurrentUICulture;
 
-    public override void After(MethodInfo methodUnderTest)
-    {
-        Thread.CurrentThread.CurrentCulture = _originalCulture;
-        Thread.CurrentThread.CurrentUICulture = _originalUiCulture;
+            SetThreadCultures(_cultureName, _uiCultureName);
+        }
 
-        CultureInfo.CurrentCulture.ClearCachedData();
-        CultureInfo.CurrentUICulture.ClearCachedData();
+        public override void After(MethodInfo methodUnderTest)
+        {
+            SetThreadCultures(_originalCulture.Name, _originalUiCulture.Name);
+        }
+
+        private static void SetThreadCultures(string culture, string uiCulture)
+        {
+            CultureInfo.CurrentCulture = new CultureInfo(culture, false);
+            CultureInfo.CurrentUICulture = new CultureInfo(uiCulture, false);
+        }
     }
 }

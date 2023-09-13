@@ -106,8 +106,8 @@ public sealed class StringExtensionsTest
 
     [Trait("Category", "Core Business tests")]
     [Theory(DisplayName = "Fail to truncate string")]
-    [InlineData("abc", -1, "abc")]
-    public void FailToTruncateString(string text, int maxWidth, string expected)
+    [InlineData("abc", -1)]
+    public void FailToTruncateString(string text, int maxWidth)
     {
         // Arrange
         // Act

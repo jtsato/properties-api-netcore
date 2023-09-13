@@ -20,7 +20,6 @@ public sealed class ApiMethodInvoker
     {
         try
         {
-            GetLanguageActionFilterAttribute.SetupLanguage(cultureName);
             return (ObjectResult) await method.Invoke();
         }
         catch (Exception exception)

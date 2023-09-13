@@ -99,8 +99,8 @@ jobs:
 
       - name: Copy report to right place [Infra MongoDB]
         run: |
-          mkdir -p ./docs/Infra.Kafka
-          find ./IntegrationTest.Infra.Kafka/StrykerOutput -name '*.html' -exec cp -prv '{}' './docs/Infra.Kafka' ';'
+          mkdir -p ./docs/Infra.MongoDB
+          find ./IntegrationTest.Infra.MongoDB/StrykerOutput -name '*.html' -exec cp -prv '{}' './docs/Infra.MongoDB' ';'
 
       - name: Check for changes
         run: |

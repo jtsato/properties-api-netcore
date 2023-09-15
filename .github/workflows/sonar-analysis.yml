@@ -36,6 +36,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nuget
 
+      - name: Show docker-compose version
+        run: |
+          docker-compose version
+
+      - name: Start MongoDB Container
+        working-directory: ./IntegrationTest.Infra.MongoDB
+        run: docker-compose up -d
+
       - name: Resolve dependencies
         run: dotnet restore --force --no-cache
 

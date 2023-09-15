@@ -43,6 +43,10 @@ jobs:
           persist-credentials: true
           fetch-depth: 0
 
+      - name: Show docker-compose version
+        run: |
+          docker-compose version
+
       - name: Start MongoDB Container
         working-directory: ./IntegrationTest.Infra.MongoDB
         run: docker-compose up -d

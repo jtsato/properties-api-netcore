@@ -98,28 +98,6 @@ jobs:
           project_id: duckhome-firebase
           export_default_credentials: true
 
-      - run: gcloud --quiet auth configure-docker
-
-      - name: Create and Configure Cloud Run Service
-        run: |
-          gcloud run services create properties-api-service \
-            --region=southamerica-east1-b \
-            --platform=managed \
-            --allow-unauthenticated
-
-      - name: Get the current date in short format
-        id: tag
-        run: |
-          echo "TAG=$(TZ='America/Sao_Paulo' date +'%y%m%d')${{ github.run_number }}" >> $GITHUB_ENV
-          echo "TAG=${{ env.TAG }}"
-
-      - name: Build and Publish Docker
-        env:
-          RELEASE_VERSION: ${{ env.APP_VERSION }}-${{ env.TAG }}
-        run: |
-          docker build -t gcr.io/duckhome-firebase/properties-api-app:$RELEASE_VERSION .
-          docker push gcr.io/duckhome-firebase/properties-api-app:$RELEASE_VERSION
-
       - name: Deploy to Google Cloud Run
         run: |
           gcloud run deploy properties-api-service \
@@ -128,3 +106,14 @@ jobs:
             --platform=managed \
             --allow-unauthenticated \
             --update-env-vars=MONGO_DB_URI=${{ secrets.MONGO_DB_URI }}
+
+      - name: Cloud Run Deploy - Production
+        id: prod-deploy
+        uses: google-github-actions/deploy-cloudrun@v1.0.2
+        with:
+          service: ${{ vars.GOOGLE_MYAPP }}-prod
+          image:   ${{ vars.GOOGLE_ARTIFACT }}/${{ vars.GOOGLE_PROJECT_ID }}/${{ vars.GOOGLE_REPONAME }}/${{ vars.GOOGLE_MYAPP }}:latest
+          flags: '--allow-unauthenticated'
+
+      - name: Validate Cloud Run Deployment
+        run: 'curl "${{ steps.prod-deploy.outputs.url }}"'

@@ -26,9 +26,6 @@ public static class DependencyInjector
     private static readonly string ConnectionString =
         Environment.GetEnvironmentVariable("MONGODB_URL") ?? string.Empty;
 
-    private static readonly string ServiceAccountFile =
-        Environment.GetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS") ?? string.Empty;
-
     private static readonly string DatabaseName =
         Environment.GetEnvironmentVariable("MONGODB_DATABASE") ?? string.Empty;
 
@@ -37,29 +34,12 @@ public static class DependencyInjector
 
     public static Dictionary<Type, ServiceLifetime> ConfigureServices(IServiceCollection services)
     {
-        CreateServiceAccountFile();
-
         AddSharedServices(services);
         AddEntryPointServices(services);
         AddCoreServices(services);
         AddInfrastructureServices(services, new ConnectionFactory(ConnectionString));
 
         return BuildLifetimeByType(services);
-    }
-
-    private static void CreateServiceAccountFile()
-    {
-        string basePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-        if (basePath == null) return;
-
-        string serviceAccountPath = Path.Combine(basePath, ServiceAccountFile);
-        if (File.Exists(serviceAccountPath)) return;
-
-        StreamWriter streamWriter = File.CreateText(serviceAccountPath);
-        streamWriter.Write(ServiceAccountFile);
-        streamWriter.Close();
-
-        Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", serviceAccountPath);
     }
 
     private static void AddSharedServices(IServiceCollection services)

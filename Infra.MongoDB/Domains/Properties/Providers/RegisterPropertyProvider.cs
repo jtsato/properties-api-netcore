@@ -16,7 +16,8 @@ public sealed class RegisterPropertyProvider : IRegisterPropertyGateway
     private readonly IRepository<PropertyEntity> _propertyRepository;
     private readonly ISequenceRepository<PropertySequence> _propertySequenceRepository;
 
-    public RegisterPropertyProvider(
+    public RegisterPropertyProvider
+    (
         IRepository<PropertyEntity> propertyRepository,
         ISequenceRepository<PropertySequence> propertySequenceRepository
     )

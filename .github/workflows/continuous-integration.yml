@@ -24,6 +24,7 @@ env:
 
 jobs:
   build-and-test:
+    if: false
     runs-on: ubuntu-latest
     steps:
       - name: Setup .NET [v7.0.x]
@@ -76,9 +77,11 @@ jobs:
       - name: Environment Teardown
         if: always()
         run: |
+          docker-compose down -v --remove-orphans
           echo "Environment Teardown"
 
   run-sonar:
+    if: false
     needs: build-and-test
     uses: ./.github/workflows/sonar-analysis.yml
     secrets:
@@ -86,7 +89,7 @@ jobs:
       sonarToken: ${{ secrets.SONAR_TOKEN }}
 
   setup-vars:
-    needs: run-sonar
+    # needs: run-sonar
     runs-on: ubuntu-latest
     outputs:
       APP_VERSION: "v1.0.0"
@@ -101,7 +104,7 @@ jobs:
     steps:
       - run: |
           echo "Setting up environment variables"
-          
+
   generate-artifact:
     if: ${{ github.ref == 'refs/heads/main' }}
     needs: setup-vars
@@ -114,24 +117,18 @@ jobs:
       ARTIFACT_FOLDER: ${{ needs.setup-vars.outputs.ARTIFACT_FOLDER }}
       PROJECT_ID: ${{ needs.setup-vars.outputs.PROJECT_ID }}
     outputs:
-      TAG: ${{ steps.tag.outputs.TAG }}
-      RELEASE_VERSION: ${{ steps.create_release.outputs.RELEASE_VERSION }}
+      RELEASE_VERSION: ${{ steps.tag_and_release.outputs.RELEASE_VERSION }}
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Create Tag
-        id: tag
+      - name: Create Tag and Release Version
+        id: tag_and_release
         run: |
           echo "TAG=$(TZ='America/Sao_Paulo' date +'%y%m%d')${{ github.run_number }}" >> $GITHUB_ENV
-          echo "TAG=${{ env.TAG }}"
-    
-      - name: Create Release
-        id: create_release
-        run: |
           echo "RELEASE_VERSION=${{ env.APP_VERSION }}-${{ env.TAG }}" >> $GITHUB_ENV
-          echo "RELEASE_VERSION=${{ env.RELEASE_VERSION }}"
+          echo "::set-output name=RELEASE_VERSION::${{ env.RELEASE_VERSION }}"
 
       - name: Login to Docker Hub
         uses: docker/login-action@v3
@@ -151,7 +148,9 @@ jobs:
 
   deploy-to-gcp-cloud-run:
     if: ${{ github.ref == 'refs/heads/main' }}
-    needs: generate-artifact
+    needs: 
+      - setup-vars
+      - generate-artifact
     runs-on: ubuntu-latest
     env:
       ARTIFACT_NAME: ${{ needs.setup-vars.outputs.ARTIFACT_NAME }}

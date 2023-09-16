@@ -113,16 +113,24 @@ jobs:
       ARTIFACT_NAME: ${{ needs.setup-vars.outputs.ARTIFACT_NAME }}
       PROJECT_ID: ${{ needs.setup-vars.outputs.PROJECT_ID }}
     outputs:
-      RELEASE_VERSION: ${{ steps.tag_and_release.outputs.RELEASE_VERSION }}
+      RELEASE_VERSION: ${{ steps.create_release.outputs.RELEASE_VERSION }}
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Create Tag and Release Version
-        id: tag_and_release
+      - name: Create Tag from Date and Run Number
+        id: tag
         run: |
           echo "TAG=$(TZ='America/Sao_Paulo' date +'%y%m%d')${{ github.run_number }}" >> $GITHUB_ENV
+          echo "TAG=${{ env.TAG }}"        
+
+      - name: Create Release Version from App Version and Tag
+        id: create_release
+        env:
+          APP_VERSION: ${{ env.APP_VERSION }}
+          TAG: ${{ env.TAG }}
+        run: |
           echo "RELEASE_VERSION=${{ env.APP_VERSION }}-${{ env.TAG }}" >> $GITHUB_ENV
           echo "::set-output name=RELEASE_VERSION::${{ env.RELEASE_VERSION }}"
 

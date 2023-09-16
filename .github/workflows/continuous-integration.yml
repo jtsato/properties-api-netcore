@@ -178,6 +178,6 @@ jobs:
         uses: google-github-actions/deploy-cloudrun@v1.0.2
         with:
           service: ${{ env.SERVICE_NAME }}
-          image: ${{ env.ARTIFACT_NAME }}:${{ env.RELEASE_VERSION }}
+          image: ${{ secrets.DOCKER_USERNAME }}/${{ env.ARTIFACT_NAME }}:${{ env.RELEASE_VERSION }}
           project_id: ${{ env.PROJECT_ID }}
           region: ${{ env.CLOUD_REGION }}

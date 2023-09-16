@@ -82,6 +82,7 @@ This is a sample project to demonstrate the Clean Architecture principles using 
 ## Mutation Reports
 * [Core](https://jtsato.github.io/properties-api-netcore/Core/mutation-report.html)
 * [EntryPoint.WebApi](https://jtsato.github.io/properties-api-netcore/EntryPoint.WebApi/mutation-report.html)
+* [Infra.MongoDB](https://jtsato.github.io/properties-api-netcore/Infra.MongoDB/mutation-report.html)
 
 ***
 

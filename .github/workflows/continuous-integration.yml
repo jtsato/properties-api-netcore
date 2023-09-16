@@ -86,19 +86,26 @@ jobs:
       githubToken: ${{ secrets.GITHUB_TOKEN }}
       sonarToken: ${{ secrets.SONAR_TOKEN }}
 
-  generate-artifacts:
+  deploy-to-gcloud:
     if: ${{ github.ref == 'refs/heads/main' }}
     needs: run-sonar
     runs-on: ubuntu-latest
     steps:
-      - name: Setup .NET [v7.0.x]
-        uses: actions/setup-dotnet@v3
+      - name: Setup Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v0.3.0
         with:
-          dotnet-version: |
-            7.0.x
+          service_account_key: ${{ secrets.GOOGLE_SERVICE_KEY }}
+          project_id: duckhome-firebase
+          export_default_credentials: true
 
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - run: gcloud --quiet auth configure-docker
+
+      - name: Create and Configure Cloud Run Service
+        run: |
+          gcloud run services create properties-api-service \
+            --region=southamerica-east1-b \
+            --platform=managed \
+            --allow-unauthenticated
 
       - name: Get the current date in short format
         id: tag
@@ -106,7 +113,18 @@ jobs:
           echo "TAG=$(TZ='America/Sao_Paulo' date +'%y%m%d')${{ github.run_number }}" >> $GITHUB_ENV
           echo "TAG=${{ env.TAG }}"
 
-      - name: Environment Teardown
-        if: always()
+      - name: Build and Publish Docker
+        env:
+          RELEASE_VERSION: ${{ env.APP_VERSION }}-${{ env.TAG }}
         run: |
-          echo "Environment Teardown"
+          docker build -t gcr.io/duckhome-firebase/properties-api-app:$RELEASE_VERSION .
+          docker push gcr.io/duckhome-firebase/properties-api-app:$RELEASE_VERSION
+
+      - name: Deploy to Google Cloud Run
+        run: |
+          gcloud run deploy properties-api-service \
+            --image=gcr.io/duckhome-firebase/properties-api-app:$RELEASE_VERSION \
+            --region=southamerica-east1-b \
+            --platform=managed \
+            --allow-unauthenticated \
+            --update-env-vars=MONGO_DB_URI=${{ secrets.MONGO_DB_URI }}

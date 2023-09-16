@@ -21,7 +21,6 @@ on:
 env:
   DOTNET_NOLOGO: 1 # Disable the .NET welcome message
   DOTNET_CLI_TELEMETRY_OPTOUT: 1 # Opt out of the .NET SDK telemetry feature
-  APP_VERSION: "v1.0.0" # Set the application version
 
 jobs:
   build-and-test:
@@ -86,34 +85,96 @@ jobs:
       githubToken: ${{ secrets.GITHUB_TOKEN }}
       sonarToken: ${{ secrets.SONAR_TOKEN }}
 
-  deploy-to-gcloud:
-    if: ${{ github.ref == 'refs/heads/main' }}
+  setup-vars:
     needs: run-sonar
     runs-on: ubuntu-latest
+    outputs:
+      APP_VERSION: "v1.0.0"
+      DOCKER_REGISTRY: docker.io
+      ARTIFACT_NAME: properties-api
+      ARTIFACT_REPOSITORY: duckhome
+      ARTIFACT_FOLDER: properties
+      PROJECT_ID: duckhome-firebase
+      SERVICE_NAME: properties-api-service
+      CLOUD_REGION: southamerica-east1-a
+
     steps:
-      - name: Setup Google Cloud SDK
-        uses: google-github-actions/setup-gcloud@v1.1.1
+      - run: |
+          echo "Setting up environment variables"
+          
+  generate-artifact:
+    if: ${{ github.ref == 'refs/heads/main' }}
+    needs: setup-vars
+    runs-on: ubuntu-latest
+    env:
+      APP_VERSION: ${{ needs.setup-vars.outputs.APP_VERSION }}
+      DOCKER_REGISTRY: ${{ needs.setup-vars.outputs.DOCKER_REGISTRY }}
+      ARTIFACT_NAME: ${{ needs.setup-vars.outputs.ARTIFACT_NAME }}
+      ARTIFACT_REPOSITORY: ${{ needs.setup-vars.outputs.ARTIFACT_REPOSITORY }}
+      ARTIFACT_FOLDER: ${{ needs.setup-vars.outputs.ARTIFACT_FOLDER }}
+      PROJECT_ID: ${{ needs.setup-vars.outputs.PROJECT_ID }}
+    outputs:
+      TAG: ${{ steps.tag.outputs.TAG }}
+      RELEASE_VERSION: ${{ steps.create_release.outputs.RELEASE_VERSION }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Create Tag
+        id: tag
+        run: |
+          echo "TAG=$(TZ='America/Sao_Paulo' date +'%y%m%d')${{ github.run_number }}" >> $GITHUB_ENV
+          echo "TAG=${{ env.TAG }}"
+    
+      - name: Create Release
+        id: create_release
+        run: |
+          echo "RELEASE_VERSION=${{ env.APP_VERSION }}-${{ env.TAG }}" >> $GITHUB_ENV
+          echo "RELEASE_VERSION=${{ env.RELEASE_VERSION }}"
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
         with:
-          service_account_key: ${{ secrets.GOOGLE_SERVICE_KEY }}
-          project_id: duckhome-firebase
-          export_default_credentials: true
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+
+      - name: Build and Publish Docker Hub
+        run: |
+          docker build -t ${{ env.ARTIFACT_NAME }}:${{ env.RELEASE_VERSION }} .
+          docker tag ${{ env.ARTIFACT_NAME }}:${{ env.RELEASE_VERSION }} ${{ env.ARTIFACT_REPOSITORY }}/${{ env.ARTIFACT_FOLDER }}/${{ env.ARTIFACT_NAME }}:${{ env.RELEASE_VERSION }} 
+          docker push ${{ env.ARTIFACT_REPOSITORY }}/${{ env.ARTIFACT_FOLDER }}/${{ env.ARTIFACT_NAME }}:${{ env.RELEASE_VERSION }}
+          docker rmi ${{ env.ARTIFACT_NAME }}:${{ env.RELEASE_VERSION }} 
+          docker rmi ${{ env.ARTIFACT_REPOSITORY }}/${{ env.ARTIFACT_FOLDER }}/${{ env.ARTIFACT_NAME }}:${{ env.RELEASE_VERSION }}
+          docker logout ${{ env.DOCKER_REGISTRY }}
+          echo "The ${{ env.ARTIFACT_NAME }} version ${{ env.RELEASE_VERSION }} was successfully published to ${{ env.ARTIFACT_REPOSITORY }}."
+
+  deploy-to-gcp-cloud-run:
+    if: ${{ github.ref == 'refs/heads/main' }}
+    needs: generate-artifact
+    runs-on: ubuntu-latest
+    env:
+      ARTIFACT_NAME: ${{ needs.setup-vars.outputs.ARTIFACT_NAME }}
+      ARTIFACT_REPOSITORY: ${{ needs.setup-vars.outputs.ARTIFACT_REPOSITORY }}
+      ARTIFACT_FOLDER: ${{ needs.setup-vars.outputs.ARTIFACT_FOLDER }}
+      PROJECT_ID: ${{ needs.setup-vars.outputs.PROJECT_ID }}
+      SERVICE_NAME: ${{ needs.setup-vars.outputs.SERVICE_NAME }}
+      CLOUD_REGION: ${{ needs.setup-vars.outputs.CLOUD_REGION }}
+      RELEASE_VERSION: ${{ needs.generate-artifact.outputs.RELEASE_VERSION }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Google Cloud Authentication
+        uses: google-github-actions/auth@v1.1.1
+        with:
+          credentials_json: ${{ secrets.GOOGLE_CREDENTIALS }}
 
       - name: Deploy to Google Cloud Run
-        run: |
-          gcloud run deploy properties-api-service \
-            --image=gcr.io/duckhome-firebase/properties-api-app:$RELEASE_VERSION \
-            --region=southamerica-east1-b \
-            --platform=managed \
-            --allow-unauthenticated \
-            --update-env-vars=MONGO_DB_URI=${{ secrets.MONGO_DB_URI }}
-
-      - name: Cloud Run Deploy - Production
-        id: prod-deploy
         uses: google-github-actions/deploy-cloudrun@v1.0.2
         with:
-          service: ${{ vars.GOOGLE_MYAPP }}-prod
-          image:   ${{ vars.GOOGLE_ARTIFACT }}/${{ vars.GOOGLE_PROJECT_ID }}/${{ vars.GOOGLE_REPONAME }}/${{ vars.GOOGLE_MYAPP }}:latest
-          flags: '--allow-unauthenticated'
-
-      - name: Validate Cloud Run Deployment
-        run: 'curl "${{ steps.prod-deploy.outputs.url }}"'
+          service: ${{ env.SERVICE_NAME }}
+          image: ${{ env.ARTIFACT_REPOSITORY }}/${{ env.ARTIFACT_FOLDER }}/${{ env.ARTIFACT_NAME }}:${{ env.RELEASE_VERSION }}
+          project_id: ${{ env.PROJECT_ID }}
+          region: ${{ env.CLOUD_REGION }}

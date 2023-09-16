@@ -96,7 +96,6 @@ jobs:
       DOCKER_REGISTRY: docker.io
       ARTIFACT_NAME: properties-api
       ARTIFACT_REPOSITORY: duckhome
-      ARTIFACT_FOLDER: properties
       PROJECT_ID: duckhome-firebase
       SERVICE_NAME: properties-api-service
       CLOUD_REGION: southamerica-east1-a
@@ -114,7 +113,6 @@ jobs:
       DOCKER_REGISTRY: ${{ needs.setup-vars.outputs.DOCKER_REGISTRY }}
       ARTIFACT_NAME: ${{ needs.setup-vars.outputs.ARTIFACT_NAME }}
       ARTIFACT_REPOSITORY: ${{ needs.setup-vars.outputs.ARTIFACT_REPOSITORY }}
-      ARTIFACT_FOLDER: ${{ needs.setup-vars.outputs.ARTIFACT_FOLDER }}
       PROJECT_ID: ${{ needs.setup-vars.outputs.PROJECT_ID }}
     outputs:
       RELEASE_VERSION: ${{ steps.tag_and_release.outputs.RELEASE_VERSION }}
@@ -139,10 +137,10 @@ jobs:
       - name: Build and Publish Docker Hub
         run: |
           docker build -t ${{ env.ARTIFACT_NAME }}:${{ env.RELEASE_VERSION }} .
-          docker tag ${{ env.ARTIFACT_NAME }}:${{ env.RELEASE_VERSION }} ${{ env.ARTIFACT_REPOSITORY }}/${{ env.ARTIFACT_FOLDER }}/${{ env.ARTIFACT_NAME }}:${{ env.RELEASE_VERSION }} 
-          docker push ${{ env.ARTIFACT_REPOSITORY }}/${{ env.ARTIFACT_FOLDER }}/${{ env.ARTIFACT_NAME }}:${{ env.RELEASE_VERSION }}
+          docker tag ${{ env.ARTIFACT_NAME }}:${{ env.RELEASE_VERSION }} ${{ env.ARTIFACT_REPOSITORY }}/${{ env.ARTIFACT_NAME }}:${{ env.RELEASE_VERSION }} 
+          docker push ${{ env.ARTIFACT_REPOSITORY }}/${{ env.ARTIFACT_NAME }}:${{ env.RELEASE_VERSION }}
           docker rmi ${{ env.ARTIFACT_NAME }}:${{ env.RELEASE_VERSION }} 
-          docker rmi ${{ env.ARTIFACT_REPOSITORY }}/${{ env.ARTIFACT_FOLDER }}/${{ env.ARTIFACT_NAME }}:${{ env.RELEASE_VERSION }}
+          docker rmi ${{ env.ARTIFACT_REPOSITORY }}/${{ env.ARTIFACT_NAME }}:${{ env.RELEASE_VERSION }}
           docker logout ${{ env.DOCKER_REGISTRY }}
           echo "The ${{ env.ARTIFACT_NAME }} version ${{ env.RELEASE_VERSION }} was successfully published to ${{ env.ARTIFACT_REPOSITORY }}."
 
@@ -155,7 +153,6 @@ jobs:
     env:
       ARTIFACT_NAME: ${{ needs.setup-vars.outputs.ARTIFACT_NAME }}
       ARTIFACT_REPOSITORY: ${{ needs.setup-vars.outputs.ARTIFACT_REPOSITORY }}
-      ARTIFACT_FOLDER: ${{ needs.setup-vars.outputs.ARTIFACT_FOLDER }}
       PROJECT_ID: ${{ needs.setup-vars.outputs.PROJECT_ID }}
       SERVICE_NAME: ${{ needs.setup-vars.outputs.SERVICE_NAME }}
       CLOUD_REGION: ${{ needs.setup-vars.outputs.CLOUD_REGION }}
@@ -174,6 +171,6 @@ jobs:
         uses: google-github-actions/deploy-cloudrun@v1.0.2
         with:
           service: ${{ env.SERVICE_NAME }}
-          image: ${{ env.ARTIFACT_REPOSITORY }}/${{ env.ARTIFACT_FOLDER }}/${{ env.ARTIFACT_NAME }}:${{ env.RELEASE_VERSION }}
+          image: ${{ env.ARTIFACT_REPOSITORY }}/${{ env.ARTIFACT_NAME }}:${{ env.RELEASE_VERSION }}
           project_id: ${{ env.PROJECT_ID }}
           region: ${{ env.CLOUD_REGION }}

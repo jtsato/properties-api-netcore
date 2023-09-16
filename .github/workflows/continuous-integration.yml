@@ -135,12 +135,19 @@ jobs:
       - name: Build and Publish Docker Hub
         run: |
           docker build -t ${{ env.ARTIFACT_NAME }}:${{ env.RELEASE_VERSION }} .
-          docker tag ${{ env.ARTIFACT_NAME }}:${{ env.RELEASE_VERSION }} ${{ env.ARTIFACT_NAME }}:${{ env.RELEASE_VERSION }} 
+          echo "The ${{ env.ARTIFACT_NAME }} version ${{ env.RELEASE_VERSION }} was successfully built."
+          docker tag ${{ env.ARTIFACT_NAME }}:${{ env.RELEASE_VERSION }} ${{ env.ARTIFACT_NAME }}:${{ env.RELEASE_VERSION }}
+          echo "The tag ${{ env.ARTIFACT_NAME }}:${{ env.RELEASE_VERSION }} ${{ env.ARTIFACT_NAME }}:${{ env.RELEASE_VERSION }} was successfully applied."
           docker push ${{ env.ARTIFACT_NAME }}:${{ env.RELEASE_VERSION }}
+          echo "The ${{ env.ARTIFACT_NAME }} version ${{ env.RELEASE_VERSION }} was successfully published."
           docker rmi ${{ env.ARTIFACT_NAME }}:${{ env.RELEASE_VERSION }} 
           docker rmi ${{ env.ARTIFACT_NAME }}:${{ env.RELEASE_VERSION }}
+
+      - name: Environment Teardown
+        if: always()
+        run: |
           docker logout ${{ env.DOCKER_REGISTRY }}
-          echo "The ${{ env.ARTIFACT_NAME }} version ${{ env.RELEASE_VERSION }} was successfully published to ${{ env.DOCKER_REGISTRY }}."
+          echo "Environment Teardown"          
 
   deploy-to-gcp-cloud-run:
     if: ${{ github.ref == 'refs/heads/main' }}

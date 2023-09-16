@@ -140,16 +140,11 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
 
-      - name: Build and Publish Docker Hub
-        run: |
-          docker build -t ${{ env.ARTIFACT_NAME }}:${{ env.RELEASE_VERSION }} .
-          echo "The ${{ env.ARTIFACT_NAME }} version ${{ env.RELEASE_VERSION }} was successfully built."
-          docker tag ${{ env.ARTIFACT_NAME }}:${{ env.RELEASE_VERSION }} ${{ env.ARTIFACT_NAME }}:${{ env.RELEASE_VERSION }}
-          echo "The tag ${{ env.ARTIFACT_NAME }}:${{ env.RELEASE_VERSION }} ${{ env.ARTIFACT_NAME }}:${{ env.RELEASE_VERSION }} was successfully applied."
-          docker push ${{ env.ARTIFACT_NAME }}:${{ env.RELEASE_VERSION }}
-          echo "The ${{ env.ARTIFACT_NAME }} version ${{ env.RELEASE_VERSION }} was successfully published."
-          docker rmi ${{ env.ARTIFACT_NAME }}:${{ env.RELEASE_VERSION }} 
-          docker rmi ${{ env.ARTIFACT_NAME }}:${{ env.RELEASE_VERSION }}
+      - name: Build and Push to Docker Hub
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/${{ env.ARTIFACT_NAME }}:${{ env.RELEASE_VERSION }}
 
       - name: Environment Teardown
         if: always()

@@ -234,7 +234,8 @@ public class SearchPropertiesProviderTest
                 UpdatedAt = DateTime.Parse("2023-02-01 23:59:59.999", CultureInfo.DefaultThreadCurrentCulture),
             };
 
-        await _registerPropertyGateway.ExecuteAsync(property);
+        Task task = _registerPropertyGateway.ExecuteAsync(property);
+        await Task.WhenAll(task);
 
         SearchPropertiesQueryBuilder queryBuilder = new SearchPropertiesQueryBuilder();
 

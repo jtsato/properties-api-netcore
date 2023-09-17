@@ -21,10 +21,10 @@ on:
 env:
   DOTNET_NOLOGO: 1 # Disable the .NET welcome message
   DOTNET_CLI_TELEMETRY_OPTOUT: 1 # Opt out of the .NET SDK telemetry feature
+  APP_VERSION: "v1.0.0"
 
 jobs:
   build-and-test:
-    if: false
     runs-on: ubuntu-latest
     steps:
       - name: Setup .NET [v7.0.x]
@@ -81,7 +81,6 @@ jobs:
           echo "Environment Teardown"
 
   run-sonar:
-    if: false
     needs: build-and-test
     uses: ./.github/workflows/sonar-analysis.yml
     secrets:
@@ -89,15 +88,11 @@ jobs:
       sonarToken: ${{ secrets.SONAR_TOKEN }}
 
   setup-vars:
-    # needs: run-sonar
+    needs: run-sonar
     runs-on: ubuntu-latest
     outputs:
-      APP_VERSION: "v1.0.0"
       DOCKER_REGISTRY: docker.io
       ARTIFACT_NAME: properties-api
-      PROJECT_ID: duckhome-firebase
-      SERVICE_NAME: properties-api-service
-      CLOUD_REGION: southamerica-east1-a
 
     steps:
       - run: |
@@ -108,10 +103,8 @@ jobs:
     needs: setup-vars
     runs-on: ubuntu-latest
     env:
-      APP_VERSION: ${{ needs.setup-vars.outputs.APP_VERSION }}
       DOCKER_REGISTRY: ${{ needs.setup-vars.outputs.DOCKER_REGISTRY }}
       ARTIFACT_NAME: ${{ needs.setup-vars.outputs.ARTIFACT_NAME }}
-      PROJECT_ID: ${{ needs.setup-vars.outputs.PROJECT_ID }}
     outputs:
       RELEASE_VERSION: ${{ steps.create_release.outputs.RELEASE_VERSION }}
 
@@ -132,7 +125,6 @@ jobs:
           TAG: ${{ env.TAG }}
         run: |
           echo "RELEASE_VERSION=${{ env.APP_VERSION }}-${{ env.TAG }}" >> $GITHUB_ENV
-          echo "::set-output name=RELEASE_VERSION::${{ env.RELEASE_VERSION }}"
 
       - name: Login to Docker Hub
         uses: docker/login-action@v3
@@ -142,6 +134,10 @@ jobs:
 
       - name: Build and Push to Docker Hub
         uses: docker/build-push-action@v5
+        env:
+          DOCKER_REGISTRY: ${{ env.DOCKER_REGISTRY }}
+          ARTIFACT_NAME: ${{ env.ARTIFACT_NAME }}
+          RELEASE_VERSION: ${{ env.RELEASE_VERSION }}
         with:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/${{ env.ARTIFACT_NAME }}:${{ env.RELEASE_VERSION }}
@@ -152,32 +148,54 @@ jobs:
           docker logout ${{ env.DOCKER_REGISTRY }}
           echo "Environment Teardown"
 
-  deploy-to-gcp-cloud-run:
+  request-infrastructure-update:
     if: ${{ github.ref == 'refs/heads/main' }}
-    needs:
-      - setup-vars
-      - generate-artifact
+    needs: generate-artifact
     runs-on: ubuntu-latest
     env:
-      ARTIFACT_NAME: ${{ needs.setup-vars.outputs.ARTIFACT_NAME }}
-      PROJECT_ID: ${{ needs.setup-vars.outputs.PROJECT_ID }}
-      SERVICE_NAME: ${{ needs.setup-vars.outputs.SERVICE_NAME }}
-      CLOUD_REGION: ${{ needs.setup-vars.outputs.CLOUD_REGION }}
       RELEASE_VERSION: ${{ needs.generate-artifact.outputs.RELEASE_VERSION }}
 
     steps:
-      - name: Checkout repository
+      - name: Checkout Properties API IaC project
         uses: actions/checkout@v3
-
-      - name: Setup Google Cloud Authentication
-        uses: google-github-actions/auth@v1.1.1
         with:
-          credentials_json: ${{ secrets.GOOGLE_CREDENTIALS }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: jtsato/properties-api-terraform
+          ref: main
+          persist-credentials: true
+          fetch-depth: 0
 
-      - name: Deploy to Google Cloud Run
-        uses: google-github-actions/deploy-cloudrun@v1.0.2
+      - name: Update Image Tag
+        env:
+          RELEASE_VERSION: ${{ env.RELEASE_VERSION }}
+        run: |
+          echo "Updating Production Environment to ${{ env.RELEASE_VERSION }}"
+          sed -i 's/<!-- ppt-prd-start -->.*<!-- ppt-prd-end -->/<!-- ppt-prd-start -->${{ env.RELEASE_VERSION }}<!-- ppt-prd-end -->/g' README.md
+
+      - name: Check for changes
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "SHOULD_I_COMMIT=Yes" >> $GITHUB_ENV
+          else
+            echo "SHOULD_I_COMMIT=No" >> $GITHUB_ENV
+          fi
+
+      - name: Commit the changes
+        if: ${{ env.SHOULD_I_COMMIT == 'Yes' }}
+        env:
+          RELEASE_VERSION: ${{ env.RELEASE_VERSION }}
+        run: |
+          git config pull.rebase false
+          git config --local user.email "action@github.com"
+          git config --local user.name "Continuous Deployment"
+          git add --all
+          git commit -m "ci(properties-api): update to ${{ env.RELEASE_VERSION }} version."
+          git pull origin main
+
+      - name: Push the changes
+        if: ${{ env.SHOULD_I_COMMIT == 'Yes' }}
+        uses: ad-m/github-push-action@master
         with:
-          service: ${{ env.SERVICE_NAME }}
-          image: ${{ env.DOCKER_REGISTRY }}/${{ secrets.DOCKER_USERNAME }}/${{ env.ARTIFACT_NAME }}:${{ env.RELEASE_VERSION }}
-          project_id: ${{ env.PROJECT_ID }}
-          region: ${{ env.CLOUD_REGION }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          repository: jtsato/properties-api-terraform
+          branch: main

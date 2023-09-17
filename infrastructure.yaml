@@ -1,9 +1,0 @@
-resources:
-- name: properties-api-service
-  type: cloudrun.v1.Service
-  properties:
-    location: southamerica-east1-b
-    template:
-      spec:
-        containers:
-        - image: gcr.io/duckhome-firebase/properties-api

@@ -123,7 +123,7 @@ jobs:
         id: tag
         run: |
           echo "TAG=$(TZ='America/Sao_Paulo' date +'%y%m%d')${{ github.run_number }}" >> $GITHUB_ENV
-          echo "TAG=${{ env.TAG }}"        
+          echo "TAG=${{ env.TAG }}"
 
       - name: Create Release Version from App Version and Tag
         id: create_release
@@ -150,11 +150,11 @@ jobs:
         if: always()
         run: |
           docker logout ${{ env.DOCKER_REGISTRY }}
-          echo "Environment Teardown"          
+          echo "Environment Teardown"
 
   deploy-to-gcp-cloud-run:
     if: ${{ github.ref == 'refs/heads/main' }}
-    needs: 
+    needs:
       - setup-vars
       - generate-artifact
     runs-on: ubuntu-latest

@@ -23,7 +23,6 @@ namespace EntryPoint.WebApi;
 [ExcludeFromCodeCoverage]
 public static class Program
 {
-    [SuppressMessage("ReSharper", "UnusedParameter.Local")]
     private static async Task Main(string[] args)
     {
         WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -70,7 +69,7 @@ public static class Program
             app.UseSwaggerUI(options =>
             {
                 options.RoutePrefix = "api/properties-search/v1/swagger";
-                options.SwaggerEndpoint("/api/properties-search/v1/api-docs/v1/swagger.yaml", "ViaOps Configuration Manager");
+                options.SwaggerEndpoint("/api/properties-search/v1/api-docs/v1/swagger.yaml", "Properties Search API");
             });
             RewriteOptions rewriteOptions = new RewriteOptions();
             rewriteOptions.AddRedirect("^$", "swagger");

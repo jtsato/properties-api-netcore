@@ -104,6 +104,7 @@ jobs:
           APP_VERSION: ${{ env.APP_VERSION }}
           TAG: ${{ env.TAG }}
         run: |
+          echo "RELEASE_VERSION=${{ env.APP_VERSION }}-${{ env.TAG }}" >> $GITHUB_ENV
           echo "RELEASE_VERSION=${{ env.APP_VERSION }}-${{ env.TAG }}" >> "$GITHUB_OUTPUT"
 
       - name: Login to Docker Hub

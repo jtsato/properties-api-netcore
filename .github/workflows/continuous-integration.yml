@@ -22,6 +22,8 @@ env:
   DOTNET_NOLOGO: 1 # Disable the .NET welcome message
   DOTNET_CLI_TELEMETRY_OPTOUT: 1 # Opt out of the .NET SDK telemetry feature
   APP_VERSION: "v1.0.0"
+  DOCKER_REGISTRY: docker.io
+  ARTIFACT_NAME: properties-api
 
 jobs:
   build-and-test:
@@ -82,9 +84,6 @@ jobs:
   setup-vars:
     needs: run-sonar
     runs-on: ubuntu-latest
-    outputs:
-      DOCKER_REGISTRY: docker.io
-      ARTIFACT_NAME: properties-api
 
     steps:
       - run: |
@@ -95,8 +94,8 @@ jobs:
     needs: setup-vars
     runs-on: ubuntu-latest
     env:
-      DOCKER_REGISTRY: ${{ needs.setup-vars.outputs.DOCKER_REGISTRY }}
-      ARTIFACT_NAME: ${{ needs.setup-vars.outputs.ARTIFACT_NAME }}
+      DOCKER_REGISTRY: ${{ env.DOCKER_REGISTRY }}
+      ARTIFACT_NAME: ${{ env.ARTIFACT_NAME }}
     outputs:
       RELEASE_VERSION: ${{ steps.create_release.outputs.RELEASE_VERSION }}
 
@@ -116,7 +115,7 @@ jobs:
           APP_VERSION: ${{ env.APP_VERSION }}
           TAG: ${{ env.TAG }}
         run: |
-          echo "RELEASE_VERSION=${{ env.APP_VERSION }}-${{ env.TAG }}" >> $GITHUB_ENV
+          echo "RELEASE_VERSION=${{ env.APP_VERSION }}-${{ env.TAG }}" >> "$GITHUB_OUTPUT"
 
       - name: Login to Docker Hub
         uses: docker/login-action@v3
@@ -126,10 +125,6 @@ jobs:
 
       - name: Build and Push to Docker Hub
         uses: docker/build-push-action@v5
-        env:
-          DOCKER_REGISTRY: ${{ env.DOCKER_REGISTRY }}
-          ARTIFACT_NAME: ${{ env.ARTIFACT_NAME }}
-          RELEASE_VERSION: ${{ env.RELEASE_VERSION }}
         with:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/${{ env.ARTIFACT_NAME }}:${{ env.RELEASE_VERSION }}

@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
-using System.Reflection;
 using Core.Commons;
 using Core.Domains.Properties.Gateways;
 using Core.Domains.Properties.UseCases;

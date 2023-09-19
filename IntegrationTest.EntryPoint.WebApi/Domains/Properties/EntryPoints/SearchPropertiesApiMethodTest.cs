@@ -288,7 +288,7 @@ public class SearchPropertiesApiMethodTest
         };
 
         // Act
-        ObjectResult objectResult = await _invoker.InvokeAsync(() => _apiMethod.SearchProperties(request, qPageRequest));
+        ObjectResult objectResult = await _invoker.InvokeAsync(() => _apiMethod.SearchProperties(request, qPageRequest), "en-US");
 
         // Assert
         Assert.NotNull(objectResult);
@@ -413,7 +413,7 @@ public class SearchPropertiesApiMethodTest
         };
 
         // Act
-        ObjectResult objectResult = await _invoker.InvokeAsync(() => _apiMethod.SearchProperties(request, qPageRequest));
+        ObjectResult objectResult = await _invoker.InvokeAsync(() => _apiMethod.SearchProperties(request, qPageRequest), "en-US");
 
         // Assert
         Assert.NotNull(objectResult);
@@ -549,7 +549,7 @@ public class SearchPropertiesApiMethodTest
         };
 
         // Act
-        ObjectResult objectResult = await _invoker.InvokeAsync(() => _apiMethod.SearchProperties(request, qPageRequest));
+        ObjectResult objectResult = await _invoker.InvokeAsync(() => _apiMethod.SearchProperties(request, qPageRequest), "en-US");
 
         // Assert
         Assert.NotNull(objectResult);

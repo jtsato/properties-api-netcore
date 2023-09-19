@@ -147,7 +147,7 @@ public class GetPropertyByIdApiMethodTest
 
 
         // Act
-        ObjectResult objectResult = await _invoker.InvokeAsync(() => _apiMethod.GetPropertyById("1001"));
+        ObjectResult objectResult = await _invoker.InvokeAsync(() => _apiMethod.GetPropertyById("1001"), "en-US");
 
         // Assert
         Assert.NotNull(objectResult);

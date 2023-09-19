@@ -38,9 +38,14 @@ namespace IntegrationTest.EntryPoint.WebApi.Commons
 
         private static void SetThreadCultures(string culture, string uiCulture)
         {
-            CultureInfo.CurrentCulture = new CultureInfo(culture, false);
+            if (!string.IsNullOrWhiteSpace(culture))
+            {
+                CultureInfo.CurrentCulture = new CultureInfo(culture, false);
+                CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(culture, false);
+            }
+            
+            if (string.IsNullOrWhiteSpace(uiCulture)) return;
             CultureInfo.CurrentUICulture = new CultureInfo(uiCulture, false);
-            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(culture, false);
             CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo(uiCulture, false);
         }
     }

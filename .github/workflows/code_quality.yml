@@ -17,8 +17,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          ref: ${{ github.event.pull_request.head.sha }}  # to check out the actual pull request commit, not the merge commit
-          fetch-depth: 0  # a full history is required for pull request analysis
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
       - name: Qodana Scan
         uses: JetBrains/qodana-action@v2023.2
         with:
@@ -28,10 +28,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
-      - name: Environment Tear Down
-        run: |
-          ls ./logs/
-          for file in ./logs/*.log; do
-            echo "$file"
-            cat "$file"
-          done

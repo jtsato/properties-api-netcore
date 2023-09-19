@@ -81,21 +81,10 @@ jobs:
       githubToken: ${{ secrets.GITHUB_TOKEN }}
       sonarToken: ${{ secrets.SONAR_TOKEN }}
 
-  setup-vars:
-    needs: run-sonar
-    runs-on: ubuntu-latest
-
-    steps:
-      - run: |
-          echo "Setting up environment variables"
-
   generate-artifact:
     if: ${{ github.ref == 'refs/heads/main' }}
     needs: setup-vars
     runs-on: ubuntu-latest
-    env:
-      DOCKER_REGISTRY: ${{ env.DOCKER_REGISTRY }}
-      ARTIFACT_NAME: ${{ env.ARTIFACT_NAME }}
     outputs:
       RELEASE_VERSION: ${{ steps.create_release.outputs.RELEASE_VERSION }}
 

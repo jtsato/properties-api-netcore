@@ -16,6 +16,17 @@ public sealed class PropertySequenceRepository : ISequenceRepository<PropertySeq
     {
         IMongoDatabase database = connectionFactory.GetDatabase(databaseName);
         _collection = database.GetCollection<PropertySequence>(collectionName);
+        
+        IndexKeysDefinition<PropertySequence> indexKeySequenceName = Builders<PropertySequence>
+            .IndexKeys.Ascending(document => document.SequenceName);
+        
+        CreateIndexOptions uniqueIndexOptions = new CreateIndexOptions
+            {Unique = true, Sparse = true, Background = false};
+
+        _collection.Indexes.CreateManyAsync(new[]
+        {
+            new CreateIndexModel<PropertySequence>(indexKeySequenceName, uniqueIndexOptions)
+        });
     }
 
     public async Task<PropertySequence> GetSequenceAndUpdate(FilterDefinition<PropertySequence> filterDefinition)

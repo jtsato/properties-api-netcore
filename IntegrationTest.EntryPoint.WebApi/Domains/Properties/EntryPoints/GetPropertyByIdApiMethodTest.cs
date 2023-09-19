@@ -71,7 +71,7 @@ public class GetPropertyByIdApiMethodTest
             .ThrowsAsync(new Exception("Unexpected error"));
 
         // Act
-        ObjectResult objectResult = await _invoker.InvokeAsync(() => _apiMethod.GetPropertyById("1001"));
+        ObjectResult objectResult = await _invoker.InvokeAsync(() => _apiMethod.GetPropertyById("1001"), "pt-BR");
 
         // Assert
         Assert.NotNull(objectResult);

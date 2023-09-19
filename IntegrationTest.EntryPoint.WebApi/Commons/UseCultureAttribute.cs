@@ -11,6 +11,7 @@ namespace IntegrationTest.EntryPoint.WebApi.Commons
     {
         private readonly string _cultureName;
         private readonly string _uiCultureName;
+        
         private CultureInfo _originalCulture;
         private CultureInfo _originalUiCulture;
 
@@ -39,6 +40,8 @@ namespace IntegrationTest.EntryPoint.WebApi.Commons
         {
             CultureInfo.CurrentCulture = new CultureInfo(culture, false);
             CultureInfo.CurrentUICulture = new CultureInfo(uiCulture, false);
+            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(culture, false);
+            CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo(uiCulture, false);
         }
     }
 }

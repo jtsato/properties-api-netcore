@@ -28,14 +28,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Cache NuGet packages
-        uses: actions/cache@v3
-        with:
-          path: ~/.nuget/packages
-          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-nuget
-
       - name: Show docker-compose version
         run: |
           docker-compose version

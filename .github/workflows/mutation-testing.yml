@@ -73,8 +73,8 @@ jobs:
 
       - name: Copy report to right place [Core]
         run: |
-          mkdir -p ./docs/Core
-          find ./UnitTest.Core/StrykerOutput -name '*.html' -exec cp -prv '{}' './docs/Core' ';'
+          mkdir -p ./docs/mutation-reports/Core
+          find ./UnitTest.Core/StrykerOutput -name '*.html' -exec cp -prv '{}' './docs/mutation-reports/Core' ';'
 
       - name: Mutation [EntryPoint WebApi]
         run: |
@@ -85,8 +85,8 @@ jobs:
 
       - name: Copy report to right place [WebApi]
         run: |
-          mkdir -p ./docs/EntryPoint.WebApi
-          find ./IntegrationTest.EntryPoint.WebApi/StrykerOutput -name '*.html' -exec cp -prv '{}' './docs/EntryPoint.WebApi' ';'
+          mkdir -p ./docs/mutation-reports/EntryPoint.WebApi
+          find ./IntegrationTest.EntryPoint.WebApi/StrykerOutput -name '*.html' -exec cp -prv '{}' './docs/mutation-reports/EntryPoint.WebApi' ';'
 
       - name: Mutation [Infra MongoDB]
         run: |
@@ -97,8 +97,8 @@ jobs:
 
       - name: Copy report to right place [Infra MongoDB]
         run: |
-          mkdir -p ./docs/Infra.MongoDB
-          find ./IntegrationTest.Infra.MongoDB/StrykerOutput -name '*.html' -exec cp -prv '{}' './docs/Infra.MongoDB' ';'
+          mkdir -p ./docs/mutation-reports/Infra.MongoDB
+          find ./IntegrationTest.Infra.MongoDB/StrykerOutput -name '*.html' -exec cp -prv '{}' './docs/mutation-reports/Infra.MongoDB' ';'
 
       - name: Check for changes
         run: |

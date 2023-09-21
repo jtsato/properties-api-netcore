@@ -6,7 +6,7 @@ on:
       - 'main'
     paths:
       - '.github/workflows/diagrams-generation.yml'
-      - 'docs/c4-model/*.puml'
+      - 'docs/c4-models/*.puml'
   workflow_dispatch:
 
 jobs:
@@ -42,7 +42,7 @@ jobs:
       - name: Generate Diagrams
         run: |
           mkdir -p ./docs/diagrams
-          java -jar /usr/local/bin/plantuml.jar -tpng -o "$(pwd)/docs/diagrams" "docs/c4-model/*.puml"
+          java -jar /usr/local/bin/plantuml.jar -tpng -o "$(pwd)/docs/diagrams" "docs/c4-models/*.puml"
 
       - name: Check for changes
         run: |

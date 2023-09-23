@@ -10,6 +10,7 @@
       "*HashCode*",
       "*First*",
       "CheckNull*"
-    ]
+    ],
+    "coverage-analysis": "off"
   }
 }

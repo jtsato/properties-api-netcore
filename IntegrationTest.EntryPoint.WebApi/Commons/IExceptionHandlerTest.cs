@@ -140,7 +140,7 @@ public sealed class ExceptionHandlerTest
     [InlineData(typeof(UniqueConstraintException), HttpStatusCode.BadRequest)]
     [InlineData(typeof(InvalidArgumentException), HttpStatusCode.BadRequest)]
     [InlineData(typeof(ValidationException), HttpStatusCode.BadRequest)]
-    [InlineData(typeof(AccessDeniedException), HttpStatusCode.Forbidden)]
+    [InlineData(typeof(AccessDeniedException), HttpStatusCode.Unauthorized)]
     [InlineData(typeof(NotFoundException), HttpStatusCode.NotFound)]
     [InlineData(typeof(ServiceUnavailableException), HttpStatusCode.InternalServerError)]
     [InlineData(typeof(Exception), HttpStatusCode.InternalServerError)]

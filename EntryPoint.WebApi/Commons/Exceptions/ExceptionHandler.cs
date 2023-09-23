@@ -63,7 +63,7 @@ public sealed class ExceptionHandler : IExceptionHandler
     {
         AccessDeniedException accessDeniedException = (AccessDeniedException) exception;
         string message = IExceptionHandler.MessageFormatter(accessDeniedException.Message, accessDeniedException.Parameters);
-        return IExceptionHandler.BuildHttpResponseStatus(HttpStatusCode.Forbidden, message);
+        return IExceptionHandler.BuildHttpResponseStatus(HttpStatusCode.Unauthorized, message);
     }
 
     private static ResponseStatus HandleException()

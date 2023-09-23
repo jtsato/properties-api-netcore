@@ -12,8 +12,8 @@ Person(seeker, "Property Seeker", "A person who is looking for a property")
 Person(agent, "Real State Agent", "A person who would like to promote properties")
 
 System(realState, "Real State Marketplace System", "A system that allows property seekers to find properties for sale or rent")
-System_Ext(chatGpt, "ChatGPT API", "An external API that supports general features functionalities")
-System_Ext(websites, "Real State Company Websites", "An external websites that provides information about properties")
+System_Ext(chatGpt, "ChatGPT API", "An external API that supports diverse artificial intelligence functionalities")
+System_Ext(websites, "Real State Companies Websites", "An external websites that provides information about properties")
 System_Ext(stripe, "Stripe", "An external payment gateway")
 
 Rel(seeker, realState, "Uses")

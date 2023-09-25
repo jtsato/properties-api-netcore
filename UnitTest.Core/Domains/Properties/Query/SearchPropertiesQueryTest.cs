@@ -123,4 +123,65 @@ public class SearchPropertiesQueryTest
         Assert.Equal(0, query.Prices.PriceByM2.To);
         Assert.Equal("Active", query.Status);
     }
+
+    [Trait("Category", "Core Business Tests")]
+    [Fact(DisplayName = "Success to search properties without min parameters values")]
+    public void SuccessToSearchPropertiesWithoutMinParametersValues()
+    {
+        // Arrange
+        // Act
+        SearchPropertiesQuery query = new SearchPropertiesQuery(
+            "House",
+            new SearchPropertiesQueryAdvertise("Sale"),
+            new SearchPropertiesQueryAttributes
+            (
+                numberOfBedrooms: Range<byte>.Of(0, 2),
+                numberOfToilets: Range<byte>.Of(0, 4),
+                numberOfGarages: Range<byte>.Of(0, 6),
+                area: Range<int>.Of(0, 200),
+                builtArea: Range<int>.Of(0, 20)
+            ),
+            new SearchPropertiesQueryLocation(
+                "São Paulo",
+                "São Paulo",
+                new List<string> {"Moema", "Vila Mariana"}
+            ),
+            new SearchPropertiesQueryPrices
+            (
+                sellingPrice: Range<double>.Of(0, 100000),
+                rentalTotalPrice: Range<double>.Of(0, 3000),
+                rentalPrice: Range<double>.Of(0, 5000),
+                priceByM2: Range<double>.Of(0, 200)
+            ),
+            "Active"
+        );
+
+        // Assert
+        Assert.Equal("House", query.Type);
+        Assert.Equal("Sale", query.Advertise.Transaction);
+        Assert.Equal(0, query.Attributes.NumberOfBedrooms.From);
+        Assert.Equal(2, query.Attributes.NumberOfBedrooms.To);
+        Assert.Equal(0, query.Attributes.NumberOfToilets.From);
+        Assert.Equal(4, query.Attributes.NumberOfToilets.To);
+        Assert.Equal(0, query.Attributes.NumberOfGarages.From);
+        Assert.Equal(6, query.Attributes.NumberOfGarages.To);
+        Assert.Equal(0, query.Attributes.Area.From);
+        Assert.Equal(200, query.Attributes.Area.To);
+        Assert.Equal(0, query.Attributes.BuiltArea.From);
+        Assert.Equal(20, query.Attributes.BuiltArea.To);
+        Assert.Equal("São Paulo", query.Location.State);
+        Assert.Equal("São Paulo", query.Location.City);
+        Assert.Equal(2, query.Location.Districts.Count);
+        Assert.Equal("Moema", query.Location.Districts[0]);
+        Assert.Equal("Vila Mariana", query.Location.Districts[1]);
+        Assert.Equal(0, query.Prices.SellingPrice.From);
+        Assert.Equal(100000, query.Prices.SellingPrice.To);
+        Assert.Equal(0, query.Prices.RentalTotalPrice.From);
+        Assert.Equal(3000, query.Prices.RentalTotalPrice.To);
+        Assert.Equal(0, query.Prices.RentalPrice.From);
+        Assert.Equal(5000, query.Prices.RentalPrice.To);
+        Assert.Equal(0, query.Prices.PriceByM2.From);
+        Assert.Equal(200, query.Prices.PriceByM2.To);
+        Assert.Equal("Active", query.Status);
+    }
 }

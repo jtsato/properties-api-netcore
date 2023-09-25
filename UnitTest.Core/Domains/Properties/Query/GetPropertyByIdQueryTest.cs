@@ -6,7 +6,7 @@ using Xunit;
 
 namespace UnitTest.Core.Domains.Properties.Query;
 
-public class GetPropertyByIdQueryTest
+public sealed class GetPropertyByIdQueryTest
 {
     [Trait("Category", "Core Business Tests")]
     [Theory(DisplayName = "Fail to get property by id with null or empty id")]

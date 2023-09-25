@@ -29,7 +29,7 @@ public sealed class PropertySequenceRepository : ISequenceRepository<PropertySeq
         });
     }
 
-    public async Task<PropertySequence> GetSequenceAndUpdate(FilterDefinition<PropertySequence> filterDefinition)
+    public async Task<ISequence> GetSequenceAndUpdate(FilterDefinition<PropertySequence> filterDefinition)
     {
         FindOneAndUpdateOptions<PropertySequence, PropertySequence> findOneAndUpdateOptions =
             new FindOneAndUpdateOptions<PropertySequence, PropertySequence>

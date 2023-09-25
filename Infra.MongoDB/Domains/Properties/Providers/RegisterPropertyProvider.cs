@@ -40,7 +40,7 @@ public sealed class RegisterPropertyProvider : IRegisterPropertyGateway
     private async Task IncrementId(Entity entity)
     {
         FilterDefinition<PropertySequence> filter = Builders<PropertySequence>.Filter.Eq(sequence => sequence.SequenceName, KeyField);
-        PropertySequence propertySequence = await _propertySequenceRepository.GetSequenceAndUpdate(filter);
-        entity.Id = propertySequence.SequenceValue;
+        ISequence sequence = await _propertySequenceRepository.GetSequenceAndUpdate(filter);
+        entity.Id = sequence.SequenceValue;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Core.Commons;
@@ -72,12 +73,17 @@ public sealed class SearchPropertiesController : ISearchPropertiesController
         double rentalPriceMin = isRent ? request.MinPrice : 0;
         double rentalPriceMax = isRent ? request.MaxPrice : DefaultMaxPrice;
 
+        List<string> districts = request.Districts?
+            .Where(element => !string.IsNullOrEmpty(element))
+            .SelectMany(element => element.Split(','))
+            .ToList();
+
         builder
             .WithTypes(types)
             .WithTransaction(transaction.Name)
             .WithState(request.Uf)
             .WithCity(request.City)
-            .WithDistricts(request.Districts)
+            .WithDistricts(districts)
             .WithMinBedrooms(request.MinBedrooms)
             .WithMaxBedrooms(request.MaxBedrooms)
             .WithMinToilets(request.MinToilets)

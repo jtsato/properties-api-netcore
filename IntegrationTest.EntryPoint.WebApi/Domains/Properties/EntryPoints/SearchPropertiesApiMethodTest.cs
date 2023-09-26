@@ -75,29 +75,25 @@ public class SearchPropertiesApiMethodTest
         SearchPropertiesQueryBuilder queryBuilder = new SearchPropertiesQueryBuilder();
 
         queryBuilder
-            .WithType("Apartment")
+            .WithTypes(new List<string> {"Apartment"})
             .WithTransaction("Rent")
             .WithState("Duckland")
             .WithCity("White Duck")
             .WithDistricts(new List<string> {"Downtown", "Alta Vista"})
-            .WithFromNumberOfBedrooms(0)
-            .WithToNumberOfBedrooms(3)
-            .WithFromNumberOfToilets(1)
-            .WithToNumberOfToilets(2)
-            .WithFromNumberOfGarages(1)
-            .WithToNumberOfGarages(1)
+            .WithMinBedrooms(0)
+            .WithMaxBedrooms(3)
+            .WithMinToilets(1)
+            .WithMaxToilets(2)
+            .WithMinGarages(1)
+            .WithMaxGarages(1)
             .WithFromArea(100)
             .WithToArea(200)
-            .WithFromBuiltArea(80)
-            .WithToBuiltArea(160)
-            .WithFromSellingPrice(100000)
+            .WithMinBuiltArea(80)
+            .WithMaxBuiltArea(160)
+            .WithMinSellingPrice(100000)
             .WithToSellingPrice(200000)
-            .WithFromRentalTotalPrice(1000)
-            .WithToRentalTotalPrice(3000)
             .WithFromRentalPrice(500)
             .WithToRentalPrice(900)
-            .WithFromPriceByM2(100)
-            .WithToPriceByM2(200)
             .WithStatus("Active");
 
         SearchPropertiesQuery query = queryBuilder.Build();
@@ -108,29 +104,23 @@ public class SearchPropertiesApiMethodTest
 
         SearchPropertiesRequest request = new SearchPropertiesRequest
         {
-            Type = "Apartment",
+            Types = new List<string> {"Apartment"},
             Transaction = "Rent",
-            State = "Duckland",
+            Uf = "Duckland",
             City = "White Duck",
             Districts = new List<string> {"Downtown", "Alta Vista"},
-            NumberOfBedroomsMin = 0,
-            NumberOfBedroomsMax = 3,
-            NumberOfToiletsMin = 1,
-            NumberOfToiletsMax = 2,
-            NumberOfGaragesMin = 1,
-            NumberOfGaragesMax = 1,
-            AreaMin = 100,
-            AreaMax = 200,
-            BuiltAreaMin = 80,
-            BuiltAreaMax = 160,
-            SellingPriceMin = 100000,
-            SellingPriceMax = 200000,
-            RentalTotalPriceMin = 1000,
-            RentalTotalPriceMax = 3000,
-            RentalPriceMin = 500,
-            RentalPriceMax = 900,
-            PriceByM2Min = 100,
-            PriceByM2Max = 200,
+            MinBedrooms = 0,
+            MaxBedrooms = 3,
+            MinToilets = 1,
+            MaxToilets = 2,
+            MinGarages = 1,
+            MaxGarages = 1,
+            MinArea = 100,
+            MaxArea = 200,
+            MinBuiltArea = 80,
+            MaxBuiltArea = 160,
+            MinPrice = 100000,
+            MaxPrice = 200000,
             Status = "Active"
         };
 
@@ -167,30 +157,26 @@ public class SearchPropertiesApiMethodTest
         SearchPropertiesQueryBuilder queryBuilder = new SearchPropertiesQueryBuilder();
 
         queryBuilder
-            .WithType("Apartment")
+            .WithTypes(new List<string> {"Apartment"})
             .WithTransaction("Rent")
             .WithState("Duckland")
             .WithCity("White Duck")
             .WithState("Duckland")
             .WithDistricts(new List<string> {"Downtown", "Alta Vista"})
-            .WithFromNumberOfBedrooms(0)
-            .WithToNumberOfBedrooms(3)
-            .WithFromNumberOfToilets(1)
-            .WithToNumberOfToilets(2)
-            .WithFromNumberOfGarages(1)
-            .WithToNumberOfGarages(1)
+            .WithMinBedrooms(0)
+            .WithMaxBedrooms(3)
+            .WithMinToilets(1)
+            .WithMaxToilets(2)
+            .WithMinGarages(1)
+            .WithMaxGarages(1)
             .WithFromArea(100)
             .WithToArea(200)
-            .WithFromBuiltArea(80)
-            .WithToBuiltArea(160)
-            .WithFromSellingPrice(100000)
-            .WithToSellingPrice(200000)
-            .WithFromRentalTotalPrice(1000)
-            .WithToRentalTotalPrice(3000)
-            .WithFromRentalPrice(500)
-            .WithToRentalPrice(900)
-            .WithFromPriceByM2(100)
-            .WithToPriceByM2(200)
+            .WithMinBuiltArea(80)
+            .WithMaxBuiltArea(160)
+            .WithMinSellingPrice(0)
+            .WithToSellingPrice(999999999)
+            .WithFromRentalPrice(100000)
+            .WithToRentalPrice(200000)
             .WithStatus("Active");
 
         SearchPropertiesQuery query = queryBuilder.Build();
@@ -254,29 +240,23 @@ public class SearchPropertiesApiMethodTest
 
         SearchPropertiesRequest request = new SearchPropertiesRequest
         {
-            Type = "Apartment",
+            Types = new List<string> {"Apartment"},
             Transaction = "Rent",
-            State = "Duckland",
+            Uf = "Duckland",
             City = "White Duck",
             Districts = new List<string> {"Downtown", "Alta Vista"},
-            NumberOfBedroomsMin = 0,
-            NumberOfBedroomsMax = 3,
-            NumberOfToiletsMin = 1,
-            NumberOfToiletsMax = 2,
-            NumberOfGaragesMin = 1,
-            NumberOfGaragesMax = 1,
-            AreaMin = 100,
-            AreaMax = 200,
-            BuiltAreaMin = 80,
-            BuiltAreaMax = 160,
-            SellingPriceMin = 100000,
-            SellingPriceMax = 200000,
-            RentalTotalPriceMin = 1000,
-            RentalTotalPriceMax = 3000,
-            RentalPriceMin = 500,
-            RentalPriceMax = 900,
-            PriceByM2Min = 100,
-            PriceByM2Max = 200,
+            MinBedrooms = 0,
+            MaxBedrooms = 3,
+            MinToilets = 1,
+            MaxToilets = 2,
+            MinGarages = 1,
+            MaxGarages = 1,
+            MinArea = 100,
+            MaxArea = 200,
+            MinBuiltArea = 80,
+            MaxBuiltArea = 160,
+            MinPrice = 100000,
+            MaxPrice = 200000,
             Status = "Active"
         };
 
@@ -344,29 +324,25 @@ public class SearchPropertiesApiMethodTest
         SearchPropertiesQueryBuilder queryBuilder = new SearchPropertiesQueryBuilder();
 
         queryBuilder
-            .WithType("Apartment")
+            .WithTypes(new List<string> {"Apartment"})
             .WithTransaction("Rent")
             .WithState("Duckland")
             .WithCity("White Duck")
             .WithDistricts(new List<string> {"Downtown", "Alta Vista"})
-            .WithFromNumberOfBedrooms(0)
-            .WithToNumberOfBedrooms(3)
-            .WithFromNumberOfToilets(1)
-            .WithToNumberOfToilets(2)
-            .WithFromNumberOfGarages(1)
-            .WithToNumberOfGarages(1)
+            .WithMinBedrooms(0)
+            .WithMaxBedrooms(3)
+            .WithMinToilets(1)
+            .WithMaxToilets(2)
+            .WithMinGarages(1)
+            .WithMaxGarages(1)
             .WithFromArea(100)
             .WithToArea(200)
-            .WithFromBuiltArea(80)
-            .WithToBuiltArea(160)
-            .WithFromSellingPrice(100000)
-            .WithToSellingPrice(200000)
-            .WithFromRentalTotalPrice(1000)
-            .WithToRentalTotalPrice(3000)
-            .WithFromRentalPrice(500)
-            .WithToRentalPrice(900)
-            .WithFromPriceByM2(100)
-            .WithToPriceByM2(200)
+            .WithMinBuiltArea(80)
+            .WithMaxBuiltArea(160)
+            .WithMinSellingPrice(0)
+            .WithToSellingPrice(999999999)
+            .WithFromRentalPrice(100000)
+            .WithToRentalPrice(200000)
             .WithStatus("Active");
 
         SearchPropertiesQuery query = queryBuilder.Build();
@@ -379,29 +355,23 @@ public class SearchPropertiesApiMethodTest
 
         SearchPropertiesRequest request = new SearchPropertiesRequest
         {
-            Type = "Apartment",
+            Types = new List<string> {"Apartment"},
             Transaction = "Rent",
-            State = "Duckland",
+            Uf = "Duckland",
             City = "White Duck",
             Districts = new List<string> {"Downtown", "Alta Vista"},
-            NumberOfBedroomsMin = 0,
-            NumberOfBedroomsMax = 3,
-            NumberOfToiletsMin = 1,
-            NumberOfToiletsMax = 2,
-            NumberOfGaragesMin = 1,
-            NumberOfGaragesMax = 1,
-            AreaMin = 100,
-            AreaMax = 200,
-            BuiltAreaMin = 80,
-            BuiltAreaMax = 160,
-            SellingPriceMin = 100000,
-            SellingPriceMax = 200000,
-            RentalTotalPriceMin = 1000,
-            RentalTotalPriceMax = 3000,
-            RentalPriceMin = 500,
-            RentalPriceMax = 900,
-            PriceByM2Min = 100,
-            PriceByM2Max = 200,
+            MinBedrooms = 0,
+            MaxBedrooms = 3,
+            MinToilets = 1,
+            MaxToilets = 2,
+            MinGarages = 1,
+            MaxGarages = 1,
+            MinArea = 100,
+            MaxArea = 200,
+            MinBuiltArea = 80,
+            MaxBuiltArea = 160,
+            MinPrice = 100000,
+            MaxPrice = 200000,
             Status = "Active"
         };
 
@@ -429,29 +399,25 @@ public class SearchPropertiesApiMethodTest
         SearchPropertiesQueryBuilder queryBuilder = new SearchPropertiesQueryBuilder();
 
         queryBuilder
-            .WithType("Apartment")
+            .WithTypes(new List<string> {"Apartment"})
             .WithTransaction("Rent")
             .WithState("Duckland")
             .WithCity("White Duck")
             .WithDistricts(new List<string> {"Downtown", "Alta Vista"})
-            .WithFromNumberOfBedrooms(0)
-            .WithToNumberOfBedrooms(3)
-            .WithFromNumberOfToilets(1)
-            .WithToNumberOfToilets(2)
-            .WithFromNumberOfGarages(1)
-            .WithToNumberOfGarages(1)
+            .WithMinBedrooms(0)
+            .WithMaxBedrooms(3)
+            .WithMinToilets(1)
+            .WithMaxToilets(2)
+            .WithMinGarages(1)
+            .WithMaxGarages(1)
             .WithFromArea(100)
             .WithToArea(200)
-            .WithFromBuiltArea(80)
-            .WithToBuiltArea(160)
-            .WithFromSellingPrice(100000)
-            .WithToSellingPrice(200000)
-            .WithFromRentalTotalPrice(1000)
-            .WithToRentalTotalPrice(3000)
-            .WithFromRentalPrice(500)
-            .WithToRentalPrice(900)
-            .WithFromPriceByM2(100)
-            .WithToPriceByM2(200)
+            .WithMinBuiltArea(80)
+            .WithMaxBuiltArea(160)
+            .WithMinSellingPrice(0)
+            .WithToSellingPrice(999999999)
+            .WithFromRentalPrice(100000)
+            .WithToRentalPrice(200000)
             .WithStatus("Active");
 
         SearchPropertiesQuery query = queryBuilder.Build();
@@ -515,29 +481,23 @@ public class SearchPropertiesApiMethodTest
 
         SearchPropertiesRequest request = new SearchPropertiesRequest
         {
-            Type = "Apartment",
+            Types = new List<string> {"Apartment"},
             Transaction = "Rent",
-            State = "Duckland",
+            Uf = "Duckland",
             City = "White Duck",
             Districts = new List<string> {"Downtown", "Alta Vista"},
-            NumberOfBedroomsMin = 0,
-            NumberOfBedroomsMax = 3,
-            NumberOfToiletsMin = 1,
-            NumberOfToiletsMax = 2,
-            NumberOfGaragesMin = 1,
-            NumberOfGaragesMax = 1,
-            AreaMin = 100,
-            AreaMax = 200,
-            BuiltAreaMin = 80,
-            BuiltAreaMax = 160,
-            SellingPriceMin = 100000,
-            SellingPriceMax = 200000,
-            RentalTotalPriceMin = 1000,
-            RentalTotalPriceMax = 3000,
-            RentalPriceMin = 500,
-            RentalPriceMax = 900,
-            PriceByM2Min = 100,
-            PriceByM2Max = 200,
+            MinBedrooms = 0,
+            MaxBedrooms = 3,
+            MinToilets = 1,
+            MaxToilets = 2,
+            MinGarages = 1,
+            MaxGarages = 1,
+            MinArea = 100,
+            MaxArea = 200,
+            MinBuiltArea = 80,
+            MaxBuiltArea = 160,
+            MinPrice = 100000,
+            MaxPrice = 200000,
             Status = "Active"
         };
 

@@ -93,29 +93,25 @@ public class SearchPropertiesProviderTest
         SearchPropertiesQueryBuilder queryBuilder = new SearchPropertiesQueryBuilder();
 
         queryBuilder
-            .WithType("Apartment")
+            .WithTypes(new List<string> {"Apartment"})
             .WithTransaction("Rent")
             .WithState("Duckland")
             .WithCity("White Duck")
             .WithDistricts(new List<string> {"Downtown", "Alta Vista"})
-            .WithFromNumberOfBedrooms(2)
-            .WithToNumberOfBedrooms(20)
-            .WithFromNumberOfToilets(1)
-            .WithToNumberOfToilets(10)
-            .WithFromNumberOfGarages(1)
-            .WithToNumberOfGarages(10)
+            .WithMinBedrooms(2)
+            .WithMaxBedrooms(20)
+            .WithMinToilets(1)
+            .WithMaxToilets(10)
+            .WithMinGarages(1)
+            .WithMaxGarages(10)
             .WithFromArea(100)
             .WithToArea(1000)
-            .WithFromBuiltArea(200)
-            .WithToBuiltArea(2000)
-            .WithFromSellingPrice(1000)
+            .WithMinBuiltArea(200)
+            .WithMaxBuiltArea(2000)
+            .WithMinSellingPrice(1000)
             .WithToSellingPrice(10000)
-            .WithFromRentalTotalPrice(1000)
-            .WithToRentalTotalPrice(10000)
             .WithFromRentalPrice(700)
             .WithToRentalPrice(7000)
-            .WithFromPriceByM2(100)
-            .WithToPriceByM2(1000)
             .WithStatus("Active");
 
         SearchPropertiesQuery query = queryBuilder.Build();
@@ -239,7 +235,7 @@ public class SearchPropertiesProviderTest
         SearchPropertiesQueryBuilder queryBuilder = new SearchPropertiesQueryBuilder();
 
         queryBuilder
-            .WithType("House")
+            .WithTypes(new List<string> {"House"})
             .WithTransaction("Rent")
             .WithState("Duckland")
             .WithCity("White Duck")

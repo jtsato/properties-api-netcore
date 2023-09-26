@@ -27,7 +27,7 @@ public sealed class SearchPropertiesFilterBuilderTest
         // Arrange
         SearchPropertiesQuery searchPropertiesQuery =
             new SearchPropertiesQuery(
-                type: "ALL",
+                types: new List<string> {"ALL"},
                 advertise: new SearchPropertiesQueryAdvertise(transaction: "ALL"),
                 attributes: new SearchPropertiesQueryAttributes(
                     numberOfBedrooms: Range<byte>.Of(from: 0, to: 0),
@@ -41,11 +41,11 @@ public sealed class SearchPropertiesFilterBuilderTest
                     city: "",
                     districts: new List<string>(0)),
                 prices:
-                new SearchPropertiesQueryPrices(
+                new SearchPropertiesQueryPrices
+                (
                     sellingPrice: Range<double>.Of(from: 0, to: 0),
-                    rentalTotalPrice: Range<double>.Of(from: 0, to: 0),
-                    rentalPrice: Range<double>.Of(from: 0, to: 0),
-                    priceByM2: Range<double>.Of(from: 0, to: 0)),
+                    rentalPrice: Range<double>.Of(from: 0, to: 0)
+                ),
                 status: "ALL"
             );
 
@@ -64,7 +64,7 @@ public sealed class SearchPropertiesFilterBuilderTest
         // Arrange
         SearchPropertiesQuery searchPropertiesQuery =
             new SearchPropertiesQuery(
-                type: "HOUSE",
+                types: new List<string> {"HOUSE"},
                 advertise: new SearchPropertiesQueryAdvertise(transaction: "RENT"),
                 attributes: new SearchPropertiesQueryAttributes(
                     numberOfBedrooms: Range<byte>.Of(from: 1, to: 2),
@@ -78,11 +78,11 @@ public sealed class SearchPropertiesFilterBuilderTest
                     city: "São Paulo",
                     districts: new List<string> {"Vila Mariana"}),
                 prices:
-                new SearchPropertiesQueryPrices(
+                new SearchPropertiesQueryPrices
+                (
                     sellingPrice: Range<double>.Of(from: 1, to: 2),
-                    rentalTotalPrice: Range<double>.Of(from: 1, to: 2),
-                    rentalPrice: Range<double>.Of(from: 1, to: 2),
-                    priceByM2: Range<double>.Of(from: 1, to: 2)),
+                    rentalPrice: Range<double>.Of(from: 1, to: 2)
+                ),
                 status: "ACTIVE"
             );
 
@@ -96,9 +96,9 @@ public sealed class SearchPropertiesFilterBuilderTest
 
         _testOutputHelper.WriteLine(document.ToString());
 
-        Assert.Equal(14, document.ElementCount);
+        Assert.Equal(13, document.ElementCount);
 
-        Assert.Equal("HOUSE", document["type"].AsString);
+        Assert.Equal("HOUSE", document["type"].AsBsonDocument.GetElement("$in").Value.AsBsonArray[0].AsString);
         Assert.Equal("RENT", document["transaction"].AsString);
         Assert.Equal("ACTIVE", document["status"].AsString);
         Assert.Equal("São Paulo", document["city"].AsString);

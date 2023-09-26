@@ -24,7 +24,7 @@ public class SearchPropertiesQueryLocation
     {
         return State == other.State
                && City == other.City
-               && !Districts.Except(other.Districts).Any() && !other.Districts.Except(Districts).Any();
+               && Districts.SequenceEqual(other.Districts);
     }
 
     [ExcludeFromCodeCoverage]

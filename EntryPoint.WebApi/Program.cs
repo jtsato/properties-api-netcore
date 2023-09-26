@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Core.Commons;
 using EntryPoint.WebApi.Commons;
@@ -36,11 +38,16 @@ public static class Program
         builder.Services.AddHttpLogging(GetHttpLoggingOptions);
 
         builder.Services.AddControllers(options =>
-        {
-            options.Filters.Add<GetLanguageActionFilterAttribute>();
-            options.Filters.Add<HandleInvalidModelStateActionFilterAttribute>();
-            options.Filters.Add<ExceptionHandlerFilterAttribute>();
-        });
+            {
+                options.Filters.Add<GetLanguageActionFilterAttribute>();
+                options.Filters.Add<HandleInvalidModelStateActionFilterAttribute>();
+                options.Filters.Add<ExceptionHandlerFilterAttribute>();
+            })
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+                options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault;
+            });
 
         builder.Services.AddHttpContextAccessor();
 
@@ -166,7 +173,7 @@ public static class Program
                                 | HttpLoggingFields.ResponseBody;
 
         options.RequestHeaders.Add("Accept-Language");
-        options.ResponseHeaders.Add("Content-Type");
+        options.ResponseHeaders.Add("Content-Types");
         options.RequestHeaders.Add("X-Correlation-Id");
         options.ResponseHeaders.Add("X-Correlation-Id");
         options.MediaTypeOptions.AddText("application/json");

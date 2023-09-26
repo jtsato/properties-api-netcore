@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using Core.Commons;
 using Core.Commons.Paging;
@@ -22,6 +23,7 @@ public sealed class SearchPropertiesController : ISearchPropertiesController
 
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly ISearchPropertiesUseCase _useCase;
+    private const int DefaultMaxPrice = 999999999;
 
     public SearchPropertiesController(IHttpContextAccessor httpContextAccessor, ISearchPropertiesUseCase useCase)
     {
@@ -55,36 +57,41 @@ public sealed class SearchPropertiesController : ISearchPropertiesController
 
     private static SearchPropertiesQuery BuildSearchPropertiesQuery(SearchPropertiesRequest request)
     {
-        string type = PropertyType.GetByName(request.Type).OrElse(PropertyType.All).Name;
-        string transaction = Transaction.GetByName(request.Transaction).OrElse(Transaction.All).Name;
+        List<string> types = request.Types == null || request.Types.Count == 0 ? new List<string>() : request.Types;
+
+        Transaction transaction = Transaction.GetByName(request.Transaction).OrElse(Transaction.All);
         string status = PropertyStatus.GetByName(request.Status).OrElse(PropertyStatus.All).Name;
 
         SearchPropertiesQueryBuilder builder = new SearchPropertiesQueryBuilder();
 
+        bool isSale = transaction.Is(Transaction.All) || transaction.Is(Transaction.Sale);
+        bool isRent = transaction.Is(Transaction.All) || transaction.Is(Transaction.Rent);
+
+        double sellingPriceMin = isSale ? request.MinPrice : 0;
+        double sellingPriceMax = isSale ? request.MaxPrice : DefaultMaxPrice;
+        double rentalPriceMin = isRent ? request.MinPrice : 0;
+        double rentalPriceMax = isRent ? request.MaxPrice : DefaultMaxPrice;
+
         builder
-            .WithType(type)
-            .WithTransaction(transaction)
-            .WithState(request.State)
+            .WithTypes(types)
+            .WithTransaction(transaction.Name)
+            .WithState(request.Uf)
             .WithCity(request.City)
             .WithDistricts(request.Districts)
-            .WithFromNumberOfBedrooms(request.NumberOfBedroomsMin)
-            .WithToNumberOfBedrooms(request.NumberOfBedroomsMax)
-            .WithFromNumberOfToilets(request.NumberOfToiletsMin)
-            .WithToNumberOfToilets(request.NumberOfToiletsMax)
-            .WithFromNumberOfGarages(request.NumberOfGaragesMin)
-            .WithToNumberOfGarages(request.NumberOfGaragesMax)
-            .WithFromArea(request.AreaMin)
-            .WithToArea(request.AreaMax)
-            .WithFromBuiltArea(request.BuiltAreaMin)
-            .WithToBuiltArea(request.BuiltAreaMax)
-            .WithFromSellingPrice(request.SellingPriceMin)
-            .WithToSellingPrice(request.SellingPriceMax)
-            .WithFromRentalTotalPrice(request.RentalTotalPriceMin)
-            .WithToRentalTotalPrice(request.RentalTotalPriceMax)
-            .WithFromRentalPrice(request.RentalPriceMin)
-            .WithToRentalPrice(request.RentalPriceMax)
-            .WithFromPriceByM2(request.PriceByM2Min)
-            .WithToPriceByM2(request.PriceByM2Max)
+            .WithMinBedrooms(request.MinBedrooms)
+            .WithMaxBedrooms(request.MaxBedrooms)
+            .WithMinToilets(request.MinToilets)
+            .WithMaxToilets(request.MaxToilets)
+            .WithMinGarages(request.MinGarages)
+            .WithMaxGarages(request.MaxGarages)
+            .WithFromArea(request.MinArea)
+            .WithToArea(request.MaxArea)
+            .WithMinBuiltArea(request.MinBuiltArea)
+            .WithMaxBuiltArea(request.MaxBuiltArea)
+            .WithMinSellingPrice(sellingPriceMin)
+            .WithToSellingPrice(sellingPriceMax)
+            .WithFromRentalPrice(rentalPriceMin)
+            .WithToRentalPrice(rentalPriceMax)
             .WithStatus(status);
 
         return builder.Build();

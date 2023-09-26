@@ -14,13 +14,13 @@ public sealed class QPageRequest
     public string PageNumber { get; init; }
 
     [SwaggerParameter(Required = false, Description = "Number of records per page")]
-    [FromQuery(Name = "page-size")]
+    [FromQuery(Name = "pageSize")]
     public string PageSize { get; init; }
 
     [SwaggerParameter(Required = false,
         Description = "Sorting criteria in the format: property(:asc|desc). " +
                       "Default sort order is ascending. " +
                       "Multiple sort criteria are supported. ")]
-    [FromQuery(Name = "order-by")]
+    [FromQuery(Name = "orderBy")]
     public List<string> OrderBy { get; init; }
 }

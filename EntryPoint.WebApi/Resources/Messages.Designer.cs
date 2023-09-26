@@ -87,7 +87,7 @@ namespace EntryPoint.WebApi.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The property &apos;{0}&apos; has a value not compatible with it&apos;s expected type..
+        ///   Looks up a localized string similar to The property &apos;{0}&apos; has a value not compatible with it&apos;s expected types..
         /// </summary>
         internal static string CommonJsonPropertyWrongType {
             get {
@@ -204,7 +204,7 @@ namespace EntryPoint.WebApi.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The initial price by m2 cannot be greater than the maximum price by m2..
+        ///   Looks up a localized string similar to The initial price per m2 cannot be greater than the maximum price per m2..
         /// </summary>
         internal static string ValidationPropertyPriceByM2IsInvalid {
             get {
@@ -285,11 +285,11 @@ namespace EntryPoint.WebApi.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The property &apos;type&apos; field is required..
+        ///   Looks up a localized string similar to The property &apos;types&apos; field is required..
         /// </summary>
-        internal static string ValidationPropertyTypeIsInvalid {
+        internal static string ValidationPropertyTypesAreInvalid {
             get {
-                return ResourceManager.GetString("ValidationPropertyTypeIsInvalid", resourceCulture);
+                return ResourceManager.GetString("ValidationPropertyTypesAreInvalid", resourceCulture);
             }
         }
     }

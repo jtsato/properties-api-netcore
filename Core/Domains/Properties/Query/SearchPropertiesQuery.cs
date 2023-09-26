@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Text;
 using FluentValidation;
 
@@ -15,14 +17,14 @@ public class SearchPropertiesQuery : SearchPropertiesQueryBase
     public SearchPropertiesQueryPrices Prices { get; init; }
 
     protected internal SearchPropertiesQuery(
-        string type,
+        List<string> types,
         SearchPropertiesQueryAdvertise advertise,
         SearchPropertiesQueryAttributes attributes,
         SearchPropertiesQueryLocation location,
         SearchPropertiesQueryPrices prices,
-        string status) : base(type, status)
+        string status) : base(types, status)
     {
-        Type = type;
+        Types = types;
         Status = status;
         Advertise = advertise;
         Attributes = attributes;
@@ -34,7 +36,7 @@ public class SearchPropertiesQuery : SearchPropertiesQueryBase
     [ExcludeFromCodeCoverage]
     private bool Equals(SearchPropertiesQuery other)
     {
-        return Equals(Type, other.Type)
+        return Types.SequenceEqual(other.Types)
                && Equals(Advertise, other.Advertise)
                && Equals(Attributes, other.Attributes)
                && Equals(Location, other.Location)
@@ -52,7 +54,7 @@ public class SearchPropertiesQuery : SearchPropertiesQueryBase
     public override int GetHashCode()
     {
         HashCode hashCode = new HashCode();
-        hashCode.Add(Type);
+        hashCode.Add(Types);
         hashCode.Add(Advertise);
         hashCode.Add(Attributes);
         hashCode.Add(Location);
@@ -65,7 +67,7 @@ public class SearchPropertiesQuery : SearchPropertiesQueryBase
     public override string ToString()
     {
         return new StringBuilder()
-            .AppendLine($"{nameof(Type)}: {Type}")
+            .AppendLine($"{nameof(Types)}: {Types}")
             .AppendLine($"{nameof(Advertise)}: {Advertise}")
             .AppendLine($"{nameof(Attributes)}: {Attributes}")
             .AppendLine($"{nameof(Location)}: {Location}")

@@ -14,11 +14,12 @@ public static class SearchPropertiesFilterBuilder
     {
         List<FilterDefinition<PropertyEntity>> filters = new List<FilterDefinition<PropertyEntity>>();
 
-        string type = query.Type.ToUpperInvariant() == NoFilter ? "" : query.Type;
+        List<string> types = query.Types.Contains(NoFilter) ? new List<string>() : query.Types;
+        FilterHelper.AddInArrayFilter(filters, document => document.Type, types);
+        
         string transaction = query.Advertise.Transaction.ToUpperInvariant() == NoFilter ? "" : query.Advertise.Transaction;
         string status = query.Status.ToUpperInvariant() == NoFilter ? "" : query.Status;
 
-        FilterHelper.AddEqualsFilter(filters, document => document.Type, type);
         FilterHelper.AddEqualsFilter(filters, document => document.Transaction, transaction);
         FilterHelper.AddGreaterOrEqualFilter(filters, document => document.NumberOfBedrooms, query.Attributes.NumberOfBedrooms.From);
         FilterHelper.AddLessOrEqualFilter(filters, document => document.NumberOfBedrooms, query.Attributes.NumberOfBedrooms.To);
@@ -35,8 +36,6 @@ public static class SearchPropertiesFilterBuilder
         FilterHelper.AddInArrayFilter(filters, document => document.District, query.Location.Districts);
         FilterHelper.AddGreaterOrEqualFilter(filters, document => document.SellingPrice, query.Prices.SellingPrice.From);
         FilterHelper.AddLessOrEqualFilter(filters, document => document.SellingPrice, query.Prices.SellingPrice.To);
-        FilterHelper.AddGreaterOrEqualFilter(filters, document => document.RentalTotalPrice, query.Prices.RentalTotalPrice.From);
-        FilterHelper.AddLessOrEqualFilter(filters, document => document.RentalTotalPrice, query.Prices.RentalTotalPrice.To);
         FilterHelper.AddGreaterOrEqualFilter(filters, document => document.RentalPrice, query.Prices.RentalPrice.From);
         FilterHelper.AddLessOrEqualFilter(filters, document => document.RentalPrice, query.Prices.RentalPrice.To);
         FilterHelper.AddEqualsFilter(filters, document => document.Status, status);

@@ -56,7 +56,7 @@ public sealed class SearchPropertiesUseCaseTest : IDisposable
         // Arrange
         SearchPropertiesQueryBuilder searchPropertiesQueryBuilder = new SearchPropertiesQueryBuilder();
         searchPropertiesQueryBuilder.WithTransaction("Rent");
-        searchPropertiesQueryBuilder.WithType("All");
+        searchPropertiesQueryBuilder.WithTypes(new List<string> {"All"});
         SearchPropertiesQuery query = searchPropertiesQueryBuilder.Build();
 
         _gateway

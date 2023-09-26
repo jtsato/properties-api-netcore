@@ -40,7 +40,7 @@
         <value>The property '{0}' is invalid.</value>
     </data>
     <data name="CommonJsonPropertyWrongType" xml:space="preserve">
-        <value>The property '{0}' has a value not compatible with it's expected type.</value>
+        <value>The property '{0}' has a value not compatible with it's expected types.</value>
     </data>
     <data name="ValidationPropertyFromCreatedAtIsInvalid" xml:space="preserve">
         <value>The initial 'created at' field is invalid.</value>
@@ -63,8 +63,8 @@
     <data name="ValidationPropertyIdIsNullOrEmpty" xml:space="preserve">
         <value>The property id is required.</value>
     </data>
-    <data name="ValidationPropertyTypeIsInvalid" xml:space="preserve">
-        <value>The property 'type' field is required.</value>
+    <data name="ValidationPropertyTypesAreInvalid" xml:space="preserve">
+        <value>The property 'types' field is required.</value>
     </data>
     <data name="ValidationPropertyTransactionIsInvalid" xml:space="preserve">
         <value>The property 'transaction' field is invalid.</value>

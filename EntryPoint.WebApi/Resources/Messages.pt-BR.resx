@@ -84,7 +84,7 @@
     <data name="ValidationPropertyTransactionIsInvalid" xml:space="preserve">
         <value>O campo 'transação' da propriedade é inválido.</value>
     </data>
-    <data name="ValidationPropertyTypeIsInvalid" xml:space="preserve">
+    <data name="ValidationPropertyTypesAreInvalid" xml:space="preserve">
         <value>O campo 'tipo' da propriedade é obrigatório.</value>
     </data>
     <data name="ValidationPropertyBuiltAreaIsInvalid" xml:space="preserve">

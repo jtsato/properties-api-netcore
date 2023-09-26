@@ -9,10 +9,10 @@ namespace EntryPoint.WebApi.Domains.Properties.Models;
 [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
 public class SearchPropertiesRequest
 {
-    [SwaggerParameter(Required = false, Description = "Type")]
-    [FromQuery(Name = "type")]
+    [SwaggerParameter(Required = false, Description = "Types")]
+    [FromQuery(Name = "types")]
     [DefaultValue("ALL")]
-    public string Type { get; init; }
+    public List<string> Types { get; init; }
 
     [SwaggerParameter(Required = false, Description = "Transaction type")]
     [FromQuery(Name = "transaction")]
@@ -20,58 +20,58 @@ public class SearchPropertiesRequest
     public string Transaction { get; init; }
 
     [SwaggerParameter(Required = false, Description = "Minimum number of bedrooms")]
-    [FromQuery(Name = "number-of-bedrooms-min")]
+    [FromQuery(Name = "minBedrooms")]
     [DefaultValue(0)]
-    public byte NumberOfBedroomsMin { get; init; }
+    public byte MinBedrooms { get; init; }
 
     [SwaggerParameter(Required = false, Description = "Maximum number of bedrooms")]
-    [FromQuery(Name = "number-of-bedrooms-max")]
+    [FromQuery(Name = "maxBedrooms")]
     [DefaultValue(255)]
-    public byte NumberOfBedroomsMax { get; init; }
+    public byte MaxBedrooms { get; init; }
 
     [SwaggerParameter(Required = false, Description = "Minimum number of toilets")]
-    [FromQuery(Name = "number-of-toilets-min")]
+    [FromQuery(Name = "minToilets")]
     [DefaultValue(0)]
-    public byte NumberOfToiletsMin { get; init; }
+    public byte MinToilets { get; init; }
 
     [SwaggerParameter(Required = false, Description = "Maximum number of toilets")]
-    [FromQuery(Name = "number-of-toilets-max")]
+    [FromQuery(Name = "maxToilets")]
     [DefaultValue(255)]
-    public byte NumberOfToiletsMax { get; init; }
+    public byte MaxToilets { get; init; }
 
     [SwaggerParameter(Required = false, Description = "Minimum number of garages")]
-    [FromQuery(Name = "number-of-garages-min")]
+    [FromQuery(Name = "minGarages")]
     [DefaultValue(0)]
-    public byte NumberOfGaragesMin { get; init; }
+    public byte MinGarages { get; init; }
 
     [SwaggerParameter(Required = false, Description = "Maximum number of garages")]
-    [FromQuery(Name = "number-of-garages-max")]
+    [FromQuery(Name = "maxGarages")]
     [DefaultValue(255)]
-    public byte NumberOfGaragesMax { get; init; }
+    public byte MaxGarages { get; init; }
 
     [SwaggerParameter(Required = false, Description = "Minimum area in square meters")]
-    [FromQuery(Name = "area-min")]
+    [FromQuery(Name = "minArea")]
     [DefaultValue(0)]
-    public int AreaMin { get; init; }
+    public int MinArea { get; init; }
 
     [SwaggerParameter(Required = false, Description = "Maximum area in square meters")]
-    [FromQuery(Name = "area-max")]
+    [FromQuery(Name = "maxArea")]
     [DefaultValue(9999)]
-    public int AreaMax { get; init; }
+    public int MaxArea { get; init; }
 
     [SwaggerParameter(Required = false, Description = "Minimum built area in square meters")]
-    [FromQuery(Name = "built-area-min")]
+    [FromQuery(Name = "minBuiltArea")]
     [DefaultValue(0)]
-    public int BuiltAreaMin { get; init; }
+    public int MinBuiltArea { get; init; }
 
     [SwaggerParameter(Required = false, Description = "Maximum built area in square meters")]
-    [FromQuery(Name = "built-area-max")]
+    [FromQuery(Name = "maxBuiltArea")]
     [DefaultValue(9999)]
-    public int BuiltAreaMax { get; init; }
+    public int MaxBuiltArea { get; init; }
 
-    [SwaggerParameter(Required = false, Description = "State")]
-    [FromQuery(Name = "state")]
-    public string State { get; init; }
+    [SwaggerParameter(Required = false, Description = "Federative unit")]
+    [FromQuery(Name = "uf")]
+    public string Uf { get; init; }
 
     [SwaggerParameter(Required = false, Description = "City")]
     [FromQuery(Name = "city")]
@@ -82,44 +82,14 @@ public class SearchPropertiesRequest
     public List<string> Districts { get; init; }
 
     [SwaggerParameter(Required = false, Description = "Minimum selling price")]
-    [FromQuery(Name = "selling-price-min")]
+    [FromQuery(Name = "minPrice")]
     [DefaultValue(0)]
-    public double SellingPriceMin { get; init; }
+    public double MinPrice { get; init; }
 
     [SwaggerParameter(Required = false, Description = "Maximum selling price")]
-    [FromQuery(Name = "selling-price-max")]
+    [FromQuery(Name = "maxPrice")]
     [DefaultValue(9999)]
-    public double SellingPriceMax { get; init; }
-
-    [SwaggerParameter(Required = false, Description = "Minimum rental price")]
-    [FromQuery(Name = "rental-price-min")]
-    [DefaultValue(0)]
-    public double RentalPriceMin { get; init; }
-
-    [SwaggerParameter(Required = false, Description = "Maximum rental price")]
-    [FromQuery(Name = "rental-price-max")]
-    [DefaultValue(9999)]
-    public double RentalPriceMax { get; init; }
-
-    [SwaggerParameter(Required = false, Description = "Minimum total rental price")]
-    [FromQuery(Name = "rental-total-price-min")]
-    [DefaultValue(0)]
-    public double RentalTotalPriceMin { get; init; }
-
-    [SwaggerParameter(Required = false, Description = "Maximum total rental price")]
-    [FromQuery(Name = "rental-total-price-max")]
-    [DefaultValue(9999)]
-    public double RentalTotalPriceMax { get; init; }
-
-    [SwaggerParameter(Required = false, Description = "Minimum price per square meter")]
-    [FromQuery(Name = "price-by-m2-min")]
-    [DefaultValue(0)]
-    public double PriceByM2Min { get; init; }
-
-    [SwaggerParameter(Required = false, Description = "Maximum price per square meter")]
-    [FromQuery(Name = "price-by-m2-max")]
-    [DefaultValue(9999)]
-    public double PriceByM2Max { get; init; }
+    public double MaxPrice { get; init; }
 
     [SwaggerParameter(Required = false, Description = "Property's status")]
     [FromQuery(Name = "status")]

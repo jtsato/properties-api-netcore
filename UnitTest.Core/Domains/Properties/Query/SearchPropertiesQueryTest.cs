@@ -17,7 +17,7 @@ public class SearchPropertiesQueryTest
         // Act
         ValidationException exception = Assert.Throws<ValidationException>(() =>
             new SearchPropertiesQuery(
-                "InvalidPropertyType",
+                new List<string> {"InvalidPropertyType"},
                 new SearchPropertiesQueryAdvertise("InvalidTransaction"),
                 new SearchPropertiesQueryAttributes
                 (
@@ -35,9 +35,7 @@ public class SearchPropertiesQueryTest
                 new SearchPropertiesQueryPrices
                 (
                     sellingPrice: Range<double>.Of(200000, 100000),
-                    rentalTotalPrice: Range<double>.Of(3000, 2000),
-                    rentalPrice: Range<double>.Of(5000, 4000),
-                    priceByM2: Range<double>.Of(200, 100)
+                    rentalPrice: Range<double>.Of(5000, 4000)
                 ),
                 "InvalidStatus"
             )
@@ -49,7 +47,7 @@ public class SearchPropertiesQueryTest
             .Select(failure => failure.ErrorMessage)
             .ToList();
 
-        Assert.Contains("ValidationPropertyTypeIsInvalid", messages);
+        Assert.Contains("ValidationPropertyTypesAreInvalid", messages);
         Assert.Contains("ValidationPropertyTransactionIsInvalid", messages);
         Assert.Contains("ValidationPropertyNumberOfBedroomsIsInvalid", messages);
         Assert.Contains("ValidationPropertyNumberOfToiletsIsInvalid", messages);
@@ -57,9 +55,7 @@ public class SearchPropertiesQueryTest
         Assert.Contains("ValidationPropertyAreaIsInvalid", messages);
         Assert.Contains("ValidationPropertyBuiltAreaIsInvalid", messages);
         Assert.Contains("ValidationPropertySellingPriceIsInvalid", messages);
-        Assert.Contains("ValidationPropertyRentalTotalPriceIsInvalid", messages);
         Assert.Contains("ValidationPropertyRentalPriceIsInvalid", messages);
-        Assert.Contains("ValidationPropertyPriceByM2IsInvalid", messages);
         Assert.Contains("ValidationPropertyStatusIsInvalid", messages);
     }
 
@@ -70,7 +66,7 @@ public class SearchPropertiesQueryTest
         // Arrange
         // Act
         SearchPropertiesQuery query = new SearchPropertiesQuery(
-            "House",
+            new List<string> {"House"},
             new SearchPropertiesQueryAdvertise("Sale"),
             new SearchPropertiesQueryAttributes
             (
@@ -88,15 +84,13 @@ public class SearchPropertiesQueryTest
             new SearchPropertiesQueryPrices
             (
                 sellingPrice: Range<double>.Of(100000, 0),
-                rentalTotalPrice: Range<double>.Of(2000, 0),
-                rentalPrice: Range<double>.Of(4000, 0),
-                priceByM2: Range<double>.Of(100, 0)
+                rentalPrice: Range<double>.Of(4000, 0)
             ),
             "Active"
         );
 
         // Assert
-        Assert.Equal("House", query.Type);
+        Assert.True(query.Types.SequenceEqual(new List<string> {"House"}));
         Assert.Equal("Sale", query.Advertise.Transaction);
         Assert.Equal(1, query.Attributes.NumberOfBedrooms.From);
         Assert.Equal(0, query.Attributes.NumberOfBedrooms.To);
@@ -115,12 +109,8 @@ public class SearchPropertiesQueryTest
         Assert.Equal("Vila Mariana", query.Location.Districts[1]);
         Assert.Equal(100000, query.Prices.SellingPrice.From);
         Assert.Equal(0, query.Prices.SellingPrice.To);
-        Assert.Equal(2000, query.Prices.RentalTotalPrice.From);
-        Assert.Equal(0, query.Prices.RentalTotalPrice.To);
         Assert.Equal(4000, query.Prices.RentalPrice.From);
         Assert.Equal(0, query.Prices.RentalPrice.To);
-        Assert.Equal(100, query.Prices.PriceByM2.From);
-        Assert.Equal(0, query.Prices.PriceByM2.To);
         Assert.Equal("Active", query.Status);
     }
 
@@ -131,7 +121,7 @@ public class SearchPropertiesQueryTest
         // Arrange
         // Act
         SearchPropertiesQuery query = new SearchPropertiesQuery(
-            "House",
+            new List<string> {"House"},
             new SearchPropertiesQueryAdvertise("Sale"),
             new SearchPropertiesQueryAttributes
             (
@@ -149,15 +139,13 @@ public class SearchPropertiesQueryTest
             new SearchPropertiesQueryPrices
             (
                 sellingPrice: Range<double>.Of(0, 100000),
-                rentalTotalPrice: Range<double>.Of(0, 3000),
-                rentalPrice: Range<double>.Of(0, 5000),
-                priceByM2: Range<double>.Of(0, 200)
+                rentalPrice: Range<double>.Of(0, 5000)
             ),
             "Active"
         );
 
         // Assert
-        Assert.Equal("House", query.Type);
+        Assert.Equal(new List<string> {"House"}, query.Types);
         Assert.Equal("Sale", query.Advertise.Transaction);
         Assert.Equal(0, query.Attributes.NumberOfBedrooms.From);
         Assert.Equal(2, query.Attributes.NumberOfBedrooms.To);
@@ -176,12 +164,8 @@ public class SearchPropertiesQueryTest
         Assert.Equal("Vila Mariana", query.Location.Districts[1]);
         Assert.Equal(0, query.Prices.SellingPrice.From);
         Assert.Equal(100000, query.Prices.SellingPrice.To);
-        Assert.Equal(0, query.Prices.RentalTotalPrice.From);
-        Assert.Equal(3000, query.Prices.RentalTotalPrice.To);
         Assert.Equal(0, query.Prices.RentalPrice.From);
         Assert.Equal(5000, query.Prices.RentalPrice.To);
-        Assert.Equal(0, query.Prices.PriceByM2.From);
-        Assert.Equal(200, query.Prices.PriceByM2.To);
         Assert.Equal("Active", query.Status);
     }
 }

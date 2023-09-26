@@ -1,39 +1,37 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Core.Commons.Models;
+using Core.Domains.Properties.Models;
 
 namespace Core.Domains.Properties.Query;
 
 public class SearchPropertiesQueryBuilder
 {
-    private string _type;
     private string _transaction;
-    private byte _fromNumberOfBedrooms;
-    private byte _toNumberOfBedrooms;
-    private byte _fromNumberOfToilets;
-    private byte _toNumberOfToilets;
-    private byte _fromNumberOfGarages;
-    private byte _toNumberOfGarages;
+    private byte _minBedrooms;
+    private byte _maxBedrooms;
+    private byte _minToilets;
+    private byte _maxToilets;
+    private byte _minGarages;
+    private byte _maxGarages;
     private int _fromArea;
     private int _toArea;
-    private int _fromBuiltArea;
-    private int _toBuiltArea;
+    private int _minBuiltArea;
+    private int _maxBuiltArea;
     private string _state;
     private string _city;
-    private double _fromSellingPrice;
+    private double _minSellingPrice;
     private double _toSellingPrice;
-    private double _fromRentalTotalPrice;
-    private double _toRentalTotalPrice;
     private double _fromRentalPrice;
     private double _toRentalPrice;
-    private double _fromPriceByM2;
-    private double _toPriceByM2;
     private string _status;
 
+    private List<string> _types = new List<string>();
     private List<string> _districts = new List<string>();
 
-    public SearchPropertiesQueryBuilder WithType(string type)
+    public SearchPropertiesQueryBuilder WithTypes(List<string> types)
     {
-        _type = type;
+        _types = types;
         return this;
     }
 
@@ -43,39 +41,39 @@ public class SearchPropertiesQueryBuilder
         return this;
     }
 
-    public SearchPropertiesQueryBuilder WithFromNumberOfBedrooms(byte fromNumberOfBedrooms)
+    public SearchPropertiesQueryBuilder WithMinBedrooms(byte minBedrooms)
     {
-        _fromNumberOfBedrooms = fromNumberOfBedrooms;
+        _minBedrooms = minBedrooms;
         return this;
     }
 
-    public SearchPropertiesQueryBuilder WithToNumberOfBedrooms(byte toNumberOfBedrooms)
+    public SearchPropertiesQueryBuilder WithMaxBedrooms(byte maxBedrooms)
     {
-        _toNumberOfBedrooms = toNumberOfBedrooms;
+        _maxBedrooms = maxBedrooms;
         return this;
     }
 
-    public SearchPropertiesQueryBuilder WithFromNumberOfToilets(byte fromNumberOfToilets)
+    public SearchPropertiesQueryBuilder WithMinToilets(byte minToilets)
     {
-        _fromNumberOfToilets = fromNumberOfToilets;
+        _minToilets = minToilets;
         return this;
     }
 
-    public SearchPropertiesQueryBuilder WithToNumberOfToilets(byte toNumberOfToilets)
+    public SearchPropertiesQueryBuilder WithMaxToilets(byte maxToilets)
     {
-        _toNumberOfToilets = toNumberOfToilets;
+        _maxToilets = maxToilets;
         return this;
     }
 
-    public SearchPropertiesQueryBuilder WithFromNumberOfGarages(byte fromNumberOfGarages)
+    public SearchPropertiesQueryBuilder WithMinGarages(byte minGarages)
     {
-        _fromNumberOfGarages = fromNumberOfGarages;
+        _minGarages = minGarages;
         return this;
     }
 
-    public SearchPropertiesQueryBuilder WithToNumberOfGarages(byte toNumberOfGarages)
+    public SearchPropertiesQueryBuilder WithMaxGarages(byte maxGarages)
     {
-        _toNumberOfGarages = toNumberOfGarages;
+        _maxGarages = maxGarages;
         return this;
     }
 
@@ -109,39 +107,27 @@ public class SearchPropertiesQueryBuilder
         return this;
     }
 
-    public SearchPropertiesQueryBuilder WithFromBuiltArea(int fromBuiltArea)
+    public SearchPropertiesQueryBuilder WithMinBuiltArea(int minBuiltArea)
     {
-        _fromBuiltArea = fromBuiltArea;
+        _minBuiltArea = minBuiltArea;
         return this;
     }
 
-    public SearchPropertiesQueryBuilder WithToBuiltArea(int toBuiltArea)
+    public SearchPropertiesQueryBuilder WithMaxBuiltArea(int maxBuiltArea)
     {
-        _toBuiltArea = toBuiltArea;
+        _maxBuiltArea = maxBuiltArea;
         return this;
     }
 
-    public SearchPropertiesQueryBuilder WithFromSellingPrice(double fromSellingPrice)
+    public SearchPropertiesQueryBuilder WithMinSellingPrice(double minSellingPrice)
     {
-        _fromSellingPrice = fromSellingPrice;
+        _minSellingPrice = minSellingPrice;
         return this;
     }
 
     public SearchPropertiesQueryBuilder WithToSellingPrice(double toSellingPrice)
     {
         _toSellingPrice = toSellingPrice;
-        return this;
-    }
-
-    public SearchPropertiesQueryBuilder WithFromRentalTotalPrice(double fromRentalTotalPrice)
-    {
-        _fromRentalTotalPrice = fromRentalTotalPrice;
-        return this;
-    }
-
-    public SearchPropertiesQueryBuilder WithToRentalTotalPrice(double toRentalTotalPrice)
-    {
-        _toRentalTotalPrice = toRentalTotalPrice;
         return this;
     }
 
@@ -157,18 +143,6 @@ public class SearchPropertiesQueryBuilder
         return this;
     }
 
-    public SearchPropertiesQueryBuilder WithFromPriceByM2(double fromPriceByM2)
-    {
-        _fromPriceByM2 = fromPriceByM2;
-        return this;
-    }
-
-    public SearchPropertiesQueryBuilder WithToPriceByM2(double toPriceByM2)
-    {
-        _toPriceByM2 = toPriceByM2;
-        return this;
-    }
-
     public SearchPropertiesQueryBuilder WithStatus(string status)
     {
         _status = status;
@@ -177,7 +151,10 @@ public class SearchPropertiesQueryBuilder
 
     public SearchPropertiesQuery Build()
     {
-        string propertyType = string.IsNullOrWhiteSpace(_type) ? "ALL" : _type.ToUpper();
+        List<string> types = SanitizeTypes(_types);
+
+        List<string> propertyTypes = types.Any() ? types : new List<string> {PropertyType.All.Name};
+
         string status = string.IsNullOrWhiteSpace(_status) ? "ALL" : _status.ToUpper();
         string transaction = string.IsNullOrWhiteSpace(_transaction) ? "ALL" : _transaction.ToUpper();
 
@@ -186,28 +163,37 @@ public class SearchPropertiesQueryBuilder
 
         SearchPropertiesQueryAttributes queryAttributes = new SearchPropertiesQueryAttributes
         (
-            numberOfBedrooms: Range<byte>.Of(_fromNumberOfBedrooms, _toNumberOfBedrooms),
-            numberOfToilets: Range<byte>.Of(_fromNumberOfToilets, _toNumberOfToilets),
-            numberOfGarages: Range<byte>.Of(_fromNumberOfGarages, _toNumberOfGarages),
+            numberOfBedrooms: Range<byte>.Of(_minBedrooms, _maxBedrooms),
+            numberOfToilets: Range<byte>.Of(_minToilets, _maxToilets),
+            numberOfGarages: Range<byte>.Of(_minGarages, _maxGarages),
             area: Range<int>.Of(_fromArea, _toArea),
-            builtArea: Range<int>.Of(_fromBuiltArea, _toBuiltArea)
+            builtArea: Range<int>.Of(_minBuiltArea, _maxBuiltArea)
         );
 
         SearchPropertiesQueryPrices queryPrices = new SearchPropertiesQueryPrices
         (
-            sellingPrice: Range<double>.Of(_fromSellingPrice, _toSellingPrice),
-            rentalTotalPrice: Range<double>.Of(_fromRentalTotalPrice, _toRentalTotalPrice),
-            rentalPrice: Range<double>.Of(_fromRentalPrice, _toRentalPrice),
-            priceByM2: Range<double>.Of(_fromPriceByM2, _toPriceByM2)
+            sellingPrice: Range<double>.Of(_minSellingPrice, _toSellingPrice),
+            rentalPrice: Range<double>.Of(_fromRentalPrice, _toRentalPrice)
         );
-        
+
         return new SearchPropertiesQuery(
-            type: propertyType,
+            types: propertyTypes,
             advertise: queryAdvertise,
             attributes: queryAttributes,
             location: queryLocation,
             prices: queryPrices,
             status: status
         );
+    }
+
+    private static List<string> SanitizeTypes(IEnumerable<string> types)
+    {
+        List<string> sanitizeTypes = types?
+            .Select(PropertyType.GetByName)
+            .Where(optional => optional.HasValue())
+            .Select(optional => optional.GetValue().Name)
+            .ToList();
+
+        return sanitizeTypes?.Any() == true ? sanitizeTypes : new List<string> {PropertyType.All.Name};
     }
 }

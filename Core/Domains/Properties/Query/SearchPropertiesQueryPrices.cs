@@ -8,29 +8,22 @@ namespace Core.Domains.Properties.Query;
 public class SearchPropertiesQueryPrices
 {
     public Range<double> SellingPrice { get; init; }
-    public Range<double> RentalTotalPrice { get; init; }
     public Range<double> RentalPrice { get; init; }
-    public Range<double> PriceByM2 { get; init; }
-    
-    protected internal SearchPropertiesQueryPrices(
+
+    protected internal SearchPropertiesQueryPrices
+    (
         Range<double> sellingPrice,
-        Range<double> rentalTotalPrice,
-        Range<double> rentalPrice,
-        Range<double> priceByM2)
+        Range<double> rentalPrice
+    )
     {
         SellingPrice = sellingPrice;
-        RentalTotalPrice = rentalTotalPrice;
         RentalPrice = rentalPrice;
-        PriceByM2 = priceByM2;
     }
 
     [ExcludeFromCodeCoverage]
     private bool Equals(SearchPropertiesQueryPrices other)
     {
-        return SellingPrice.Equals(other.SellingPrice)
-               && RentalTotalPrice.Equals(other.RentalTotalPrice)
-               && RentalPrice.Equals(other.RentalPrice)
-               && PriceByM2.Equals(other.PriceByM2);
+        return SellingPrice.Equals(other.SellingPrice) && RentalPrice.Equals(other.RentalPrice);
     }
 
     [ExcludeFromCodeCoverage]
@@ -42,7 +35,7 @@ public class SearchPropertiesQueryPrices
     [ExcludeFromCodeCoverage]
     public override int GetHashCode()
     {
-        return HashCode.Combine(SellingPrice, RentalTotalPrice, RentalPrice, PriceByM2);
+        return HashCode.Combine(SellingPrice, RentalPrice);
     }
 
     [ExcludeFromCodeCoverage]
@@ -50,9 +43,7 @@ public class SearchPropertiesQueryPrices
     {
         return new StringBuilder()
             .AppendLine($"{nameof(SellingPrice)}: {SellingPrice}")
-            .AppendLine($"{nameof(RentalTotalPrice)}: {RentalTotalPrice}")
             .AppendLine($"{nameof(RentalPrice)}: {RentalPrice}")
-            .Append($"{nameof(PriceByM2)}: {PriceByM2}")
             .ToString();
     }
 }

@@ -8,10 +8,10 @@ internal sealed class SearchPropertiesQueryValidator : AbstractValidator<SearchP
 {
     public SearchPropertiesQueryValidator()
     {
-        RuleFor(query => query.Type)
+        RuleFor(query => query.Types)
             .Cascade(CascadeMode.Stop)
-            .Must(ArgumentChecker.IsValidEnumOf<PropertyType>)
-            .WithMessage("ValidationPropertyTypeIsInvalid");
+            .Must(types => types.TrueForAll(ArgumentChecker.IsValidEnumOf<PropertyType>))
+            .WithMessage("ValidationPropertyTypesAreInvalid");
 
         RuleFor(query => query.Advertise.Transaction)
             .Cascade(CascadeMode.Stop)
@@ -48,20 +48,10 @@ internal sealed class SearchPropertiesQueryValidator : AbstractValidator<SearchP
             .Must(sellingPrice => sellingPrice.From <= sellingPrice.To || sellingPrice.To == 0)
             .WithMessage("ValidationPropertySellingPriceIsInvalid");
         
-        RuleFor(query => query.Prices.RentalTotalPrice)
-            .Cascade(CascadeMode.Stop)
-            .Must(rentalTotalPrice => rentalTotalPrice.From <= rentalTotalPrice.To || rentalTotalPrice.To == 0)
-            .WithMessage("ValidationPropertyRentalTotalPriceIsInvalid");
-        
         RuleFor(query => query.Prices.RentalPrice)
             .Cascade(CascadeMode.Stop)
             .Must(rentalPrice => rentalPrice.From <= rentalPrice.To || rentalPrice.To == 0)
             .WithMessage("ValidationPropertyRentalPriceIsInvalid");
-        
-        RuleFor(query => query.Prices.PriceByM2)
-            .Cascade(CascadeMode.Stop)
-            .Must(priceByM2 => priceByM2.From <= priceByM2.To || priceByM2.To == 0)
-            .WithMessage("ValidationPropertyPriceByM2IsInvalid");
         
         RuleFor(query => query.Status)
             .Cascade(CascadeMode.Stop)

@@ -1,13 +1,15 @@
-﻿namespace Core.Domains.Properties.Query;
+﻿using System.Collections.Generic;
+
+namespace Core.Domains.Properties.Query;
 
 public class SearchPropertiesQueryBase
 {
-    public string Type { get; init; }
+    public List<string> Types { get; init; }
     public string Status { get; init; }
 
-    protected SearchPropertiesQueryBase(string type, string status)
+    protected SearchPropertiesQueryBase(List<string> types, string status)
     {
-        Type = type;
+        Types = types;
         Status = status;
     }
 }

@@ -7,13 +7,13 @@ namespace Core.Domains.Properties.Query;
 
 public class SearchPropertiesQueryPrices
 {
-    public Range<double> SellingPrice { get; init; }
-    public Range<double> RentalPrice { get; init; }
+    public Range<float> SellingPrice { get; init; }
+    public Range<float> RentalPrice { get; init; }
 
     protected internal SearchPropertiesQueryPrices
     (
-        Range<double> sellingPrice,
-        Range<double> rentalPrice
+        Range<float> sellingPrice,
+        Range<float> rentalPrice
     )
     {
         SellingPrice = sellingPrice;

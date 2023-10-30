@@ -1,12 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
 using Core.Commons;
+using UnitTest.Core.Commons.Models;
 using Xunit;
 
 namespace UnitTest.Core.Commons;
 
 public sealed class ArgumentCheckerTest
 {
+    [Trait("Category", "Core Business tests")]
+    [Theory(DisplayName = "Successful to validate an string parameter as percentage")]
+    [InlineData("100", true)]
+    [InlineData("0", true)]
+    [InlineData("101", false)]
+    [InlineData("abc", false)]
+    [InlineData(",.%$#@", false)]
+    [InlineData("", true)]
+    [InlineData(null, true)]
+    public void SuccessfulToValidateAnStringParameterAsPercentage(string input, bool expected)
+    {
+        Assert.Equal(expected, ArgumentChecker.IsPercentage(input));
+    }
+    
+    [Trait("Category", "Core Business tests")]
+    [Theory(DisplayName = "Successful to validate an string parameter as byte")]
+    [InlineData("123", true)]
+    [InlineData("abc123", false)]
+    [InlineData(",.%$#@", false)]
+    [InlineData("", true)]
+    [InlineData(null, true)]
+    [InlineData("256", false)]
+    public void SuccessfulToValidateAnStringParameterAsByte(string input, bool expected)
+    {
+        Assert.Equal(expected, ArgumentChecker.IsByte(input));
+    }
+    
     [Trait("Category", "Core Business tests")]
     [Theory(DisplayName = "Successful to validate an string parameter as integer")]
     [InlineData("123", true)]
@@ -33,6 +61,36 @@ public sealed class ArgumentCheckerTest
     public void SuccessfulToValidateAnStringParameterAsLong(string input, bool expected)
     {
         Assert.Equal(expected, ArgumentChecker.IsLong(input));
+    }
+    
+    [Trait("Category", "Core Business tests")]
+    [Theory(DisplayName = "Successful to validate an string parameter as float")]
+    [InlineData("123", true)]
+    [InlineData("123.45", true)]
+    [InlineData("abc", false)]
+    [InlineData("abc123", false)]
+    [InlineData(",.%$#@", false)]
+    [InlineData("", true)]
+    [InlineData(null, true)]
+    [InlineData("NaN", true)]
+    public void SuccessfulToValidateAnStringParameterAsFloat(string input, bool expected)
+    {
+        Assert.Equal(expected, ArgumentChecker.IsFloat(input));
+    }
+    
+    [Trait("Category", "Core Business tests")]
+    [Theory(DisplayName = "Successful to validate an string parameter as double")]
+    [InlineData("123", true)]
+    [InlineData("123.45", true)]
+    [InlineData("abc", false)]
+    [InlineData("abc123", false)]
+    [InlineData(",.%$#@", false)]
+    [InlineData("", true)]
+    [InlineData(null, true)]
+    [InlineData("NaN", true)]
+    public void SuccessfulToValidateAnStringParameterAsDouble(string input, bool expected)
+    {
+        Assert.Equal(expected, ArgumentChecker.IsDouble(input));
     }
 
     [Trait("Category", "Core Business tests")]

@@ -20,10 +20,10 @@ public class SearchPropertiesQueryBuilder
     private int _maxBuiltArea;
     private string _state;
     private string _city;
-    private double _minSellingPrice;
-    private double _toSellingPrice;
-    private double _fromRentalPrice;
-    private double _toRentalPrice;
+    private float _minSellingPrice;
+    private float _toSellingPrice;
+    private float _fromRentalPrice;
+    private float _toRentalPrice;
     private string _status;
 
     private List<string> _types = new List<string>();
@@ -119,25 +119,25 @@ public class SearchPropertiesQueryBuilder
         return this;
     }
 
-    public SearchPropertiesQueryBuilder WithMinSellingPrice(double minSellingPrice)
+    public SearchPropertiesQueryBuilder WithMinSellingPrice(float minSellingPrice)
     {
         _minSellingPrice = minSellingPrice;
         return this;
     }
 
-    public SearchPropertiesQueryBuilder WithToSellingPrice(double toSellingPrice)
+    public SearchPropertiesQueryBuilder WithToSellingPrice(float toSellingPrice)
     {
         _toSellingPrice = toSellingPrice;
         return this;
     }
 
-    public SearchPropertiesQueryBuilder WithFromRentalPrice(double fromRentalPrice)
+    public SearchPropertiesQueryBuilder WithFromRentalPrice(float fromRentalPrice)
     {
         _fromRentalPrice = fromRentalPrice;
         return this;
     }
 
-    public SearchPropertiesQueryBuilder WithToRentalPrice(double toRentalPrice)
+    public SearchPropertiesQueryBuilder WithToRentalPrice(float toRentalPrice)
     {
         _toRentalPrice = toRentalPrice;
         return this;
@@ -172,8 +172,8 @@ public class SearchPropertiesQueryBuilder
 
         SearchPropertiesQueryPrices queryPrices = new SearchPropertiesQueryPrices
         (
-            sellingPrice: Range<double>.Of(_minSellingPrice, _toSellingPrice),
-            rentalPrice: Range<double>.Of(_fromRentalPrice, _toRentalPrice)
+            sellingPrice: Range<float>.Of(_minSellingPrice, _toSellingPrice),
+            rentalPrice: Range<float>.Of(_fromRentalPrice, _toRentalPrice)
         );
 
         return new SearchPropertiesQuery(

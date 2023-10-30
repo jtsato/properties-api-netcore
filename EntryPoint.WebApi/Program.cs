@@ -173,7 +173,7 @@ public static class Program
                                 | HttpLoggingFields.ResponseBody;
 
         options.RequestHeaders.Add("Accept-Language");
-        options.ResponseHeaders.Add("Content-Types");
+        options.ResponseHeaders.Add("Content-Type");
         options.RequestHeaders.Add("X-Correlation-Id");
         options.ResponseHeaders.Add("X-Correlation-Id");
         options.MediaTypeOptions.AddText("application/json");

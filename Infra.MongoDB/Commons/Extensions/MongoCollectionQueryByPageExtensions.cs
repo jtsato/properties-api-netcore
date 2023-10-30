@@ -37,7 +37,7 @@ public static class MongoCollectionQueryByPageExtensions
 
         long totalOfElements = GetTotalOfElements(aggregation);
 
-        int totalPages = (int) Math.Ceiling((double) totalOfElements / pageSize);
+        int totalPages = (int) Math.Ceiling((float) totalOfElements / pageSize);
 
         IReadOnlyList<TDocument> content = aggregation.FirstOrDefault()!
             .Facets.FirstOrDefault(element => element.Name == "content")!

@@ -9,8 +9,6 @@ namespace IntegrationTest.Infra.MongoDB.Commons;
 [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
 public sealed class Context : IDisposable
 {
-    private readonly DatabaseKeeper _databaseKeeper;
-
     public ServiceResolver ServiceResolver { get; private set; }
 
     private bool _disposed;
@@ -24,8 +22,8 @@ public sealed class Context : IDisposable
         DockerKeeper dockerKeeper = new DockerKeeper(configuration);
         dockerKeeper.DockerComposeUp();
 
-        _databaseKeeper = new DatabaseKeeper(configuration);
-        _databaseKeeper.ClearCollectionsData();
+        DatabaseKeeper databaseKeeper = new DatabaseKeeper(configuration);
+        databaseKeeper.ClearCollectionsData();
 
         ServiceResolver = new ServiceResolver(configuration);
     }

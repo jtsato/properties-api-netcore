@@ -37,8 +37,8 @@ public sealed class FieldError
     {
         return new StringBuilder()
             .AppendLine($"{nameof(PropertyName)}: {PropertyName}")
-            .AppendLine($"{nameof(ErrorMessage)}: {ErrorMessage}")
-            .AppendLine($"{nameof(AttemptedValue)}: {AttemptedValue}")
+            .Append($"{nameof(ErrorMessage)}: {ErrorMessage} ")
+            .Append($"{nameof(AttemptedValue)}: {AttemptedValue} ")
             .ToString();
     }
 }

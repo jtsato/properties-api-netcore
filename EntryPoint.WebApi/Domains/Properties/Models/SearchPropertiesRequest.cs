@@ -84,12 +84,12 @@ public class SearchPropertiesRequest
     [SwaggerParameter(Required = false, Description = "Minimum selling price")]
     [FromQuery(Name = "minPrice")]
     [DefaultValue(0)]
-    public double MinPrice { get; init; }
+    public float MinPrice { get; init; }
 
     [SwaggerParameter(Required = false, Description = "Maximum selling price")]
     [FromQuery(Name = "maxPrice")]
     [DefaultValue(9999)]
-    public double MaxPrice { get; init; }
+    public float MaxPrice { get; init; }
 
     [SwaggerParameter(Required = false, Description = "Property's status")]
     [FromQuery(Name = "status")]

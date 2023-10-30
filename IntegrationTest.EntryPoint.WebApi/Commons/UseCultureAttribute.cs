@@ -4,8 +4,8 @@ using System.Reflection;
 using System.Threading;
 using Xunit.Sdk;
 
-namespace IntegrationTest.EntryPoint.WebApi.Commons
-{
+namespace IntegrationTest.EntryPoint.WebApi.Commons;
+
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class UseCultureAttribute : BeforeAfterTestAttribute
     {
@@ -47,6 +47,5 @@ namespace IntegrationTest.EntryPoint.WebApi.Commons
             if (string.IsNullOrWhiteSpace(uiCulture)) return;
             CultureInfo.CurrentUICulture = new CultureInfo(uiCulture, false);
             CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo(uiCulture, false);
-        }
     }
 }

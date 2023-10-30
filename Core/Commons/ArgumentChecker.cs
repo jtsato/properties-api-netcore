@@ -9,6 +9,16 @@ namespace Core.Commons;
 
 public static class ArgumentChecker
 {
+    public static bool IsPercentage(string input)
+    {
+        return string.IsNullOrEmpty(input) || byte.TryParse(input, out byte percentage) && percentage <= 100;
+    }
+    
+    public static bool IsByte(string input)
+    {
+        return string.IsNullOrEmpty(input) || byte.TryParse(input, out _);
+    }
+    
     public static bool IsInteger(string input)
     {
         return string.IsNullOrEmpty(input) || int.TryParse(input, out _);
@@ -17,6 +27,16 @@ public static class ArgumentChecker
     public static bool IsLong(string input)
     {
         return string.IsNullOrEmpty(input) || long.TryParse(input, out _);
+    }
+
+    public static bool IsFloat(string input)
+    {
+        return string.IsNullOrEmpty(input) || float.TryParse(input, out _);
+    }
+
+    public static bool IsDouble(string input)
+    {
+        return string.IsNullOrEmpty(input) || double.TryParse(input, out _);
     }
 
     public static bool IsValidUri(string link)

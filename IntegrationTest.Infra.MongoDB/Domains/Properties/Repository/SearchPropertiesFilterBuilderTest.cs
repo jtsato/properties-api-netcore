@@ -43,8 +43,8 @@ public sealed class SearchPropertiesFilterBuilderTest
                 prices:
                 new SearchPropertiesQueryPrices
                 (
-                    sellingPrice: Range<double>.Of(from: 0, to: 0),
-                    rentalPrice: Range<double>.Of(from: 0, to: 0)
+                    sellingPrice: Range<float>.Of(from: 0, to: 0),
+                    rentalPrice: Range<float>.Of(from: 0, to: 0)
                 ),
                 status: "ALL"
             );
@@ -80,8 +80,8 @@ public sealed class SearchPropertiesFilterBuilderTest
                 prices:
                 new SearchPropertiesQueryPrices
                 (
-                    sellingPrice: Range<double>.Of(from: 1, to: 2),
-                    rentalPrice: Range<double>.Of(from: 1, to: 2)
+                    sellingPrice: Range<float>.Of(from: 1, to: 2),
+                    rentalPrice: Range<float>.Of(from: 1, to: 2)
                 ),
                 status: "ACTIVE"
             );

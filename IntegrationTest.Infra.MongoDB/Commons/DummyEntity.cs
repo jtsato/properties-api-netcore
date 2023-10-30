@@ -54,10 +54,10 @@ public sealed class DummyEntity : Entity
     {
         return new StringBuilder()
             .AppendLine($"Id: {Id}")
-            .AppendLine($"Name: {Name}")
-            .AppendLine($"Surname: {Surname}")
-            .AppendLine($"BirthDate: {BirthDate}")
-            .AppendLine($"Age: {Age}")
+            .Append($"Name: {Name} ")
+            .Append($"Surname: {Surname} ")
+            .Append($"BirthDate: {BirthDate} ")
+            .Append($"Age: {Age} ")
             .ToString();
     }
 }

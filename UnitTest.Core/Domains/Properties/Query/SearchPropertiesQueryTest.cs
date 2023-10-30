@@ -34,8 +34,8 @@ public class SearchPropertiesQueryTest
                 ),
                 new SearchPropertiesQueryPrices
                 (
-                    sellingPrice: Range<double>.Of(200000, 100000),
-                    rentalPrice: Range<double>.Of(5000, 4000)
+                    sellingPrice: Range<float>.Of(200000, 100000),
+                    rentalPrice: Range<float>.Of(5000, 4000)
                 ),
                 "InvalidStatus"
             )
@@ -83,8 +83,8 @@ public class SearchPropertiesQueryTest
             ),
             new SearchPropertiesQueryPrices
             (
-                sellingPrice: Range<double>.Of(100000, 0),
-                rentalPrice: Range<double>.Of(4000, 0)
+                sellingPrice: Range<float>.Of(100000, 0),
+                rentalPrice: Range<float>.Of(4000, 0)
             ),
             "Active"
         );
@@ -138,8 +138,8 @@ public class SearchPropertiesQueryTest
             ),
             new SearchPropertiesQueryPrices
             (
-                sellingPrice: Range<double>.Of(0, 100000),
-                rentalPrice: Range<double>.Of(0, 5000)
+                sellingPrice: Range<float>.Of(0, 100000),
+                rentalPrice: Range<float>.Of(0, 5000)
             ),
             "Active"
         );

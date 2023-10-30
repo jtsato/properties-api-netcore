@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Core.Commons;
+using UnitTest.Core.Commons.Models;
 using Xunit;
 
 namespace UnitTest.Core.Commons;
@@ -62,7 +63,7 @@ public sealed class EnumerationTest
         // Assert
         Assert.Equal(expected, color1.Equals(color2));
         Assert.Equal(expected, color1.GetHashCode().Equals(color2.GetHashCode()));
-        Assert.Equal(expected, color1.ToString().Equals(color2.ToString()));
+        Assert.Equal(expected, color1.ToString()!.Equals(color2.ToString()));
 
         Assert.Equal(expected, color1.Is(color2));
         Assert.Equal(!expected, color1.IsNot(color2));
@@ -90,18 +91,5 @@ public sealed class EnumerationTest
 
         // Assert
         Assert.False(optional.HasValue());
-    }
-}
-
-public sealed class Color : Enumeration<Color>
-{
-    public static readonly Color Blue = new Color(1, "BLUE");
-    public static readonly Color Green = new Color(2, "GREEN");
-    public static readonly Color Yellow = new Color(3, "YELLOW");
-    public static readonly Color Red = new Color(4, "RED");
-    public static readonly Color Black = new Color(5, "BLACK");
-
-    private Color(int id, string name) : base(id, name)
-    {
     }
 }

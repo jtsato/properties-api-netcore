@@ -68,10 +68,10 @@ public sealed class SearchPropertiesController : ISearchPropertiesController
         bool isSale = transaction.Is(Transaction.All) || transaction.Is(Transaction.Sale);
         bool isRent = transaction.Is(Transaction.All) || transaction.Is(Transaction.Rent);
 
-        double sellingPriceMin = isSale ? request.MinPrice : 0;
-        double sellingPriceMax = isSale ? request.MaxPrice : DefaultMaxPrice;
-        double rentalPriceMin = isRent ? request.MinPrice : 0;
-        double rentalPriceMax = isRent ? request.MaxPrice : DefaultMaxPrice;
+        float sellingPriceMin = isSale ? request.MinPrice : 0;
+        float sellingPriceMax = isSale ? request.MaxPrice : DefaultMaxPrice;
+        float rentalPriceMin = isRent ? request.MinPrice : 0;
+        float rentalPriceMax = isRent ? request.MaxPrice : DefaultMaxPrice;
 
         List<string> districts = request.Districts?
             .Where(element => !string.IsNullOrEmpty(element))

@@ -147,7 +147,7 @@ jobs:
           RELEASE_VERSION: ${{ env.RELEASE_VERSION }}
         run: |
           echo "Updating Production Environment to ${{ env.RELEASE_VERSION }}"
-          sed -i 's/<!-- ppt-prd-start -->.*<!-- ppt-prd-end -->/<!-- ppt-prd-start -->${{ env.RELEASE_VERSION }}<!-- ppt-prd-end -->/g' README.md
+          sed -i 's/<!-- prp-prd-start -->.*<!-- prp-prd-end -->/<!-- prp-prd-start -->${{ env.RELEASE_VERSION }}<!-- prp-prd-end -->/g' README.md
 
       - name: Check for changes
         run: |

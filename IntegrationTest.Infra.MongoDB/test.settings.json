@@ -1,7 +1,7 @@
 {
   "DOCKER_COMPOSE_FILE": "docker-compose.yml",
-  "MONGODB_URL": "mongodb://xunit:xunit@localhost:27018/duckhome-mongodb",
-  "MONGODB_DATABASE": "duckhome-mongodb",
+  "MONGODB_URL": "mongodb://xunit:xunit@localhost:27018/properties-mongodb",
+  "MONGODB_DATABASE": "properties-mongodb",
   "PROPERTY_COLLECTION_NAME": "properties",
   "PROPERTY_SEQUENCE_COLLECTION_NAME": "properties_sequences"
 }

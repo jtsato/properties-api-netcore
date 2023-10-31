@@ -21,8 +21,8 @@ services:
       TZ: America/Sao_Paulo
       ASPNETCORE_ENVIRONMENT: "Development"
       ASPNETCORE_URLS: "http://+:80"
-      MONGODB_URL: "mongodb://container:container@local.webapi.mongodb:27017/duckhome-mongodb"
-      MONGODB_DATABASE_NAME: "duckhome-mongodb"
+      MONGODB_URL: "mongodb://container:container@local.webapi.mongodb:27017/properties-mongodb"
+      MONGODB_DATABASE_NAME: "properties-mongodb"
       PROPERTY_COLLECTION_NAME: "properties"
       PROPERTY_SEQUENCE_COLLECTION_NAME: "properties_sequences"
     depends_on:

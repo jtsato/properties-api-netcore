@@ -1,6 +1,6 @@
 ﻿print('Start #################################################################');
 
-db = new Mongo().getDB("duckhome-mongodb");
+db = new Mongo().getDB("properties-mongodb");
 
 db.createUser({
     user: 'xunit',
@@ -8,7 +8,7 @@ db.createUser({
     roles: [
         {
             role: 'readWrite',
-            db: 'duckhome-mongodb',
+            db: 'properties-mongodb',
         },
     ],
 });

@@ -32,6 +32,7 @@ public sealed class SearchPropertiesUseCaseTest : IDisposable
 
     private bool _disposed;
 
+    [ExcludeFromCodeCoverage]
     ~SearchPropertiesUseCaseTest() => Dispose(false);
 
     public void Dispose()

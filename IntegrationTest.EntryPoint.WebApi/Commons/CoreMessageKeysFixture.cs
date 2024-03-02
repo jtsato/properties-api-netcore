@@ -11,18 +11,14 @@ namespace IntegrationTest.EntryPoint.WebApi.Commons;
 public sealed class CoreMessageKeysFixture : IDisposable
 {
     private const string CurrentProjectName = "IntegrationTest.EntryPoint.WebApi";
-    private readonly string _projectRootFolder;
+    private readonly string _projectRootFolder = Directory.GetCurrentDirectory().SubstringBefore(CurrentProjectName);
 
     private List<string> _messageKeys;
 
     private bool _disposed;
 
+    [ExcludeFromCodeCoverage]
     ~CoreMessageKeysFixture() => Dispose(false);
-
-    public CoreMessageKeysFixture()
-    {
-        _projectRootFolder = Directory.GetCurrentDirectory().SubstringBefore(CurrentProjectName);
-    }
 
     public void Dispose()
     {

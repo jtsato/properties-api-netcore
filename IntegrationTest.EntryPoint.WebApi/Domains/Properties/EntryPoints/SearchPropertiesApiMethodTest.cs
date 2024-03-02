@@ -72,9 +72,9 @@ public class SearchPropertiesApiMethodTest
     public async Task FailToSearchPropertiesReturningInternalServerError()
     {
         // Arrange
-        SearchPropertiesQueryBuilder queryBuilder = new SearchPropertiesQueryBuilder();
+        SearchPropertiesQueryBuilder builder = new SearchPropertiesQueryBuilder();
 
-        queryBuilder
+        builder
             .WithTypes(new List<string> {"Apartment"})
             .WithTransaction("Rent")
             .WithState("Duckland")
@@ -96,7 +96,7 @@ public class SearchPropertiesApiMethodTest
             .WithToRentalPrice(900)
             .WithStatus("Active");
 
-        SearchPropertiesQuery query = queryBuilder.Build();
+        SearchPropertiesQuery query = builder.Build();
 
         _useCaseMock
             .Setup(useCase => useCase.ExecuteAsync(query, PageRequestHelper.Of("0", "1", "updatedAt:DESC")))
@@ -154,9 +154,9 @@ public class SearchPropertiesApiMethodTest
     public async Task SuccessfulToSearchPropertiesReturningPartialContent()
     {
         // Arrange
-        SearchPropertiesQueryBuilder queryBuilder = new SearchPropertiesQueryBuilder();
+        SearchPropertiesQueryBuilder builder = new SearchPropertiesQueryBuilder();
 
-        queryBuilder
+        builder
             .WithTypes(new List<string> {"Apartment"})
             .WithTransaction("Rent")
             .WithState("Duckland")
@@ -179,7 +179,7 @@ public class SearchPropertiesApiMethodTest
             .WithToRentalPrice(200000)
             .WithStatus("Active");
 
-        SearchPropertiesQuery query = queryBuilder.Build();
+        SearchPropertiesQuery query = builder.Build();
 
         _useCaseMock
             .Setup(useCase => useCase.ExecuteAsync(query, PageRequestHelper.Of("0", "1", "updatedAt:DESC")))
@@ -321,9 +321,9 @@ public class SearchPropertiesApiMethodTest
     public async Task SuccessfulToSearchPropertiesReturningNoContent()
     {
         // Arrange
-        SearchPropertiesQueryBuilder queryBuilder = new SearchPropertiesQueryBuilder();
+        SearchPropertiesQueryBuilder builder = new SearchPropertiesQueryBuilder();
 
-        queryBuilder
+        builder
             .WithTypes(new List<string> {"Apartment"})
             .WithTransaction("Rent")
             .WithState("Duckland")
@@ -345,7 +345,7 @@ public class SearchPropertiesApiMethodTest
             .WithToRentalPrice(200000)
             .WithStatus("Active");
 
-        SearchPropertiesQuery query = queryBuilder.Build();
+        SearchPropertiesQuery query = builder.Build();
 
         _useCaseMock
             .Setup(useCase => useCase.ExecuteAsync(query, PageRequestHelper.Of("0", "1", "updatedAt:DESC")))
@@ -389,6 +389,81 @@ public class SearchPropertiesApiMethodTest
         Assert.NotNull(objectResult);
         Assert.Equal((int) HttpStatusCode.NoContent, objectResult.StatusCode);
     }
+    
+    [UseCulture("en-US")]
+    [Trait("Category", "WebApi Collection [NoContext]")]
+    [Fact(DisplayName = "GET /api/properties/search should return 204 when there is no content")]
+    public async Task SuccessfulToSearchPropertiesReturningNoContent2()
+    {
+        // Arrange
+        SearchPropertiesQueryBuilder builder = new SearchPropertiesQueryBuilder();
+
+        builder
+            .WithTypes(new List<string> {"Apartment"})
+            .WithTransaction("Sale")
+            .WithState("Duckland")
+            .WithCity("White Duck")
+            .WithDistricts(new List<string>(0))
+            .WithMinBedrooms(0)
+            .WithMaxBedrooms(3)
+            .WithMinToilets(1)
+            .WithMaxToilets(2)
+            .WithMinGarages(1)
+            .WithMaxGarages(1)
+            .WithFromArea(100)
+            .WithToArea(200)
+            .WithMinBuiltArea(80)
+            .WithMaxBuiltArea(160)
+            .WithMinSellingPrice(100000)
+            .WithToSellingPrice(200000)
+            .WithFromRentalPrice(0)
+            .WithToRentalPrice(999999999)
+            .WithStatus("Active");
+
+        SearchPropertiesQuery query = builder.Build();
+
+        _useCaseMock
+            .Setup(useCase => useCase.ExecuteAsync(query, PageRequestHelper.Of("0", "1", "updatedAt:DESC")))
+            .ReturnsAsync(
+                new Page<Property>(new List<Property>(), new Pageable(0, 1, 0, 0, 0))
+            );
+
+        SearchPropertiesRequest request = new SearchPropertiesRequest
+        {
+            Types = new List<string> {"Apartment"},
+            Transaction = "Sale",
+            Uf = "Duckland",
+            City = "White Duck",
+            Districts = new List<string>(0),
+            MinBedrooms = 0,
+            MaxBedrooms = 3,
+            MinToilets = 1,
+            MaxToilets = 2,
+            MinGarages = 1,
+            MaxGarages = 1,
+            MinArea = 100,
+            MaxArea = 200,
+            MinBuiltArea = 80,
+            MaxBuiltArea = 160,
+            MinPrice = 100000,
+            MaxPrice = 200000,
+            Status = "Active"
+        };
+
+        QPageRequest qPageRequest = new QPageRequest
+        {
+            PageNumber = "0",
+            PageSize = "1",
+            OrderBy = new List<string> {"updatedAt,Desc"}
+        };
+
+        // Act
+        ObjectResult objectResult = await _invoker.InvokeAsync(() => _apiMethod.SearchProperties(request, qPageRequest), "en-US");
+
+        // Assert
+        Assert.NotNull(objectResult);
+        Assert.Equal((int) HttpStatusCode.NoContent, objectResult.StatusCode);
+    }
 
     [UseCulture("en-US")]
     [Trait("Category", "WebApi Collection [NoContext]")]
@@ -396,9 +471,9 @@ public class SearchPropertiesApiMethodTest
     public async Task SuccessfulToSearchProperties()
     {
         // Arrange
-        SearchPropertiesQueryBuilder queryBuilder = new SearchPropertiesQueryBuilder();
+        SearchPropertiesQueryBuilder builder = new SearchPropertiesQueryBuilder();
 
-        queryBuilder
+        builder
             .WithTypes(new List<string> {"Apartment"})
             .WithTransaction("Rent")
             .WithState("Duckland")
@@ -420,7 +495,7 @@ public class SearchPropertiesApiMethodTest
             .WithToRentalPrice(200000)
             .WithStatus("Active");
 
-        SearchPropertiesQuery query = queryBuilder.Build();
+        SearchPropertiesQuery query = builder.Build();
 
         _useCaseMock
             .Setup(useCase => useCase.ExecuteAsync(query, PageRequestHelper.Of("0", "1", "updatedAt:DESC")))

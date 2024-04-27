@@ -1,4 +1,5 @@
-﻿using Core.Commons;
+﻿using System;
+using Core.Commons;
 using Core.Domains.Properties.Models;
 using FluentValidation;
 
@@ -6,6 +7,9 @@ namespace Core.Domains.Properties.Query;
 
 internal sealed class SearchPropertiesQueryValidator : AbstractValidator<SearchPropertiesQuery>
 {
+    // Epsilon is used to compare floating point numbers
+    private static readonly float Epsilon = 0.0001f;
+    
     public SearchPropertiesQueryValidator()
     {
         RuleFor(query => query.Types)
@@ -45,12 +49,12 @@ internal sealed class SearchPropertiesQueryValidator : AbstractValidator<SearchP
 
         RuleFor(query => query.Prices.SellingPrice)
             .Cascade(CascadeMode.Stop)
-            .Must(sellingPrice => sellingPrice.From <= sellingPrice.To || sellingPrice.To == 0)
+            .Must(sellingPrice => sellingPrice.From <= sellingPrice.To || Math.Abs(sellingPrice.To) < Epsilon)
             .WithMessage("ValidationPropertySellingPriceIsInvalid");
         
         RuleFor(query => query.Prices.RentalPrice)
             .Cascade(CascadeMode.Stop)
-            .Must(rentalPrice => rentalPrice.From <= rentalPrice.To || rentalPrice.To == 0)
+            .Must(rentalPrice => rentalPrice.From <= rentalPrice.To || Math.Abs(rentalPrice.To) < Epsilon)
             .WithMessage("ValidationPropertyRentalPriceIsInvalid");
         
         RuleFor(query => query.Status)

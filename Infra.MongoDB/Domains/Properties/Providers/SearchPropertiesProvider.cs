@@ -6,7 +6,6 @@ using Core.Commons.Paging;
 using Core.Domains.Properties.Gateways;
 using Core.Domains.Properties.Models;
 using Core.Domains.Properties.Query;
-using Infra.MongoDB.Commons.Helpers;
 using Infra.MongoDB.Commons.Repository;
 using Infra.MongoDB.Domains.Properties.Mapper;
 using Infra.MongoDB.Domains.Properties.Model;
@@ -17,8 +16,6 @@ namespace Infra.MongoDB.Domains.Properties.Providers;
 
 public class SearchPropertiesProvider : ISearchPropertiesGateway
 {
-    private const string DefaultPrimarySortField = "ranking";
-    private const string DefaultSecondarySortField = "updatedAt";
 
     private readonly IRepository<PropertyEntity> _propertyRepository;
 
@@ -30,34 +27,10 @@ public class SearchPropertiesProvider : ISearchPropertiesGateway
     public async Task<Page<Property>> ExecuteAsync(SearchPropertiesQuery query, PageRequest pageRequest)
     {
         FilterDefinition<PropertyEntity> filter = SearchPropertiesFilterBuilder.Build(query);
-        SortDefinition<PropertyEntity> sort = GetSortDefinitions(pageRequest.Sort.GetOrders());
+        SortDefinition<PropertyEntity> sort = PropertySortDefinitionHelper.GetSortDefinitions(pageRequest.Sort.GetOrders());
         Page<PropertyEntity> page = await _propertyRepository.FindAllAsync(filter, sort, pageRequest.PageNumber, pageRequest.PageSize);
         List<Property> content = page.Content.Select(PropertyMapper.Map).ToList();
 
         return new Page<Property>(content, page.Pageable);
-    }
-
-    private static SortDefinition<PropertyEntity> GetSortDefinitions(IEnumerable<Order> originalOrders)
-    {
-        IEnumerable<Order> arrayOfOrders = originalOrders.ToArray();
-        List<Order> orders = new List<Order>(arrayOfOrders);
-        
-        // We always add two more sorting criteria (ranking and updatedAt).
-
-        // If the user has specified any sorting criteria:
-        if (arrayOfOrders.Any())
-        {
-            // The properties sponsorship will always be a tie-breaking criterion
-            // if there are multiple properties tied at previous levels of ordering.
-            orders.Add(new Order(Direction.Desc, DefaultPrimarySortField));
-            orders.Add(new Order(Direction.Desc, DefaultSecondarySortField));
-            return SortHelper.GetSortDefinitions<PropertyEntity>(orders);
-        }
-
-        // If the user has not specified any sorting criteria:
-        orders.Insert(0, new Order(Direction.Desc, DefaultSecondarySortField));
-        orders.Insert(0, new Order(Direction.Desc, DefaultPrimarySortField));
-
-        return SortHelper.GetSortDefinitions<PropertyEntity>(orders);
     }
 }

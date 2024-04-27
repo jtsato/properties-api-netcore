@@ -41,12 +41,21 @@ public class SearchPropertiesProvider : ISearchPropertiesGateway
     {
         IEnumerable<Order> arrayOfOrders = originalOrders.ToArray();
         List<Order> orders = new List<Order>(arrayOfOrders);
+        
+        // We always add two more sorting criteria (ranking and updatedAt).
 
-        if (!arrayOfOrders.Any())
+        // If the user has specified any sorting criteria:
+        if (arrayOfOrders.Any())
         {
-            orders.Insert(0, new Order(Direction.Desc, DefaultSecondarySortField));
+            // The properties sponsorship will always be a tie-breaking criterion
+            // if there are multiple properties tied at previous levels of ordering.
+            orders.Add(new Order(Direction.Desc, DefaultPrimarySortField));
+            orders.Add(new Order(Direction.Desc, DefaultSecondarySortField));
+            return SortHelper.GetSortDefinitions<PropertyEntity>(orders);
         }
 
+        // If the user has not specified any sorting criteria:
+        orders.Insert(0, new Order(Direction.Desc, DefaultSecondarySortField));
         orders.Insert(0, new Order(Direction.Desc, DefaultPrimarySortField));
 
         return SortHelper.GetSortDefinitions<PropertyEntity>(orders);

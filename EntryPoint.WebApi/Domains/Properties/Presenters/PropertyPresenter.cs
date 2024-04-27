@@ -12,6 +12,7 @@ public static class PropertyPresenter
             Id = property.Id,
             TenantId = property.Advertise.TenantId,
             Transaction = property.Advertise.Transaction.Name.ToUpperInvariant(),
+            Type = property.Type.Name.ToUpperInvariant(),
             Title = property.Advertise.Title,
             Description = property.Advertise.Description,
             Url = property.Advertise.Url,

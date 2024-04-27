@@ -12,6 +12,9 @@ public sealed class SearchPropertiesInnerResponse
 
     [SwaggerSchema(Description = "Transaction type of the property.")]
     public string Transaction { get; init; }
+    
+    [SwaggerSchema(Description = "Type of the property.")]
+    public string Type { get; init; }
 
     [SwaggerSchema(Description = "Title of the property.")]
     public string Title { get; init; }

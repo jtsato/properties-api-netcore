@@ -161,6 +161,7 @@ public class GetPropertyByIdApiMethodTest
             .AndExpectThat(JsonFrom.Path("$.id"), Is<long>.EqualTo(1001))
             .AndExpectThat(JsonFrom.Path("$.tenantId"), Is<int>.EqualTo(1))
             .AndExpectThat(JsonFrom.Path("$.transaction"), Is<string>.EqualTo("RENT"))
+            .AndExpectThat(JsonFrom.Path("$.type"), Is<string>.EqualTo("APARTMENT"))
             .AndExpectThat(JsonFrom.Path("$.title"), Is<string>.EqualTo("Apartment for rent"))
             .AndExpectThat(JsonFrom.Path("$.description"), Is<string>.EqualTo("Apartment for rent"))
             .AndExpectThat(JsonFrom.Path("$.url"), Is<string>.EqualTo("https://www.apartment-for-rent.com"))

@@ -23,6 +23,7 @@ public static class SearchPropertiesPresenter
             Id = property.Id,
             TenantId = property.Advertise.TenantId,
             Transaction = property.Advertise.Transaction.Name.ToUpperInvariant(),
+            Type = property.Type.Name.ToUpperInvariant(),
             Title = property.Advertise.Title,
             Introduction = introduction,
             Url = property.Advertise.Url,

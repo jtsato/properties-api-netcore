@@ -68,10 +68,7 @@ public static class Program
                 policy =>
                 {
                     policy
-                        .WithOrigins("https://patolar-dev.flutterflow.app")
-                            .AllowAnyMethod()
-                            .AllowAnyHeader()
-                        .WithOrigins("https://patolar.com.br")
+                        .WithOrigins("https://patolar-dev.flutterflow.app", "https://patolar.com.br")
                             .AllowAnyMethod()
                             .AllowAnyHeader();
                 });

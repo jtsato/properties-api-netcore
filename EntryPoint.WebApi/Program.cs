@@ -60,10 +60,26 @@ public static class Program
         builder.Services.AddHealthChecks()
             .AddCheck("Health check", () => HealthCheckResult.Healthy(), tags: new[] {"live", "ready"});
 
-        Dictionary<Type, ServiceLifetime> lifetimeByType
-            = DependencyInjector.ConfigureServices(builder.Services);
+        Dictionary<Type, ServiceLifetime> lifetimeByType= DependencyInjector.ConfigureServices(builder.Services);
+        
+        builder.Services.AddCors(options =>
+        {
+           options.AddPolicy(name: "AllowSpecificOrigins",
+                policy =>
+                {
+                    policy
+                        .WithOrigins("https://patolar-dev.flutterflow.app")
+                            .AllowAnyMethod()
+                            .AllowAnyHeader()
+                        .WithOrigins("https://patolar.com.br")
+                            .AllowAnyMethod()
+                            .AllowAnyHeader();
+                });
+        });
 
         WebApplication app = builder.Build();
+        
+        app.UseCors("AllowSpecificOrigins");
 
         if (app.Services.GetService(typeof(IServiceResolver)) is ServiceResolver serviceResolver)
         {

@@ -22,10 +22,12 @@ public class SearchPropertiesQuery : SearchPropertiesQueryBase
         SearchPropertiesQueryAttributes attributes,
         SearchPropertiesQueryLocation location,
         SearchPropertiesQueryPrices prices,
-        string status) : base(types, status)
+        string status,
+        byte ranking) : base(types, status, ranking)
     {
         Types = types;
         Status = status;
+        Ranking = ranking;
         Advertise = advertise;
         Attributes = attributes;
         Location = location;
@@ -41,7 +43,8 @@ public class SearchPropertiesQuery : SearchPropertiesQueryBase
                && Equals(Attributes, other.Attributes)
                && Equals(Location, other.Location)
                && Equals(Prices, other.Prices)
-               && Equals(Status, other.Status);
+               && Equals(Status, other.Status)
+               && Ranking == other.Ranking;
     }
 
     [ExcludeFromCodeCoverage]
@@ -60,6 +63,7 @@ public class SearchPropertiesQuery : SearchPropertiesQueryBase
         hashCode.Add(Location);
         hashCode.Add(Prices);
         hashCode.Add(Status);
+        hashCode.Add(Ranking);
         return hashCode.ToHashCode();
     }
 
@@ -73,6 +77,7 @@ public class SearchPropertiesQuery : SearchPropertiesQueryBase
             .AppendLine($"{nameof(Location)}: {Location}")
             .AppendLine($"{nameof(Prices)}: {Prices}")
             .Append($"{nameof(Status)}: {Status}")
+            .Append($"{nameof(Ranking)}: {Ranking}")
             .ToString();
     }
 }

@@ -39,6 +39,7 @@ public static class SearchPropertiesFilterBuilder
         FilterHelper.AddGreaterOrEqualFilter(filters, document => document.RentalPrice, query.Prices.RentalPrice.From);
         FilterHelper.AddLessOrEqualFilter(filters, document => document.RentalPrice, query.Prices.RentalPrice.To);
         FilterHelper.AddEqualsFilter(filters, document => document.Status, status);
+        FilterHelper.AddEqualsFilter(filters, document => document.Ranking, query.Ranking);
 
         return filters.Count == 0 ? Builders<PropertyEntity>.Filter.Empty : Builders<PropertyEntity>.Filter.And(filters);
     }

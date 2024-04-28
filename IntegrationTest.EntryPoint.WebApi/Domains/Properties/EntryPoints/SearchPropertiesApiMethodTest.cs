@@ -94,7 +94,8 @@ public class SearchPropertiesApiMethodTest
             .WithToSellingPrice(200000)
             .WithFromRentalPrice(500)
             .WithToRentalPrice(900)
-            .WithStatus("Active");
+            .WithStatus("Active")
+            .WithRanking(1);
 
         SearchPropertiesQuery query = builder.Build();
 
@@ -121,7 +122,8 @@ public class SearchPropertiesApiMethodTest
             MaxBuiltArea = 160,
             MinPrice = 100000,
             MaxPrice = 200000,
-            Status = "Active"
+            Status = "Active",
+            Ranking = 1
         };
 
         QPageRequest qPageRequest = new QPageRequest
@@ -177,7 +179,8 @@ public class SearchPropertiesApiMethodTest
             .WithToSellingPrice(999999999)
             .WithFromRentalPrice(100000)
             .WithToRentalPrice(200000)
-            .WithStatus("Active");
+            .WithStatus("Active")
+            .WithRanking(1);
 
         SearchPropertiesQuery query = builder.Build();
 
@@ -257,7 +260,8 @@ public class SearchPropertiesApiMethodTest
             MaxBuiltArea = 160,
             MinPrice = 100000,
             MaxPrice = 200000,
-            Status = "Active"
+            Status = "Active",
+            Ranking = 1
         };
 
         QPageRequest qPageRequest = new QPageRequest
@@ -344,7 +348,8 @@ public class SearchPropertiesApiMethodTest
             .WithToSellingPrice(999999999)
             .WithFromRentalPrice(100000)
             .WithToRentalPrice(200000)
-            .WithStatus("Active");
+            .WithStatus("Active")
+            .WithRanking(1);
 
         SearchPropertiesQuery query = builder.Build();
 
@@ -373,7 +378,8 @@ public class SearchPropertiesApiMethodTest
             MaxBuiltArea = 160,
             MinPrice = 100000,
             MaxPrice = 200000,
-            Status = "Active"
+            Status = "Active",
+            Ranking = 1
         };
 
         QPageRequest qPageRequest = new QPageRequest
@@ -419,7 +425,8 @@ public class SearchPropertiesApiMethodTest
             .WithToSellingPrice(200000)
             .WithFromRentalPrice(0)
             .WithToRentalPrice(999999999)
-            .WithStatus("Active");
+            .WithStatus("Active")
+            .WithRanking(1);
 
         SearchPropertiesQuery query = builder.Build();
 
@@ -448,7 +455,8 @@ public class SearchPropertiesApiMethodTest
             MaxBuiltArea = 160,
             MinPrice = 100000,
             MaxPrice = 200000,
-            Status = "Active"
+            Status = "Active",
+            Ranking = 1
         };
 
         QPageRequest qPageRequest = new QPageRequest
@@ -494,7 +502,8 @@ public class SearchPropertiesApiMethodTest
             .WithToSellingPrice(999999999)
             .WithFromRentalPrice(100000)
             .WithToRentalPrice(200000)
-            .WithStatus("Active");
+            .WithStatus("Active")
+            .WithRanking(1);
 
         SearchPropertiesQuery query = builder.Build();
 
@@ -574,7 +583,8 @@ public class SearchPropertiesApiMethodTest
             MaxBuiltArea = 160,
             MinPrice = 100000,
             MaxPrice = 200000,
-            Status = "Active"
+            Status = "Active",
+            Ranking = 1
         };
 
         QPageRequest qPageRequest = new QPageRequest

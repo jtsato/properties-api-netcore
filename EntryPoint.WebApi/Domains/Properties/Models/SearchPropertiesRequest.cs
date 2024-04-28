@@ -95,4 +95,8 @@ public class SearchPropertiesRequest
     [FromQuery(Name = "status")]
     [DefaultValue("ALL")]
     public string Status { get; init; }
+    
+    [SwaggerParameter(Required = false, Description = "Ranking")]
+    [FromQuery(Name = "ranking")]
+    public byte Ranking { get; init; }
 }

@@ -93,4 +93,7 @@
     <data name="ValidationPropertyAreaIsInvalid" xml:space="preserve">
         <value>A área inicial não pode exceder a área máxima permitida.</value>
     </data>
+    <data name="ValidationPropertyRankingIsInvalid" xml:space="preserve">
+        <value>O campo 'ranking' da proprieade é inválido.</value>
+    </data>
 </root>

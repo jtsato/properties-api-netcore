@@ -62,6 +62,7 @@ public sealed class SearchPropertiesController : ISearchPropertiesController
 
         Transaction transaction = Transaction.GetByName(request.Transaction).OrElse(Transaction.All);
         string status = PropertyStatus.GetByName(request.Status).OrElse(PropertyStatus.All).Name;
+        byte ranking = request.Ranking > 0 ? request.Ranking : (byte) 0;
 
         SearchPropertiesQueryBuilder builder = new SearchPropertiesQueryBuilder();
 
@@ -98,7 +99,8 @@ public sealed class SearchPropertiesController : ISearchPropertiesController
             .WithToSellingPrice(sellingPriceMax)
             .WithFromRentalPrice(rentalPriceMin)
             .WithToRentalPrice(rentalPriceMax)
-            .WithStatus(status);
+            .WithStatus(status)
+            .WithRanking(ranking);
 
         return builder.Build();
     }

@@ -213,6 +213,15 @@ namespace EntryPoint.WebApi.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The property &apos;ranking&apos; field is invalid..
+        /// </summary>
+        internal static string ValidationPropertyRankingIsInvalid {
+            get {
+                return ResourceManager.GetString("ValidationPropertyRankingIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The initial rental price cannot be greater than the maximum rental price..
         /// </summary>
         internal static string ValidationPropertyRentalPriceIsInvalid {

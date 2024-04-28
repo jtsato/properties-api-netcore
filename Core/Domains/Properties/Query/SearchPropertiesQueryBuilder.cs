@@ -25,6 +25,7 @@ public class SearchPropertiesQueryBuilder
     private float _fromRentalPrice;
     private float _toRentalPrice;
     private string _status;
+    private byte _ranking;
 
     private List<string> _types = new List<string>();
     private List<string> _districts = new List<string>();
@@ -148,6 +149,12 @@ public class SearchPropertiesQueryBuilder
         _status = status;
         return this;
     }
+    
+    public SearchPropertiesQueryBuilder WithRanking(byte ranking)
+    {
+        _ranking = ranking;
+        return this;
+    }
 
     public SearchPropertiesQuery Build()
     {
@@ -182,7 +189,8 @@ public class SearchPropertiesQueryBuilder
             attributes: queryAttributes,
             location: queryLocation,
             prices: queryPrices,
-            status: status
+            status: status,
+            ranking: _ranking
         );
     }
 

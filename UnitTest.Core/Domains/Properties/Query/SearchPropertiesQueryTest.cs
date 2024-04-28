@@ -37,7 +37,8 @@ public class SearchPropertiesQueryTest
                     sellingPrice: Range<float>.Of(200000, 100000),
                     rentalPrice: Range<float>.Of(5000, 4000)
                 ),
-                "InvalidStatus"
+                "InvalidStatus",
+                0
             )
         );
 
@@ -86,7 +87,8 @@ public class SearchPropertiesQueryTest
                 sellingPrice: Range<float>.Of(100000, 0),
                 rentalPrice: Range<float>.Of(4000, 0)
             ),
-            "Active"
+            "Active",
+            0
         );
 
         // Assert
@@ -112,6 +114,7 @@ public class SearchPropertiesQueryTest
         Assert.Equal(4000, query.Prices.RentalPrice.From);
         Assert.Equal(0, query.Prices.RentalPrice.To);
         Assert.Equal("Active", query.Status);
+        Assert.Equal(0, query.Ranking);
     }
 
     [Trait("Category", "Core Business Tests")]
@@ -141,7 +144,8 @@ public class SearchPropertiesQueryTest
                 sellingPrice: Range<float>.Of(0, 100000),
                 rentalPrice: Range<float>.Of(0, 5000)
             ),
-            "Active"
+            "Active",
+            0
         );
 
         // Assert

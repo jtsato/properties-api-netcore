@@ -46,7 +46,8 @@ public sealed class SearchPropertiesFilterBuilderTest
                     sellingPrice: Range<float>.Of(from: 0, to: 0),
                     rentalPrice: Range<float>.Of(from: 0, to: 0)
                 ),
-                status: "ALL"
+                status: "ALL",
+                ranking: 0
             );
 
         // Act
@@ -83,7 +84,8 @@ public sealed class SearchPropertiesFilterBuilderTest
                     sellingPrice: Range<float>.Of(from: 1, to: 2),
                     rentalPrice: Range<float>.Of(from: 1, to: 2)
                 ),
-                status: "ACTIVE"
+                status: "ACTIVE",
+                ranking: 0
             );
 
         // Act

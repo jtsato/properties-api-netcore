@@ -21,8 +21,8 @@ public sealed class SearchPropertiesFilterBuilderTest
     }
 
     [Trait("Category", "Database collection [NoContext]")]
-    [Fact(DisplayName = "Success to build empty filter definition when values are not relevant")]
-    public void SuccessToBuildEmptyFilterDefinitionWhenValuesAreNotRelevant()
+    [Fact(DisplayName = "Success to build a single status filter definition when other values are not relevant")]
+    public void SuccessToBuildASingleStatusFilterDefinitionWhenOtherValuesAreNotRelevant()
     {
         // Arrange
         SearchPropertiesQuery searchPropertiesQuery =
@@ -55,7 +55,14 @@ public sealed class SearchPropertiesFilterBuilderTest
 
         // Assert
         Assert.NotNull(filterDefinition);
-        Assert.Equal(Builders<PropertyEntity>.Filter.Empty, filterDefinition);
+
+        BsonDocument document = GetBsonDocument(filterDefinition);
+
+        _testOutputHelper.WriteLine(document.ToString());
+
+        Assert.Equal(1, document.ElementCount);
+
+        Assert.Equal("ACTIVE", document["status"].AsString);
     }
 
     [Trait("Category", "Database collection [NoContext]")]

@@ -18,7 +18,7 @@ public static class SearchPropertiesFilterBuilder
         FilterHelper.AddInArrayFilter(filters, document => document.Type, types);
         
         string transaction = query.Advertise.Transaction.ToUpperInvariant() == NoFilter ? "" : query.Advertise.Transaction;
-        string status = query.Status.ToUpperInvariant() == NoFilter ? "" : query.Status;
+        string status = query.Status.ToUpperInvariant() == NoFilter ? "ACTIVE" : query.Status;
 
         FilterHelper.AddEqualsFilter(filters, document => document.Transaction, transaction);
         FilterHelper.AddGreaterOrEqualFilter(filters, document => document.NumberOfBedrooms, query.Attributes.NumberOfBedrooms.From);

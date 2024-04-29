@@ -66,7 +66,7 @@ public class GetPropertyByIdProviderTest
             },
             Location = new PropertyLocation
             {
-                State = "Duckland", City = "White Duck", District = "Downtown", Address = "Good Life Street, 101",
+                State = "Duckland", City = "White Duck", District = "Beverly Hills", Address = "Good Life Street, 101",
             },
             Prices = new PropertyPrices
             {
@@ -113,7 +113,7 @@ public class GetPropertyByIdProviderTest
         Assert.Equal(200, actual.Attributes.BuiltArea);
         Assert.Equal("Duckland", actual.Location.State);
         Assert.Equal("White Duck", actual.Location.City);
-        Assert.Equal("Downtown", actual.Location.District);
+        Assert.Equal("Beverly Hills", actual.Location.District);
         Assert.Equal("Good Life Street, 101", actual.Location.Address);
         Assert.Equal(100000, actual.Prices.SellingPrice);
         Assert.Equal(1000, actual.Prices.RentalTotalPrice);

@@ -60,7 +60,7 @@ public sealed class SearchPropertiesFilterBuilderTest
 
         _testOutputHelper.WriteLine(document.ToString());
 
-        Assert.Equal(1, document.ElementCount);
+        Assert.Equal(3, document.ElementCount);
 
         Assert.Equal("ACTIVE", document["status"].AsString);
     }
@@ -105,7 +105,7 @@ public sealed class SearchPropertiesFilterBuilderTest
 
         _testOutputHelper.WriteLine(document.ToString());
 
-        Assert.Equal(13, document.ElementCount);
+        Assert.Equal(12, document.ElementCount);
 
         Assert.Equal("HOUSE", document["type"].AsBsonDocument.GetElement("$in").Value.AsBsonArray[0].AsString);
         Assert.Equal("RENT", document["transaction"].AsString);

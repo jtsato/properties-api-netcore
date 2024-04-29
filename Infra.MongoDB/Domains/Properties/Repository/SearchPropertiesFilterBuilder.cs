@@ -16,11 +16,9 @@ public static class SearchPropertiesFilterBuilder
 
         List<string> types = query.Types.Contains(NoFilter) ? new List<string>() : query.Types;
         FilterHelper.AddInArrayFilter(filters, document => document.Type, types);
-        
-        string transaction = query.Advertise.Transaction.ToUpperInvariant() == NoFilter ? "" : query.Advertise.Transaction;
+
         string status = query.Status.ToUpperInvariant() == NoFilter ? "ACTIVE" : query.Status;
 
-        FilterHelper.AddEqualsFilter(filters, document => document.Transaction, transaction);
         FilterHelper.AddGreaterOrEqualFilter(filters, document => document.NumberOfBedrooms, query.Attributes.NumberOfBedrooms.From);
         FilterHelper.AddLessOrEqualFilter(filters, document => document.NumberOfBedrooms, query.Attributes.NumberOfBedrooms.To);
         FilterHelper.AddGreaterOrEqualFilter(filters, document => document.NumberOfToilets, query.Attributes.NumberOfToilets.From);
@@ -34,13 +32,54 @@ public static class SearchPropertiesFilterBuilder
         FilterHelper.AddEqualsFilter(filters, document => document.State, query.Location.State);
         FilterHelper.AddEqualsFilter(filters, document => document.City, query.Location.City);
         FilterHelper.AddInArrayFilter(filters, document => document.District, query.Location.Districts);
-        FilterHelper.AddGreaterOrEqualFilter(filters, document => document.SellingPrice, query.Prices.SellingPrice.From);
-        FilterHelper.AddLessOrEqualFilter(filters, document => document.SellingPrice, query.Prices.SellingPrice.To);
-        FilterHelper.AddGreaterOrEqualFilter(filters, document => document.RentalPrice, query.Prices.RentalPrice.From);
-        FilterHelper.AddLessOrEqualFilter(filters, document => document.RentalPrice, query.Prices.RentalPrice.To);
+
+        switch (query.Advertise.Transaction.ToUpperInvariant())
+        {
+            case "RENT":
+                List<FilterDefinition<PropertyEntity>> rentFilterDefinitions = BuildRentFilterDefinitions(query);
+                filters.Add(Builders<PropertyEntity>.Filter.And(rentFilterDefinitions));
+                break;
+            case "SALE":
+                List<FilterDefinition<PropertyEntity>> saleFilterDefinitions = BuildSaleFilterDefinitions(query);
+                filters.Add(Builders<PropertyEntity>.Filter.And(saleFilterDefinitions));
+                break;
+            default:
+            {
+                AddPricesFilters(query, filters);
+                break;
+            }
+        }
+
         FilterHelper.AddEqualsFilter(filters, document => document.Status, status);
         FilterHelper.AddEqualsFilter(filters, document => document.Ranking, query.Ranking);
 
         return filters.Count == 0 ? Builders<PropertyEntity>.Filter.Empty : Builders<PropertyEntity>.Filter.And(filters);
+    }
+
+    private static void AddPricesFilters(SearchPropertiesQuery query, ICollection<FilterDefinition<PropertyEntity>> filters)
+    {
+        List<FilterDefinition<PropertyEntity>> rentFilterDefinitions = BuildRentFilterDefinitions(query);
+        List<FilterDefinition<PropertyEntity>> saleFilterDefinitions = BuildSaleFilterDefinitions(query);
+
+        rentFilterDefinitions.Add(Builders<PropertyEntity>.Filter.Or(saleFilterDefinitions));
+        filters.Add(Builders<PropertyEntity>.Filter.And(rentFilterDefinitions));
+    }
+
+    private static List<FilterDefinition<PropertyEntity>> BuildSaleFilterDefinitions(SearchPropertiesQuery query)
+    {
+        List<FilterDefinition<PropertyEntity>> saleFilterDefinitions = new List<FilterDefinition<PropertyEntity>>();
+        FilterHelper.AddEqualsFilter(saleFilterDefinitions, document => document.Transaction, "SALE");
+        FilterHelper.AddGreaterOrEqualFilter(saleFilterDefinitions, document => document.SellingPrice, query.Prices.SellingPrice.From);
+        FilterHelper.AddLessOrEqualFilter(saleFilterDefinitions, document => document.SellingPrice, query.Prices.SellingPrice.To);
+        return saleFilterDefinitions;
+    }
+
+    private static List<FilterDefinition<PropertyEntity>> BuildRentFilterDefinitions(SearchPropertiesQuery query)
+    {
+        List<FilterDefinition<PropertyEntity>> rentFilterDefinitions = new List<FilterDefinition<PropertyEntity>>();
+        FilterHelper.AddEqualsFilter(rentFilterDefinitions, document => document.Transaction, "RENT");
+        FilterHelper.AddGreaterOrEqualFilter(rentFilterDefinitions, document => document.RentalPrice, query.Prices.RentalPrice.From);
+        FilterHelper.AddLessOrEqualFilter(rentFilterDefinitions, document => document.RentalPrice, query.Prices.RentalPrice.To);
+        return rentFilterDefinitions;
     }
 }

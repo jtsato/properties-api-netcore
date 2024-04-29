@@ -211,7 +211,7 @@ public class SearchPropertiesProviderTest
                 {
                     State = "Duckland",
                     City = "White Duck",
-                    District = "Downtown",
+                    District = "Alta Vista",
                     Address = "Good Life Street, 201",
                 },
                 Prices = new PropertyPrices
@@ -279,7 +279,7 @@ public class SearchPropertiesProviderTest
         Assert.Equal(200, actual.Attributes.BuiltArea);
         Assert.Equal("Duckland", actual.Location.State);
         Assert.Equal("White Duck", actual.Location.City);
-        Assert.Equal("Downtown", actual.Location.District);
+        Assert.Equal("Alta Vista", actual.Location.District);
         Assert.Equal("Good Life Street, 201", actual.Location.Address);
         Assert.Equal(1000, actual.Prices.SellingPrice);
         Assert.Equal(1000, actual.Prices.RentalTotalPrice);

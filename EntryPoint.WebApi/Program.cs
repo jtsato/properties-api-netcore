@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Core.Commons;
 using EntryPoint.WebApi.Commons;
@@ -67,7 +66,7 @@ public static class Program
                 policy =>
                 {
                     policy
-                        .WithOrigins("https://patolar-dev.flutterflow.app", "https://patolar.com.br")
+                        .WithOrigins("https://patolar.com.br", "https://patolar-dev.flutterflow.app", "https://app.flutterflow.io")
                             .AllowAnyMethod()
                             .AllowAnyHeader();
                 });

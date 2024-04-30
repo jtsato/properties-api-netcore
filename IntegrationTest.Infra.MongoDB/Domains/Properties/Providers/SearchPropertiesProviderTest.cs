@@ -9,7 +9,6 @@ using Core.Domains.Properties.Query;
 using IntegrationTest.Infra.MongoDB.Commons;
 using Xunit;
 using Xunit.Abstractions;
-using Optional = Core.Commons.Optional<Core.Domains.Properties.Models.Property>;
 
 namespace IntegrationTest.Infra.MongoDB.Domains.Properties.Providers;
 

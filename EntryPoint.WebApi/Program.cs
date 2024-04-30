@@ -59,22 +59,21 @@ public static class Program
             .AddCheck("Health check", () => HealthCheckResult.Healthy(), tags: new[] {"live", "ready"});
 
         Dictionary<Type, ServiceLifetime> lifetimeByType= DependencyInjector.ConfigureServices(builder.Services);
-        
+
         builder.Services.AddCors(options =>
         {
-           options.AddPolicy(name: "AllowSpecificOrigins",
+            options.AddPolicy("CorsPolicy",
                 policy =>
                 {
-                    policy
-                        .WithOrigins("https://patolar.com.br", "https://patolar-dev.flutterflow.app", "https://app.flutterflow.io")
-                            .AllowAnyMethod()
-                            .AllowAnyHeader();
+                    policy.WithOrigins("https://*.patolar.com.br", "https://*.patolar-dev.flutterflow.app", "https://*.app.flutterflow.io", "https://*.run.app")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
                 });
         });
 
         WebApplication app = builder.Build();
-        
-        app.UseCors("AllowSpecificOrigins");
+
+        app.UseCors("CorsPolicy");
 
         if (app.Services.GetService(typeof(IServiceResolver)) is ServiceResolver serviceResolver)
         {

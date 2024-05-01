@@ -47,7 +47,7 @@ public sealed class PropertyRepository : Repository<PropertyEntity>
             .IndexKeys.Descending(document => document.UpdatedAt);
 
         IndexKeysDefinition<PropertyEntity> compositeDefaultIndex = Builders<PropertyEntity>
-            .IndexKeys.Combine(indexKeyTransaction, indexKeyRanking, indexKeyStatus);
+            .IndexKeys.Combine(indexKeyStatus, indexKeyRanking);
 
         IndexKeysDefinition<PropertyEntity> compositeTenantRefIndex = Builders<PropertyEntity>
             .IndexKeys.Combine(indexKeyTenantId, indexKeyRefId);
@@ -65,7 +65,7 @@ public sealed class PropertyRepository : Repository<PropertyEntity>
                     new CreateIndexModel<PropertyEntity>(indexKeyRanking, CreateNonUniqueIndexOptions("IDX_Property_Ranking")),
                     new CreateIndexModel<PropertyEntity>(indexKeyStatus, CreateNonUniqueIndexOptions("IDX_Property_Status")),
                     new CreateIndexModel<PropertyEntity>(indexKeyUpdateAt, CreateNonUniqueIndexOptions("IDX_Property_UpdatedAt")),
-                    new CreateIndexModel<PropertyEntity>(compositeDefaultIndex, CreateNonUniqueIndexOptions("IDX_Property_Transaction_Ranking_Status")),
+                    new CreateIndexModel<PropertyEntity>(compositeDefaultIndex, CreateNonUniqueIndexOptions("IDX_Property_Status_Ranking")),
                     new CreateIndexModel<PropertyEntity>(compositeTenantRefIndex, CreateUniqueIndexOptions("IDX_Property_TenantId_RefId"))
                 });
     }

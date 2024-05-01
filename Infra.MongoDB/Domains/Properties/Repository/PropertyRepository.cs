@@ -52,27 +52,33 @@ public sealed class PropertyRepository : Repository<PropertyEntity>
         IndexKeysDefinition<PropertyEntity> compositeTenantRefIndex = Builders<PropertyEntity>
             .IndexKeys.Combine(indexKeyTenantId, indexKeyRefId);
 
-        CreateIndexOptions uniqueIndexOptions = new CreateIndexOptions
-            {Unique = true, Sparse = true, Background = false};
-
-        CreateIndexOptions nonUniqueIndexOptions = new CreateIndexOptions
-            {Unique = false, Sparse = true, Background = false};
-
         GetCollection().Indexes
             .CreateManyAsync(
                 new List<CreateIndexModel<PropertyEntity>>
                 {
-                    new CreateIndexModel<PropertyEntity>(indexKeyId, uniqueIndexOptions),
-                    new CreateIndexModel<PropertyEntity>(indexKeyTransaction, nonUniqueIndexOptions),
-                    new CreateIndexModel<PropertyEntity>(indexKeyType, nonUniqueIndexOptions),
-                    new CreateIndexModel<PropertyEntity>(indexKeyState, nonUniqueIndexOptions),
-                    new CreateIndexModel<PropertyEntity>(indexKeyCity, nonUniqueIndexOptions),
-                    new CreateIndexModel<PropertyEntity>(indexKeyDistrict, nonUniqueIndexOptions),
-                    new CreateIndexModel<PropertyEntity>(indexKeyRanking, nonUniqueIndexOptions),
-                    new CreateIndexModel<PropertyEntity>(indexKeyStatus, nonUniqueIndexOptions),
-                    new CreateIndexModel<PropertyEntity>(indexKeyUpdateAt, nonUniqueIndexOptions),
-                    new CreateIndexModel<PropertyEntity>(compositeDefaultIndex, nonUniqueIndexOptions),
-                    new CreateIndexModel<PropertyEntity>(compositeTenantRefIndex, uniqueIndexOptions)
+                    new CreateIndexModel<PropertyEntity>(indexKeyId, CreateUniqueIndexOptions("IDX_Property_Id")),
+                    new CreateIndexModel<PropertyEntity>(indexKeyTransaction, CreateNonUniqueIndexOptions("IDX_Property_Transaction")),
+                    new CreateIndexModel<PropertyEntity>(indexKeyType, CreateNonUniqueIndexOptions("IDX_Property_Type")),
+                    new CreateIndexModel<PropertyEntity>(indexKeyState, CreateNonUniqueIndexOptions("IDX_Property_State")),
+                    new CreateIndexModel<PropertyEntity>(indexKeyCity, CreateNonUniqueIndexOptions("IDX_Property_City")),
+                    new CreateIndexModel<PropertyEntity>(indexKeyDistrict, CreateNonUniqueIndexOptions("IDX_Property_District")),
+                    new CreateIndexModel<PropertyEntity>(indexKeyRanking, CreateNonUniqueIndexOptions("IDX_Property_Ranking")),
+                    new CreateIndexModel<PropertyEntity>(indexKeyStatus, CreateNonUniqueIndexOptions("IDX_Property_Status")),
+                    new CreateIndexModel<PropertyEntity>(indexKeyUpdateAt, CreateNonUniqueIndexOptions("IDX_Property_UpdatedAt")),
+                    new CreateIndexModel<PropertyEntity>(compositeDefaultIndex, CreateNonUniqueIndexOptions("IDX_Property_Transaction_Ranking_Status")),
+                    new CreateIndexModel<PropertyEntity>(compositeTenantRefIndex, CreateUniqueIndexOptions("IDX_Property_TenantId_RefId"))
                 });
     }
+    
+    private static CreateIndexOptions CreateUniqueIndexOptions(string name) =>
+        new CreateIndexOptions
+        {
+            Name = name, Unique = true, Sparse = true, Background = false
+        };
+    
+    private static CreateIndexOptions CreateNonUniqueIndexOptions(string name) =>
+        new CreateIndexOptions
+        {
+            Name = name, Unique = false, Sparse = true, Background = false
+        };
 }

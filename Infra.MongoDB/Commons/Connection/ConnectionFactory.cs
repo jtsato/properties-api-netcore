@@ -1,4 +1,8 @@
-﻿using MongoDB.Driver;
+﻿using System;
+using MongoDB.Bson;
+using MongoDB.Driver;
+using MongoDB.Driver.Core.Configuration;
+using MongoDB.Driver.Core.Events;
 
 namespace Infra.MongoDB.Commons.Connection;
 
@@ -13,7 +17,15 @@ public sealed class ConnectionFactory : IConnectionFactory
 
     public IMongoClient GetClient()
     {
-        return new MongoClient(_connectionString);
+        MongoClientSettings settings = MongoClientSettings.FromUrl(new MongoUrl(_connectionString));
+        settings.ClusterConfigurator = ClusterConfigurator;
+
+        return new MongoClient(settings);
+
+        void ClusterConfigurator(ClusterBuilder builder)
+        {
+            builder.Subscribe<CommandStartedEvent>(startedEvent => { Console.WriteLine($"{startedEvent.CommandName} - {startedEvent.Command.ToJson()}"); });
+        }
     }
 
     public IMongoDatabase GetDatabase(string databaseName)

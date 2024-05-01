@@ -20,11 +20,25 @@ namespace EntryPoint.WebApi.Domains.Properties.EntryPoints;
 
 public sealed class SearchPropertiesController : ISearchPropertiesController
 {
-    private static readonly string[] SortableFields = {"sellingPrice", "rentalTotalPrice", "rentalPrice", "priceByM2", "createdAt", "updatedAt"};
+    private static readonly string[] SortableFields =
+    {
+        "id", // Identifier 
+        "type", // Type: APARTMENT, HOUSE, ETC...
+        "transaction", // Transaction: RENT or SALE
+        "numberOfBedrooms", "numberOfToilets", "numberOfGarages", // Amenities
+        "area", "builtArea", // Area
+        "city", "state", "district", // Location
+        "ranking", // Advertise
+        "sellingPrice", "rentalTotalPrice", "rentalPrice", "priceByM2", // Prices 
+        "createdAt", "updatedAt" // Dates
+    };
 
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly ISearchPropertiesUseCase _useCase;
-    private const int DefaultMaxPrice = 999999999;
+
+    private const int DefaultMaxArea = 999999;
+    private const byte DefaultMaxRooms = 255;
+    private const float DefaultMaxPrice = 100000000;
 
     public SearchPropertiesController(IHttpContextAccessor httpContextAccessor, ISearchPropertiesUseCase useCase)
     {
@@ -70,9 +84,21 @@ public sealed class SearchPropertiesController : ISearchPropertiesController
         bool isRent = transaction.Is(Transaction.All) || transaction.Is(Transaction.Rent);
 
         float sellingPriceMin = isSale ? request.MinPrice : 0;
-        float sellingPriceMax = isSale ? request.MaxPrice : DefaultMaxPrice;
+        float sellingPriceMax = isSale && request.MaxPrice > 0 ? request.MaxPrice : DefaultMaxPrice;
         float rentalPriceMin = isRent ? request.MinPrice : 0;
-        float rentalPriceMax = isRent ? request.MaxPrice : DefaultMaxPrice;
+        float rentalPriceMax = isRent && request.MaxPrice > 0 ? request.MaxPrice : DefaultMaxPrice;
+        
+        byte minBedrooms = request.MinBedrooms > 0 ? request.MinBedrooms : (byte)0;
+        byte maxBedrooms = request.MaxBedrooms > 0 ? request.MaxBedrooms : DefaultMaxRooms;
+        byte minToilets = request.MinToilets > 0 ? request.MinToilets : (byte)0;
+        byte maxToilets = request.MaxToilets > 0 ? request.MaxToilets : DefaultMaxRooms;
+        byte minGarages = request.MinGarages > 0 ? request.MinGarages : (byte)0;
+        byte maxGarages = request.MaxGarages > 0 ? request.MaxGarages : DefaultMaxRooms;
+        
+        int minArea = request.MinArea > 0 ? request.MinArea : 0;
+        int maxArea = request.MaxArea > 0 ? request.MaxArea : DefaultMaxArea;
+        int minBuiltArea = request.MinBuiltArea > 0 ? request.MinBuiltArea : 0;
+        int maxBuiltArea = request.MaxBuiltArea > 0 ? request.MaxBuiltArea : DefaultMaxArea;
 
         List<string> districts = request.Districts?
             .Where(element => !string.IsNullOrEmpty(element))
@@ -82,19 +108,19 @@ public sealed class SearchPropertiesController : ISearchPropertiesController
         builder
             .WithTypes(types)
             .WithTransaction(transaction.Name)
-            .WithState(request.Uf)
+            .WithState(request.State)
             .WithCity(request.City)
             .WithDistricts(districts)
-            .WithMinBedrooms(request.MinBedrooms)
-            .WithMaxBedrooms(request.MaxBedrooms)
-            .WithMinToilets(request.MinToilets)
-            .WithMaxToilets(request.MaxToilets)
-            .WithMinGarages(request.MinGarages)
-            .WithMaxGarages(request.MaxGarages)
-            .WithFromArea(request.MinArea)
-            .WithToArea(request.MaxArea)
-            .WithMinBuiltArea(request.MinBuiltArea)
-            .WithMaxBuiltArea(request.MaxBuiltArea)
+            .WithMinBedrooms(minBedrooms)
+            .WithMaxBedrooms(maxBedrooms)
+            .WithMinToilets(minToilets)
+            .WithMaxToilets(maxToilets)
+            .WithMinGarages(minGarages)
+            .WithMaxGarages(maxGarages)
+            .WithFromArea(minArea)
+            .WithToArea(maxArea)
+            .WithMinBuiltArea(minBuiltArea)
+            .WithMaxBuiltArea(maxBuiltArea)
             .WithMinSellingPrice(sellingPriceMin)
             .WithToSellingPrice(sellingPriceMax)
             .WithFromRentalPrice(rentalPriceMin)

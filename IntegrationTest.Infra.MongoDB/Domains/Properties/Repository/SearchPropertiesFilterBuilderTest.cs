@@ -60,7 +60,7 @@ public sealed class SearchPropertiesFilterBuilderTest
 
         _testOutputHelper.WriteLine(document.ToString());
 
-        Assert.Equal(3, document.ElementCount);
+        Assert.Equal(8, document.ElementCount);
 
         Assert.Equal("ACTIVE", document["status"].AsString);
     }

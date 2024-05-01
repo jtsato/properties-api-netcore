@@ -56,7 +56,7 @@ public class SearchPropertiesRequest
 
     [SwaggerParameter(Required = false, Description = "Maximum area in square meters")]
     [FromQuery(Name = "maxArea")]
-    [DefaultValue(9999)]
+    [DefaultValue(99999)]
     public int MaxArea { get; init; }
 
     [SwaggerParameter(Required = false, Description = "Minimum built area in square meters")]
@@ -66,12 +66,12 @@ public class SearchPropertiesRequest
 
     [SwaggerParameter(Required = false, Description = "Maximum built area in square meters")]
     [FromQuery(Name = "maxBuiltArea")]
-    [DefaultValue(9999)]
+    [DefaultValue(99999)]
     public int MaxBuiltArea { get; init; }
 
     [SwaggerParameter(Required = false, Description = "Federative unit")]
-    [FromQuery(Name = "uf")]
-    public string Uf { get; init; }
+    [FromQuery(Name = "state")]
+    public string State { get; init; }
 
     [SwaggerParameter(Required = false, Description = "City")]
     [FromQuery(Name = "city")]
@@ -88,7 +88,7 @@ public class SearchPropertiesRequest
 
     [SwaggerParameter(Required = false, Description = "Maximum selling price")]
     [FromQuery(Name = "maxPrice")]
-    [DefaultValue(9999)]
+    [DefaultValue(100000000)]
     public float MaxPrice { get; init; }
 
     [SwaggerParameter(Required = false, Description = "Property's status")]

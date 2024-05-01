@@ -107,7 +107,7 @@ public class SearchPropertiesApiMethodTest
         {
             Types = new List<string> {"Apartment"},
             Transaction = "Rent",
-            Uf = "Duckland",
+            State = "Duckland",
             City = "White Duck",
             Districts = new List<string> {"Downtown", "Alta Vista"},
             MinBedrooms = 0,
@@ -163,7 +163,6 @@ public class SearchPropertiesApiMethodTest
             .WithTransaction("Rent")
             .WithState("Duckland")
             .WithCity("White Duck")
-            .WithState("Duckland")
             .WithDistricts(new List<string> {"Downtown", "Alta Vista"})
             .WithMinBedrooms(0)
             .WithMaxBedrooms(3)
@@ -176,7 +175,7 @@ public class SearchPropertiesApiMethodTest
             .WithMinBuiltArea(80)
             .WithMaxBuiltArea(160)
             .WithMinSellingPrice(0)
-            .WithToSellingPrice(999999999)
+            .WithToSellingPrice(100000000)
             .WithFromRentalPrice(100000)
             .WithToRentalPrice(200000)
             .WithStatus("Active")
@@ -245,7 +244,7 @@ public class SearchPropertiesApiMethodTest
         {
             Types = new List<string> {"Apartment"},
             Transaction = "Rent",
-            Uf = "Duckland",
+            State = "Duckland",
             City = "White Duck",
             Districts = new List<string> {"Downtown", "Alta Vista"},
             MinBedrooms = 0,
@@ -345,7 +344,7 @@ public class SearchPropertiesApiMethodTest
             .WithMinBuiltArea(80)
             .WithMaxBuiltArea(160)
             .WithMinSellingPrice(0)
-            .WithToSellingPrice(999999999)
+            .WithToSellingPrice(100000000 )
             .WithFromRentalPrice(100000)
             .WithToRentalPrice(200000)
             .WithStatus("Active")
@@ -363,7 +362,7 @@ public class SearchPropertiesApiMethodTest
         {
             Types = new List<string> {"Apartment"},
             Transaction = "Rent",
-            Uf = "Duckland",
+            State = "Duckland",
             City = "White Duck",
             Districts = new List<string> {"Downtown", "Alta Vista"},
             MinBedrooms = 0,
@@ -424,7 +423,7 @@ public class SearchPropertiesApiMethodTest
             .WithMinSellingPrice(100000)
             .WithToSellingPrice(200000)
             .WithFromRentalPrice(0)
-            .WithToRentalPrice(999999999)
+            .WithToRentalPrice(100000000 )
             .WithStatus("Active")
             .WithRanking(1);
 
@@ -440,7 +439,7 @@ public class SearchPropertiesApiMethodTest
         {
             Types = new List<string> {"Apartment"},
             Transaction = "Sale",
-            Uf = "Duckland",
+            State = "Duckland",
             City = "White Duck",
             Districts = new List<string>(0),
             MinBedrooms = 0,
@@ -499,7 +498,7 @@ public class SearchPropertiesApiMethodTest
             .WithMinBuiltArea(80)
             .WithMaxBuiltArea(160)
             .WithMinSellingPrice(0)
-            .WithToSellingPrice(999999999)
+            .WithToSellingPrice(100000000 )
             .WithFromRentalPrice(100000)
             .WithToRentalPrice(200000)
             .WithStatus("Active")
@@ -568,7 +567,7 @@ public class SearchPropertiesApiMethodTest
         {
             Types = new List<string> {"Apartment"},
             Transaction = "Rent",
-            Uf = "Duckland",
+            State = "Duckland",
             City = "White Duck",
             Districts = new List<string> {"Downtown", "Alta Vista"},
             MinBedrooms = 0,

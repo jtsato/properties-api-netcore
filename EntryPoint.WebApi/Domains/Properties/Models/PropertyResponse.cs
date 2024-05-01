@@ -50,7 +50,7 @@ public sealed class PropertyResponse
     [SwaggerSchema(Description = "City where the property is located.")]
     public string City { get; init; }
 
-    [SwaggerSchema(Description = "Uf where the property is located.")]
+    [SwaggerSchema(Description = "State where the property is located.")]
     public string State { get; init; }
 
     [SwaggerSchema(Description = "District where the property is located.")]

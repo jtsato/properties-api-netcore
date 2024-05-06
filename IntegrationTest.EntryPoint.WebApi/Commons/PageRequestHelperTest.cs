@@ -68,4 +68,68 @@ public sealed class PageRequestHelperTest
         Assert.NotNull(pageRequest.Sort);
         Assert.Empty(pageRequest.Sort.GetOrders());
     }
+    
+    [Trait("Category", "WebApi Collection [NoContext]")]
+    [Fact(DisplayName = "Successful to create an PageRequest with default values when parameters are null")]
+    public void SuccessfulToCreateAnPageRequestWithDefaultValuesWhenParametersAreNull()
+    {
+        // Arrange
+        // Act
+        PageRequest pageRequest = PageRequestHelper.Of(null, null, null);
+
+        // Assert
+        Assert.NotNull(pageRequest);
+        Assert.Equal(0, pageRequest.PageNumber);
+        Assert.Equal(10, pageRequest.PageSize);
+        Assert.NotNull(pageRequest.Sort);
+        Assert.Empty(pageRequest.Sort.GetOrders());
+    }
+    
+    [Trait("Category", "WebApi Collection [NoContext]")]
+    [Fact(DisplayName = "Successful to create an PageRequest with default values when parameters are empty")]
+    public void SuccessfulToCreateAnPageRequestWithDefaultValuesWhenParametersAreEmpty()
+    {
+        // Arrange
+        // Act
+        PageRequest pageRequest = PageRequestHelper.Of(string.Empty, string.Empty, string.Empty);
+
+        // Assert
+        Assert.NotNull(pageRequest);
+        Assert.Equal(0, pageRequest.PageNumber);
+        Assert.Equal(10, pageRequest.PageSize);
+        Assert.NotNull(pageRequest.Sort);
+        Assert.Empty(pageRequest.Sort.GetOrders());
+    }
+    
+    [Trait("Category", "WebApi Collection [NoContext]")]
+    [Fact(DisplayName = "Successful to create an PageRequest with default values when parameters are blank")]
+    public void SuccessfulToCreateAnPageRequestWithDefaultValuesWhenParametersAreBlank()
+    {
+        // Arrange
+        // Act
+        PageRequest pageRequest = PageRequestHelper.Of(" ", " ", " ");
+
+        // Assert
+        Assert.NotNull(pageRequest);
+        Assert.Equal(0, pageRequest.PageNumber);
+        Assert.Equal(10, pageRequest.PageSize);
+        Assert.NotNull(pageRequest.Sort);
+        Assert.Empty(pageRequest.Sort.GetOrders());
+    }
+    
+    [Trait("Category", "WebApi Collection [NoContext]")]
+    [Fact(DisplayName = "Successful to create an PageRequest with default values when parameters are invalid and sort is invalid")]
+    public void SuccessfulToCreateAnPageRequestWithDefaultValuesWhenParametersAreInvalidAndSortIsInvalid()
+    {
+        // Arrange
+        // Act
+        PageRequest pageRequest = PageRequestHelper.Of("0", "0", " : ");
+
+        // Assert
+        Assert.NotNull(pageRequest);
+        Assert.Equal(0, pageRequest.PageNumber);
+        Assert.Equal(10, pageRequest.PageSize);
+        Assert.NotNull(pageRequest.Sort);
+        Assert.Empty(pageRequest.Sort.GetOrders());
+    }
 }

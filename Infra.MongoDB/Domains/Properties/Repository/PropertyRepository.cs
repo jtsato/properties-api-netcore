@@ -62,8 +62,6 @@ public sealed class PropertyRepository : Repository<PropertyEntity>
                     new CreateIndexModel<PropertyEntity>(indexKeyState, CreateNonUniqueIndexOptions("IDX_Property_State")),
                     new CreateIndexModel<PropertyEntity>(indexKeyCity, CreateNonUniqueIndexOptions("IDX_Property_City")),
                     new CreateIndexModel<PropertyEntity>(indexKeyDistrict, CreateNonUniqueIndexOptions("IDX_Property_District")),
-                    new CreateIndexModel<PropertyEntity>(indexKeyRanking, CreateNonUniqueIndexOptions("IDX_Property_Ranking")),
-                    new CreateIndexModel<PropertyEntity>(indexKeyStatus, CreateNonUniqueIndexOptions("IDX_Property_Status")),
                     new CreateIndexModel<PropertyEntity>(indexKeyUpdateAt, CreateNonUniqueIndexOptions("IDX_Property_UpdatedAt")),
                     new CreateIndexModel<PropertyEntity>(compositeDefaultIndex, CreateNonUniqueIndexOptions("IDX_Property_Status_Ranking")),
                     new CreateIndexModel<PropertyEntity>(compositeTenantRefIndex, CreateUniqueIndexOptions("IDX_Property_TenantId_RefId"))

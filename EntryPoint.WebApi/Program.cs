@@ -72,12 +72,11 @@ public static class Program
                             "https://app.flutterflow.io",
                             "https://ff-debug-service-frontend-free-ygxkweukma-uc.a.run.app",
                             "https://ff-debug-service-frontend-pro-ygxkweukma-uc.a.run.app",
-                            "http://localhost:*"
+                            "http://localhost:8000"
                         )
                         .AllowAnyHeader()
                         .AllowAnyMethod()
-                        .AllowCredentials()
-                        .SetIsOriginAllowedToAllowWildcardSubdomains();
+                        .AllowCredentials();
                 });
         });
 

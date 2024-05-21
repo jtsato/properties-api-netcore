@@ -18,6 +18,7 @@ public static class PropertyPresenter
             Url = property.Advertise.Url,
             RefId = property.Advertise.RefId,
             Images = property.Advertise.Images,
+            HdImages = property.Advertise.HdImages,
             NumberOfBedrooms = property.Attributes.NumberOfBedrooms,
             NumberOfToilets = property.Attributes.NumberOfToilets,
             NumberOfGarages = property.Attributes.NumberOfGarages,

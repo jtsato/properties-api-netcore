@@ -33,6 +33,9 @@ public class PropertyEntity : Entity
 
     [BsonElement("images")]
     public string[] Images { get; set; }
+    
+    [BsonElement("hdImages")]
+    public string[] HdImages { get; set; }
 
     [BsonElement("numberOfBedrooms")]
     public int NumberOfBedrooms { get; set; }

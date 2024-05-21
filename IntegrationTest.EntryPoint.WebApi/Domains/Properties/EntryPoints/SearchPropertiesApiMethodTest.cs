@@ -204,6 +204,11 @@ public class SearchPropertiesApiMethodTest
                                 {
                                     "https://www.apartment-for-rent.com/image1.jpg",
                                     "https://www.apartment-for-rent.com/image2.jpg"
+                                },
+                                HdImages = new List<string>
+                                {
+                                    "https://www.apartment-for-rent.com/image1-hd.jpg",
+                                    "https://www.apartment-for-rent.com/image2-hd.jpg"
                                 }
                             },
                             Attributes = new PropertyAttributes
@@ -527,6 +532,11 @@ public class SearchPropertiesApiMethodTest
                                 {
                                     "https://www.apartment-for-rent.com/image1.jpg",
                                     "https://www.apartment-for-rent.com/image2.jpg"
+                                },
+                                HdImages = new List<string>
+                                {
+                                    "https://www.apartment-for-rent.com/image1-hd.jpg",
+                                    "https://www.apartment-for-rent.com/image2-hd.jpg"
                                 }
                             },
                             Attributes = new PropertyAttributes

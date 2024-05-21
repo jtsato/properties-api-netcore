@@ -14,6 +14,7 @@ public sealed class PropertyAdvertise
     public string Url { get; init; }
     public string RefId { get; init; }
     public List<string> Images { get; init; }
+    public List<string> HdImages { get; init; }
 
     [ExcludeFromCodeCoverage]
     private bool Equals(PropertyAdvertise other)
@@ -24,7 +25,8 @@ public sealed class PropertyAdvertise
                && Description == other.Description
                && Url == other.Url
                && RefId == other.RefId
-               && Equals(Images, other.Images);
+               && Equals(Images, other.Images)
+               && Equals(HdImages, other.HdImages);
     }
 
     [ExcludeFromCodeCoverage]
@@ -36,7 +38,7 @@ public sealed class PropertyAdvertise
     [ExcludeFromCodeCoverage]
     public override int GetHashCode()
     {
-        return HashCode.Combine(TenantId, Transaction.Id, Title, Description, Url, RefId, Images);
+        return HashCode.Combine(TenantId, Transaction.Id, Title, Description, Url, RefId, Images, HdImages);
     }
 
     [ExcludeFromCodeCoverage]
@@ -50,6 +52,7 @@ public sealed class PropertyAdvertise
             .AppendLine($"{nameof(Url)}: {Url}")
             .AppendLine($"{nameof(RefId)}: {RefId}")
             .AppendLine($"{nameof(Images)}: {string.Join(",", Images)}")
+            .AppendLine($"{nameof(HdImages)}: {string.Join(",", HdImages)}")
             .ToString();
     }
 }

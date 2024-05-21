@@ -93,6 +93,12 @@ public sealed class GetPropertyByIdUseCaseTest : IDisposable
                                 "https://www.patolar.com.com/rent/1/image2.jpg",
                                 "https://www.patolar.com.com/rent/1/image3.jpg",
                             },
+                            HdImages = new List<string>
+                            {
+                                "https://www.patolar.com.com/rent/1/image1-hd.jpg",
+                                "https://www.patolar.com.com/rent/1/image2-hd.jpg",
+                                "https://www.patolar.com.com/rent/1/image3-hd.jpg",
+                            }
                         },
                         Attributes = new PropertyAttributes
                         {
@@ -142,6 +148,9 @@ public sealed class GetPropertyByIdUseCaseTest : IDisposable
         Assert.Equal("https://www.patolar.com.com/rent/1/image1.jpg", actual.Advertise.Images[0]);
         Assert.Equal("https://www.patolar.com.com/rent/1/image2.jpg", actual.Advertise.Images[1]);
         Assert.Equal("https://www.patolar.com.com/rent/1/image3.jpg", actual.Advertise.Images[2]);
+        Assert.Equal("https://www.patolar.com.com/rent/1/image1-hd.jpg", actual.Advertise.HdImages[0]);
+        Assert.Equal("https://www.patolar.com.com/rent/1/image2-hd.jpg", actual.Advertise.HdImages[1]);
+        Assert.Equal("https://www.patolar.com.com/rent/1/image3-hd.jpg", actual.Advertise.HdImages[2]);
         Assert.Equal(3, actual.Attributes.NumberOfBedrooms);
         Assert.Equal(2, actual.Attributes.NumberOfToilets);
         Assert.Equal(1, actual.Attributes.NumberOfGarages);

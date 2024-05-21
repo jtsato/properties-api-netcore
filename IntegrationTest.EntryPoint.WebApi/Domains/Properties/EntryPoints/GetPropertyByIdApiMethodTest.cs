@@ -111,7 +111,12 @@ public class GetPropertyByIdApiMethodTest
                         {
                             "https://www.apartment-for-rent.com/image1.jpg",
                             "https://www.apartment-for-rent.com/image2.jpg"
-                        }
+                        },
+                        HdImages = new List<string>
+                        {
+                            "https://www.apartment-for-rent.com/image1-hd.jpg",
+                            "https://www.apartment-for-rent.com/image2-hd.jpg"
+                        },
                     },
                     Attributes = new PropertyAttributes
                     {
@@ -170,6 +175,11 @@ public class GetPropertyByIdApiMethodTest
             {
                 "https://www.apartment-for-rent.com/image1.jpg",
                 "https://www.apartment-for-rent.com/image2.jpg"
+            }))
+            .AndExpectThat(JsonFrom.Path("$.hdImages"), Is<List<string>>.EqualTo(new List<string>
+            {
+                "https://www.apartment-for-rent.com/image1-hd.jpg",
+                "https://www.apartment-for-rent.com/image2-hd.jpg"
             }))
             .AndExpectThat(JsonFrom.Path("$.numberOfBedrooms"), Is<int>.EqualTo(2))
             .AndExpectThat(JsonFrom.Path("$.numberOfToilets"), Is<int>.EqualTo(1))

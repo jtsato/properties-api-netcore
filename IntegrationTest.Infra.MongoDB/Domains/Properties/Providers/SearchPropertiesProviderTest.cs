@@ -51,6 +51,11 @@ public class SearchPropertiesProviderTest
                         {
                             "https://www.apartment-for-rent.com/image1.jpg",
                             "https://www.apartment-for-rent.com/image2.jpg"
+                        },
+                        HdImages = new List<string>
+                        {
+                            "https://www.apartment-for-rent.com/image1-hd.jpg",
+                            "https://www.apartment-for-rent.com/image2-hd.jpg"
                         }
                     },
                     Attributes = new PropertyAttributes
@@ -153,6 +158,9 @@ public class SearchPropertiesProviderTest
         Assert.Equal(2, actual.Advertise.Images.Count);
         Assert.Equal("https://www.apartment-for-rent.com/image1.jpg", actual.Advertise.Images[0]);
         Assert.Equal("https://www.apartment-for-rent.com/image2.jpg", actual.Advertise.Images[1]);
+        Assert.Equal(2, actual.Advertise.HdImages.Count);
+        Assert.Equal("https://www.apartment-for-rent.com/image1-hd.jpg", actual.Advertise.HdImages[0]);
+        Assert.Equal("https://www.apartment-for-rent.com/image2-hd.jpg", actual.Advertise.HdImages[1]);
         Assert.Equal(8, actual.Attributes.NumberOfBedrooms);
         Assert.Equal(4, actual.Attributes.NumberOfToilets);
         Assert.Equal(4, actual.Attributes.NumberOfGarages);
@@ -196,6 +204,11 @@ public class SearchPropertiesProviderTest
                     {
                         "https://www.house-for-rent.com/image1.jpg",
                         "https://www.house-for-rent.com/image2.jpg"
+                    },
+                    HdImages = new List<string>
+                    {
+                        "https://www.house-for-rent.com/image1-hd.jpg",
+                        "https://www.house-for-rent.com/image2-hd.jpg"
                     }
                 },
                 Attributes = new PropertyAttributes
@@ -271,6 +284,9 @@ public class SearchPropertiesProviderTest
         Assert.Equal(2, actual.Advertise.Images.Count);
         Assert.Equal("https://www.house-for-rent.com/image1.jpg", actual.Advertise.Images[0]);
         Assert.Equal("https://www.house-for-rent.com/image2.jpg", actual.Advertise.Images[1]);
+        Assert.Equal(2, actual.Advertise.HdImages.Count);
+        Assert.Equal("https://www.house-for-rent.com/image1-hd.jpg", actual.Advertise.HdImages[0]);
+        Assert.Equal("https://www.house-for-rent.com/image2-hd.jpg", actual.Advertise.HdImages[1]);
         Assert.Equal(2, actual.Attributes.NumberOfBedrooms);
         Assert.Equal(1, actual.Attributes.NumberOfToilets);
         Assert.Equal(1, actual.Attributes.NumberOfGarages);

@@ -82,6 +82,12 @@ public sealed class SearchPropertiesUseCaseTest : IDisposable
                                 "https://www.patolar.com.com/rent/1/image2.jpg",
                                 "https://www.patolar.com.com/rent/1/image3.jpg",
                             },
+                            HdImages = new List<string>
+                            {
+                                "https://www.patolar.com.com/rent/1/image1-hd.jpg",
+                                "https://www.patolar.com.com/rent/1/image2-hd.jpg",
+                                "https://www.patolar.com.com/rent/1/image3-hd.jpg",
+                            }
                         },
                         Attributes = new PropertyAttributes
                         {
@@ -142,6 +148,9 @@ public sealed class SearchPropertiesUseCaseTest : IDisposable
         Assert.Equal("https://www.patolar.com.com/rent/1/image1.jpg", property.Advertise.Images[0]);
         Assert.Equal("https://www.patolar.com.com/rent/1/image2.jpg", property.Advertise.Images[1]);
         Assert.Equal("https://www.patolar.com.com/rent/1/image3.jpg", property.Advertise.Images[2]);
+        Assert.Equal("https://www.patolar.com.com/rent/1/image1-hd.jpg", property.Advertise.HdImages[0]);
+        Assert.Equal("https://www.patolar.com.com/rent/1/image2-hd.jpg", property.Advertise.HdImages[1]);
+        Assert.Equal("https://www.patolar.com.com/rent/1/image3-hd.jpg", property.Advertise.HdImages[2]);
         Assert.Equal(3, property.Attributes.NumberOfBedrooms);
         Assert.Equal(2, property.Attributes.NumberOfToilets);
         Assert.Equal(1, property.Attributes.NumberOfGarages);

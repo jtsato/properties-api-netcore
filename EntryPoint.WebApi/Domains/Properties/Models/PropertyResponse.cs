@@ -31,6 +31,9 @@ public sealed class PropertyResponse
 
     [SwaggerSchema(Description = "List of images of the property.")]
     public List<string> Images { get; init; }
+    
+    [SwaggerSchema(Description = "List of high definition images of the property.")]
+    public List<string> HdImages { get; init; }
 
     [SwaggerSchema(Description = "Number of bedrooms in the property.")]
     public byte NumberOfBedrooms { get; init; }

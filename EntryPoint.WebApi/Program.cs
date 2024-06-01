@@ -99,7 +99,7 @@ public static class Program
 
         builder.Services.Configure<BrotliCompressionProviderOptions>(options =>
         {
-            options.Level = CompressionLevel.Fastest;
+            options.Level = CompressionLevel.SmallestSize;
         });
 
         builder.Services.Configure<GzipCompressionProviderOptions>(options =>

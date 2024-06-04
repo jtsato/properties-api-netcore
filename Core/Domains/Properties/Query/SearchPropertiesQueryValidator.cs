@@ -52,7 +52,7 @@ internal sealed class SearchPropertiesQueryValidator : AbstractValidator<SearchP
             .Must(sellingPrice => sellingPrice.From <= sellingPrice.To || Math.Abs(sellingPrice.To) < Epsilon)
             .WithMessage("ValidationPropertySellingPriceIsInvalid");
         
-        RuleFor(query => query.Prices.RentalPrice)
+        RuleFor(query => query.Prices.RentalTotalPrice)
             .Cascade(CascadeMode.Stop)
             .Must(rentalPrice => rentalPrice.From <= rentalPrice.To || Math.Abs(rentalPrice.To) < Epsilon)
             .WithMessage("ValidationPropertyRentalPriceIsInvalid");

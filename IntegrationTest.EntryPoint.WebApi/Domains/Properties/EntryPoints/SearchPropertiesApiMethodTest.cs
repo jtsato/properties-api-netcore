@@ -92,8 +92,8 @@ public class SearchPropertiesApiMethodTest
             .WithMaxBuiltArea(160)
             .WithMinSellingPrice(100000)
             .WithToSellingPrice(200000)
-            .WithFromRentalPrice(500)
-            .WithToRentalPrice(900)
+            .WithFromRentalTotalPrice(500)
+            .WithToRentalTotalPrice(900)
             .WithStatus("Active")
             .WithRanking(1);
 
@@ -176,8 +176,8 @@ public class SearchPropertiesApiMethodTest
             .WithMaxBuiltArea(160)
             .WithMinSellingPrice(0)
             .WithToSellingPrice(100000000)
-            .WithFromRentalPrice(100000)
-            .WithToRentalPrice(200000)
+            .WithFromRentalTotalPrice(100000)
+            .WithToRentalTotalPrice(200000)
             .WithStatus("Active")
             .WithRanking(1);
 
@@ -350,8 +350,8 @@ public class SearchPropertiesApiMethodTest
             .WithMaxBuiltArea(160)
             .WithMinSellingPrice(0)
             .WithToSellingPrice(100000000 )
-            .WithFromRentalPrice(100000)
-            .WithToRentalPrice(200000)
+            .WithFromRentalTotalPrice(100000)
+            .WithToRentalTotalPrice(200000)
             .WithStatus("Active")
             .WithRanking(1);
 
@@ -427,8 +427,8 @@ public class SearchPropertiesApiMethodTest
             .WithMaxBuiltArea(160)
             .WithMinSellingPrice(100000)
             .WithToSellingPrice(200000)
-            .WithFromRentalPrice(0)
-            .WithToRentalPrice(100000000 )
+            .WithFromRentalTotalPrice(0)
+            .WithToRentalTotalPrice(100000000 )
             .WithStatus("Active")
             .WithRanking(1);
 
@@ -504,8 +504,8 @@ public class SearchPropertiesApiMethodTest
             .WithMaxBuiltArea(160)
             .WithMinSellingPrice(0)
             .WithToSellingPrice(100000000 )
-            .WithFromRentalPrice(100000)
-            .WithToRentalPrice(200000)
+            .WithFromRentalTotalPrice(100000)
+            .WithToRentalTotalPrice(200000)
             .WithStatus("Active")
             .WithRanking(1);
 

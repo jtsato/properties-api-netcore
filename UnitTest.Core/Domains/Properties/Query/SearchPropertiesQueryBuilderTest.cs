@@ -87,8 +87,8 @@ namespace UnitTest.Core.Domains.Properties.Query
                 .WithMaxBuiltArea(testData.BuiltAreaTo)
                 .WithMinSellingPrice(testData.SellingPriceFrom)
                 .WithToSellingPrice(testData.SellingPriceTo)
-                .WithFromRentalPrice(testData.RentalPriceFrom)
-                .WithToRentalPrice(testData.RentalPriceTo)
+                .WithFromRentalTotalPrice(testData.RentalPriceFrom)
+                .WithToRentalTotalPrice(testData.RentalPriceTo)
                 .WithStatus(testData.Status);
 
             SearchPropertiesQuery actual = builder.Build();
@@ -111,8 +111,8 @@ namespace UnitTest.Core.Domains.Properties.Query
             Assert.Equal(testData.BuiltAreaTo, actual.Attributes.BuiltArea.To);
             Assert.Equal(testData.SellingPriceFrom, actual.Prices.SellingPrice.From);
             Assert.Equal(testData.SellingPriceTo, actual.Prices.SellingPrice.To);
-            Assert.Equal(testData.RentalPriceFrom, actual.Prices.RentalPrice.From);
-            Assert.Equal(testData.RentalPriceTo, actual.Prices.RentalPrice.To);
+            Assert.Equal(testData.RentalPriceFrom, actual.Prices.RentalTotalPrice.From);
+            Assert.Equal(testData.RentalPriceTo, actual.Prices.RentalTotalPrice.To);
         }
     }
 

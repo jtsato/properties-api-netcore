@@ -114,8 +114,8 @@ public class SearchPropertiesProviderTest
             .WithMaxBuiltArea(2000)
             .WithMinSellingPrice(1000)
             .WithToSellingPrice(10000)
-            .WithFromRentalPrice(700)
-            .WithToRentalPrice(7000)
+            .WithFromRentalTotalPrice(1000)
+            .WithToRentalTotalPrice(10000)
             .WithStatus("Active");
 
         SearchPropertiesQuery query = queryBuilder.Build();

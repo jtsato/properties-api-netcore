@@ -85,8 +85,8 @@ public sealed class SearchPropertiesController : ISearchPropertiesController
 
         float sellingPriceMin = isSale ? request.MinPrice : 0;
         float sellingPriceMax = isSale && request.MaxPrice > 0 ? request.MaxPrice : DefaultMaxPrice;
-        float rentalPriceMin = isRent ? request.MinPrice : 0;
-        float rentalPriceMax = isRent && request.MaxPrice > 0 ? request.MaxPrice : DefaultMaxPrice;
+        float rentalTotalPriceMin = isRent ? request.MinPrice : 0;
+        float rentalTotalPriceMax = isRent && request.MaxPrice > 0 ? request.MaxPrice : DefaultMaxPrice;
         
         byte minBedrooms = request.MinBedrooms > 0 ? request.MinBedrooms : (byte)0;
         byte maxBedrooms = request.MaxBedrooms > 0 ? request.MaxBedrooms : DefaultMaxRooms;
@@ -123,8 +123,8 @@ public sealed class SearchPropertiesController : ISearchPropertiesController
             .WithMaxBuiltArea(maxBuiltArea)
             .WithMinSellingPrice(sellingPriceMin)
             .WithToSellingPrice(sellingPriceMax)
-            .WithFromRentalPrice(rentalPriceMin)
-            .WithToRentalPrice(rentalPriceMax)
+            .WithFromRentalTotalPrice(rentalTotalPriceMin)
+            .WithToRentalTotalPrice(rentalTotalPriceMax)
             .WithStatus(status)
             .WithRanking(ranking);
 

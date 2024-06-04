@@ -8,22 +8,22 @@ namespace Core.Domains.Properties.Query;
 public class SearchPropertiesQueryPrices
 {
     public Range<float> SellingPrice { get; init; }
-    public Range<float> RentalPrice { get; init; }
+    public Range<float> RentalTotalPrice { get; init; }
 
     protected internal SearchPropertiesQueryPrices
     (
         Range<float> sellingPrice,
-        Range<float> rentalPrice
+        Range<float> rentalTotalPrice
     )
     {
         SellingPrice = sellingPrice;
-        RentalPrice = rentalPrice;
+        RentalTotalPrice = rentalTotalPrice;
     }
 
     [ExcludeFromCodeCoverage]
     private bool Equals(SearchPropertiesQueryPrices other)
     {
-        return SellingPrice.Equals(other.SellingPrice) && RentalPrice.Equals(other.RentalPrice);
+        return SellingPrice.Equals(other.SellingPrice) && RentalTotalPrice.Equals(other.RentalTotalPrice);
     }
 
     [ExcludeFromCodeCoverage]
@@ -35,7 +35,7 @@ public class SearchPropertiesQueryPrices
     [ExcludeFromCodeCoverage]
     public override int GetHashCode()
     {
-        return HashCode.Combine(SellingPrice, RentalPrice);
+        return HashCode.Combine(SellingPrice, RentalTotalPrice);
     }
 
     [ExcludeFromCodeCoverage]
@@ -43,7 +43,7 @@ public class SearchPropertiesQueryPrices
     {
         return new StringBuilder()
             .AppendLine($"{nameof(SellingPrice)}: {SellingPrice}")
-            .AppendLine($"{nameof(RentalPrice)}: {RentalPrice}")
+            .AppendLine($"{nameof(RentalTotalPrice)}: {RentalTotalPrice}")
             .ToString();
     }
 }

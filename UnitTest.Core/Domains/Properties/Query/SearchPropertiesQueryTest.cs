@@ -35,7 +35,7 @@ public class SearchPropertiesQueryTest
                 new SearchPropertiesQueryPrices
                 (
                     sellingPrice: Range<float>.Of(200000, 100000),
-                    rentalPrice: Range<float>.Of(5000, 4000)
+                    rentalTotalPrice: Range<float>.Of(5000, 4000)
                 ),
                 "InvalidStatus",
                 0
@@ -85,7 +85,7 @@ public class SearchPropertiesQueryTest
             new SearchPropertiesQueryPrices
             (
                 sellingPrice: Range<float>.Of(100000, 0),
-                rentalPrice: Range<float>.Of(4000, 0)
+                rentalTotalPrice: Range<float>.Of(4000, 0)
             ),
             "Active",
             0
@@ -111,8 +111,8 @@ public class SearchPropertiesQueryTest
         Assert.Equal("Vila Mariana", query.Location.Districts[1]);
         Assert.Equal(100000, query.Prices.SellingPrice.From);
         Assert.Equal(0, query.Prices.SellingPrice.To);
-        Assert.Equal(4000, query.Prices.RentalPrice.From);
-        Assert.Equal(0, query.Prices.RentalPrice.To);
+        Assert.Equal(4000, query.Prices.RentalTotalPrice.From);
+        Assert.Equal(0, query.Prices.RentalTotalPrice.To);
         Assert.Equal("Active", query.Status);
         Assert.Equal(0, query.Ranking);
     }
@@ -142,7 +142,7 @@ public class SearchPropertiesQueryTest
             new SearchPropertiesQueryPrices
             (
                 sellingPrice: Range<float>.Of(0, 100000),
-                rentalPrice: Range<float>.Of(0, 5000)
+                rentalTotalPrice: Range<float>.Of(0, 5000)
             ),
             "Active",
             0
@@ -168,8 +168,8 @@ public class SearchPropertiesQueryTest
         Assert.Equal("Vila Mariana", query.Location.Districts[1]);
         Assert.Equal(0, query.Prices.SellingPrice.From);
         Assert.Equal(100000, query.Prices.SellingPrice.To);
-        Assert.Equal(0, query.Prices.RentalPrice.From);
-        Assert.Equal(5000, query.Prices.RentalPrice.To);
+        Assert.Equal(0, query.Prices.RentalTotalPrice.From);
+        Assert.Equal(5000, query.Prices.RentalTotalPrice.To);
         Assert.Equal("Active", query.Status);
     }
 }

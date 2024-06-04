@@ -89,8 +89,8 @@ public static class SearchPropertiesFilterBuilder
     {
         List<FilterDefinition<PropertyEntity>> rentFilterDefinitions = new List<FilterDefinition<PropertyEntity>>();
         
-        FilterHelper.AddGreaterOrEqualFilter(rentFilterDefinitions, document => document.RentalPrice, query.Prices.RentalPrice.From);
-        AddToFiltersIfLessOrThanDefaultValue(rentFilterDefinitions, document => document.RentalPrice, query.Prices.RentalPrice.To, DefaultMaxPrice);
+        FilterHelper.AddGreaterOrEqualFilter(rentFilterDefinitions, document => document.RentalTotalPrice, query.Prices.RentalTotalPrice.From);
+        AddToFiltersIfLessOrThanDefaultValue(rentFilterDefinitions, document => document.RentalTotalPrice, query.Prices.RentalTotalPrice.To, DefaultMaxPrice);
 
         return rentFilterDefinitions;
     }

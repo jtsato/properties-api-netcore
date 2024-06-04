@@ -22,8 +22,8 @@ public class SearchPropertiesQueryBuilder
     private string _city;
     private float _minSellingPrice;
     private float _toSellingPrice;
-    private float _fromRentalPrice;
-    private float _toRentalPrice;
+    private float _fromRentalTotalPrice;
+    private float _toRentalTotalPrice;
     private string _status;
     private byte _ranking;
 
@@ -132,15 +132,15 @@ public class SearchPropertiesQueryBuilder
         return this;
     }
 
-    public SearchPropertiesQueryBuilder WithFromRentalPrice(float fromRentalPrice)
+    public SearchPropertiesQueryBuilder WithFromRentalTotalPrice(float fromRentalTotalPrice)
     {
-        _fromRentalPrice = fromRentalPrice;
+        _fromRentalTotalPrice = fromRentalTotalPrice;
         return this;
     }
 
-    public SearchPropertiesQueryBuilder WithToRentalPrice(float toRentalPrice)
+    public SearchPropertiesQueryBuilder WithToRentalTotalPrice(float toRentalTotalPrice)
     {
-        _toRentalPrice = toRentalPrice;
+        _toRentalTotalPrice = toRentalTotalPrice;
         return this;
     }
 
@@ -180,7 +180,7 @@ public class SearchPropertiesQueryBuilder
         SearchPropertiesQueryPrices queryPrices = new SearchPropertiesQueryPrices
         (
             sellingPrice: Range<float>.Of(_minSellingPrice, _toSellingPrice),
-            rentalPrice: Range<float>.Of(_fromRentalPrice, _toRentalPrice)
+            rentalTotalPrice: Range<float>.Of(_fromRentalTotalPrice, _toRentalTotalPrice)
         );
 
         return new SearchPropertiesQuery(

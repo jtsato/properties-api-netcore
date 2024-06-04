@@ -61,7 +61,7 @@ public static class SearchPropertiesFilterBuilder
         }
 
         FilterHelper.AddEqualsFilter(filters, document => document.Status, status);
-        FilterHelper.AddEqualsFilter(filters, document => document.Ranking, query.Ranking);
+        FilterHelper.AddGreaterOrEqualFilter(filters, document => document.Ranking, query.Ranking);
 
         return filters.Count == 0 ? Builders<PropertyEntity>.Filter.Empty : Builders<PropertyEntity>.Filter.And(filters);
     }

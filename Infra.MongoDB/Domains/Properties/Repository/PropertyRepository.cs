@@ -15,6 +15,9 @@ public sealed class PropertyRepository : Repository<PropertyEntity>
     {
         IndexKeysDefinition<PropertyEntity> indexKeyId = Builders<PropertyEntity>
             .IndexKeys.Ascending(document => document.Id);
+        
+        IndexKeysDefinition<PropertyEntity> indexKeyUuid = Builders<PropertyEntity>
+            .IndexKeys.Ascending(document => document.Uuid);
 
         IndexKeysDefinition<PropertyEntity> indexKeyTenantId = Builders<PropertyEntity>
             .IndexKeys.Ascending(document => document.TenantId);
@@ -57,6 +60,7 @@ public sealed class PropertyRepository : Repository<PropertyEntity>
                 new List<CreateIndexModel<PropertyEntity>>
                 {
                     new CreateIndexModel<PropertyEntity>(indexKeyId, CreateUniqueIndexOptions("IDX_Property_Id")),
+                    new CreateIndexModel<PropertyEntity>(indexKeyUuid, CreateUniqueIndexOptions("IDX_Property_Uuid")),
                     new CreateIndexModel<PropertyEntity>(indexKeyTransaction, CreateNonUniqueIndexOptions("IDX_Property_Transaction")),
                     new CreateIndexModel<PropertyEntity>(indexKeyType, CreateNonUniqueIndexOptions("IDX_Property_Type")),
                     new CreateIndexModel<PropertyEntity>(indexKeyState, CreateNonUniqueIndexOptions("IDX_Property_State")),

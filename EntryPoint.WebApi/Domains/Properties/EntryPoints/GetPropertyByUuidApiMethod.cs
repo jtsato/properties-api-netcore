@@ -32,9 +32,9 @@ public class GetPropertyByUuidApiMethod : IApiMethod
     [ProducesResponseType(typeof(PropertyResponse), 200)]
     [ProducesResponseType(typeof(ResponseStatus), 400)]
     [ProducesResponseType(typeof(ResponseStatus), 500)]
-    [HttpGet("{id:long:min(1)}")]
-    public Task<IActionResult> GetPropertyByUuid(string id)
+    [HttpGet("{uuid}")]
+    public Task<IActionResult> GetPropertyByUuid(string uuid)
     {
-        return _controller.ExecuteAsync(id);
+        return _controller.ExecuteAsync(uuid);
     }
 }

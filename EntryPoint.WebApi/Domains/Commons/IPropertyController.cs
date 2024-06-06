@@ -17,5 +17,5 @@ public interface ISearchPropertiesController : IPropertyController
 
 public interface IGetPropertyByUuidController : IPropertyController
 {
-    Task<IActionResult> ExecuteAsync(string id);
+    Task<IActionResult> ExecuteAsync(string uuid);
 }

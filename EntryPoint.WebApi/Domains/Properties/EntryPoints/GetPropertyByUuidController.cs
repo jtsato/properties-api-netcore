@@ -20,9 +20,9 @@ public class GetPropertyByUuidController : IGetPropertyByUuidController
         _useCase = useCase;
     }
 
-    public async Task<IActionResult> ExecuteAsync(string id)
+    public async Task<IActionResult> ExecuteAsync(string uuid)
     {
-        GetPropertyByUuidQuery query = new GetPropertyByUuidQuery(id);
+        GetPropertyByUuidQuery query = new GetPropertyByUuidQuery(uuid);
         Property property = await _useCase.ExecuteAsync(query);
         PropertyResponse propertyResponse = PropertyPresenter.Of(property);
         return await ResponseBuilder.BuildResponse(HttpStatusCode.OK, propertyResponse);

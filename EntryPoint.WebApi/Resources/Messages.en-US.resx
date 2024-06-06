@@ -52,7 +52,7 @@
         <value>The advertise 'transaction' field is required.</value>
     </data>
     <data name="ValidationPropertyNotFound" xml:space="preserve">
-        <value>No property was found with identifier {0}.</value>
+        <value>No property was found with uuid{0}.</value>
     </data>
     <data name="ValidationPropertyIdIsNullOrEmpty" xml:space="preserve">
         <value>The property id is required.</value>

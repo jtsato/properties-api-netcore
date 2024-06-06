@@ -43,7 +43,7 @@ public class GetPropertyByUuidProviderTest
     public async Task SuccessfulToGetPropertyByUuid()
     {
         // Arrange
-        long id = (await _registerPropertyGateway.ExecuteAsync(new Property
+        await _registerPropertyGateway.ExecuteAsync(new Property
         {
             Uuid = "77c1c391-b488-488e-b312-652fa086b694",
             Type = PropertyType.Apartment,
@@ -84,7 +84,7 @@ public class GetPropertyByUuidProviderTest
             Status = PropertyStatus.Active,
             CreatedAt = DateTime.Parse("2023-01-01 23:59:59.999", CultureInfo.DefaultThreadCurrentCulture),
             UpdatedAt = DateTime.Parse("2023-02-01 23:59:59.999", CultureInfo.DefaultThreadCurrentCulture),
-        })).Id;
+        });
 
         // Act
         Optional optional = await _getPropertyByUuidGateway.ExecuteAsync(new GetPropertyByUuidQuery("77c1c391-b488-488e-b312-652fa086b694"));

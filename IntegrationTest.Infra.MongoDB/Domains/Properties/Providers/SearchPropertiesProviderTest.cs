@@ -38,6 +38,7 @@ public class SearchPropertiesProviderTest
             Property property =
                 new Property
                 {
+                    Uuid = Guid.NewGuid().ToString(),
                     Type = PropertyType.Apartment,
                     Advertise = new PropertyAdvertise
                     {
@@ -191,6 +192,7 @@ public class SearchPropertiesProviderTest
         Property property =
             new Property
             {
+                Uuid = Guid.NewGuid().ToString(),
                 Type = PropertyType.House,
                 Advertise = new PropertyAdvertise
                 {

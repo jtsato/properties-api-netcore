@@ -56,6 +56,7 @@ public static class PropertyMapper
         return new Property
         {
             Id = propertyEntity.Id,
+            Uuid = propertyEntity.Uuid,
             Type = type,
             Advertise = advertise,
             Attributes = attributes,
@@ -73,6 +74,7 @@ public static class PropertyMapper
     {
         return new PropertyEntity
         {
+            Uuid = property.Uuid,
             Type = property.Type.Name,
             TenantId = property.Advertise.TenantId,
             Transaction = property.Advertise.Transaction.Name,

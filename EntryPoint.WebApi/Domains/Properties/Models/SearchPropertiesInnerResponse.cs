@@ -4,8 +4,11 @@ namespace EntryPoint.WebApi.Domains.Properties.Models;
 
 public sealed class SearchPropertiesInnerResponse
 {
-    [SwaggerSchema(Nullable = false, Description = "Unique key of the property.")]
+    [SwaggerSchema(Nullable = false, Description = "Sequential identifier of the property.")]
     public long Id { get; init; }
+    
+    [SwaggerSchema(Nullable = false, Description = "UUID of the property.")]
+    public string Uuid { get; init; }
 
     // [SwaggerSchema(Description = "Identifier of the tenant.")]
     // public int TenantId { get; init; }

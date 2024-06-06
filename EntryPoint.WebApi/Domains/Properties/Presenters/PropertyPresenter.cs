@@ -10,6 +10,7 @@ public static class PropertyPresenter
         return new PropertyResponse
         {
             Id = property.Id,
+            Uuid = property.Uuid,
             TenantId = property.Advertise.TenantId,
             Transaction = property.Advertise.Transaction.Name.ToUpperInvariant(),
             Type = property.Type.Name.ToUpperInvariant(),

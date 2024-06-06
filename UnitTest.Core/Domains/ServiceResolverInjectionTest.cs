@@ -10,7 +10,7 @@ public class ServiceResolverInjectionTest
 {
     [Trait("Category", "Core Business tests")]
     [Theory(DisplayName = "Fail to create an instance if service resolver is not supplied")]
-    [InlineData(typeof(GetPropertyByIdUseCase))]
+    [InlineData(typeof(GetPropertyByUuidUseCase))]
     [InlineData(typeof(SearchPropertiesUseCase))]
     public void FailToCreateAnInstanceIfServiceResolverIsNotSupplied(Type type)
     {

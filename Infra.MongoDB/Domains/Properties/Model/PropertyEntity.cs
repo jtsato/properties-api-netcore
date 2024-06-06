@@ -10,6 +10,9 @@ namespace Infra.MongoDB.Domains.Properties.Model;
 [Serializable]
 public class PropertyEntity : Entity
 {
+    [BsonElement("uuid")]
+    public string Uuid { get; set; }
+    
     [BsonElement("type")]
     public string Type { get; set; }
 

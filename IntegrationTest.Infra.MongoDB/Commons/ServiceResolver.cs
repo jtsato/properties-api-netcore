@@ -55,7 +55,7 @@ public sealed class ServiceResolver : IServiceResolver
         _services.Add(typeof(IRepository<PropertyEntity>), GetPropertyRepository());
         _services.Add(typeof(ISequenceRepository<PropertySequence>), GetPropertySequenceRepository());
 
-        _services.Add(typeof(IGetPropertyByIdGateway), GetPropertyByIdGateway());
+        _services.Add(typeof(IGetPropertyByUuidGateway), GetPropertyByUuidGateway());
         _services.Add(typeof(ISearchPropertiesGateway), GetSearchPropertiesGateway());
         _services.Add(typeof(IRegisterPropertyGateway), GetRegisterPropertyGateway());
     }
@@ -77,9 +77,9 @@ public sealed class ServiceResolver : IServiceResolver
         return new SearchPropertiesProvider(GetPropertyRepository());
     }
 
-    private IGetPropertyByIdGateway GetPropertyByIdGateway()
+    private IGetPropertyByUuidGateway GetPropertyByUuidGateway()
     {
-        return new GetPropertyByIdProvider(GetPropertyRepository());
+        return new GetPropertyByUuidProvider(GetPropertyRepository());
     }
 
     private IRegisterPropertyGateway GetRegisterPropertyGateway()

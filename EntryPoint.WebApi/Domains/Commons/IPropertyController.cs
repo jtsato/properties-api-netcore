@@ -15,7 +15,7 @@ public interface ISearchPropertiesController : IPropertyController
     Task<IActionResult> ExecuteAsync(SearchPropertiesRequest request, QPageRequest qPageRequest);
 }
 
-public interface IGetPropertyByIdController : IPropertyController
+public interface IGetPropertyByUuidController : IPropertyController
 {
     Task<IActionResult> ExecuteAsync(string id);
 }

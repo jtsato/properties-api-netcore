@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Core.Commons.Extensions;
 using Core.Commons.Paging;
 using Core.Domains.Properties.Models;
 using EntryPoint.WebApi.Domains.Properties.Models;
@@ -22,6 +21,7 @@ public static class SearchPropertiesPresenter
         return new SearchPropertiesInnerResponse
         {
             Id = property.Id,
+            Uuid = property.Uuid,
             // TenantId = property.Advertise.TenantId,
             Transaction = property.Advertise.Transaction.Name.ToUpperInvariant(),
             Type = property.Type.Name.ToUpperInvariant(),

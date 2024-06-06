@@ -191,6 +191,7 @@ public class SearchPropertiesApiMethodTest
                         new Property
                         {
                             Id = 1001,
+                            Uuid = "77c1c391-b488-488e-b312-652fa086b694",
                             Type = PropertyType.Apartment,
                             Advertise = new PropertyAdvertise
                             {
@@ -289,6 +290,7 @@ public class SearchPropertiesApiMethodTest
         JsonAssertHelper.AssertThat(jsonElement)
             .AndExpectThat(JsonFrom.Path("$.content"), Is<object>.Single())
             .AndExpectThat(JsonFrom.Path("$.content[0].id"), Is<long>.EqualTo(1001))
+            .AndExpectThat(JsonFrom.Path("$.content[0].uuid"), Is<string>.EqualTo("77c1c391-b488-488e-b312-652fa086b694"))
             // .AndExpectThat(JsonFrom.Path("$.content[0].tenantId"), Is<int>.EqualTo(1))
             .AndExpectThat(JsonFrom.Path("$.content[0].transaction"), Is<string>.EqualTo("RENT"))
             .AndExpectThat(JsonFrom.Path("$.content[0].type"), Is<string>.EqualTo("APARTMENT"))
@@ -519,6 +521,7 @@ public class SearchPropertiesApiMethodTest
                         new Property
                         {
                             Id = 1001,
+                            Uuid = "77c1c391-b488-488e-b312-652fa086b694",
                             Type = PropertyType.Apartment,
                             Advertise = new PropertyAdvertise
                             {
@@ -617,6 +620,7 @@ public class SearchPropertiesApiMethodTest
         JsonAssertHelper.AssertThat(jsonElement)
             .AndExpectThat(JsonFrom.Path("$.content"), Is<object>.Single())
             .AndExpectThat(JsonFrom.Path("$.content[0].id"), Is<long>.EqualTo(1001))
+            .AndExpectThat(JsonFrom.Path("$.content[0].uuid"), Is<string>.EqualTo("77c1c391-b488-488e-b312-652fa086b694"))
             // .AndExpectThat(JsonFrom.Path("$.content[0].tenantId"), Is<int>.EqualTo(1))
             .AndExpectThat(JsonFrom.Path("$.content[0].transaction"), Is<string>.EqualTo("RENT"))
             .AndExpectThat(JsonFrom.Path("$.content[0].type"), Is<string>.EqualTo("APARTMENT"))

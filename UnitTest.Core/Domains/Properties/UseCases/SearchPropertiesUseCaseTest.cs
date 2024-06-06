@@ -68,6 +68,7 @@ public sealed class SearchPropertiesUseCaseTest : IDisposable
                     new Property
                     {
                         Id = 1001,
+                        Uuid = "77c1c391-b488-488e-b312-652fa086b694",
                         Advertise = new PropertyAdvertise
                         {
                             TenantId = 1,
@@ -141,6 +142,7 @@ public sealed class SearchPropertiesUseCaseTest : IDisposable
         Assert.NotNull(property);
 
         Assert.Equal(1001, property.Id);
+        Assert.Equal("77c1c391-b488-488e-b312-652fa086b694", property.Uuid);
         Assert.Equal("Title 1", property.Advertise.Title);
         Assert.Equal("Description 1", property.Advertise.Description);
         Assert.Equal("https://www.patolar.com.com/rent/1", property.Advertise.Url);

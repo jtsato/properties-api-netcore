@@ -53,19 +53,19 @@ public static class DependencyInjector
         services.AddSingleton<IExceptionHandler, ExceptionHandler>();
         services.AddSingleton<IGetCorrelationId, GetCorrelationId>();
         services.AddSingleton<ISearchPropertiesController, SearchPropertiesController>();
-        services.AddSingleton<IGetPropertyByIdController, GetPropertyByIdController>();
+        services.AddSingleton<IGetPropertyByUuidController, GetPropertyByUuidController>();
     }
 
     private static void AddCoreServices(IServiceCollection services)
     {
         services.AddSingleton<ISearchPropertiesUseCase, SearchPropertiesUseCase>();
-        services.AddSingleton<IGetPropertyByIdUseCase, GetPropertyByIdUseCase>();
+        services.AddSingleton<IGetPropertyByUuidUseCase, GetPropertyByUuidUseCase>();
     }
 
     private static void AddInfrastructureServices(IServiceCollection services, IConnectionFactory connectionFactory)
     {
         services.AddSingleton<ISearchPropertiesGateway, SearchPropertiesProvider>();
-        services.AddSingleton<IGetPropertyByIdGateway, GetPropertyByIdProvider>();
+        services.AddSingleton<IGetPropertyByUuidGateway, GetPropertyByUuidProvider>();
         services.AddSingleton<IRepository<PropertyEntity>>(_ => new PropertyRepository(connectionFactory, DatabaseName, CollectionName));
     }
 

@@ -7,6 +7,7 @@ namespace Core.Domains.Properties.Models;
 public sealed class Property
 {
     public long Id { get; init; }
+    public string Uuid { get; init; }
     public PropertyType Type { get; init; }
     public PropertyAdvertise Advertise { get; init; }
     public PropertyAttributes Attributes { get; init; }
@@ -22,6 +23,7 @@ public sealed class Property
     private bool Equals(Property other)
     {
         return Id == other.Id
+               && Uuid == other.Uuid
                && Type == other.Type
                && Equals(Advertise, other.Advertise)
                && Equals(Attributes, other.Attributes)
@@ -45,6 +47,7 @@ public sealed class Property
     {
         HashCode hashCode = new HashCode();
         hashCode.Add(Id);
+        hashCode.Add(Uuid);
         hashCode.Add(Type.Id);
         hashCode.Add(Advertise);
         hashCode.Add(Attributes);
@@ -63,6 +66,7 @@ public sealed class Property
     {
         return new StringBuilder()
             .AppendLine($"{nameof(Id)}: {Id}")
+            .AppendLine($"{nameof(Uuid)}: {Uuid}")
             .AppendLine($"{nameof(Type)}: {Type}")
             .AppendLine($"{nameof(Advertise)}: {Advertise}")
             .AppendLine($"{nameof(Attributes)}: {Attributes}")

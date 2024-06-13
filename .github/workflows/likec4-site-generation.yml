@@ -39,20 +39,13 @@ jobs:
       - name: 🛠️ Install dependencies
         working-directory: ./docs/likec4
         run: |
+          npm install vite@5.2.13 --save-exact
           npx likec4 --version
     
       - name: ⚙️ Build LikeC4
         working-directory: ./docs/likec4  
         run: |
           npx likec4 build -o ./dist --base properties-api-netcore
-
-#      - name: Build
-#        uses: likec4/actions@v1
-#        with:
-#          action: build
-#          output: ./docs/likec4/dist
-#          base: ${{ steps.pages.outputs.base_path }}
-#          likec4-version: latest
 
       - name: 📡 Upload artifact
         uses: actions/upload-pages-artifact@v3

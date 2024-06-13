@@ -1,0 +1,18 @@
+model {
+  seeker = user 'Property Seeker' {
+    description 'A person who is looking for a property'
+  }
+  platform = system 'Real State Marketplace System' {
+    description 'A system that allows property seekers to find properties for sale or rent'
+  }
+  chatGpt = system 'ChatGPT API' {
+    description 'An external API that supports diverse artificial intelligence functionalities'
+  }
+  websites = system 'Real State Companies Websites' {
+    description 'An external websites that provides information about properties'
+  }
+
+  seeker -> platform 'Uses'
+  platform -> chatGpt 'Request text improvements from'
+  platform -> websites 'Extracts data from'
+}

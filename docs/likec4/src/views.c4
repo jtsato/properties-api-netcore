@@ -1,0 +1,9 @@
+views {
+
+  view index of platform {
+    title 'System Landscape'
+    include
+      *,
+      element.kind = system
+  }
+}

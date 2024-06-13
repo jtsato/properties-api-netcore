@@ -28,6 +28,10 @@ env:
   DOCKER_REGISTRY: docker.io
   ARTIFACT_NAME: properties-api
 
+concurrency:
+  group: "continuous-integration"
+  cancel-in-progress: false
+
 jobs:
   build-and-test:
     runs-on: ubuntu-latest

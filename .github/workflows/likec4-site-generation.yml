@@ -38,13 +38,12 @@ jobs:
 
       - name: 🛠️ Install dependencies
         run: |
-          npm install -g vite@5.2.13 --save-exact
-          npm install -g likec4
-          likec4 --version
+          npm install vite@5.2.13 --save-exact
+          npx likec4 --version
     
       - name: ⚙️ Build LikeC4
         run: |
-          likec4 build -o ./docs/likec4/dist --base properties-api-netcore
+          npx likec4 build -o ./docs/likec4/dist --base properties-api-netcore
 
 #      - name: Build
 #        uses: likec4/actions@v1

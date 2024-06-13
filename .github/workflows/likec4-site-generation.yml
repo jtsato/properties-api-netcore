@@ -39,8 +39,8 @@ jobs:
       - name: 🛠️ Install dependencies
         run: |
           npm install -g yarn
-          npm install --global likec4
-          npm install vite@5.2.13 --save-exact
+          npm install -g vite@5.2.13--save-exact
+          npm install -g likec4
           likec4 --version
           npm ls vite
     

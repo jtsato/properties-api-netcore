@@ -40,7 +40,7 @@ jobs:
       - name: ⚙️ Build LikeC4
         run: |
           likec4 --version
-          likec4 build -o ./docs/likec4/dist --base ./docs/likec4
+          likec4 build -o ./docs/likec4/dist
 
       - name: 📰 Setup Pages
         uses: actions/configure-pages@v5

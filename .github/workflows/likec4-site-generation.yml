@@ -44,8 +44,9 @@ jobs:
           likec4 --version
     
       - name: ⚙️ Build LikeC4
+        working-directory: ./docs/likec4
         run: |
-          likec4 build -o ./docs/likec4/dist --base properties-api-netcore
+          likec4 build -o ./dist --base properties-api-netcore
 
 #      - name: Build
 #        uses: likec4/actions@v1

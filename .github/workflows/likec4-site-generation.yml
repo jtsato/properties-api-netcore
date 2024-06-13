@@ -39,14 +39,14 @@ jobs:
       - name: 🛠️ Install dependencies
         run: |
           npm install -g yarn
-          yarn --ignore-scripts    
-# npm install --global likec4
-# likec4 --version
+          npm install vite@5.2.13 --save-exact
+          npm install --global likec4
+          likec4 --version
     
       - name: ⚙️ Build LikeC4
         working-directory: ./docs/likec4
         run: |
-          yarn generate:site --base properties-api-netcore
+          npm run generate:site --base properties-api-netcore
 # likec4 build -o ./dist --base properties-api-netcore
 
 #      - name: Build

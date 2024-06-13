@@ -115,9 +115,9 @@ model {
 }
 
 views {
-  view container {
+  view container of platform {
     title 'Container Diagram'
-    description 'Container diagram for the supabaseAPI system'
+    description 'Container diagram for the Platform'
     include *, element.kind = system
 
     style * {
@@ -134,6 +134,9 @@ views {
 
     style seeker {
       color indigo
+    }
+    style platform {
+      opacity 10%
     }
 
   }

@@ -1,6 +1,22 @@
 views {
 
-  view context of platform {
+  view index {
+    title 'Platform Architecture'
+    description 'This diagram shows the architecture of the platform.'
+    include *
+    style seeker {
+      color indigo
+    }
+    style chatGpt {
+      color amber
+    }
+    style websites {
+      color green
+    }
+
+  }
+
+  view context {
     title 'Context Diagram'
     description 'This diagram shows the context of the platform.'
     include *, element.kind = system

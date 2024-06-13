@@ -7,6 +7,7 @@ on:
     paths:
       - ".github/workflows/likec4-site-generation.yml"
       - "docs/likec4/*"
+  workflow_call:    
   workflow_dispatch:
 
 permissions:
@@ -26,24 +27,32 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: 📦 Setup NodeJs [v22]
-        uses: actions/setup-node@v4.0.1
-        with:
-          node-version: 22   
-
-      - name: 🛠️ Install dependencies
-        run: |
-          npm install --global likec4
-          npm install -g yarn
-          yarn --ignore-scripts    
-    
-      - name: ⚙️ Build LikeC4
-        run: |
-          likec4 --version
-          likec4 build -o ./docs/likec4/dist --base properties-api-netcore
+#      - name: 📦 Setup NodeJs [v22]
+#        uses: actions/setup-node@v4.0.1
+#        with:
+#          node-version: 22   
+#
+#      - name: 🛠️ Install dependencies
+#        run: |
+#          npm install --global likec4
+#          npm install -g yarn
+#          yarn --ignore-scripts    
+#    
+#      - name: ⚙️ Build LikeC4
+#        run: |
+#          likec4 --version
+#          likec4 build -o ./docs/likec4/dist --base properties-api-netcore
 
       - name: 📰 Setup Pages
         uses: actions/configure-pages@v5
+
+      - name: Build
+        uses: likec4/actions@v1
+        with:
+          action: build
+          output: ./docs/likec4/dist
+          base: ${{ steps.pages.outputs.base_path }}
+          likec4-version: latest
   
       - name: 📡 Upload artifact
         uses: actions/upload-pages-artifact@v3

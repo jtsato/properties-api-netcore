@@ -40,7 +40,7 @@ jobs:
       - name: ⚙️ Build LikeC4
         run: |
           likec4 --version
-          likec4 build -o ./docs/likec4/dist
+          likec4 build -o ./docs/likec4/dist --base properties-api-netcore
 
       - name: 📰 Setup Pages
         uses: actions/configure-pages@v5

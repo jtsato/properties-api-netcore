@@ -38,15 +38,16 @@ jobs:
 
       - name: 🛠️ Install dependencies
         run: |
-          npm install --global likec4
           npm install -g yarn
           yarn --ignore-scripts    
-          likec4 --version
+# npm install --global likec4
+# likec4 --version
     
       - name: ⚙️ Build LikeC4
         working-directory: ./docs/likec4
         run: |
-          likec4 build -o ./dist --base properties-api-netcore
+          yarn generate:site --base properties-api-netcore
+# likec4 build -o ./dist --base properties-api-netcore
 
 #      - name: Build
 #        uses: likec4/actions@v1

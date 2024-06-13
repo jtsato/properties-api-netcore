@@ -27,22 +27,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-#      - name: 📦 Setup NodeJs [v22]
-#        uses: actions/setup-node@v4.0.1
-#        with:
-#          node-version: 22   
-#
-#      - name: 🛠️ Install dependencies
-#        run: |
-#          npm install --global likec4
-#          npm install -g yarn
-#          yarn --ignore-scripts    
-#    
-#      - name: ⚙️ Build LikeC4
-#        run: |
-#          likec4 --version
-#          likec4 build -o ./docs/likec4/dist --base properties-api-netcore
-
       - name: 📰 Setup Pages
         id: pages
         uses: actions/configure-pages@v5

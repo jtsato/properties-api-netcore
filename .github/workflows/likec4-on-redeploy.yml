@@ -1,0 +1,12 @@
+name: on redeploy
+on:
+  repository_dispatch:
+    types: [redeploy]
+jobs:
+  pages:
+    uses: ./.github/workflows/likec4-site-generation.yml
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    secrets: inherit

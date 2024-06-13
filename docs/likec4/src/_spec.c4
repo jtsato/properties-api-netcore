@@ -3,7 +3,6 @@ specification {
   element user {
     style {
       shape person
-      color primary
     }
   }
   
@@ -37,7 +36,6 @@ specification {
   element frontend {
     style {
       shape browser
-      color primary
     }
   }
   

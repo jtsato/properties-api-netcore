@@ -1,9 +1,20 @@
 views {
 
-  view index of platform {
-    title 'System Landscape'
-    include
-      *,
-      element.kind = system
+  view context of platform {
+    title 'Context Diagram'
+    description 'This diagram shows the context of the platform.'
+    include *, element.kind = system
+    style platform {
+      color primary
+    }
+    style chatGpt {
+      color amber
+    }
+    style websites {
+      color green
+    }
+    style seeker {
+      color indigo
+    }
   }
 }

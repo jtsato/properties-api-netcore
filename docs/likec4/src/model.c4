@@ -1,4 +1,5 @@
 model {
+
   seeker = user 'Property Seeker' {
     description 'A person who is looking for a property'
   }
@@ -15,4 +16,5 @@ model {
   seeker -> platform 'Uses'
   platform -> chatGpt 'Request text improvements from'
   platform -> websites 'Extracts data from'
+
 }

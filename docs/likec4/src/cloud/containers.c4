@@ -1,0 +1,140 @@
+model {
+
+  extend platform {
+
+    homeHost = system 'WWW' {
+      technology 'apache'
+      description 'Landing page'
+      style {
+        icon https://icons.terrastruct.com/infra%2F022-hosting.svg
+        shape browser
+      }
+    }
+    showcase = pwapp 'Application' {
+      description 'Flutterflow'
+      style {
+        icon https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Flutter_logo.svg/128px-Flutter_logo.svg.png?20230821075714
+        shape mobile
+      }
+    }
+    propertyAPI = container 'Property API Service' {
+      style {
+        icon https://icons.terrastruct.com/dev%2Fdotnet.svg
+        shape rectangle
+      }
+    }
+    composer = container 'QueryString Composer' {
+      style {
+        icon https://icons.terrastruct.com/dev%2Fdotnet.svg
+        shape rectangle
+      }
+    }
+    supabaseAPI = container 'SupabaseAPI' {
+      technology 'supabase'
+      style {
+        icon https://www.vectorlogo.zone/logos/supabase/supabase-icon.svg
+        shape rectangle
+      }
+    }
+    supabaseDB = database 'SupabaseDB' {
+      technology 'postgresql'
+      style {
+        icon https://icons.terrastruct.com/dev%2Fpostgresql.svg
+        shape storage
+      }
+    }
+    propertiesDB = database 'PropertiesDB' {
+      technology 'mongodb'
+      style {
+        icon https://icons.terrastruct.com/dev%2Fmongodb.svg
+        shape storage
+      }
+    }
+    composerDB = database 'ComposerDB' {
+      technology 'mongodb'
+      style {
+        icon https://icons.terrastruct.com/dev%2Fmongodb.svg
+        shape storage
+      }
+    }
+    aracne = container 'Web Scraper' {
+      technology 'puppeteer'
+      style {
+        icon https://cdn.worldvectorlogo.com/logos/javascript-1.svg
+        shape rectangle
+      }
+    }
+    aracneDB = database 'AracneDB' {
+      technology 'json'
+      style {
+        icon https://icons.terrastruct.com/azure%2FGeneral%20Service%20Icons%2FTemplates.svg
+        shape storage
+      }
+    }
+    charon = container 'Publisher' {
+      technology 'javascript'
+      style {
+        icon https://cdn.worldvectorlogo.com/logos/javascript-1.svg
+        shape rectangle
+      }
+    }
+    charonDB = database 'CharonDB' {
+      technology 'javascript'
+       style {
+        icon https://lavinmq.com/img/icon-lavinmq.svg
+        shape queue
+       }
+    }
+    mnemosyne = container 'Consumer' {
+      technology 'javascript'
+      style {
+        icon https://cdn.worldvectorlogo.com/logos/javascript-1.svg
+        shape rectangle
+      }
+    }
+  
+  }
+
+  seeker -> showcase 'Uses'
+  seeker -> homeHost 'Uses'
+  homeHost -> showcase 'Redirects'
+  showcase -> propertyAPI 'Consumes the'
+  showcase -> composer 'Consumes the'
+  showcase -> supabaseAPI 'Consumes the'
+  supabaseAPI -> supabaseDB 'Reads from'
+  propertyAPI -> propertiesDB 'Reads from'
+  composer -> composerDB 'Reads from'
+  aracne -> websites 'Extracts data from'
+  aracne -> aracneDB 'Writes to'
+  charon -> aracneDB 'Reads from'
+  charon -> charonDB 'Writes to'
+  mnemosyne -> charonDB 'Reads from'
+  mnemosyne -> propertiesDB 'Reads from and writes to'
+  mnemosyne -> chatGpt 'Request text improvements from'
+
+}
+
+views {
+  view container {
+    title 'Container Diagram'
+    description 'Container diagram for the supabaseAPI system'
+    include *, element.kind = system
+
+    style * {
+      color primary
+    }
+
+    style chatGpt {
+      color amber
+    }
+
+    style websites {
+      color green
+    }
+
+    style seeker {
+      color indigo
+    }
+
+  }
+}

@@ -7,6 +7,9 @@ on:
     paths-ignore:
       - "docs/**"
       - "**/*.md"
+      - ".github/workflows/diagrams-generation.yml"
+      - ".github/workflows/likec4-on-redeploy.yml"
+      - ".github/workflows/likec4-site-generation.yml"
       - ".github/workflows/mutation-testing.yml"
       - "stryker.conf.json"
   pull_request:

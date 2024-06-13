@@ -39,7 +39,6 @@ jobs:
       - name: 🛠️ Install dependencies
         working-directory: ./docs/likec4
         run: |
-          npm install vite@5.2.13 --save-exact
           npx likec4 --version
     
       - name: ⚙️ Build LikeC4

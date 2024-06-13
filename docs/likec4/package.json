@@ -9,5 +9,11 @@
     "build": "likec4 build",
     "export:png": "likec4 export png -o ./png",
     "generate:site": "likec4 build -o ./dist"
+  },
+  "dependencies": {
+    "vite": "^5.2.13"
+  },
+  "devDependencies": {
+    "likec4": "^1.2.0"
   }
 }

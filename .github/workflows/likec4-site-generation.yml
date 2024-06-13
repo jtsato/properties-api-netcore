@@ -41,7 +41,6 @@ jobs:
           npm install -g vite@5.2.13 --save-exact
           npm install -g likec4
           likec4 --version
-          npm ls vite
     
       - name: ⚙️ Build LikeC4
         run: |

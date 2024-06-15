@@ -1,6 +1,6 @@
 views {
 
-  view context {
+  view index {
     title 'Context Diagram'
     description 'This diagram shows the context of the platform.'
     include *

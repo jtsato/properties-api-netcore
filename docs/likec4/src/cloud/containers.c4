@@ -116,6 +116,7 @@ model {
 
 views {
   view container of platform {
+
     title 'Container Diagram'
     description 'Container diagram for the Platform'
     include *, element.kind = system
@@ -135,9 +136,11 @@ views {
     style seeker {
       color indigo
     }
+
     style platform {
       opacity 10%
     }
 
   }
+
 }

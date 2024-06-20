@@ -1,0 +1,184 @@
+/* Elements
+- The type of each element must be explicitly specified
+  (e.g., Person, Software System, Container, or Component).
+- Each element should have a brief description to provide a "quick" view 
+  of the main responsibilities.
+- Every container and component must have the technology explicitly specified.
+*/
+
+specification {
+
+/* A person represents one of the human users of your software system 
+   (e.g., actors, roles, personas, quality analysts, developers, etc.).
+*/
+  element person {
+    style {
+      shape person
+    }
+  }
+  
+  element cloud {
+    style {
+      shape rectangle
+    }
+  }
+  
+/* A system is the highest level of abstraction and 
+   describes something that delivers value to its users, whether they are human or not.
+*/
+  element system {
+    style {
+      shape rectangle
+      opacity 10%
+    }
+  }
+
+/* Represents an application or a data store.
+   A container is something that needs to be running for the software system as a whole to work.
+   (e.g., server-side or client-side web application, client-side desktop application, mobile application, console application on the server,
+   serverless function, database, blob or content storage, file system, shell script, or batch file, etc.).
+*/
+  element container {
+    style {
+      shape rectangle
+      opacity 20%
+    }
+  }
+  
+/* It is a container but with a specific purpose. */
+  element frontend {
+    style {
+      shape browser
+    }
+  }
+  
+/* It is a container but with a specific purpose. */
+  element webapp {
+    style {
+      shape browser
+    }
+  }
+
+/* It is a container but with a specific purpose. */
+  element pwapp {
+    style {
+      shape browser
+    }
+  }
+  
+/* It is a container but with a specific purpose. */
+  element mobile {
+    style {
+      shape mobile
+    }
+  }
+
+/* It is a container but with a specific purpose. */
+  element backend {
+    style {
+      shape rectangle
+    }
+  }
+
+/* It is a container but with a specific purpose. */
+  element microservice {
+    style {
+      shape rectangle
+    }
+  }
+
+/* A component is a grouping of related functionalities encapsulated behind a well-defined interface.
+   In the C4 model, components are not separate deployment units.
+*/
+  element component {
+    style {
+      shape rectangle
+      opacity 20%
+    }
+  }
+
+/* It is a component but with a specific purpose. */
+  element controller {
+    style {
+      shape rectangle
+    }
+  }
+
+/* It is a component but with a specific purpose. */
+  element usecase {
+    style {
+      shape rectangle
+    }
+  }
+
+/* It is a component but with a specific purpose. */
+  element repository {
+    style {
+      shape rectangle
+    }
+  }
+  
+/* It is a component but with a specific purpose. */
+  element queue {
+    style {
+      shape queue
+    }
+  }
+
+/* It is a component but with a specific purpose. */
+  element topic {
+    style {
+      shape queue
+    }
+  }
+  
+/* It is a component but with a specific purpose. */
+  element database {
+    style {
+      shape storage
+    }    
+  }
+  
+/* It is a component but with a specific purpose. */
+  element table {
+    style {
+      shape storage
+    }
+  }  
+
+/* It is a component but with a specific purpose. */
+  element collection {
+    style {
+      shape storage
+    }
+  }
+
+/* Relationships
+- Each line should represent a unidirectional relationship.
+- Each line should be labeled, with the label consistent with the direction and intention 
+  of the relationship (e.g., dependency or data flow).
+  Try to be as specific as possible with the label, ideally 
+  avoiding single words like "Uses".
+- Relationships between containers (typically representing inter-process communication)
+  should have the technology/protocol explicitly labeled.
+*/
+
+  relationship solid {
+    line solid
+  }
+
+  relationship dashed {
+    line dashed
+  }
+
+  relationship dotted {
+    line dotted
+  }
+
+  relationship async {
+    line dotted
+    head diamond
+    tail none
+  }
+
+}

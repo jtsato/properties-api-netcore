@@ -1,18 +1,32 @@
+/*
+Diagrams
+- Every diagram should have a title describing the type and scope of the diagram
+  (e.g., "System Context Diagram for My Software System").
+- Every diagram should have a key/legend explaining the notation used
+  (e.g., shapes, colors, border styles, line types, arrow, etc).
+- Acronyms and abbreviations (business/domain or technology) should be understandable to
+  all audiences or explained in the diagram key/legend.
+*/
+
 views {
 
   view index {
     title 'Context Diagram'
     description 'This diagram shows the context of the platform.'
     include *
+
     style seeker {
       color indigo
     }
+
     style chatGpt {
-      color amber
+      color slate
     }
+
     style websites {
       color green
     }
+
   }
 
 }

@@ -126,7 +126,7 @@ views {
     }
 
     style chatGpt {
-      color amber
+      color slate
     }
 
     style websites {

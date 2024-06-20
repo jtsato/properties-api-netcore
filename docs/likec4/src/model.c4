@@ -1,16 +1,28 @@
 model {
 
-  seeker = user 'Property Seeker' {
+  seeker = person 'Property Seeker' {
     description 'A person who is looking for a property'
+    style {
+      icon https://icons.terrastruct.com/tech%2Flaptop.svg
+    }    
   }
+
   platform = system 'Real State Marketplace System' {
     description 'A system that allows property seekers to find properties for sale or rent'
   }
-  chatGpt = system 'ChatGPT API' {
+
+  chatGpt = system 'OpenAI API' {
     description 'An external API that supports diverse artificial intelligence functionalities'
+    style {
+      icon https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg
+    }
   }
+  
   websites = system 'Real State Companies Websites' {
     description 'An external websites that provides information about properties'
+    style {
+      shape browser
+    }
   }
 
   seeker -> platform 'Uses'

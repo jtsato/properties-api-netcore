@@ -17,13 +17,30 @@ model {
         shape mobile
       }
     }
-    propertyAPI = container 'Property API Service' {
+    proxy = container 'Reverse Proxy' {
+      technology 'nginx'
+      style {
+        icon https://icons.terrastruct.com/dev%2Fnginx.svg
+        shape rectangle
+      }
+    }
+    meilisearch = container 'Meilisearch' {
+      technology 'meilisearch'
+      description 'Search Engine'
+      style {
+        icon https://seeklogo.com/images/M/meilisearch-logo-1A8014E5FF-seeklogo.com.png
+        shape rectangle
+      }
+    }
+    composer = container 'QueryString Composer' {
+      technology '.NET, C#'
       style {
         icon https://icons.terrastruct.com/dev%2Fdotnet.svg
         shape rectangle
       }
     }
-    composer = container 'QueryString Composer' {
+    propertyAPI = container 'Property API Service' {
+      technology '.NET, C#'
       style {
         icon https://icons.terrastruct.com/dev%2Fdotnet.svg
         shape rectangle
@@ -43,13 +60,6 @@ model {
         shape storage
       }
     }
-    propertiesDB = database 'PropertiesDB' {
-      technology 'mongodb'
-      style {
-        icon https://icons.terrastruct.com/dev%2Fmongodb.svg
-        shape storage
-      }
-    }
     composerDB = database 'ComposerDB' {
       technology 'mongodb'
       style {
@@ -57,60 +67,90 @@ model {
         shape storage
       }
     }
-    aracne = container 'Web Scraper' {
-      technology 'puppeteer'
+    propertiesDB = database 'PropertiesDB' {
+      technology 'mongodb'
       style {
-        icon https://cdn.worldvectorlogo.com/logos/javascript-1.svg
-        shape rectangle
-      }
-    }
-    aracneDB = database 'AracneDB' {
-      technology 'json'
-      style {
-        icon https://icons.terrastruct.com/azure%2FGeneral%20Service%20Icons%2FTemplates.svg
+        icon https://icons.terrastruct.com/dev%2Fmongodb.svg
         shape storage
       }
     }
-    charon = container 'Publisher' {
+    etl = system 'Extract, Transform, Load' {
       technology 'javascript'
       style {
-        icon https://cdn.worldvectorlogo.com/logos/javascript-1.svg
+        icon https://icons.terrastruct.com/essentials%2F215-funnel.svg
         shape rectangle
       }
-    }
-    charonDB = database 'CharonDB' {
-      technology 'javascript'
-       style {
-        icon https://lavinmq.com/img/icon-lavinmq.svg
-        shape queue
-       }
-    }
-    mnemosyne = container 'Consumer' {
-      technology 'javascript'
-      style {
-        icon https://cdn.worldvectorlogo.com/logos/javascript-1.svg
-        shape rectangle
+      aracne = container 'Web Scraper' {
+        technology 'puppeteer'
+        description 'Data Ingestion'
+        style {
+          icon https://cdn.worldvectorlogo.com/logos/javascript-1.svg
+          shape rectangle
+        }
+      }
+      aracneDB = database 'AracneDB' {
+        technology 'json'
+        description 'Data Storage (Raw)'
+        style {
+          icon https://icons.terrastruct.com/azure%2FGeneral%20Service%20Icons%2FTemplates.svg
+          shape storage
+        }
+      }
+      charon = container 'Publisher' {
+        technology 'javascript'
+        description 'Data Publishing'
+        style {
+          icon https://cdn.worldvectorlogo.com/logos/javascript-1.svg
+          shape rectangle
+        }
+      }
+      charonQueue = database 'CharonQueue' {
+        technology 'javascript'
+        description 'Messaging Queue'
+         style {
+          icon https://lavinmq.com/img/icon-lavinmq.svg
+          shape queue
+         }
+      }
+      mnemosyne = container 'Consumer' {
+        technology 'javascript'
+        description 'Data Processing'
+        style {
+          icon https://cdn.worldvectorlogo.com/logos/javascript-1.svg
+          shape rectangle
+        }
+      }
+      hestia = system 'Hestia' {
+        technology 'javascript'
+        description 'Data Indexing'
+        style {
+          icon https://cdn.worldvectorlogo.com/logos/javascript-1.svg
+          shape rectangle
+        }
       }
     }
-  
   }
 
   seeker -> showcase 'Uses'
   seeker -> homeHost 'Uses'
   homeHost -> showcase 'Redirects'
-  showcase -> propertyAPI 'Consumes the'
-  showcase -> composer 'Consumes the'
-  showcase -> supabaseAPI 'Consumes the'
+  showcase -> supabaseAPI 'Routes to'
+  showcase -> proxy 'Consumes the'
+  proxy -> meilisearch 'Routes to'
+  proxy -> propertyAPI 'Routes to'
+  proxy -> composer 'Routes to'
   supabaseAPI -> supabaseDB 'Reads from'
   propertyAPI -> propertiesDB 'Reads from'
   composer -> composerDB 'Reads from'
   aracne -> websites 'Extracts data from'
   aracne -> aracneDB 'Writes to'
   charon -> aracneDB 'Reads from'
-  charon -> charonDB 'Writes to'
-  mnemosyne -> charonDB 'Reads from'
+  charon -> charonQueue 'Writes to'
+  mnemosyne -> charonQueue 'Reads from'
   mnemosyne -> propertiesDB 'Reads from and writes to'
   mnemosyne -> chatGpt 'Request text improvements from'
+  hestia -> propertiesDB 'Reads from'
+  hestia -> meilisearch 'Writes to'
 
 }
 
@@ -141,6 +181,42 @@ views {
       opacity 10%
     }
 
+     autoLayout TopBottom
+
+  }
+
+  view etl of etl {
+
+    title 'Extract, Transform, Load Diagram'
+    description 'Extract, Transform, Load diagram for the Platform'
+    include etl.*,
+    chatGpt, 
+    websites, 
+    propertiesDB,
+    propertyAPI,
+    meilisearch,
+
+    style * {
+      color primary
+    }
+
+    style chatGpt {
+      color slate
+    }
+
+    style websites {
+      color green
+    }
+
+    style seeker {
+      color indigo
+    }
+
+    style platform {
+      opacity 10%
+    }
+
+    autoLayout LeftRight
   }
 
 }

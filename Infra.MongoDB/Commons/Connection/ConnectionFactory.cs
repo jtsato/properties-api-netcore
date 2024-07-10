@@ -18,14 +18,8 @@ public sealed class ConnectionFactory : IConnectionFactory
     public IMongoClient GetClient()
     {
         MongoClientSettings settings = MongoClientSettings.FromUrl(new MongoUrl(_connectionString));
-        settings.ClusterConfigurator = ClusterConfigurator;
 
         return new MongoClient(settings);
-
-        void ClusterConfigurator(ClusterBuilder builder)
-        {
-            builder.Subscribe<CommandStartedEvent>(startedEvent => { Console.WriteLine($"{startedEvent.CommandName} - {startedEvent.Command.ToJson()}"); });
-        }
     }
 
     public IMongoDatabase GetDatabase(string databaseName)

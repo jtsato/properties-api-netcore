@@ -73,6 +73,7 @@ public static class Program
                             "https://patolar.com.br",
                             "https://www.patolar.com.br",
                             "https://app.patolar.com.br",
+                            "https://api.patolar.com.br",
                             "https://patolar-dev.flutterflow.app",
                             "https://app.flutterflow.io",
                             "https://ff-debug-service-frontend-free-ygxkweukma-uc.a.run.app",

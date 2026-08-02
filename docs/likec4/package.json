@@ -11,9 +11,9 @@
     "generate:site": "likec4 build -o ./dist"
   },
   "devDependencies": {
-    "likec4": "1.2.0"
+    "likec4": "1.59.2"
   },
   "dependencies": {
-    "vite": "5.2.13"
+    "vite": "8.2.0"
   }
 }

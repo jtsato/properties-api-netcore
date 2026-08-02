@@ -13,7 +13,7 @@ model {
     showcase = pwapp 'Application' {
       description 'Flutterflow'
       style {
-        icon https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Flutter_logo.svg/128px-Flutter_logo.svg.png?20230821075714
+        icon https://upload.wikimedia.org/wikipedia/commons/7/79/Flutter_logo.svg
         shape mobile
       }
     }
@@ -28,7 +28,7 @@ model {
       technology 'meilisearch'
       description 'Search Engine'
       style {
-        icon https://seeklogo.com/images/M/meilisearch-logo-1A8014E5FF-seeklogo.com.png
+        icon https://images.seeklogo.com/logo-png/48/1/meilisearch-logo-png_seeklogo-482367.png
         shape rectangle
       }
     }

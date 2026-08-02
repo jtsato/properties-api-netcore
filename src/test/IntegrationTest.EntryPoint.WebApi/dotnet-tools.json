@@ -10,4 +10,8 @@
       "rollForward": false
     }
   }
+<<<<<<< HEAD:src/test/IntegrationTest.EntryPoint.WebApi/dotnet-tools.json
 }
+=======
+}
+>>>>>>> de9c781c94ed1db7bdc3a1c427fc65ed49843288:IntegrationTest.EntryPoint.WebApi/dotnet-tools.json

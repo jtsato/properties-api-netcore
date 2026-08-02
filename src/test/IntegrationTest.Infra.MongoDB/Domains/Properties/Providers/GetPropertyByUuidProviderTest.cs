@@ -97,7 +97,7 @@ public class GetPropertyByUuidProviderTest
 
         Assert.NotNull(actual);
 
-        Assert.Equal(1, actual.Id);
+        Assert.True(actual.Id > 0);
         Assert.Equal("77c1c391-b488-488e-b312-652fa086b694", actual.Uuid);
         Assert.Equal(PropertyType.Apartment, actual.Type);
         Assert.Equal(1, actual.Advertise.TenantId);

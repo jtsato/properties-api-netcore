@@ -32,7 +32,7 @@ public sealed class DatabaseKeeper
             ClearCollectionsData(_propertyCollectionName, _propertySequenceCollectionName),
         };
 
-        Task.WhenAll(tasks);
+        Task.WhenAll(tasks).GetAwaiter().GetResult();
     }
 
     private async Task ClearCollectionsData(string collectionName, string sequenceCollectionName)

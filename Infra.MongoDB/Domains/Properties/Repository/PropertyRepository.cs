@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 using Infra.MongoDB.Commons.Connection;
 using Infra.MongoDB.Commons.Repository;
 using Infra.MongoDB.Domains.Properties.Model;
@@ -8,10 +9,14 @@ using MongoDB.Driver;
 namespace Infra.MongoDB.Domains.Properties.Repository;
 
 [ExcludeFromCodeCoverage]
-public sealed class PropertyRepository : Repository<PropertyEntity>
+public sealed class PropertyRepository : Repository<PropertyEntity>, IIndexInitializer
 {
     public PropertyRepository(IConnectionFactory connectionFactory, string databaseName, string collectionName)
         : base(connectionFactory, databaseName, collectionName)
+    {
+    }
+
+    public async Task EnsureIndexesAsync()
     {
         IndexKeysDefinition<PropertyEntity> indexKeyId = Builders<PropertyEntity>
             .IndexKeys.Ascending(document => document.Id);
@@ -55,7 +60,7 @@ public sealed class PropertyRepository : Repository<PropertyEntity>
         IndexKeysDefinition<PropertyEntity> compositeTenantRefIndex = Builders<PropertyEntity>
             .IndexKeys.Combine(indexKeyTenantId, indexKeyRefId);
 
-        GetCollection().Indexes
+        await GetCollection().Indexes
             .CreateManyAsync(
                 new List<CreateIndexModel<PropertyEntity>>
                 {

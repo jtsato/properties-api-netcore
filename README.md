@@ -33,7 +33,7 @@ This is a sample project to demonstrate the Clean Architecture principles using 
 
 ## Prerequisites
 
-* [.NET 7](https://dotnet.microsoft.com/download)
+* [.NET 10](https://dotnet.microsoft.com/download)
 * [Docker](https://docs.docker.com/get-docker)
 * [Docker compose](https://docs.docker.com/compose/install/)
 
@@ -106,7 +106,7 @@ dotnet stryker
 ```
 * starting the solution:
 ```
-cd EntryPoint.WebApi/bin/Debug/net7.0
+cd EntryPoint.WebApi/bin/Debug/net10.0
 dotnet EntryPoint.WebApi.dll
 ```
 ***

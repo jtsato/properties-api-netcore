@@ -30,14 +30,14 @@ jobs:
   run-stryker:
     runs-on: ubuntu-latest
     steps:
-      - name: Setup .NET [v7.0.x]
-        uses: actions/setup-dotnet@v3
+      - name: Setup .NET [v10.0.x]
+        uses: actions/setup-dotnet@55ec9447dda3d1cf6bd587150f3262f30ee10815 # v3
         with:
           dotnet-version: |
-            7.0.x
+            10.0.x
 
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # v3
         with:
           ref: main
           persist-credentials: true
@@ -61,10 +61,10 @@ jobs:
 
       - name: Hack [issue "MSB3026 Unable to copy file" for EmbeddedResources]
         run: |
-          mkdir -p IntegrationTest.EntryPoint.WebApi/bin/Debug/net7.0/pt-br 
-          mkdir -p IntegrationTest.EntryPoint.WebApi/bin/Debug/net7.0/en-us
-          mkdir -p IntegrationTest.EntryPoint.WebApi/bin/Release/net7.0/pt-br 
-          mkdir -p IntegrationTest.EntryPoint.WebApi/bin/Release/net7.0/en-us
+          mkdir -p IntegrationTest.EntryPoint.WebApi/bin/Debug/net10.0/pt-br
+          mkdir -p IntegrationTest.EntryPoint.WebApi/bin/Debug/net10.0/en-us
+          mkdir -p IntegrationTest.EntryPoint.WebApi/bin/Release/net10.0/pt-br
+          mkdir -p IntegrationTest.EntryPoint.WebApi/bin/Release/net10.0/en-us
 
       - name: Build in Debug Mode
         run: dotnet build --configuration Debug --no-restore
@@ -72,7 +72,7 @@ jobs:
       - name: Mutation [Core]
         run: |
           dotnet new tool-manifest
-          dotnet tool install dotnet-stryker --version 3.10.0
+          dotnet tool install dotnet-stryker --version 4.16.0
           dotnet stryker
         working-directory: ./UnitTest.Core
 
@@ -84,7 +84,7 @@ jobs:
       - name: Mutation [EntryPoint WebApi]
         run: |
           dotnet new tool-manifest
-          dotnet tool install dotnet-stryker --version 3.10.0
+          dotnet tool install dotnet-stryker --version 4.16.0
           dotnet stryker -p "EntryPoint.WebApi.csproj"
         working-directory: ./IntegrationTest.EntryPoint.WebApi
 
@@ -96,7 +96,7 @@ jobs:
       - name: Mutation [Infra MongoDB]
         run: |
           dotnet new tool-manifest
-          dotnet tool install dotnet-stryker --version 3.10.0
+          dotnet tool install dotnet-stryker --version 4.16.0
           dotnet stryker -p "Infra.MongoDB.csproj"
         working-directory: ./IntegrationTest.Infra.MongoDB
 
@@ -126,7 +126,7 @@ jobs:
       # In the /settings/actions section set Read and write permissions for the GITHUB_TOKEN
       - name: Push the changes
         if: ${{ env.SHOULD_I_COMMIT == 'Yes' }}
-        uses: ad-m/github-push-action@master
+        uses: ad-m/github-push-action@881a6320fdb16eb5318c5054f31c218aec2b324c # master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: main

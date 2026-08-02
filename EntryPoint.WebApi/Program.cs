@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using Core.Commons;
 using EntryPoint.WebApi.Commons;
 using EntryPoint.WebApi.Commons.Filters;
+using Infra.MongoDB.Commons.Repository;
+using Infra.MongoDB.Domains.Properties.Model;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Http;
@@ -109,6 +111,11 @@ public static class Program
         });
 
         WebApplication app = builder.Build();
+
+        if (app.Services.GetService(typeof(IRepository<PropertyEntity>)) is IIndexInitializer indexInitializer)
+        {
+            await indexInitializer.EnsureIndexesAsync();
+        }
 
         app.UseCors("CorsPolicy");
 

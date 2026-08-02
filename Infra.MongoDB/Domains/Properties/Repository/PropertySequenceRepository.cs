@@ -8,7 +8,7 @@ using MongoDB.Driver;
 namespace Infra.MongoDB.Domains.Properties.Repository;
 
 [ExcludeFromCodeCoverage]
-public sealed class PropertySequenceRepository : ISequenceRepository<PropertySequence>
+public sealed class PropertySequenceRepository : ISequenceRepository<PropertySequence>, IIndexInitializer
 {
     private readonly IMongoCollection<PropertySequence> _collection;
 
@@ -16,14 +16,17 @@ public sealed class PropertySequenceRepository : ISequenceRepository<PropertySeq
     {
         IMongoDatabase database = connectionFactory.GetDatabase(databaseName);
         _collection = database.GetCollection<PropertySequence>(collectionName);
-        
+    }
+
+    public async Task EnsureIndexesAsync()
+    {
         IndexKeysDefinition<PropertySequence> indexKeySequenceName = Builders<PropertySequence>
             .IndexKeys.Ascending(document => document.SequenceName);
-        
+
         CreateIndexOptions uniqueIndexOptions = new CreateIndexOptions
             {Unique = true, Sparse = true, Background = false};
 
-        _collection.Indexes.CreateManyAsync(new[]
+        await _collection.Indexes.CreateManyAsync(new[]
         {
             new CreateIndexModel<PropertySequence>(indexKeySequenceName, uniqueIndexOptions)
         });

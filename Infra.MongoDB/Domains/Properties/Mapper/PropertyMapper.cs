@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Core.Domains.Properties.Models;
 using Infra.MongoDB.Domains.Properties.Model;
 
@@ -8,9 +9,11 @@ public static class PropertyMapper
 {
     public static Property Map(this PropertyEntity propertyEntity)
     {
-        PropertyType type = PropertyType.GetByName(propertyEntity.Type).GetValue();
+        PropertyType type = PropertyType.GetByName(propertyEntity.Type)
+            .OrElseThrow(() => new InvalidOperationException($"Property '{propertyEntity.Id}' has an unknown type '{propertyEntity.Type}'"));
 
-        Transaction transaction = Transaction.GetByName(propertyEntity.Transaction).GetValue();
+        Transaction transaction = Transaction.GetByName(propertyEntity.Transaction)
+            .OrElseThrow(() => new InvalidOperationException($"Property '{propertyEntity.Id}' has an unknown transaction '{propertyEntity.Transaction}'"));
 
         PropertyAdvertise advertise = new PropertyAdvertise
         {
@@ -51,7 +54,8 @@ public static class PropertyMapper
             PriceByM2 = propertyEntity.PriceByM2
         };
 
-        PropertyStatus status = PropertyStatus.GetByName(propertyEntity.Status).GetValue();
+        PropertyStatus status = PropertyStatus.GetByName(propertyEntity.Status)
+            .OrElseThrow(() => new InvalidOperationException($"Property '{propertyEntity.Id}' has an unknown status '{propertyEntity.Status}'"));
 
         return new Property
         {

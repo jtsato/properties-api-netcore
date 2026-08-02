@@ -129,6 +129,6 @@ public sealed class SearchPropertiesFilterBuilderTest
     {
         IBsonSerializerRegistry serializerRegistry = BsonSerializer.SerializerRegistry;
         IBsonSerializer<T> documentSerializer = serializerRegistry.GetSerializer<T>();
-        return filterDefinition.Render(documentSerializer, serializerRegistry);
+        return filterDefinition.Render(new RenderArgs<T>(documentSerializer, serializerRegistry));
     }
 }

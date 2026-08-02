@@ -62,14 +62,20 @@ public sealed class ServiceResolver : IServiceResolver
 
     private IRepository<PropertyEntity> GetPropertyRepository()
     {
-        return _propertyRepository ??=
-            new PropertyRepository(_connectionFactory, _databaseName, _propertyCollectionName);
+        if (_propertyRepository != null) return _propertyRepository;
+
+        PropertyRepository propertyRepository = new PropertyRepository(_connectionFactory, _databaseName, _propertyCollectionName);
+        propertyRepository.EnsureIndexesAsync().GetAwaiter().GetResult();
+        return _propertyRepository = propertyRepository;
     }
 
     private ISequenceRepository<PropertySequence> GetPropertySequenceRepository()
     {
-        return _propertySequenceRepository ??=
-            new PropertySequenceRepository(_connectionFactory, _databaseName, _propertySequenceCollectionName);
+        if (_propertySequenceRepository != null) return _propertySequenceRepository;
+
+        PropertySequenceRepository propertySequenceRepository = new PropertySequenceRepository(_connectionFactory, _databaseName, _propertySequenceCollectionName);
+        propertySequenceRepository.EnsureIndexesAsync().GetAwaiter().GetResult();
+        return _propertySequenceRepository = propertySequenceRepository;
     }
 
     private ISearchPropertiesGateway GetSearchPropertiesGateway()

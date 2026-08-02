@@ -33,7 +33,7 @@ public class PropertySortDefinitionHelperTest
         
         // Assert
         Assert.NotNull(sortDefinition);
-        BsonDocument document = sortDefinition.Render(BsonSerializer.SerializerRegistry.GetSerializer<PropertyEntity>(), BsonSerializer.SerializerRegistry);
+        BsonDocument document = sortDefinition.Render(new RenderArgs<PropertyEntity>(BsonSerializer.SerializerRegistry.GetSerializer<PropertyEntity>(), BsonSerializer.SerializerRegistry));
         
         Assert.NotNull(document);
         _outputHelper.WriteLine(document.ToString());
@@ -57,7 +57,7 @@ public class PropertySortDefinitionHelperTest
         
         // Assert
         Assert.NotNull(sortDefinition);
-        BsonDocument document = sortDefinition.Render(BsonSerializer.SerializerRegistry.GetSerializer<PropertyEntity>(), BsonSerializer.SerializerRegistry);
+        BsonDocument document = sortDefinition.Render(new RenderArgs<PropertyEntity>(BsonSerializer.SerializerRegistry.GetSerializer<PropertyEntity>(), BsonSerializer.SerializerRegistry));
         
         Assert.NotNull(document);
         _outputHelper.WriteLine(document.ToString());
@@ -82,7 +82,7 @@ public class PropertySortDefinitionHelperTest
         
         // Assert
         Assert.NotNull(sortDefinition);
-        BsonDocument document = sortDefinition.Render(BsonSerializer.SerializerRegistry.GetSerializer<PropertyEntity>(), BsonSerializer.SerializerRegistry);
+        BsonDocument document = sortDefinition.Render(new RenderArgs<PropertyEntity>(BsonSerializer.SerializerRegistry.GetSerializer<PropertyEntity>(), BsonSerializer.SerializerRegistry));
         
         Assert.NotNull(document);
         _outputHelper.WriteLine(document.ToString());

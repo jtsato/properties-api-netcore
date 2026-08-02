@@ -18,50 +18,44 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Setup .NET [v10.0.x]
-        uses: actions/setup-dotnet@55ec9447dda3d1cf6bd587150f3262f30ee10815 # v3
+        uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
         with:
           dotnet-version: |
             10.0.x
 
       - name: Checkout repository
-        uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # v3
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
 
-      - name: Install docker-compose
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y docker-compose
-
-      - name: Show docker-compose version
-        run: |
-          docker-compose version
+      - name: Show Docker Compose version
+        run: docker compose version
 
       - name: Start MongoDB Container
-        working-directory: ./IntegrationTest.Infra.MongoDB
-        run: docker-compose up -d
+        working-directory: ./src/test/IntegrationTest.Infra.MongoDB
+        run: docker compose up -d
 
       - name: Resolve dependencies
         run: dotnet restore --force --no-cache
 
       - name: Hack [issue "MSB3026 Unable to copy file" for EmbeddedResources]
         run: |
-          mkdir -p IntegrationTest.EntryPoint.WebApi/bin/Debug/net10.0/pt-br
-          mkdir -p IntegrationTest.EntryPoint.WebApi/bin/Debug/net10.0/en-us
-          mkdir -p IntegrationTest.EntryPoint.WebApi/bin/Release/net10.0/pt-br
-          mkdir -p IntegrationTest.EntryPoint.WebApi/bin/Release/net10.0/en-us
+          mkdir -p ./src/test/IntegrationTest.EntryPoint.WebApi/bin/Debug/net10.0/pt-br
+          mkdir -p ./src/test/IntegrationTest.EntryPoint.WebApi/bin/Debug/net10.0/en-us
+          mkdir -p ./src/test/IntegrationTest.EntryPoint.WebApi/bin/Release/net10.0/pt-br
+          mkdir -p ./src/test/IntegrationTest.EntryPoint.WebApi/bin/Release/net10.0/en-us
 
       - name: Build in Debug Mode
         run: dotnet build --configuration Debug --no-restore
 
       - name: Set up JDK [17]
-        uses: actions/setup-java@17f84c3641ba7b8f6deff6309fc4c864478f5d62 # v3
+        uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5.7.0
         with:
           distribution: "temurin"
           java-version: 17
 
       - name: Cache SonarCloud packages
-        uses: actions/cache@6f8efc29b200d32929f49075959781ed54ec270c # v3
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ~/sonar/cache
           key: ${{ runner.os }}-sonar
@@ -69,7 +63,7 @@ jobs:
 
       - name: Cache SonarCloud scanner
         id: cache-sonar-scanner
-        uses: actions/cache@6f8efc29b200d32929f49075959781ed54ec270c # v3
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ./.sonar/scanner
           key: ${{ runner.os }}-sonar-scanner
@@ -89,14 +83,15 @@ jobs:
           /n:"properties-api-netcore" \
           /d:sonar.projectDescription="Properties API .NET Core" \
           /d:sonar.links.scm="https://github.com/jtsato/properties-api-netcore" \
-          /d:sonar.login="${{ env.SONAR_TOKEN }}" \
+          /d:sonar.token="${{ env.SONAR_TOKEN }}" \
           /d:sonar.host.url="https://sonarcloud.io" \
           /d:sonar.qualitygate.wait=false \
           /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml" \
-          /d:sonar.dotnet.excludeTestProjects=true
+          /d:sonar.dotnet.excludeTestProjects=true \
+          /d:sonar.exclusions="docs/**"
           dotnet build properties-api-netcore.sln --configuration Debug --no-restore
           dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover --configuration Debug --no-build --nologo -v n
-          ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ env.SONAR_TOKEN }}"
+          ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.token="${{ env.SONAR_TOKEN }}"
 
       - name: Environment Teardown
         if: always()

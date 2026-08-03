@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Threading.Tasks;
 using Core.Domains.Properties.Gateways;
@@ -13,18 +12,10 @@ using Optional = Core.Commons.Optional<Core.Domains.Properties.Models.Property>;
 namespace IntegrationTest.Infra.MongoDB.Domains.Properties.Providers;
 
 [Collection("Database collection")]
-public class GetPropertyByUuidProviderTest
+public class GetPropertyByUuidProviderTest(ITestOutputHelper outputHelper, Context context)
 {
-    private readonly ITestOutputHelper _outputHelper;
-    private readonly IRegisterPropertyGateway _registerPropertyGateway;
-    private readonly IGetPropertyByUuidGateway _getPropertyByUuidGateway;
-
-    public GetPropertyByUuidProviderTest(ITestOutputHelper outputHelper, Context context)
-    {
-        _outputHelper = outputHelper;
-        _registerPropertyGateway = context.ServiceResolver.Resolve<IRegisterPropertyGateway>();
-        _getPropertyByUuidGateway = context.ServiceResolver.Resolve<IGetPropertyByUuidGateway>();
-    }
+    private readonly IRegisterPropertyGateway _registerPropertyGateway = context.ServiceResolver.Resolve<IRegisterPropertyGateway>();
+    private readonly IGetPropertyByUuidGateway _getPropertyByUuidGateway = context.ServiceResolver.Resolve<IGetPropertyByUuidGateway>();
 
     [Trait("Category", "Infrastructure (DB) Integration tests")]
     [Fact(DisplayName = "Fail to get property by uuid")]
@@ -93,7 +84,7 @@ public class GetPropertyByUuidProviderTest
         Assert.True(optional.HasValue());
 
         Property actual = optional.GetValue();
-        _outputHelper.WriteLine(actual.ToString());
+        outputHelper.WriteLine(actual.ToString());
 
         Assert.NotNull(actual);
 

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Core.Commons.Paging;
 using Infra.MongoDB.Domains.Properties.Model;
 using Infra.MongoDB.Domains.Properties.Providers;
@@ -12,15 +11,9 @@ using Xunit.Abstractions;
 namespace IntegrationTest.Infra.MongoDB.Domains.Properties.Providers;
 
 [Collection("Database collection [NoContext]")]
-public class PropertySortDefinitionHelperTest
+public class PropertySortDefinitionHelperTest(ITestOutputHelper outputHelper)
 {
-    private readonly ITestOutputHelper _outputHelper;
-    
-    public PropertySortDefinitionHelperTest(ITestOutputHelper outputHelper)
-    {
-        _outputHelper = outputHelper;
-    }
-    
+
     [Trait("Category", "Database collection [NoContext]")]
     [Fact(DisplayName = "Success to  return default sorting criteria when the user has not specified any sorting criteria")]
     public void SuccessToReturnDefaultSortingCriteriaWhenTheUserHasNotSpecifiedAnySortingCriteria()
@@ -36,7 +29,7 @@ public class PropertySortDefinitionHelperTest
         BsonDocument document = sortDefinition.Render(new RenderArgs<PropertyEntity>(BsonSerializer.SerializerRegistry.GetSerializer<PropertyEntity>(), BsonSerializer.SerializerRegistry));
         
         Assert.NotNull(document);
-        _outputHelper.WriteLine(document.ToString());
+        outputHelper.WriteLine(document.ToString());
         
         Assert.Equal(2, document.ElementCount);
         Assert.Equal("""{ "ranking" : -1, "updatedAt" : -1 }""", document.ToString());
@@ -60,7 +53,7 @@ public class PropertySortDefinitionHelperTest
         BsonDocument document = sortDefinition.Render(new RenderArgs<PropertyEntity>(BsonSerializer.SerializerRegistry.GetSerializer<PropertyEntity>(), BsonSerializer.SerializerRegistry));
         
         Assert.NotNull(document);
-        _outputHelper.WriteLine(document.ToString());
+        outputHelper.WriteLine(document.ToString());
         
         Assert.Equal(3, document.ElementCount);
         Assert.Equal("""{ "name" : 1, "ranking" : -1, "updatedAt" : -1 }""", document.ToString());
@@ -85,7 +78,7 @@ public class PropertySortDefinitionHelperTest
         BsonDocument document = sortDefinition.Render(new RenderArgs<PropertyEntity>(BsonSerializer.SerializerRegistry.GetSerializer<PropertyEntity>(), BsonSerializer.SerializerRegistry));
         
         Assert.NotNull(document);
-        _outputHelper.WriteLine(document.ToString());
+        outputHelper.WriteLine(document.ToString());
         
         Assert.Equal(3, document.ElementCount);
         Assert.Equal("""{ "name" : 1, "updatedAt" : -1, "ranking" : -1 }""", document.ToString());

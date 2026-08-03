@@ -3,9 +3,4 @@ using Core.Commons.Paging;
 
 namespace EntryPoint.WebApi.Domains.Properties.Models;
 
-public class PageableSearchPropertiesResponse : Page<SearchPropertiesInnerResponse>
-{
-    public PageableSearchPropertiesResponse(IReadOnlyList<SearchPropertiesInnerResponse> content, Pageable pageable) : base(content, pageable)
-    {
-    }
-}
+public class PageableSearchPropertiesResponse(IReadOnlyList<SearchPropertiesInnerResponse> content, Pageable pageable) : Page<SearchPropertiesInnerResponse>(content, pageable);

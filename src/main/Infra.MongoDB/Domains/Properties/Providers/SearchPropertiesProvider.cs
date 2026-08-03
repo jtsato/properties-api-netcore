@@ -14,15 +14,10 @@ using MongoDB.Driver;
 
 namespace Infra.MongoDB.Domains.Properties.Providers;
 
-public class SearchPropertiesProvider : ISearchPropertiesGateway
+public class SearchPropertiesProvider(IRepository<PropertyEntity> propertyRepository) : ISearchPropertiesGateway
 {
 
-    private readonly IRepository<PropertyEntity> _propertyRepository;
-
-    public SearchPropertiesProvider(IRepository<PropertyEntity> propertyRepository)
-    {
-        _propertyRepository = ArgumentValidator.CheckNull(propertyRepository, nameof(propertyRepository));
-    }
+    private readonly IRepository<PropertyEntity> _propertyRepository = ArgumentValidator.CheckNull(propertyRepository, nameof(propertyRepository));
 
     public async Task<Page<Property>> ExecuteAsync(SearchPropertiesQuery query, PageRequest pageRequest)
     {

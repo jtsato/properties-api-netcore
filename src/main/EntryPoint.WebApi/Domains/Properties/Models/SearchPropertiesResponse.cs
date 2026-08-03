@@ -4,14 +4,9 @@ using System.Diagnostics.CodeAnalysis;
 namespace EntryPoint.WebApi.Domains.Properties.Models;
 
 [ExcludeFromCodeCoverage]
-public class SearchPropertiesResponse
+public class SearchPropertiesResponse(IReadOnlyList<SearchPropertiesInnerResponse> content)
 {
-    public IReadOnlyList<SearchPropertiesInnerResponse> Content { get; init; }
-
-    public SearchPropertiesResponse(IReadOnlyList<SearchPropertiesInnerResponse> content)
-    {
-        Content = content;
-    }
+    public IReadOnlyList<SearchPropertiesInnerResponse> Content { get; init; } = content;
 
     [ExcludeFromCodeCoverage]
     public override string ToString()

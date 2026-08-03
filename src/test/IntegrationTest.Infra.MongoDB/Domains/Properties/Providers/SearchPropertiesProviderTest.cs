@@ -13,18 +13,10 @@ using Xunit.Abstractions;
 namespace IntegrationTest.Infra.MongoDB.Domains.Properties.Providers;
 
 [Collection("Database collection")]
-public class SearchPropertiesProviderTest
+public class SearchPropertiesProviderTest(ITestOutputHelper outputHelper, Context context)
 {
-    private readonly ITestOutputHelper _outputHelper;
-    private readonly IRegisterPropertyGateway _registerPropertyGateway;
-    private readonly ISearchPropertiesGateway _searchPropertiesGateway;
-
-    public SearchPropertiesProviderTest(ITestOutputHelper outputHelper, Context context)
-    {
-        _outputHelper = outputHelper;
-        _registerPropertyGateway = context.ServiceResolver.Resolve<IRegisterPropertyGateway>();
-        _searchPropertiesGateway = context.ServiceResolver.Resolve<ISearchPropertiesGateway>();
-    }
+    private readonly IRegisterPropertyGateway _registerPropertyGateway = context.ServiceResolver.Resolve<IRegisterPropertyGateway>();
+    private readonly ISearchPropertiesGateway _searchPropertiesGateway = context.ServiceResolver.Resolve<ISearchPropertiesGateway>();
 
     [Trait("Category", "Infrastructure (DB) Integration tests")]
     [Fact(DisplayName = "Successful to search properties")]
@@ -136,7 +128,7 @@ public class SearchPropertiesProviderTest
 
         // Assert
         Assert.NotNull(page);
-        _outputHelper.WriteLine(page.ToString());
+        outputHelper.WriteLine(page.ToString());
 
         // Assert
         Assert.NotNull(page);
@@ -263,7 +255,7 @@ public class SearchPropertiesProviderTest
 
         // Assert
         Assert.NotNull(page);
-        _outputHelper.WriteLine(page.ToString());
+        outputHelper.WriteLine(page.ToString());
 
         // Assert
         Assert.NotNull(page);
@@ -327,7 +319,7 @@ public class SearchPropertiesProviderTest
         Assert.Empty(page.Content);
 
         Pageable pageable = page.Pageable;
-        _outputHelper.WriteLine(pageable.ToString());
+        outputHelper.WriteLine(pageable.ToString());
 
         Assert.NotNull(pageable);
         Assert.Equal(0, pageable.Page);

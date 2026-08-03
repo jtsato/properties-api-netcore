@@ -14,14 +14,9 @@ namespace EntryPoint.WebApi.Domains.Properties.EntryPoints;
 [ApiExplorerSettings(GroupName = "Properties")]
 [Consumes("application/json")]
 [Produces("application/json")]
-public class GetPropertyByUuidApiMethod : IApiMethod
+public class GetPropertyByUuidApiMethod(IGetPropertyByUuidController controller) : IApiMethod
 {
-    private readonly IGetPropertyByUuidController _controller;
-
-    public GetPropertyByUuidApiMethod(IGetPropertyByUuidController controller)
-    {
-        _controller = ArgumentValidator.CheckNull(controller, nameof(controller));
-    }
+    private readonly IGetPropertyByUuidController _controller = ArgumentValidator.CheckNull(controller, nameof(controller));
 
     [SwaggerOperation(
         OperationId = nameof(GetPropertyByUuid),

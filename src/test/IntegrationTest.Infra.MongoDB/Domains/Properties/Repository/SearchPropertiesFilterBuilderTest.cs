@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Core.Commons.Models;
+﻿using Core.Commons.Models;
 using Core.Domains.Properties.Query;
 using Infra.MongoDB.Domains.Properties.Model;
 using Infra.MongoDB.Domains.Properties.Repository;
@@ -11,14 +10,8 @@ using Xunit.Abstractions;
 
 namespace IntegrationTest.Infra.MongoDB.Domains.Properties.Repository;
 
-public sealed class SearchPropertiesFilterBuilderTest
+public sealed class SearchPropertiesFilterBuilderTest(ITestOutputHelper testOutputHelper)
 {
-    private readonly ITestOutputHelper _testOutputHelper;
-
-    public SearchPropertiesFilterBuilderTest(ITestOutputHelper testOutputHelper)
-    {
-        _testOutputHelper = testOutputHelper;
-    }
 
     [Trait("Category", "Database collection [NoContext]")]
     [Fact(DisplayName = "Success to build a single status filter definition when other values are not relevant")]
@@ -58,7 +51,7 @@ public sealed class SearchPropertiesFilterBuilderTest
 
         BsonDocument document = GetBsonDocument(filterDefinition);
 
-        _testOutputHelper.WriteLine(document.ToString());
+        testOutputHelper.WriteLine(document.ToString());
 
         Assert.Equal(8, document.ElementCount);
 
@@ -103,7 +96,7 @@ public sealed class SearchPropertiesFilterBuilderTest
 
         BsonDocument document = GetBsonDocument(filterDefinition);
 
-        _testOutputHelper.WriteLine(document.ToString());
+        testOutputHelper.WriteLine(document.ToString());
 
         Assert.Equal(12, document.ElementCount);
 

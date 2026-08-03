@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Core.Domains.Properties.Models;
 using Infra.MongoDB.Domains.Properties.Model;
 

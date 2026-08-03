@@ -9,12 +9,8 @@ using MongoDB.Driver;
 namespace Infra.MongoDB.Domains.Properties.Repository;
 
 [ExcludeFromCodeCoverage]
-public sealed class PropertyRepository : Repository<PropertyEntity>, IIndexInitializer
+public sealed class PropertyRepository(IConnectionFactory connectionFactory, string databaseName, string collectionName) : Repository<PropertyEntity>(connectionFactory, databaseName, collectionName), IIndexInitializer
 {
-    public PropertyRepository(IConnectionFactory connectionFactory, string databaseName, string collectionName)
-        : base(connectionFactory, databaseName, collectionName)
-    {
-    }
 
     public async Task EnsureIndexesAsync()
     {

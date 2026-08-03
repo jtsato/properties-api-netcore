@@ -18,7 +18,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EntryPoint.WebApi.Domains.Properties.EntryPoints;
 
-public sealed class SearchPropertiesController : ISearchPropertiesController
+public sealed class SearchPropertiesController(IHttpContextAccessor httpContextAccessor, ISearchPropertiesUseCase useCase) : ISearchPropertiesController
 {
     private static readonly string[] SortableFields =
     [
@@ -33,18 +33,12 @@ public sealed class SearchPropertiesController : ISearchPropertiesController
         "createdAt", "updatedAt" // Dates
     ];
 
-    private readonly IHttpContextAccessor _httpContextAccessor;
-    private readonly ISearchPropertiesUseCase _useCase;
+    private readonly IHttpContextAccessor _httpContextAccessor = ArgumentValidator.CheckNull(httpContextAccessor, nameof(httpContextAccessor));
+    private readonly ISearchPropertiesUseCase _useCase = ArgumentValidator.CheckNull(useCase, nameof(useCase));
 
     private const int DefaultMaxArea = 999999;
     private const byte DefaultMaxRooms = 255;
     private const float DefaultMaxPrice = 100000000;
-
-    public SearchPropertiesController(IHttpContextAccessor httpContextAccessor, ISearchPropertiesUseCase useCase)
-    {
-        _httpContextAccessor = ArgumentValidator.CheckNull(httpContextAccessor, nameof(httpContextAccessor));
-        _useCase = ArgumentValidator.CheckNull(useCase, nameof(useCase));
-    }
 
     public async Task<IActionResult> ExecuteAsync(SearchPropertiesRequest request, QPageRequest qPageRequest)
     {

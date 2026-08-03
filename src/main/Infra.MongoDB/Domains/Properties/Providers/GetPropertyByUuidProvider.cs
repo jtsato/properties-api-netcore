@@ -9,19 +9,13 @@ using MongoDB.Driver;
 
 namespace Infra.MongoDB.Domains.Properties.Providers;
 
-public class GetPropertyByUuidProvider : IGetPropertyByUuidGateway
+public class GetPropertyByUuidProvider(IRepository<PropertyEntity> repository) : IGetPropertyByUuidGateway
 {
-    private readonly IRepository<PropertyEntity> _repository;
-
-    public GetPropertyByUuidProvider(IRepository<PropertyEntity> repository)
-    {
-        _repository = repository;
-    }
 
     public async Task<Core.Commons.Optional<Property>> ExecuteAsync(GetPropertyByUuidQuery query)
     {
         FilterDefinition<PropertyEntity> filterDefinition = GetFilterDefinition(query.Uuid);
-        Core.Commons.Optional<PropertyEntity> optional = await _repository.FindOneAsync(filterDefinition);
+        Core.Commons.Optional<PropertyEntity> optional = await repository.FindOneAsync(filterDefinition);
         return optional.Map(PropertyMapper.Map);
     }
 

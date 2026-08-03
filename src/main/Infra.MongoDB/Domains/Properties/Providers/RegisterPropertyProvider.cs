@@ -9,22 +9,14 @@ using MongoDB.Driver;
 
 namespace Infra.MongoDB.Domains.Properties.Providers;
 
-public sealed class RegisterPropertyProvider : IRegisterPropertyGateway
+public sealed class RegisterPropertyProvider(
+    IRepository<PropertyEntity> propertyRepository,
+    ISequenceRepository<PropertySequence> propertySequenceRepository) : IRegisterPropertyGateway
 {
     private const string KeyField = "propertyId";
 
-    private readonly IRepository<PropertyEntity> _propertyRepository;
-    private readonly ISequenceRepository<PropertySequence> _propertySequenceRepository;
-
-    public RegisterPropertyProvider
-    (
-        IRepository<PropertyEntity> propertyRepository,
-        ISequenceRepository<PropertySequence> propertySequenceRepository
-    )
-    {
-        _propertyRepository = ArgumentValidator.CheckNull(propertyRepository, nameof(propertyRepository));
-        _propertySequenceRepository = ArgumentValidator.CheckNull(propertySequenceRepository, nameof(propertySequenceRepository));
-    }
+    private readonly IRepository<PropertyEntity> _propertyRepository = ArgumentValidator.CheckNull(propertyRepository, nameof(propertyRepository));
+    private readonly ISequenceRepository<PropertySequence> _propertySequenceRepository = ArgumentValidator.CheckNull(propertySequenceRepository, nameof(propertySequenceRepository));
 
     public async Task<Property> ExecuteAsync(Property property)
     {

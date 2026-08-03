@@ -15,14 +15,9 @@ namespace EntryPoint.WebApi.Domains.Properties.EntryPoints;
 [ApiExplorerSettings(GroupName = "Properties")]
 [Consumes("application/json")]
 [Produces("application/json")]
-public class SearchPropertiesApiMethod : IApiMethod
+public class SearchPropertiesApiMethod(ISearchPropertiesController controller) : IApiMethod
 {
-    private readonly ISearchPropertiesController _controller;
-
-    public SearchPropertiesApiMethod(ISearchPropertiesController controller)
-    {
-        _controller = ArgumentValidator.CheckNull(controller, nameof(controller));
-    }
+    private readonly ISearchPropertiesController _controller = ArgumentValidator.CheckNull(controller, nameof(controller));
 
     [SwaggerOperation(
         OperationId = nameof(SearchProperties),

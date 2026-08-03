@@ -202,6 +202,6 @@ public class SearchPropertiesQueryBuilder
             .Select(optional => optional.GetValue().Name)
             .ToList();
 
-        return sanitizeTypes?.Count > 0 == true ? sanitizeTypes : [PropertyType.All.Name];
+        return sanitizeTypes?.Count > 0 ? sanitizeTypes : [PropertyType.All.Name];
     }
 }

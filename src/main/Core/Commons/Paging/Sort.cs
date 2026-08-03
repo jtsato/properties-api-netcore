@@ -42,7 +42,7 @@ public sealed class Sort
     {
         ArgumentValidator.CheckNullOrEmpty(orders, nameof(orders), "Orders must not be null!");
 
-        return By([.. orders]);
+        return By(orders.ToArray());
     }
 
     public IEnumerable<Order> GetOrders()

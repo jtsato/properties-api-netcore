@@ -61,4 +61,11 @@ public sealed class OrderByHelperTest
         Assert.Equal(expected, OrderByHelper.Sanitize(_sortableFields, [.. input.Split(",")]));
         Assert.Equal(expected, OrderByHelper.Sanitize(_sortableFields, input));
     }
+
+    [Trait("Category", "WebApi Collection [NoContext]")]
+    [Fact(DisplayName = "Successful to sanitize a field once when sortable fields contain duplicates")]
+    public void SuccessfulToSanitizeAFieldOnceWhenSortableFieldsContainDuplicates()
+    {
+        Assert.Equal("Field1:ASC", OrderByHelper.Sanitize(["Field1", "Field1"], "field1"));
+    }
 }

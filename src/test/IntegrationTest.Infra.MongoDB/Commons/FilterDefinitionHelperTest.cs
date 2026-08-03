@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Infra.MongoDB.Commons.Helpers;
 using MongoDB.Driver;
 using Xunit;
@@ -62,5 +62,17 @@ public sealed class FilterDefinitionHelperTest
 
         // Assert
         Assert.Equal(5, filterDefinitions.Count);
+    }
+
+    [Trait("Category", "Database collection [NoContext]")]
+    [Fact(DisplayName = "Successful to add price filters at epsilon")]
+    public void SuccessfulToAddPriceFiltersAtEpsilon()
+    {
+        List<FilterDefinition<DummyEntity>> filterDefinitions = [];
+
+        FilterHelper.AddGreaterOrEqualFilter(filterDefinitions, document => document.Age, 0.0001f);
+        FilterHelper.AddLessOrEqualFilter(filterDefinitions, document => document.Age, 0.0001f);
+
+        Assert.Equal(2, filterDefinitions.Count);
     }
 }

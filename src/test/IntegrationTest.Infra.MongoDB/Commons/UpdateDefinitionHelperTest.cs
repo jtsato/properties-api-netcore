@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Infra.MongoDB.Commons.Helpers;
 using MongoDB.Driver;
 using Xunit;
@@ -113,6 +113,26 @@ public class UpdateDefinitionHelperTest
 
         // Assert
         Assert.Empty(updateDefinitions);
+    }
+
+    [Trait("Category", "Database collection [NoContext]")]
+    [Fact(DisplayName = "Successful to add multiple up definitions if one list is a subset")]
+    public void SuccessfulToAddMultipleUpDefinitionsIfOneListIsASubset()
+    {
+        List<DummyEntity> currentDummies =
+        [
+            new DummyEntity(1, "John", "Smith", "1980-04-23 00:00:01", 29),
+            new DummyEntity(2, "Kim", "Smith", "1981-07-25 00:00:01", 31)
+        ];
+
+        List<DummyEntity> newDummies =
+        [currentDummies[0]];
+
+        List<UpdateDefinition<DummyEntity>> updateDefinitions = [];
+
+        UpdateHelper.AddUpDefinitionIfItemsHasChanged(ref updateDefinitions, "dummies", currentDummies, newDummies);
+
+        Assert.Single(updateDefinitions);
     }
 
     [Trait("Category", "Database collection [NoContext]")]

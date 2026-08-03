@@ -1,0 +1,6 @@
+{
+    "sonarlint.connectedMode.project": {
+        "connectionId": "sonarcloud-connection",
+        "projectKey": "jtsato_properties-api-netcore"
+    }
+}

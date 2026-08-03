@@ -10,6 +10,36 @@ namespace UnitTest.Core.Domains.Properties.Query;
 public class SearchPropertiesQueryTest
 {
     [Trait("Category", "Core Business Tests")]
+    [Fact(DisplayName = "Success to search properties with equal range limits")]
+    public void SuccessToSearchPropertiesWithEqualRangeLimits()
+    {
+        SearchPropertiesQuery query = CreateQuery(
+            Range<byte>.Of(1, 1), Range<byte>.Of(2, 2), Range<byte>.Of(3, 3),
+            Range<int>.Of(4, 4), Range<int>.Of(5, 5),
+            Range<float>.Of(6, 6), Range<float>.Of(7, 7)
+        );
+
+        Assert.Equal(1, query.Attributes.NumberOfBedrooms.From);
+        Assert.Equal(6, query.Prices.SellingPrice.To);
+    }
+
+    [Trait("Category", "Core Business Tests")]
+    [Fact(DisplayName = "Fail to search properties when price maximum equals epsilon")]
+    public void FailToSearchPropertiesWhenPriceMaximumEqualsEpsilon()
+    {
+        ValidationException exception = Assert.Throws<ValidationException>(() => CreateQuery(
+            Range<byte>.Of(1, 1), Range<byte>.Of(1, 1), Range<byte>.Of(1, 1),
+            Range<int>.Of(1, 1), Range<int>.Of(1, 1),
+            Range<float>.Of(1, 0.0001f), Range<float>.Of(1, 0.0001f)
+        ));
+
+        string[] messages = [.. exception.Errors.Select(failure => failure.ErrorMessage)];
+
+        Assert.Contains("ValidationPropertySellingPriceIsInvalid", messages);
+        Assert.Contains("ValidationPropertyRentalPriceIsInvalid", messages);
+    }
+
+    [Trait("Category", "Core Business Tests")]
     [Fact(DisplayName = "Fail to search properties with invalid parameters")]
     public void FailToSearchPropertiesWithInvalidParameters()
     {
@@ -173,5 +203,25 @@ public class SearchPropertiesQueryTest
         Assert.Equal(0, query.Prices.RentalTotalPrice.From);
         Assert.Equal(5000, query.Prices.RentalTotalPrice.To);
         Assert.Equal("Active", query.Status);
+    }
+
+    private static SearchPropertiesQuery CreateQuery(
+        Range<byte> bedrooms,
+        Range<byte> toilets,
+        Range<byte> garages,
+        Range<int> area,
+        Range<int> builtArea,
+        Range<float> sellingPrice,
+        Range<float> rentalPrice)
+    {
+        return new SearchPropertiesQuery(
+            ["House"],
+            new SearchPropertiesQueryAdvertise("Sale"),
+            new SearchPropertiesQueryAttributes(bedrooms, toilets, garages, area, builtArea),
+            new SearchPropertiesQueryLocation("São Paulo", "São Paulo", ["Moema"]),
+            new SearchPropertiesQueryPrices(sellingPrice, rentalPrice),
+            "Active",
+            0
+        );
     }
 }

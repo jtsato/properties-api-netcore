@@ -24,7 +24,7 @@ public class SearchPropertiesQueryLocation
     {
         return State == other.State
                && City == other.City
-               && Districts.SequenceEqual(other.Districts);
+               && (Districts ?? []).SequenceEqual(other.Districts ?? []);
     }
 
     [ExcludeFromCodeCoverage]
@@ -45,7 +45,7 @@ public class SearchPropertiesQueryLocation
         return new StringBuilder()
             .AppendLine($"{nameof(State)}: {State}")
             .AppendLine($"{nameof(City)}: {City}")
-            .AppendLine($"{nameof(Districts)}: {string.Join(",", Districts)}")
+            .AppendLine($"{nameof(Districts)}: {string.Join(",", Districts ?? [])}")
             .ToString();
     }
 }

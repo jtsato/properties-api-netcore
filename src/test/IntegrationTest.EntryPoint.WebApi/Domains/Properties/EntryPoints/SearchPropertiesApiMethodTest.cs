@@ -651,4 +651,158 @@ public class SearchPropertiesApiMethodTest
             // .AndExpectThat(JsonFrom.Path("$.content[0].href"), Is<string>.EqualTo("http://localhost:7029/api/properties-search/v1/properties/1001"))
             ;
     }
+
+    [UseCulture("en-US")]
+    [Trait("Category", "WebApi Collection [NoContext]")]
+    [Fact(DisplayName = "GET /api/properties/search should return 204 when filters are omitted and rely on their default values")]
+    public async Task SuccessfulToSearchPropertiesReturningNoContentWhenFiltersAreOmitted()
+    {
+        // Arrange
+        SearchPropertiesQueryBuilder builder = new SearchPropertiesQueryBuilder();
+
+        builder
+            .WithTypes([])
+            .WithTransaction("ALL")
+            .WithState("Duckland")
+            .WithCity("White Duck")
+            .WithDistricts(null)
+            .WithMinBedrooms(0)
+            .WithMaxBedrooms(255)
+            .WithMinToilets(1)
+            .WithMaxToilets(2)
+            .WithMinGarages(1)
+            .WithMaxGarages(1)
+            .WithFromArea(0)
+            .WithToArea(999999)
+            .WithMinBuiltArea(80)
+            .WithMaxBuiltArea(160)
+            .WithMinSellingPrice(0)
+            .WithToSellingPrice(100000000)
+            .WithFromRentalTotalPrice(0)
+            .WithToRentalTotalPrice(100000000)
+            .WithStatus("ALL")
+            .WithRanking(0);
+
+        SearchPropertiesQuery query = builder.Build();
+
+        _useCaseMock
+            .Setup(useCase => useCase.ExecuteAsync(query, PageRequestHelper.Of("0", "1", "updatedAt:DESC")))
+            .ReturnsAsync(
+                new Page<Property>(new List<Property>(), new Pageable(0, 1, 0, 0, 0))
+            );
+
+        SearchPropertiesRequest request = new SearchPropertiesRequest
+        {
+            Types = null,
+            Transaction = null,
+            State = "Duckland",
+            City = "White Duck",
+            Districts = null,
+            MinBedrooms = 0,
+            MaxBedrooms = 0,
+            MinToilets = 1,
+            MaxToilets = 2,
+            MinGarages = 1,
+            MaxGarages = 1,
+            MinArea = 0,
+            MaxArea = 0,
+            MinBuiltArea = 80,
+            MaxBuiltArea = 160,
+            MinPrice = 0,
+            MaxPrice = 0,
+            Status = null,
+            Ranking = 0
+        };
+
+        QPageRequest qPageRequest = new QPageRequest
+        {
+            PageNumber = "0",
+            PageSize = "1",
+            OrderBy = ["updatedAt,Desc"]
+        };
+
+        // Act
+        ObjectResult objectResult = await _invoker.InvokeAsync(() => _apiMethod.SearchProperties(request, qPageRequest), "en-US");
+
+        // Assert
+        Assert.NotNull(objectResult);
+        Assert.Equal((int) HttpStatusCode.NoContent, objectResult.StatusCode);
+    }
+
+    [UseCulture("en-US")]
+    [Trait("Category", "WebApi Collection [NoContext]")]
+    [Fact(DisplayName = "GET /api/properties/search should return 204 when types is an empty list")]
+    public async Task SuccessfulToSearchPropertiesReturningNoContentWhenTypesIsEmpty()
+    {
+        // Arrange
+        SearchPropertiesQueryBuilder builder = new SearchPropertiesQueryBuilder();
+
+        builder
+            .WithTypes([])
+            .WithTransaction("Sale")
+            .WithState("Duckland")
+            .WithCity("White Duck")
+            .WithDistricts([])
+            .WithMinBedrooms(0)
+            .WithMaxBedrooms(3)
+            .WithMinToilets(1)
+            .WithMaxToilets(2)
+            .WithMinGarages(1)
+            .WithMaxGarages(1)
+            .WithFromArea(100)
+            .WithToArea(200)
+            .WithMinBuiltArea(80)
+            .WithMaxBuiltArea(160)
+            .WithMinSellingPrice(100000)
+            .WithToSellingPrice(200000)
+            .WithFromRentalTotalPrice(0)
+            .WithToRentalTotalPrice(100000000)
+            .WithStatus("Active")
+            .WithRanking(1);
+
+        SearchPropertiesQuery query = builder.Build();
+
+        _useCaseMock
+            .Setup(useCase => useCase.ExecuteAsync(query, PageRequestHelper.Of("0", "1", "updatedAt:DESC")))
+            .ReturnsAsync(
+                new Page<Property>(new List<Property>(), new Pageable(0, 1, 0, 0, 0))
+            );
+
+        SearchPropertiesRequest request = new SearchPropertiesRequest
+        {
+            Types = [],
+            Transaction = "Sale",
+            State = "Duckland",
+            City = "White Duck",
+            Districts = [],
+            MinBedrooms = 0,
+            MaxBedrooms = 3,
+            MinToilets = 1,
+            MaxToilets = 2,
+            MinGarages = 1,
+            MaxGarages = 1,
+            MinArea = 100,
+            MaxArea = 200,
+            MinBuiltArea = 80,
+            MaxBuiltArea = 160,
+            MinPrice = 100000,
+            MaxPrice = 200000,
+            Status = "Active",
+            Ranking = 1
+        };
+
+        QPageRequest qPageRequest = new QPageRequest
+        {
+            PageNumber = "0",
+            PageSize = "1",
+            OrderBy = ["updatedAt,Desc"]
+        };
+
+        // Act
+        ObjectResult objectResult = await _invoker.InvokeAsync(() => _apiMethod.SearchProperties(request, qPageRequest), "en-US");
+
+        // Assert
+        Assert.NotNull(objectResult);
+        Assert.Equal((int) HttpStatusCode.NoContent, objectResult.StatusCode);
+    }
 }

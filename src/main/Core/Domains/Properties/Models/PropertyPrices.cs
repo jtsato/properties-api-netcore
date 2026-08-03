@@ -6,6 +6,9 @@ namespace Core.Domains.Properties.Models;
 
 public sealed class PropertyPrices
 {
+    // Epsilon is used to compare floating point numbers
+    private const double Epsilon = 0.0001;
+
     public double SellingPrice { get; init; }
     public double RentalTotalPrice { get; init; }
     public double RentalPrice { get; init; }
@@ -16,12 +19,12 @@ public sealed class PropertyPrices
     [ExcludeFromCodeCoverage]
     private bool Equals(PropertyPrices other)
     {
-        return SellingPrice.Equals(other.SellingPrice)
-               && RentalTotalPrice.Equals(other.RentalTotalPrice)
-               && RentalPrice.Equals(other.RentalPrice)
-               && Discount.Equals(other.Discount)
-               && CondominiumFee.Equals(other.CondominiumFee)
-               && PriceByM2.Equals(other.PriceByM2);
+        return Math.Abs(SellingPrice - other.SellingPrice) < Epsilon
+               && Math.Abs(RentalTotalPrice - other.RentalTotalPrice) < Epsilon
+               && Math.Abs(RentalPrice - other.RentalPrice) < Epsilon
+               && Math.Abs(Discount - other.Discount) < Epsilon
+               && Math.Abs(CondominiumFee - other.CondominiumFee) < Epsilon
+               && Math.Abs(PriceByM2 - other.PriceByM2) < Epsilon;
     }
 
     [ExcludeFromCodeCoverage]

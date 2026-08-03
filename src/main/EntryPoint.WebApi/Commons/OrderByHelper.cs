@@ -44,7 +44,7 @@ public static partial class OrderByHelper
         return string.Join(",", sanitized.Where(it => !string.IsNullOrEmpty(it)));
     }
 
-    private static void AddDirection(IList<string> sanitized, string value)
+    private static void AddDirection(List<string> sanitized, string value)
     {
         if (sanitized.Count <= 0 || IsDirectionCommand(sanitized[^1])) return;
         sanitized[^1] = string.Concat(sanitized[^1], ":", value.ToUpper());

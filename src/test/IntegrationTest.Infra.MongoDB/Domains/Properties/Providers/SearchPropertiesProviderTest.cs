@@ -31,7 +31,7 @@ public class SearchPropertiesProviderTest
     public async Task SuccessfulToSearchProperties()
     {
         // Arrange
-        List<Task> tasks = new List<Task>();
+        List<Task> tasks = [];
 
         for (int index = 1; index <= 10; index++)
         {
@@ -48,16 +48,16 @@ public class SearchPropertiesProviderTest
                         Description = "Apartment for rent",
                         Url = "https://www.apartment-for-rent.com",
                         RefId = $"REF 10{index:D2}",
-                        Images = new List<string>
-                        {
+                        Images =
+                        [
                             "https://www.apartment-for-rent.com/image1.jpg",
                             "https://www.apartment-for-rent.com/image2.jpg"
-                        },
-                        HdImages = new List<string>
-                        {
+                        ],
+                        HdImages =
+                        [
                             "https://www.apartment-for-rent.com/image1-hd.jpg",
                             "https://www.apartment-for-rent.com/image2-hd.jpg"
-                        }
+                        ]
                     },
                     Attributes = new PropertyAttributes
                     {
@@ -98,11 +98,11 @@ public class SearchPropertiesProviderTest
         SearchPropertiesQueryBuilder queryBuilder = new SearchPropertiesQueryBuilder();
 
         queryBuilder
-            .WithTypes(new List<string> {"Apartment"})
+            .WithTypes(["Apartment"])
             .WithTransaction("Rent")
             .WithState("Duckland")
             .WithCity("White Duck")
-            .WithDistricts(new List<string> {"Downtown", "Alta Vista"})
+            .WithDistricts(["Downtown", "Alta Vista"])
             .WithMinBedrooms(2)
             .WithMaxBedrooms(20)
             .WithMinToilets(1)
@@ -121,15 +121,15 @@ public class SearchPropertiesProviderTest
 
         SearchPropertiesQuery query = queryBuilder.Build();
 
-        List<Order> orders = new List<Order>
-        {
+        List<Order> orders =
+        [
             new Order(Direction.Desc, "ranking"),
             new Order(Direction.Asc, "createdAt"),
             new Order(Direction.Asc, "updatedAt"),
             new Order(Direction.Asc, "status"),
             new Order(Direction.Asc, "type"),
             new Order(Direction.Desc, "sellingPrice")
-        };
+        ];
 
         // Act
         Page<Property> page = await _searchPropertiesGateway.ExecuteAsync(query, PageRequest.Of(2, 3, Sort.By(orders)));
@@ -202,16 +202,16 @@ public class SearchPropertiesProviderTest
                     Description = "House for rent",
                     Url = "https://www.house-for-rent.com",
                     RefId = "REF 201",
-                    Images = new List<string>
-                    {
+                    Images =
+                    [
                         "https://www.house-for-rent.com/image1.jpg",
                         "https://www.house-for-rent.com/image2.jpg"
-                    },
-                    HdImages = new List<string>
-                    {
+                    ],
+                    HdImages =
+                    [
                         "https://www.house-for-rent.com/image1-hd.jpg",
                         "https://www.house-for-rent.com/image2-hd.jpg"
-                    }
+                    ]
                 },
                 Attributes = new PropertyAttributes
                 {
@@ -249,11 +249,11 @@ public class SearchPropertiesProviderTest
         SearchPropertiesQueryBuilder queryBuilder = new SearchPropertiesQueryBuilder();
 
         queryBuilder
-            .WithTypes(new List<string> {"House"})
+            .WithTypes(["House"])
             .WithTransaction("Rent")
             .WithState("Duckland")
             .WithCity("White Duck")
-            .WithDistricts(new List<string> {"Downtown", "Alta Vista"})
+            .WithDistricts(["Downtown", "Alta Vista"])
             .WithStatus("Inactive");
 
         SearchPropertiesQuery query = queryBuilder.Build();

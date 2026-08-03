@@ -17,7 +17,7 @@ public class SearchPropertiesQueryTest
         // Act
         ValidationException exception = Assert.Throws<ValidationException>(() =>
             new SearchPropertiesQuery(
-                new List<string> {"InvalidPropertyType"},
+                ["InvalidPropertyType"],
                 new SearchPropertiesQueryAdvertise("InvalidTransaction"),
                 new SearchPropertiesQueryAttributes
                 (
@@ -30,7 +30,7 @@ public class SearchPropertiesQueryTest
                 new SearchPropertiesQueryLocation(
                     "São Paulo",
                     "São Paulo",
-                    new List<string> {"Moema", "Vila Mariana"}
+                    ["Moema", "Vila Mariana"]
                 ),
                 new SearchPropertiesQueryPrices
                 (
@@ -43,10 +43,12 @@ public class SearchPropertiesQueryTest
         );
 
         // Assert
-        List<string> messages = exception
-            .Errors
-            .Select(failure => failure.ErrorMessage)
-            .ToList();
+        List<string> messages =
+        [
+            .. exception
+                .Errors
+                .Select(failure => failure.ErrorMessage)
+        ];
 
         Assert.Contains("ValidationPropertyTypesAreInvalid", messages);
         Assert.Contains("ValidationPropertyTransactionIsInvalid", messages);
@@ -67,7 +69,7 @@ public class SearchPropertiesQueryTest
         // Arrange
         // Act
         SearchPropertiesQuery query = new SearchPropertiesQuery(
-            new List<string> {"House"},
+            ["House"],
             new SearchPropertiesQueryAdvertise("Sale"),
             new SearchPropertiesQueryAttributes
             (
@@ -80,7 +82,7 @@ public class SearchPropertiesQueryTest
             new SearchPropertiesQueryLocation(
                 "São Paulo",
                 "São Paulo",
-                new List<string> {"Moema", "Vila Mariana"}
+                ["Moema", "Vila Mariana"]
             ),
             new SearchPropertiesQueryPrices
             (
@@ -124,7 +126,7 @@ public class SearchPropertiesQueryTest
         // Arrange
         // Act
         SearchPropertiesQuery query = new SearchPropertiesQuery(
-            new List<string> {"House"},
+            ["House"],
             new SearchPropertiesQueryAdvertise("Sale"),
             new SearchPropertiesQueryAttributes
             (
@@ -137,7 +139,7 @@ public class SearchPropertiesQueryTest
             new SearchPropertiesQueryLocation(
                 "São Paulo",
                 "São Paulo",
-                new List<string> {"Moema", "Vila Mariana"}
+                ["Moema", "Vila Mariana"]
             ),
             new SearchPropertiesQueryPrices
             (
@@ -149,7 +151,7 @@ public class SearchPropertiesQueryTest
         );
 
         // Assert
-        Assert.Equal(new List<string> {"House"}, query.Types);
+        Assert.Equal(["House"], query.Types);
         Assert.Equal("Sale", query.Advertise.Transaction);
         Assert.Equal(0, query.Attributes.NumberOfBedrooms.From);
         Assert.Equal(2, query.Attributes.NumberOfBedrooms.To);

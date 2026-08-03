@@ -45,7 +45,7 @@ public sealed class MessageResourceMappingTest(ITestOutputHelper outputHelper, C
         ICollection<string> messageResourcesKeys
     )
     {
-        List<string> messageKeysNotMappedInResourceFile = new List<string>();
+        List<string> messageKeysNotMappedInResourceFile = [];
         IEnumerable<string> messageKeys = coreProjectMessageKeys.Where(messageKey => !messageResourcesKeys.Contains(messageKey));
 
         foreach (string messageKey in messageKeys)
@@ -60,8 +60,11 @@ public sealed class MessageResourceMappingTest(ITestOutputHelper outputHelper, C
 
     private static List<string> GetMessageResourcesKeysByFilePath(string messageResourcePath)
     {
-        return (from line in File.ReadLines(messageResourcePath)
+        return
+        [
+            .. from line in File.ReadLines(messageResourcePath)
             where line.Contains("<data name=\"")
-            select line.SubstringAfter("<data name=\"").SubstringBefore("\" xml:space")).ToList();
+            select line.SubstringAfter("<data name=\"").SubstringBefore("\" xml:space")
+        ];
     }
 }

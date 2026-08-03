@@ -27,7 +27,7 @@ public sealed class SearchPropertiesFilterBuilderTest
         // Arrange
         SearchPropertiesQuery searchPropertiesQuery =
             new SearchPropertiesQuery(
-                types: new List<string> {"ALL"},
+                types: ["ALL"],
                 advertise: new SearchPropertiesQueryAdvertise(transaction: "ALL"),
                 attributes: new SearchPropertiesQueryAttributes(
                     numberOfBedrooms: Range<byte>.Of(from: 0, to: 0),
@@ -39,7 +39,7 @@ public sealed class SearchPropertiesFilterBuilderTest
                 new SearchPropertiesQueryLocation(
                     state: "",
                     city: "",
-                    districts: new List<string>(0)),
+                    districts: []),
                 prices:
                 new SearchPropertiesQueryPrices
                 (
@@ -72,7 +72,7 @@ public sealed class SearchPropertiesFilterBuilderTest
         // Arrange
         SearchPropertiesQuery searchPropertiesQuery =
             new SearchPropertiesQuery(
-                types: new List<string> {"HOUSE"},
+                types: ["HOUSE"],
                 advertise: new SearchPropertiesQueryAdvertise(transaction: "RENT"),
                 attributes: new SearchPropertiesQueryAttributes(
                     numberOfBedrooms: Range<byte>.Of(from: 1, to: 2),
@@ -84,7 +84,7 @@ public sealed class SearchPropertiesFilterBuilderTest
                 new SearchPropertiesQueryLocation(
                     state: "São Paulo",
                     city: "São Paulo",
-                    districts: new List<string> {"Vila Mariana"}),
+                    districts: ["Vila Mariana"]),
                 prices:
                 new SearchPropertiesQueryPrices
                 (

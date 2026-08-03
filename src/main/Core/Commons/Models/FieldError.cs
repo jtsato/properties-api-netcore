@@ -36,7 +36,7 @@ public sealed class FieldError
     public override string ToString()
     {
         return new StringBuilder()
-            .AppendLine($"{nameof(PropertyName)}: {PropertyName}")
+            .AppendLine($"{nameof(PropertyName)}: {PropertyName} ")
             .Append($"{nameof(ErrorMessage)}: {ErrorMessage} ")
             .Append($"{nameof(AttemptedValue)}: {AttemptedValue} ")
             .ToString();

@@ -26,10 +26,9 @@ public sealed class PropertySequenceRepository : ISequenceRepository<PropertySeq
         CreateIndexOptions uniqueIndexOptions = new CreateIndexOptions
             {Unique = true, Sparse = true, Background = false};
 
-        await _collection.Indexes.CreateManyAsync(new[]
-        {
+        await _collection.Indexes.CreateManyAsync([
             new CreateIndexModel<PropertySequence>(indexKeySequenceName, uniqueIndexOptions)
-        });
+        ]);
     }
 
     public async Task<ISequence> GetSequenceAndUpdate(FilterDefinition<PropertySequence> filterDefinition)

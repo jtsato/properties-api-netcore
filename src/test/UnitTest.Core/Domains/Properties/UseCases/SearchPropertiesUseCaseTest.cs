@@ -57,7 +57,7 @@ public sealed class SearchPropertiesUseCaseTest : IDisposable
         // Arrange
         SearchPropertiesQueryBuilder searchPropertiesQueryBuilder = new SearchPropertiesQueryBuilder();
         searchPropertiesQueryBuilder.WithTransaction("Rent");
-        searchPropertiesQueryBuilder.WithTypes(new List<string> {"All"});
+        searchPropertiesQueryBuilder.WithTypes(["All"]);
         SearchPropertiesQuery query = searchPropertiesQueryBuilder.Build();
 
         _gateway
@@ -77,18 +77,18 @@ public sealed class SearchPropertiesUseCaseTest : IDisposable
                             Description = "Description 1",
                             Url = "https://www.patolar.com.com/rent/1",
                             RefId = "Ref 001",
-                            Images = new List<string>
-                            {
+                            Images =
+                            [
                                 "https://www.patolar.com.com/rent/1/image1.jpg",
                                 "https://www.patolar.com.com/rent/1/image2.jpg",
-                                "https://www.patolar.com.com/rent/1/image3.jpg",
-                            },
-                            HdImages = new List<string>
-                            {
+                                "https://www.patolar.com.com/rent/1/image3.jpg"
+                            ],
+                            HdImages =
+                            [
                                 "https://www.patolar.com.com/rent/1/image1-hd.jpg",
                                 "https://www.patolar.com.com/rent/1/image2-hd.jpg",
-                                "https://www.patolar.com.com/rent/1/image3-hd.jpg",
-                            }
+                                "https://www.patolar.com.com/rent/1/image3-hd.jpg"
+                            ]
                         },
                         Attributes = new PropertyAttributes
                         {

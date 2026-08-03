@@ -23,8 +23,8 @@ public static class PropertyMapper
             Description = propertyEntity.Description,
             Url = propertyEntity.Url,
             RefId = propertyEntity.RefId,
-            Images = propertyEntity.Images.ToList(),
-            HdImages = propertyEntity.HdImages.ToList()
+            Images = [.. propertyEntity.Images],
+            HdImages = [.. propertyEntity.HdImages]
         };
 
         PropertyAttributes attributes = new PropertyAttributes
@@ -86,8 +86,8 @@ public static class PropertyMapper
             Description = property.Advertise.Description,
             Url = property.Advertise.Url,
             RefId = property.Advertise.RefId,
-            Images = property.Advertise.Images.ToArray(),
-            HdImages = property.Advertise.HdImages.ToArray(),
+            Images = [.. property.Advertise.Images],
+            HdImages = [.. property.Advertise.HdImages],
             NumberOfBedrooms = property.Attributes.NumberOfBedrooms,
             NumberOfToilets = property.Attributes.NumberOfToilets,
             NumberOfGarages = property.Attributes.NumberOfGarages,

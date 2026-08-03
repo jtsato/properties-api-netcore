@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace Core.Commons.Models;
@@ -36,7 +37,10 @@ public readonly struct Range<T>
     {
         unchecked
         {
-            return ((From != null ? From.GetHashCode() : 0) * 397) ^ (To != null ? To.GetHashCode() : 0);
+            int fromHashCode = EqualityComparer<T>.Default.GetHashCode(From!);
+            int toHashCode = EqualityComparer<T>.Default.GetHashCode(To!);
+
+            return (fromHashCode * 397) ^ toHashCode;
         }
     }
 

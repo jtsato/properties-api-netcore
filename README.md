@@ -1,5 +1,5 @@
 # properties-api-netcore
-This is a sample project to demonstrate the Clean Architecture principles using .NET Core 7.0
+This is a sample project to demonstrate the Clean Architecture principles using .NET 10.0
 
 ![CI](https://github.com/jtsato/properties-api-netcore/actions/workflows/continuous-integration.yml/badge.svg)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=jtsato_properties-api-netcore&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=jtsato_properties-api-netcore)

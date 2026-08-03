@@ -29,7 +29,7 @@ public class SearchPropertiesProvider : ISearchPropertiesGateway
         FilterDefinition<PropertyEntity> filter = SearchPropertiesFilterBuilder.Build(query);
         SortDefinition<PropertyEntity> sort = PropertySortDefinitionHelper.GetSortDefinitions(pageRequest.Sort.GetOrders());
         Page<PropertyEntity> page = await _propertyRepository.FindAllAsync(filter, sort, pageRequest.PageNumber, pageRequest.PageSize);
-        List<Property> content = page.Content.Select(PropertyMapper.Map).ToList();
+        List<Property> content = [.. page.Content.Select(PropertyMapper.Map)];
 
         return new Page<Property>(content, page.Pageable);
     }

@@ -25,7 +25,7 @@ public class GetPropertyByUuidApiMethod : IApiMethod
 
     [SwaggerOperation(
         OperationId = nameof(GetPropertyByUuid),
-        Tags = new[] {"Properties"},
+        Tags = ["Properties"],
         Summary = "Get property by universal unique identifier.",
         Description = "Get property by universal unique identifier."
     )]

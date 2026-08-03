@@ -1,18 +1,11 @@
-﻿using System;
+using System;
 using MongoDB.Driver;
 
 namespace Infra.MongoDB.Commons.Connection;
 
-public sealed class ConnectionFactory : IConnectionFactory
+public sealed class ConnectionFactory(string connectionString) : IConnectionFactory
 {
-    private readonly string _connectionString;
-    private readonly Lazy<IMongoClient> _client;
-
-    public ConnectionFactory(string connectionString)
-    {
-        _connectionString = connectionString;
-        _client = new Lazy<IMongoClient>(CreateClient);
-    }
+    private readonly Lazy<IMongoClient> _client = new(() => CreateClient(connectionString));
 
     public IMongoClient GetClient()
     {
@@ -24,9 +17,9 @@ public sealed class ConnectionFactory : IConnectionFactory
         return GetClient().GetDatabase(databaseName);
     }
 
-    private IMongoClient CreateClient()
+    private static MongoClient CreateClient(string connectionString)
     {
-        MongoClientSettings settings = MongoClientSettings.FromUrl(new MongoUrl(_connectionString));
+        MongoClientSettings settings = MongoClientSettings.FromUrl(new MongoUrl(connectionString));
 
         return new MongoClient(settings);
     }

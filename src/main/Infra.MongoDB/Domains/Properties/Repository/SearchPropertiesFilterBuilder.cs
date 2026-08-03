@@ -21,12 +21,12 @@ public static class SearchPropertiesFilterBuilder
 
     public static FilterDefinition<PropertyEntity> Build(SearchPropertiesQuery query)
     {
-        List<FilterDefinition<PropertyEntity>> filters = new List<FilterDefinition<PropertyEntity>>();
+        List<FilterDefinition<PropertyEntity>> filters = [];
 
-        List<string> types = query.Types.Contains(NoFilter) ? new List<string>() : query.Types;
+        List<string> types = query.Types.Contains(NoFilter) ? [] : query.Types;
         FilterHelper.AddInArrayFilter(filters, document => document.Type, types);
 
-        string status = query.Status.ToUpperInvariant() == NoFilter ? DefaultStatusFilter : query.Status;
+        string status = string.Equals(query.Status, NoFilter, StringComparison.OrdinalIgnoreCase) ? DefaultStatusFilter : query.Status;
         FilterHelper.AddEqualsFilter(filters, document => document.State, query.Location.State);
         FilterHelper.AddEqualsFilter(filters, document => document.City, query.Location.City);
         FilterHelper.AddInArrayFilter(filters, document => document.District, query.Location.Districts);
@@ -66,18 +66,18 @@ public static class SearchPropertiesFilterBuilder
         return filters.Count == 0 ? Builders<PropertyEntity>.Filter.Empty : Builders<PropertyEntity>.Filter.And(filters);
     }
 
-    private static void AddPricesFilters(SearchPropertiesQuery query, ICollection<FilterDefinition<PropertyEntity>> filters)
+    private static void AddPricesFilters(SearchPropertiesQuery query, List<FilterDefinition<PropertyEntity>> filters)
     {
         List<FilterDefinition<PropertyEntity>> rentFilterDefinitions = BuildRentFilterDefinitions(query);
-        
-        IEnumerable<FilterDefinition<PropertyEntity>> saleFilterDefinitions = BuildSaleFilterDefinitions(query);
+
+        List<FilterDefinition<PropertyEntity>> saleFilterDefinitions = BuildSaleFilterDefinitions(query);
         rentFilterDefinitions.Add(Builders<PropertyEntity>.Filter.Or(saleFilterDefinitions));
         filters.Add(Builders<PropertyEntity>.Filter.And(rentFilterDefinitions));
     }
 
-    private static IEnumerable<FilterDefinition<PropertyEntity>> BuildSaleFilterDefinitions(SearchPropertiesQuery query)
+    private static List<FilterDefinition<PropertyEntity>> BuildSaleFilterDefinitions(SearchPropertiesQuery query)
     {
-        List<FilterDefinition<PropertyEntity>> saleFilterDefinitions = new List<FilterDefinition<PropertyEntity>>();
+        List<FilterDefinition<PropertyEntity>> saleFilterDefinitions = [];
         
         FilterHelper.AddGreaterOrEqualFilter(saleFilterDefinitions, document => document.SellingPrice, query.Prices.SellingPrice.From);
         AddToFiltersIfLessOrThanDefaultValue(saleFilterDefinitions, document => document.SellingPrice, query.Prices.SellingPrice.To, DefaultMaxPrice);
@@ -87,7 +87,7 @@ public static class SearchPropertiesFilterBuilder
 
     private static List<FilterDefinition<PropertyEntity>> BuildRentFilterDefinitions(SearchPropertiesQuery query)
     {
-        List<FilterDefinition<PropertyEntity>> rentFilterDefinitions = new List<FilterDefinition<PropertyEntity>>();
+        List<FilterDefinition<PropertyEntity>> rentFilterDefinitions = [];
         
         FilterHelper.AddGreaterOrEqualFilter(rentFilterDefinitions, document => document.RentalTotalPrice, query.Prices.RentalTotalPrice.From);
         AddToFiltersIfLessOrThanDefaultValue(rentFilterDefinitions, document => document.RentalTotalPrice, query.Prices.RentalTotalPrice.To, DefaultMaxPrice);

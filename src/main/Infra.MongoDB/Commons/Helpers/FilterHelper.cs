@@ -42,14 +42,14 @@ public static class FilterHelper
 
     public static void AddGreaterOrEqualFilter<T>(List<FilterDefinition<T>> filterDefinitions, Expression<Func<T, object>> expression, float value)
     {
-        const float epsilon = 0.0001f; 
+        const float epsilon = 0.0001f;
         if (value < epsilon) return;
         filterDefinitions.Add(Builders<T>.Filter.Gte(expression, value));
     }
 
     public static void AddLessOrEqualFilter<T>(List<FilterDefinition<T>> filterDefinitions, Expression<Func<T, object>> expression, float value)
     {
-        const float epsilon = 0.0001f; 
+        const float epsilon = 0.0001f;
         if (value < epsilon) return;
         filterDefinitions.Add(Builders<T>.Filter.Lte(expression, value));
     }

@@ -55,8 +55,8 @@ public class GetPropertyByUuidProviderTest
                 Description = "Apartment for rent",
                 Url = "https://www.apartment-for-rent.com",
                 RefId = "REF 101",
-                Images = new List<string> {"https://www.apartment-for-rent.com/image1.jpg", "https://www.apartment-for-rent.com/image2.jpg"},
-                HdImages = new List<string> {"https://www.apartment-for-rent.com/image1-hd.jpg", "https://www.apartment-for-rent.com/image2-hd.jpg"},
+                Images = ["https://www.apartment-for-rent.com/image1.jpg", "https://www.apartment-for-rent.com/image2.jpg"],
+                HdImages = ["https://www.apartment-for-rent.com/image1-hd.jpg", "https://www.apartment-for-rent.com/image2-hd.jpg"],
             },
             Attributes = new PropertyAttributes
             {

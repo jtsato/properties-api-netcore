@@ -26,7 +26,7 @@ public class SearchPropertiesApiMethod : IApiMethod
 
     [SwaggerOperation(
         OperationId = nameof(SearchProperties),
-        Tags = new[] {"Properties"},
+        Tags = ["Properties"],
         Summary = "Search properties by criteria.",
         Description = "The search is pageable, and the order of results can be parameterized."
     )]

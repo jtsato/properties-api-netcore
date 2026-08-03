@@ -75,11 +75,11 @@ public class SearchPropertiesApiMethodTest
         SearchPropertiesQueryBuilder builder = new SearchPropertiesQueryBuilder();
 
         builder
-            .WithTypes(new List<string> {"Apartment"})
+            .WithTypes(["Apartment"])
             .WithTransaction("Rent")
             .WithState("Duckland")
             .WithCity("White Duck")
-            .WithDistricts(new List<string> {"Downtown", "Alta Vista"})
+            .WithDistricts(["Downtown", "Alta Vista"])
             .WithMinBedrooms(0)
             .WithMaxBedrooms(3)
             .WithMinToilets(1)
@@ -105,11 +105,11 @@ public class SearchPropertiesApiMethodTest
 
         SearchPropertiesRequest request = new SearchPropertiesRequest
         {
-            Types = new List<string> {"Apartment"},
+            Types = ["Apartment"],
             Transaction = "Rent",
             State = "Duckland",
             City = "White Duck",
-            Districts = new List<string> {"Downtown", "Alta Vista"},
+            Districts = ["Downtown", "Alta Vista"],
             MinBedrooms = 0,
             MaxBedrooms = 3,
             MinToilets = 1,
@@ -130,7 +130,7 @@ public class SearchPropertiesApiMethodTest
         {
             PageNumber = "0",
             PageSize = "1",
-            OrderBy = new List<string> {"updatedAt,Desc"}
+            OrderBy = ["updatedAt,Desc"]
         };
 
         // Act
@@ -159,11 +159,11 @@ public class SearchPropertiesApiMethodTest
         SearchPropertiesQueryBuilder builder = new SearchPropertiesQueryBuilder();
 
         builder
-            .WithTypes(new List<string> {"Apartment"})
+            .WithTypes(["Apartment"])
             .WithTransaction("Rent")
             .WithState("Duckland")
             .WithCity("White Duck")
-            .WithDistricts(new List<string> {"Downtown", "Alta Vista"})
+            .WithDistricts(["Downtown", "Alta Vista"])
             .WithMinBedrooms(0)
             .WithMaxBedrooms(3)
             .WithMinToilets(1)
@@ -201,16 +201,16 @@ public class SearchPropertiesApiMethodTest
                                 Description = "Apartment for rent",
                                 Url = "https://www.apartment-for-rent.com",
                                 RefId = "REF 101",
-                                Images = new List<string>
-                                {
+                                Images =
+                                [
                                     "https://www.apartment-for-rent.com/image1.jpg",
                                     "https://www.apartment-for-rent.com/image2.jpg"
-                                },
-                                HdImages = new List<string>
-                                {
+                                ],
+                                HdImages =
+                                [
                                     "https://www.apartment-for-rent.com/image1-hd.jpg",
                                     "https://www.apartment-for-rent.com/image2-hd.jpg"
-                                }
+                                ]
                             },
                             Attributes = new PropertyAttributes
                             {
@@ -248,11 +248,11 @@ public class SearchPropertiesApiMethodTest
 
         SearchPropertiesRequest request = new SearchPropertiesRequest
         {
-            Types = new List<string> {"Apartment"},
+            Types = ["Apartment"],
             Transaction = "Rent",
             State = "Duckland",
             City = "White Duck",
-            Districts = new List<string> {"Downtown", "Alta Vista"},
+            Districts = ["Downtown", "Alta Vista"],
             MinBedrooms = 0,
             MaxBedrooms = 3,
             MinToilets = 1,
@@ -273,7 +273,7 @@ public class SearchPropertiesApiMethodTest
         {
             PageNumber = "0",
             PageSize = "1",
-            OrderBy = new List<string> {"updatedAt,Desc"}
+            OrderBy = ["updatedAt,Desc"]
         };
 
         // Act
@@ -335,11 +335,11 @@ public class SearchPropertiesApiMethodTest
         SearchPropertiesQueryBuilder builder = new SearchPropertiesQueryBuilder();
 
         builder
-            .WithTypes(new List<string> {"Apartment"})
+            .WithTypes(["Apartment"])
             .WithTransaction("Rent")
             .WithState("Duckland")
             .WithCity("White Duck")
-            .WithDistricts(new List<string> {"Downtown", "Alta Vista"})
+            .WithDistricts(["Downtown", "Alta Vista"])
             .WithMinBedrooms(0)
             .WithMaxBedrooms(3)
             .WithMinToilets(1)
@@ -367,11 +367,11 @@ public class SearchPropertiesApiMethodTest
 
         SearchPropertiesRequest request = new SearchPropertiesRequest
         {
-            Types = new List<string> {"Apartment"},
+            Types = ["Apartment"],
             Transaction = "Rent",
             State = "Duckland",
             City = "White Duck",
-            Districts = new List<string> {"Downtown", "Alta Vista"},
+            Districts = ["Downtown", "Alta Vista"],
             MinBedrooms = 0,
             MaxBedrooms = 3,
             MinToilets = 1,
@@ -392,7 +392,7 @@ public class SearchPropertiesApiMethodTest
         {
             PageNumber = "0",
             PageSize = "1",
-            OrderBy = new List<string> {"updatedAt,Desc"}
+            OrderBy = ["updatedAt,Desc"]
         };
 
         // Act
@@ -412,11 +412,11 @@ public class SearchPropertiesApiMethodTest
         SearchPropertiesQueryBuilder builder = new SearchPropertiesQueryBuilder();
 
         builder
-            .WithTypes(new List<string> {"Apartment"})
+            .WithTypes(["Apartment"])
             .WithTransaction("Sale")
             .WithState("Duckland")
             .WithCity("White Duck")
-            .WithDistricts(new List<string>(0))
+            .WithDistricts([])
             .WithMinBedrooms(0)
             .WithMaxBedrooms(3)
             .WithMinToilets(1)
@@ -444,11 +444,11 @@ public class SearchPropertiesApiMethodTest
 
         SearchPropertiesRequest request = new SearchPropertiesRequest
         {
-            Types = new List<string> {"Apartment"},
+            Types = ["Apartment"],
             Transaction = "Sale",
             State = "Duckland",
             City = "White Duck",
-            Districts = new List<string>(0),
+            Districts = [],
             MinBedrooms = 0,
             MaxBedrooms = 3,
             MinToilets = 1,
@@ -469,7 +469,7 @@ public class SearchPropertiesApiMethodTest
         {
             PageNumber = "0",
             PageSize = "1",
-            OrderBy = new List<string> {"updatedAt,Desc"}
+            OrderBy = ["updatedAt,Desc"]
         };
 
         // Act
@@ -489,11 +489,11 @@ public class SearchPropertiesApiMethodTest
         SearchPropertiesQueryBuilder builder = new SearchPropertiesQueryBuilder();
 
         builder
-            .WithTypes(new List<string> {"Apartment"})
+            .WithTypes(["Apartment"])
             .WithTransaction("Rent")
             .WithState("Duckland")
             .WithCity("White Duck")
-            .WithDistricts(new List<string> {"Downtown", "Alta Vista"})
+            .WithDistricts(["Downtown", "Alta Vista"])
             .WithMinBedrooms(0)
             .WithMaxBedrooms(3)
             .WithMinToilets(1)
@@ -531,16 +531,16 @@ public class SearchPropertiesApiMethodTest
                                 Description = "Apartment for rent",
                                 Url = "https://www.apartment-for-rent.com",
                                 RefId = "REF 101",
-                                Images = new List<string>
-                                {
+                                Images =
+                                [
                                     "https://www.apartment-for-rent.com/image1.jpg",
                                     "https://www.apartment-for-rent.com/image2.jpg"
-                                },
-                                HdImages = new List<string>
-                                {
+                                ],
+                                HdImages =
+                                [
                                     "https://www.apartment-for-rent.com/image1-hd.jpg",
                                     "https://www.apartment-for-rent.com/image2-hd.jpg"
-                                }
+                                ]
                             },
                             Attributes = new PropertyAttributes
                             {
@@ -578,11 +578,11 @@ public class SearchPropertiesApiMethodTest
 
         SearchPropertiesRequest request = new SearchPropertiesRequest
         {
-            Types = new List<string> {"Apartment"},
+            Types = ["Apartment"],
             Transaction = "Rent",
             State = "Duckland",
             City = "White Duck",
-            Districts = new List<string> {"Downtown", "Alta Vista"},
+            Districts = ["Downtown", "Alta Vista"],
             MinBedrooms = 0,
             MaxBedrooms = 3,
             MinToilets = 1,
@@ -603,7 +603,7 @@ public class SearchPropertiesApiMethodTest
         {
             PageNumber = "0",
             PageSize = "1",
-            OrderBy = new List<string> {"updatedAt,Desc"}
+            OrderBy = ["updatedAt,Desc"]
         };
 
         // Act

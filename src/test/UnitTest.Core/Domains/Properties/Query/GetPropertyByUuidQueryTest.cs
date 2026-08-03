@@ -20,10 +20,12 @@ public sealed class GetPropertyByUuidQueryTest
             new GetPropertyByUuidQuery(id)
         );
 
-        List<string> messages = exception
-            .Errors
-            .Select(failure => failure.ErrorMessage)
-            .ToList();
+        List<string> messages =
+        [
+            .. exception
+                .Errors
+                .Select(failure => failure.ErrorMessage)
+        ];
 
         Assert.Contains(expected, messages);
     }

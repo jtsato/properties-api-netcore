@@ -476,5 +476,6 @@ output/
 ##
 
 launchSettings.json
+Properties/*.json
 firebase-service-account-key.json
 coverage/*

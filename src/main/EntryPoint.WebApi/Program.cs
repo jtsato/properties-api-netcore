@@ -20,7 +20,7 @@ using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
@@ -29,6 +29,8 @@ namespace EntryPoint.WebApi;
 [ExcludeFromCodeCoverage]
 public static class Program
 {
+    private static readonly string[] AdditionalCompressionMimeTypes = ["text/plain", "application/json"];
+
     private static async Task Main(string[] args)
     {
         WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -61,7 +63,7 @@ public static class Program
         }
 
         builder.Services.AddHealthChecks()
-            .AddCheck("Health check", () => HealthCheckResult.Healthy(), tags: new[] {"live", "ready"});
+            .AddCheck("Health check", () => HealthCheckResult.Healthy(), tags: ["live", "ready"]);
 
         Dictionary<Type, ServiceLifetime> lifetimeByType= DependencyInjector.ConfigureServices(builder.Services);
 
@@ -93,11 +95,7 @@ public static class Program
             options.EnableForHttps = true;
             options.Providers.Add<BrotliCompressionProvider>();
             options.Providers.Add<GzipCompressionProvider>();
-            options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(new[]
-            {
-                "text/plain",
-                "application/json",
-            });
+            options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(AdditionalCompressionMimeTypes);
         });
 
         builder.Services.Configure<BrotliCompressionProviderOptions>(options =>
@@ -180,26 +178,20 @@ public static class Program
             Type = SecuritySchemeType.ApiKey
         });
 
-        options.AddSecurityRequirement(new OpenApiSecurityRequirement
+        // Swashbuckle 10 resolves the requirement per document, so the scheme is referenced by id.
+        options.AddSecurityRequirement(_ => new OpenApiSecurityRequirement
         {
             {
-                new OpenApiSecurityScheme
-                {
-                    Name = "X-Api-Key",
-                    Type = SecuritySchemeType.ApiKey,
-                    In = ParameterLocation.Header,
-                    Reference = new OpenApiReference {Type = ReferenceType.SecurityScheme, Id = "ApiKey"}
-                },
-                Array.Empty<string>()
+                new OpenApiSecuritySchemeReference("ApiKey"), []
             }
         });
 
         options.OperationFilter<LanguageOperationFilter>();
         options.OperationFilter<CorrelationIdOperationFilter>();
         options.DocInclusionPredicate((_, api) => !string.IsNullOrWhiteSpace(api.GroupName));
-        options.TagActionsBy(api => new[] {api.GroupName});
+        options.TagActionsBy(api => [api.GroupName]);
 
-        string[] methodsOrder = {"post", "put", "patch", "delete", "get", "options", "trace"};
+        string[] methodsOrder = ["post", "put", "patch", "delete", "get", "options", "trace"];
         options.OrderActionsBy(apiDesc => $"{Array.IndexOf(methodsOrder, apiDesc.HttpMethod!.ToLower())}_{apiDesc.HttpMethod}");
     }
 

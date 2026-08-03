@@ -14,8 +14,8 @@ public static class PropertySortDefinitionHelper
 
     public static SortDefinition<PropertyEntity> GetSortDefinitions(IEnumerable<Order> originalOrders)
     {
-        IEnumerable<Order> arrayOfOrders = originalOrders.ToArray();
-        List<Order> orders = new List<Order>(arrayOfOrders);
+        IEnumerable<Order> arrayOfOrders = [.. originalOrders];
+        List<Order> orders = [.. arrayOfOrders];
         
         // We always add two more sorting criteria (ranking and updatedAt).
 

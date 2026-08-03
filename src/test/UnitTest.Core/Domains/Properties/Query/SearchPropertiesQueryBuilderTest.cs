@@ -9,11 +9,11 @@ namespace UnitTest.Core.Domains.Properties.Query
     {
         public static IEnumerable<object[]> SearchPropertiesQueryTestData()
         {
-            yield return new object[]
-            {
+            yield return
+            [
                 new SearchPropertiesQueryBuilderTestData
                 {
-                    Types = new List<string> {"House"},
+                    Types = ["House"],
                     Transaction = "Sale",
                     NumberOfBedroomsFrom = 2,
                     NumberOfBedroomsTo = 4,
@@ -23,7 +23,7 @@ namespace UnitTest.Core.Domains.Properties.Query
                     NumberOfGaragesTo = 2,
                     City = "New York",
                     State = "NY",
-                    Districts = new List<string> {"Downtown", "Midtown"},
+                    Districts = ["Downtown", "Midtown"],
                     AreaFrom = 150,
                     AreaTo = 300,
                     BuiltAreaFrom = 120,
@@ -34,10 +34,10 @@ namespace UnitTest.Core.Domains.Properties.Query
                     RentalPriceTo = 1500,
                     Status = "Active"
                 }
-            };
+            ];
 
-            yield return new object[]
-            {
+            yield return
+            [
                 new SearchPropertiesQueryBuilderTestData
                 {
                     Types = null,
@@ -50,7 +50,7 @@ namespace UnitTest.Core.Domains.Properties.Query
                     NumberOfGaragesTo = 0,
                     City = "",
                     State = "",
-                    Districts = new List<string>(),
+                    Districts = [],
                     AreaFrom = 0,
                     AreaTo = 0,
                     BuiltAreaFrom = 0,
@@ -61,7 +61,7 @@ namespace UnitTest.Core.Domains.Properties.Query
                     RentalPriceTo = 0,
                     Status = null
                 }
-            };
+            ];
         }
 
         [Trait("Category", "Database collection [NoContext]")]

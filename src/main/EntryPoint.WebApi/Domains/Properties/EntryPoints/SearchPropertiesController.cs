@@ -21,7 +21,7 @@ namespace EntryPoint.WebApi.Domains.Properties.EntryPoints;
 public sealed class SearchPropertiesController : ISearchPropertiesController
 {
     private static readonly string[] SortableFields =
-    {
+    [
         "id", // Identifier 
         "type", // Type: APARTMENT, HOUSE, ETC...
         "transaction", // Transaction: RENT or SALE
@@ -31,7 +31,7 @@ public sealed class SearchPropertiesController : ISearchPropertiesController
         "ranking", // Advertise
         "sellingPrice", "rentalTotalPrice", "rentalPrice", "priceByM2", // Prices 
         "createdAt", "updatedAt" // Dates
-    };
+    ];
 
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly ISearchPropertiesUseCase _useCase;
@@ -72,7 +72,7 @@ public sealed class SearchPropertiesController : ISearchPropertiesController
 
     private static SearchPropertiesQuery BuildSearchPropertiesQuery(SearchPropertiesRequest request)
     {
-        List<string> types = request.Types == null || request.Types.Count == 0 ? new List<string>() : request.Types;
+        List<string> types = ResolveTypes(request);
 
         Transaction transaction = Transaction.GetByName(request.Transaction).OrElse(Transaction.All);
         string status = PropertyStatus.GetByName(request.Status).OrElse(PropertyStatus.All).Name;
@@ -83,22 +83,15 @@ public sealed class SearchPropertiesController : ISearchPropertiesController
         bool isSale = transaction.Is(Transaction.All) || transaction.Is(Transaction.Sale);
         bool isRent = transaction.Is(Transaction.All) || transaction.Is(Transaction.Rent);
 
-        float sellingPriceMin = isSale ? request.MinPrice : 0;
-        float sellingPriceMax = isSale && request.MaxPrice > 0 ? request.MaxPrice : DefaultMaxPrice;
-        float rentalTotalPriceMin = isRent ? request.MinPrice : 0;
-        float rentalTotalPriceMax = isRent && request.MaxPrice > 0 ? request.MaxPrice : DefaultMaxPrice;
-        
-        byte minBedrooms = request.MinBedrooms > 0 ? request.MinBedrooms : (byte)0;
-        byte maxBedrooms = request.MaxBedrooms > 0 ? request.MaxBedrooms : DefaultMaxRooms;
-        byte minToilets = request.MinToilets > 0 ? request.MinToilets : (byte)0;
-        byte maxToilets = request.MaxToilets > 0 ? request.MaxToilets : DefaultMaxRooms;
-        byte minGarages = request.MinGarages > 0 ? request.MinGarages : (byte)0;
-        byte maxGarages = request.MaxGarages > 0 ? request.MaxGarages : DefaultMaxRooms;
-        
-        int minArea = request.MinArea > 0 ? request.MinArea : 0;
-        int maxArea = request.MaxArea > 0 ? request.MaxArea : DefaultMaxArea;
-        int minBuiltArea = request.MinBuiltArea > 0 ? request.MinBuiltArea : 0;
-        int maxBuiltArea = request.MaxBuiltArea > 0 ? request.MaxBuiltArea : DefaultMaxArea;
+        (float sellingPriceMin, float sellingPriceMax) = ResolvePriceRange(isSale, request.MinPrice, request.MaxPrice);
+        (float rentalTotalPriceMin, float rentalTotalPriceMax) = ResolvePriceRange(isRent, request.MinPrice, request.MaxPrice);
+
+        (byte minBedrooms, byte maxBedrooms) = ResolveRoomRange(request.MinBedrooms, request.MaxBedrooms);
+        (byte minToilets, byte maxToilets) = ResolveRoomRange(request.MinToilets, request.MaxToilets);
+        (byte minGarages, byte maxGarages) = ResolveRoomRange(request.MinGarages, request.MaxGarages);
+
+        (int minArea, int maxArea) = ResolveAreaRange(request.MinArea, request.MaxArea);
+        (int minBuiltArea, int maxBuiltArea) = ResolveAreaRange(request.MinBuiltArea, request.MaxBuiltArea);
 
         List<string> districts = request.Districts?
             .Where(element => !string.IsNullOrEmpty(element))
@@ -129,5 +122,34 @@ public sealed class SearchPropertiesController : ISearchPropertiesController
             .WithRanking(ranking);
 
         return builder.Build();
+    }
+
+    private static List<string> ResolveTypes(SearchPropertiesRequest request)
+    {
+        return request.Types == null || request.Types.Count == 0 ? [] : request.Types;
+    }
+
+    private static (float Min, float Max) ResolvePriceRange(bool active, float minPrice, float maxPrice)
+    {
+        float min = active ? minPrice : 0;
+        float max = active && maxPrice > 0 ? maxPrice : DefaultMaxPrice;
+
+        return (min, max);
+    }
+
+    private static (byte Min, byte Max) ResolveRoomRange(byte minValue, byte maxValue)
+    {
+        byte min = minValue > 0 ? minValue : (byte) 0;
+        byte max = maxValue > 0 ? maxValue : DefaultMaxRooms;
+
+        return (min, max);
+    }
+
+    private static (int Min, int Max) ResolveAreaRange(int minValue, int maxValue)
+    {
+        int min = minValue > 0 ? minValue : 0;
+        int max = maxValue > 0 ? maxValue : DefaultMaxArea;
+
+        return (min, max);
     }
 }

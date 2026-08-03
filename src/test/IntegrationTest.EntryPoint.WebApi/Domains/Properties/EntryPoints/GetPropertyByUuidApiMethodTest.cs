@@ -108,16 +108,16 @@ public class GetPropertyByUuidApiMethodTest
                         Description = "Apartment for rent",
                         Url = "https://www.apartment-for-rent.com",
                         RefId = "REF 101",
-                        Images = new List<string>
-                        {
+                        Images =
+                        [
                             "https://www.apartment-for-rent.com/image1.jpg",
                             "https://www.apartment-for-rent.com/image2.jpg"
-                        },
-                        HdImages = new List<string>
-                        {
+                        ],
+                        HdImages =
+                        [
                             "https://www.apartment-for-rent.com/image1-hd.jpg",
                             "https://www.apartment-for-rent.com/image2-hd.jpg"
-                        },
+                        ],
                     },
                     Attributes = new PropertyAttributes
                     {
@@ -173,16 +173,14 @@ public class GetPropertyByUuidApiMethodTest
             .AndExpectThat(JsonFrom.Path("$.description"), Is<string>.EqualTo("Apartment for rent"))
             .AndExpectThat(JsonFrom.Path("$.url"), Is<string>.EqualTo("https://www.apartment-for-rent.com"))
             .AndExpectThat(JsonFrom.Path("$.refId"), Is<string>.EqualTo("REF 101"))
-            .AndExpectThat(JsonFrom.Path("$.images"), Is<List<string>>.EqualTo(new List<string>
-            {
+            .AndExpectThat(JsonFrom.Path("$.images"), Is<List<string>>.EqualTo([
                 "https://www.apartment-for-rent.com/image1.jpg",
                 "https://www.apartment-for-rent.com/image2.jpg"
-            }))
-            .AndExpectThat(JsonFrom.Path("$.hdImages"), Is<List<string>>.EqualTo(new List<string>
-            {
+            ]))
+            .AndExpectThat(JsonFrom.Path("$.hdImages"), Is<List<string>>.EqualTo([
                 "https://www.apartment-for-rent.com/image1-hd.jpg",
                 "https://www.apartment-for-rent.com/image2-hd.jpg"
-            }))
+            ]))
             .AndExpectThat(JsonFrom.Path("$.numberOfBedrooms"), Is<int>.EqualTo(2))
             .AndExpectThat(JsonFrom.Path("$.numberOfToilets"), Is<int>.EqualTo(1))
             .AndExpectThat(JsonFrom.Path("$.numberOfGarages"), Is<int>.EqualTo(1))

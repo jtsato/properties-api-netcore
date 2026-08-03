@@ -27,8 +27,8 @@ public class SearchPropertiesQueryBuilder
     private string _status;
     private byte _ranking;
 
-    private List<string> _types = new List<string>();
-    private List<string> _districts = new List<string>();
+    private List<string> _types = [];
+    private List<string> _districts = [];
 
     public SearchPropertiesQueryBuilder WithTypes(List<string> types)
     {
@@ -160,7 +160,7 @@ public class SearchPropertiesQueryBuilder
     {
         List<string> types = SanitizeTypes(_types);
 
-        List<string> propertyTypes = types.Any() ? types : new List<string> {PropertyType.All.Name};
+        List<string> propertyTypes = types.Count > 0 ? types : [PropertyType.All.Name];
 
         string status = string.IsNullOrWhiteSpace(_status) ? "ALL" : _status.ToUpper();
         string transaction = string.IsNullOrWhiteSpace(_transaction) ? "ALL" : _transaction.ToUpper();
@@ -202,6 +202,6 @@ public class SearchPropertiesQueryBuilder
             .Select(optional => optional.GetValue().Name)
             .ToList();
 
-        return sanitizeTypes?.Any() == true ? sanitizeTypes : new List<string> {PropertyType.All.Name};
+        return sanitizeTypes?.Count > 0 == true ? sanitizeTypes : [PropertyType.All.Name];
     }
 }

@@ -26,7 +26,7 @@ public class PropertySortDefinitionHelperTest
     public void SuccessToReturnDefaultSortingCriteriaWhenTheUserHasNotSpecifiedAnySortingCriteria()
     {
         // Arrange
-        IEnumerable<Order> orders = Enumerable.Empty<Order>();
+        IEnumerable<Order> orders = [];
         
         // Act
         SortDefinition<PropertyEntity> sortDefinition = PropertySortDefinitionHelper.GetSortDefinitions(orders);
